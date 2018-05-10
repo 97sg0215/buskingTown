@@ -24,6 +24,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="40dp"
             android:textSize="12sp"
+            android:fontFamily="@font/kopubbold"
             android:text="이메일로 로그인"/>
 
         <Button
@@ -31,6 +32,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="6dp"
             android:textSize="12sp"
+            android:fontFamily="@font/kopubbold"
             android:text="카카오톡 로그인"/>
 
         <Button
@@ -38,6 +40,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="6dp"
             android:textSize="12sp"
+            android:fontFamily="@font/kopubbold"
             android:text="페이스북 로그인"/>
 
         <Button
@@ -45,6 +48,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="6dp"
             android:textSize="12sp"
+            android:fontFamily="@font/kopubbold"
             android:text="또는 회원가입"/>
 
     </LinearLayout>
