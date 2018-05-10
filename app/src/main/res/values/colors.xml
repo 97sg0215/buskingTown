@@ -3,4 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!-- 버스킹 타운 메인색 -->
+    <color name="mainPurple">#352772</color>
+    <color name="mainYellow">#F2A81E</color>
+    <color name="mainGray">#F0F0F0</color>
+
+    <!-- 버스킹 타운 서브색 -->
+    <color name="subPurple">#1F0241</color>
+    <color name="subPink">#FF775F</color>
 </resources>
