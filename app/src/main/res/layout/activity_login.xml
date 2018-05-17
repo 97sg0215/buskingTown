@@ -22,7 +22,7 @@
         android:gravity="center">
 
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/emailEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
@@ -40,11 +40,11 @@
             android:id="@+id/emailUnderLine"
             android:layout_width="match_parent"
             android:layout_height="0.9dp"
-            android:layout_below="@+id/email"
+            android:layout_below="@+id/emailEdit"
             android:background="@color/mainPurple"/>
 
         <EditText
-            android:id="@+id/passWd"
+            android:id="@+id/passWdEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/emailUnderLine"
@@ -63,7 +63,7 @@
             android:id="@+id/passWdUnderLine"
             android:layout_width="match_parent"
             android:layout_height="0.9dp"
-            android:layout_below="@+id/passWd"
+            android:layout_below="@+id/passWdEdit"
             android:background="@color/mainPurple"/>
 
         <Button
@@ -120,17 +120,17 @@
             style="?android:attr/borderlessButtonStyle"/>
 
         <TextView
-            android:id="@+id/signUp"
+            android:id="@+id/signUpBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="11sp"
-            android:textColor="#352772"
-            android:fontFamily="@font/kopubbold"
-            android:lineSpacingExtra="-3sp"
+            android:text="회원가입"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/fbLoginBtn"
-            android:layout_marginTop="20dp"
-            tools:text="회원가입"/>
+            android:layout_below="@id/fbLoginBtn"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/kopubbold"
+            android:textColor="@color/mainPurple"
+            android:lineSpacingExtra="-3sp"
+            android:textSize="14sp"/>
 
 
 
