@@ -6,4 +6,110 @@
     android:layout_height="match_parent"
     tools:context=".SignUp1Step">
 
+    <ImageView
+        android:id="@+id/mainImg"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@color/mainPurple"/>
+
+    <RelativeLayout
+        android:id="@+id/signup1stepContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mainImg"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="5dp"
+            android:inputType="textEmailAddress"
+            android:fontFamily="@font/kopubmedium"
+            android:textColor="@color/mainPurple"
+            android:hint="이메일"
+            android:lineSpacingExtra="1sp"
+            android:background="#00000000"
+            android:textSize="12sp"/>
+        <View
+            android:id="@+id/emailUnderLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.9dp"
+            android:layout_below="@+id/email"
+            android:background="@color/mainPurple"/>
+
+        <EditText
+            android:id="@+id/passWd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/email"
+            android:layout_marginTop="35dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="5dp"
+            android:inputType="textEmailAddress"
+            android:fontFamily="@font/kopubmedium"
+            android:textColor="@color/mainPurple"
+            android:hint="비밀번호"
+            android:lineSpacingExtra="1sp"
+            android:background="#00000000"
+            android:textSize="12sp"/>
+        <View
+            android:id="@+id/passWdUnderLineUnderLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.9dp"
+            android:layout_below="@+id/passWd"
+            android:background="@color/mainPurple"/>
+
+        <EditText
+            android:id="@+id/passWdCheck"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/passWdUnderLineUnderLine"
+            android:layout_marginTop="35dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="5dp"
+            android:inputType="textEmailAddress"
+            android:fontFamily="@font/kopubmedium"
+            android:textColor="@color/mainPurple"
+            android:hint="비밀번호확인"
+            android:lineSpacingExtra="1sp"
+            android:background="#00000000"
+            android:textSize="12sp"/>
+        <View
+            android:id="@+id/passWdCheckUnderLineUnderLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.9dp"
+            android:layout_below="@+id/passWdCheck"
+            android:background="@color/mainPurple"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/passWdCheckUnderLineUnderLine"
+            android:id="@+id/agree"
+            android:text="이용약관에 동의하기"
+            android:textSize="12sp"
+            android:textColor="#000000"
+            android:lineSpacingExtra="1sp"
+            android:layout_marginTop="37.4dp"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:text="다음"
+        android:fontFamily="@font/kopubbold"
+        android:textSize="14sp"
+        android:textColor="#fff"
+        android:lineSpacingExtra="-3.5sp"
+        android:background="@drawable/disable_btn"
+        style="?android:attr/borderlessButtonStyle"/>
+
 </RelativeLayout>
