@@ -5,26 +5,68 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SignUp1Step">
-
-    <ImageView
-        android:id="@+id/mainImg"
+    
+    <RelativeLayout
+        android:id="@+id/statusBar"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:background="@color/mainPurple"/>
+        android:layout_height="46.1dp"
+        android:background="@color/mainPurple">
+        
+        <ImageButton
+            android:layout_width="12.5dp"
+            android:layout_height="12.5dp"
+            android:background="#fff"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="회원가입"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fff"
+            android:fontFamily="@font/kopubbold"
+            android:textSize="17sp"/>
+
+
+    </RelativeLayout>
+
 
     <RelativeLayout
         android:id="@+id/signup1stepContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/mainImg"
+        android:layout_below="@+id/statusBar"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:gravity="center">
+
+        <ImageView
+            android:id="@+id/stepImg"
+            android:layout_width="126dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="59.9dp"
+            android:background="#000"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/signUpLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19.9dp"
+            android:layout_below="@+id/stepImg"
+            android:text="이메일정보를 입력해주세요."
+            android:fontFamily="@font/kopubmedium"
+            android:textColor="@color/mainPurple"
+            android:textSize="17sp"
+            android:layout_centerHorizontal="true"/>
 
         <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/signUpLabel"
             android:layout_marginTop="35dp"
             android:paddingBottom="15dp"
             android:paddingLeft="5dp"
@@ -58,7 +100,7 @@
             android:background="#00000000"
             android:textSize="12sp"/>
         <View
-            android:id="@+id/passWdUnderLineUnderLine"
+            android:id="@+id/passWdUnderLine"
             android:layout_width="match_parent"
             android:layout_height="0.9dp"
             android:layout_below="@+id/passWd"
@@ -68,7 +110,7 @@
             android:id="@+id/passWdCheck"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/passWdUnderLineUnderLine"
+            android:layout_below="@+id/passWdUnderLine"
             android:layout_marginTop="35dp"
             android:paddingBottom="15dp"
             android:paddingLeft="5dp"
@@ -80,17 +122,17 @@
             android:background="#00000000"
             android:textSize="12sp"/>
         <View
-            android:id="@+id/passWdCheckUnderLineUnderLine"
+            android:id="@+id/passWdCheckUnderLine"
             android:layout_width="match_parent"
             android:layout_height="0.9dp"
             android:layout_below="@+id/passWdCheck"
             android:background="@color/mainPurple"/>
 
         <CheckBox
+            android:id="@+id/agree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/passWdCheckUnderLineUnderLine"
-            android:id="@+id/agree"
+            android:layout_below="@+id/passWdCheckUnderLine"
             android:text="이용약관에 동의하기"
             android:textSize="12sp"
             android:textColor="#000000"
