@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignUp2Step">
+
+    <RelativeLayout
+        android:id="@+id/statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="46.1dp"
+        android:background="@color/mainPurple">
+
+        <ImageButton
+            android:layout_width="12.5dp"
+            android:layout_height="12.5dp"
+            android:background="#fff"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="회원가입"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fff"
+            android:fontFamily="@font/kopubbold"
+            android:textSize="17sp"/>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/signup2stepContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/statusBar"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/stepImg"
+            android:layout_width="126dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="59.9dp"
+            android:background="#000"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/signUp2Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19.9dp"
+            android:layout_below="@+id/stepImg"
+            android:text="상세정보를 입력해주세요."
+            android:fontFamily="@font/kopubmedium"
+            android:textColor="@color/mainPurple"
+            android:textSize="17sp"
+            android:layout_centerHorizontal="true"/>
+
+        <EditText
+            android:id="@+id/inputID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/signUp2Label"
+            android:layout_marginTop="35dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="5dp"
+            android:inputType="textEmailAddress"
+            android:fontFamily="@font/kopubmedium"
+            android:textColor="@color/mainPurple"
+            android:hint="아이디"
+            android:lineSpacingExtra="1sp"
+            android:background="#00000000"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/signUp2Label"/>
+        <View
+            android:id="@+id/emailUnderLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.9dp"
+            android:layout_below="@+id/inputID"
+            android:background="@color/mainPurple"/>
+
+
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

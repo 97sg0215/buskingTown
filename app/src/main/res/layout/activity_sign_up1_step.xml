@@ -13,6 +13,7 @@
         android:background="@color/mainPurple">
         
         <ImageButton
+            android:id="@+id/backBtn"
             android:layout_width="12.5dp"
             android:layout_height="12.5dp"
             android:background="#fff"
@@ -89,7 +90,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/email"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="44dp"
             android:paddingBottom="15dp"
             android:paddingLeft="5dp"
             android:inputType="textPassword"
@@ -99,6 +100,7 @@
             android:lineSpacingExtra="1sp"
             android:background="#00000000"
             android:textSize="12sp"/>
+
         <View
             android:id="@+id/passWdUnderLine"
             android:layout_width="match_parent"
@@ -111,7 +113,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/passWdUnderLine"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="44dp"
             android:paddingBottom="15dp"
             android:paddingLeft="5dp"
             android:inputType="textPassword"
@@ -121,6 +123,7 @@
             android:lineSpacingExtra="1sp"
             android:background="#00000000"
             android:textSize="12sp"/>
+
         <View
             android:id="@+id/passWdCheckUnderLine"
             android:layout_width="match_parent"

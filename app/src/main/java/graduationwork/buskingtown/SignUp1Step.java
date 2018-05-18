@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,6 +22,15 @@ public class SignUp1Step extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up1_step);
+        
+        //백버튼
+        ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SignUp1Step.super.onBackPressed();
+            }
+        });
 
         //이메일 에디터 텍스트 입력 변수
         final EditText emailEdit = (EditText) findViewById(R.id.email);
@@ -174,5 +184,11 @@ public class SignUp1Step extends AppCompatActivity {
     public void nextSignUp(){
         Intent nextSignUpActivity = new Intent(getApplication(),SignUp2Step.class);
         startActivity(nextSignUpActivity);
+    }
+
+    //이전 액티비티로 가기위한 현재 액티비티 종료 메소드
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }
