@@ -142,7 +142,7 @@
     </RelativeLayout>
 
     <Button
-        android:id="@+id/next"
+        android:id="@+id/nextBtn"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_alignParentBottom="true"
