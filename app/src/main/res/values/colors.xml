@@ -12,4 +12,5 @@
     <!-- 버스킹 타운 서브색 -->
     <color name="subPurple">#1F0241</color>
     <color name="subPink">#FF775F</color>
+    <color name="subGray">#dbdbdb</color>
 </resources>
