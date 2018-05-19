@@ -133,14 +133,23 @@
 
         <CheckBox
             android:id="@+id/agree"
+            android:layout_below="@+id/passWdCheckUnderLine"
+            android:checked="false"
+            android:layout_marginTop="37dp"
+            android:button="@android:color/transparent"
+            android:background="@drawable/next_btn"
+            android:layout_width="18dp"
+            android:layout_height="18dp" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/passWdCheckUnderLine"
-            android:text="이용약관에 동의하기"
-            android:textSize="12sp"
+            android:layout_marginLeft="26dp"
+            android:layout_alignBaseline="@id/agree"
+            android:textSize="13dp"
             android:textColor="#000000"
             android:lineSpacingExtra="1sp"
-            android:layout_marginTop="37.4dp" />
+            tools:text="이용약관에 동의하기"/>
 
     </RelativeLayout>
 
