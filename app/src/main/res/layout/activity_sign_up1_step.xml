@@ -142,13 +142,15 @@
             android:layout_height="18dp" />
 
         <TextView
+            android:id="@+id/useagree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="26dp"
-            android:layout_alignBaseline="@id/agree"
+            android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@+id/agree"
             android:textSize="13dp"
             android:textColor="#000000"
             android:lineSpacingExtra="1sp"
+            android:layout_marginTop="390dp"
             tools:text="이용약관에 동의하기"/>
 
     </RelativeLayout>
