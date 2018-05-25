@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#F2A81E</color>
+    <color name="colorPrimaryDark">#F2A81E</color>
+    <color name="colorAccent">#F2A81E</color>
 
     <!-- 버스킹 타운 메인색 -->
     <color name="mainPurple">#352772</color>
@@ -14,4 +14,9 @@
     <color name="subPink">#FF775F</color>
     <color name="subGray">#dbdbdb</color>
     <color name="sub2Gray">#F3F3F3</color>
+    <color name="transPurple">#80352772</color>
+
+    <!-- 버스킹 타운 폰트 색 -->
+    <color name="fontGray">#7B7B7B</color>
+    <color name="fontBlack">#333333</color>
 </resources>

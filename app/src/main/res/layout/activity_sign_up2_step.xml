@@ -69,7 +69,7 @@
             android:layout_marginTop="35dp"
             android:paddingBottom="15dp"
             android:paddingLeft="5dp"
-            android:inputType="textEmailAddress"
+            android:inputType="text"
             android:fontFamily="@font/kopubmedium"
             android:textColor="@color/mainPurple"
             android:hint="아이디"
@@ -80,17 +80,131 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/signUp2Label"/>
+            android:layout_below="@+id/signUp2Label"
+            android:fontFamily="@font/kopubmedium"
+            android:lineSpacingExtra="1sp"
+            android:textColor="@color/mainPurple"
+            android:layout_marginTop="35dp"
+            android:layout_marginRight="6dp"
+            android:textSize="12sp"
+            android:layout_alignParentRight="true"
+            android:text="중복확인"/>
+
         <View
-            android:id="@+id/emailUnderLine"
+            android:id="@+id/idUnderLine"
             android:layout_width="match_parent"
             android:layout_height="0.9dp"
             android:layout_below="@+id/inputID"
-            android:background="@color/mainPurple"/>
+            android:background="@color/transPurple"/>
 
+        <!-- 터치시 데이트 피커 후 0000 년  00 월 00일로 세팅 -->
+        <TextView
+            android:id="@+id/birth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/idUnderLine"
+            android:layout_marginTop="44dp"
+            android:paddingLeft="5dp"
+            android:fontFamily="@font/kopubmedium"
+            android:textColor="@color/mainPurple"
+            android:hint="생년월일"
+            android:lineSpacingExtra="1sp"
+            android:background="#00000000"
+            android:textSize="12sp"/>
 
+        <View
+            android:id="@+id/birthUnderLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.9dp"
+            android:layout_below="@+id/birth"
+            android:layout_marginTop="15dp"
+            android:background="@color/transPurple"/>
 
+        <EditText
+            android:id="@+id/phoneNum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/birthUnderLine"
+            android:layout_marginTop="44dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="5dp"
+            android:inputType="phone"
+            android:fontFamily="@font/kopubmedium"
+            android:textColor="@color/mainPurple"
+            android:hint="휴대폰번호"
+            android:lineSpacingExtra="1sp"
+            android:background="#00000000"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/birthUnderLine"
+            android:fontFamily="@font/kopubmedium"
+            android:lineSpacingExtra="1sp"
+            android:textColor="@color/mainPurple"
+            android:layout_marginTop="44dp"
+            android:layout_marginRight="6dp"
+            android:textSize="12sp"
+            android:layout_alignParentRight="true"
+            android:text="인증하기"/>
+
+        <View
+            android:id="@+id/phoneUnderLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.9dp"
+            android:layout_below="@+id/phoneNum"
+            android:background="@color/transPurple"/>
+
+        <EditText
+            android:id="@+id/certifyNum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/phoneUnderLine"
+            android:layout_marginTop="44dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="5dp"
+            android:inputType="number"
+            android:fontFamily="@font/kopubmedium"
+            android:textColor="@color/mainPurple"
+            android:hint="인증번호"
+            android:lineSpacingExtra="1sp"
+            android:background="#00000000"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/phoneUnderLine"
+            android:fontFamily="@font/kopubmedium"
+            android:lineSpacingExtra="1sp"
+            android:textColor="@color/mainPurple"
+            android:layout_marginTop="44dp"
+            android:layout_marginRight="6dp"
+            android:textSize="12sp"
+            android:layout_alignParentRight="true"
+            android:text="확 인"/>
+
+        <View
+            android:id="@+id/certifyUnderLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.9dp"
+            android:layout_below="@+id/certifyNum"
+            android:background="@color/transPurple"/>
 
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/confirmBtn"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:text="확 인"
+        android:fontFamily="@font/kopubbold"
+        android:textSize="14sp"
+        android:textColor="#fff"
+        android:lineSpacingExtra="-3.5sp"
+        android:background="@color/subGray"
+        style="?android:attr/borderlessButtonStyle"/>
 
 </RelativeLayout>

@@ -83,7 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="0.9dp"
             android:layout_below="@+id/email"
-            android:background="@color/mainPurple"/>
+            android:background="@color/transPurple"/>
 
         <EditText
             android:id="@+id/passWd"
@@ -106,7 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="0.9dp"
             android:layout_below="@+id/passWd"
-            android:background="@color/mainPurple"/>
+            android:background="@color/transPurple"/>
 
         <EditText
             android:id="@+id/passWdCheck"
@@ -129,7 +129,7 @@
             android:layout_width="match_parent"
             android:layout_height="0.9dp"
             android:layout_below="@+id/passWdCheck"
-            android:background="@color/mainPurple"/>
+            android:background="@color/transPurple"/>
 
         <CheckBox
             android:id="@+id/agree"
@@ -147,7 +147,7 @@
             android:layout_marginLeft="26dp"
             android:layout_alignBaseline="@id/agree"
             android:textSize="13dp"
-            android:textColor="#000000"
+            android:textColor="@color/fontBlack"
             android:lineSpacingExtra="1sp"
             tools:text="이용약관에 동의하기"/>
 
@@ -158,7 +158,7 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_alignParentBottom="true"
-        android:text="다음"
+        android:text="다 음"
         android:fontFamily="@font/kopubbold"
         android:textSize="14sp"
         android:textColor="#fff"
