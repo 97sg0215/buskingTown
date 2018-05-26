@@ -34,4 +34,15 @@ public class SignUp2Step extends AppCompatActivity {
         });
     }
 
+    //백버튼 메소드
+    public void previousActivity(View v){
+        onBackPressed();
+    }
+
+    //백버튼 2번 종료
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
 }

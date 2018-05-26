@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="graduationwork.buskingtown">
+    <!-- 피카소 라이브러리 사용을 위한 인터넷 퍼미션 -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -20,8 +22,6 @@
         <activity android:name=".SignUp1Step" />
         <activity android:name=".SignUp2Step" />
         <activity android:name=".TabBar" />
-        <activity android:name=".MyPage" />
-        <activity android:name=".Notification"></activity>
     </application>
 
 </manifest>

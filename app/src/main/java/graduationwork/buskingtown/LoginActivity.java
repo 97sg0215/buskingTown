@@ -150,4 +150,10 @@ public class LoginActivity extends AppCompatActivity {
         Intent testActivity = new Intent(getApplication(),TabBar.class);
         startActivity(testActivity);
     }
+
+    //백버튼 2번이면 종료
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }
