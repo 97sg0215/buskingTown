@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Mypage">
+
+
+    <RelativeLayout
+        android:id="@+id/statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="46.1dp"
+        android:background="@color/mainPurple">
+
+        <ImageButton
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:background="#00000000"
+            android:src="@drawable/backbtn" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/kopubbold"
+            android:text="마이페이지"
+            android:textColor="#fff"
+            android:textSize="17sp" />
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="46.1dp"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/profileContent"
+                android:layout_width="match_parent"
+                android:layout_height="160.8dp"
+                android:background="@color/mainPurple">
+
+                <ImageView
+                    android:id="@+id/profileImg"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="22.4dp"
+                    android:src="@drawable/profile" />
+
+                <TextView
+                    android:id="@+id/userId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/profileImg"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/kopubbold"
+                    android:lineSpacingExtra="2sp"
+                    android:text="id"
+                    android:textColor="#ffffff"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/userType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/userId"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/kopubmedium"
+                    android:lineSpacingExtra="1sp"
+                    android:text="busker"
+                    android:textColor="#f2a81e"
+                    android:textSize="10.5sp" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="77.6dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/box_line"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/coinAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/kopubbold"
+                        android:lineSpacingExtra="-6.5sp"
+                        android:text="50"
+                        android:textColor="@color/mainPurple"
+                        android:textSize="18.5sp" />
+
+                    <TextView
+                        android:id="@+id/coinLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/coinAmount"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/kopubmedium"
+                        android:lineSpacingExtra="0sp"
+                        android:layout_marginTop="5dp"
+                        android:text="내 코인"
+                        android:textColor="@color/fontBlack"
+                        android:textSize="12sp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="77.6dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/box_line"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/followingAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/kopubbold"
+                        android:lineSpacingExtra="-6.5sp"
+                        android:text="13"
+                        android:textColor="@color/mainPurple"
+                        android:textSize="18.5sp" />
+
+                    <TextView
+                        android:id="@+id/followingLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/followingAmount"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/kopubmedium"
+                        android:lineSpacingExtra="0sp"
+                        android:layout_marginTop="5dp"
+                        android:text="좋아하는 버스커"
+                        android:textColor="@color/fontBlack"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55.5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/kopubmedium"
+                        android:paddingLeft="15dp"
+                        android:text="보낸 코인함"
+                        android:textColor="@color/fontBlack" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/sub2Gray" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55.5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/kopubmedium"
+                        android:paddingLeft="15dp"
+                        android:text="코인 충전소"
+                        android:textColor="@color/fontBlack" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/sub2Gray" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55.5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/kopubmedium"
+                        android:paddingLeft="15dp"
+                        android:text="버스커 되기"
+                        android:textColor="@color/fontBlack" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/sub2Gray" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55.5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/kopubmedium"
+                        android:paddingLeft="15dp"
+                        android:text="장소 빌려주기"
+                        android:textColor="@color/fontBlack" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/sub2Gray" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55.5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/kopubmedium"
+                        android:paddingLeft="15dp"
+                        android:text="공지사항/이벤트"
+                        android:textColor="@color/fontBlack" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/sub2Gray" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55.5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/kopubmedium"
+                        android:paddingLeft="15dp"
+                        android:text="고객센터"
+                        android:textColor="@color/fontBlack" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/sub2Gray" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55.5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/kopubmedium"
+                        android:paddingLeft="15dp"
+                        android:text="로그아웃"
+                        android:textColor="@color/fontBlack" />
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</FrameLayout>

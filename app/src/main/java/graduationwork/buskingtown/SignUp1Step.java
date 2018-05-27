@@ -185,7 +185,12 @@ public class SignUp1Step extends AppCompatActivity {
         startActivity(nextSignUpActivity);
     }
 
-    //이전 액티비티로 가기위한 현재 액티비티 종료 메소드
+    //백버튼 메소드
+    public void previousActivity(View v){
+        onBackPressed();
+    }
+
+    //백버튼 2번 종료
     @Override
     public void onBackPressed() {
         super.onBackPressed();

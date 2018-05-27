@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -12,6 +12,23 @@
         <!-- No Title Bar-->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="DatePickerTheme" parent="android:Theme.Material.Light.Dialog">
+        <item name="android:datePickerMode">spinner</item>
+        <item name="colorAccent">@color/mainYellow</item>
+    </style>
+
+    <style name="MyDatePickerSpinnerStyle" parent="@android:style/Widget.Material.DatePicker">
+        <item name="android:datePickerMode">spinner</item>
+        <item name="android:calendarViewShown">false</item>
+        <item name="colorControlNormal">#d50000</item>
+    </style>
+
+    <style name="MyDatePickerStyle" parent="@android:style/Widget.Material.DatePicker">
+        <item name="android:colorControlActivated">#ffea00</item>
+        <item name="android:datePickerMode">spinner</item>
+        <item name="android:calendarViewShown">false</item>
     </style>
 
 </resources>

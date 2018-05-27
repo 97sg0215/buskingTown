@@ -10,7 +10,16 @@
        android:id="@+id/mainImg"
        android:layout_width="match_parent"
        android:layout_height="150dp"
-       android:background="@color/mainPurple"/>
+       android:background="@drawable/city"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="테스트 액티비티 링크 바로 가기"
+        android:layout_centerHorizontal="true"
+        android:textColor="#fff"
+        android:textSize="20dp"
+        android:onClick="testActivity"/>
 
     <RelativeLayout
         android:id="@+id/loginContent"
@@ -41,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="0.9dp"
             android:layout_below="@+id/emailEdit"
-            android:background="@color/mainPurple"/>
+            android:background="@color/transPurple"/>
 
         <EditText
             android:id="@+id/passWdEdit"
@@ -64,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="0.9dp"
             android:layout_below="@+id/passWdEdit"
-            android:background="@color/mainPurple"/>
+            android:background="@color/transPurple"/>
 
         <Button
             android:id="@+id/loginBtn"
