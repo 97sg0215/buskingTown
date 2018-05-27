@@ -22,15 +22,14 @@ public class SignUp1Step extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up1_step);
-        
-        //백버튼
-        //ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
-        //backBtn.setOnClickListener(new View.OnClickListener() {
-            //@Override
-            //public void onClick(View v) {
-                //SignUp1Step.super.onBackPressed();
-            //}
-        //});
+
+        ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SignUp1Step.super.onBackPressed();
+            }
+        });
 
         //이메일 에디터 텍스트 입력 변수
         final EditText emailEdit = (EditText) findViewById(R.id.email);
