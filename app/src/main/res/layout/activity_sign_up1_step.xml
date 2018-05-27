@@ -135,7 +135,7 @@
             android:id="@+id/agree"
             android:layout_below="@+id/passWdCheckUnderLine"
             android:checked="false"
-            android:layout_marginTop="37dp"
+            android:layout_marginTop="47dp"
             android:button="@android:color/transparent"
             android:background="@drawable/next_btn"
             android:layout_width="18dp"
@@ -145,13 +145,14 @@
             android:id="@+id/useagree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/passWdCheckUnderLine"
             android:layout_marginLeft="8dp"
-            android:layout_toEndOf="@+id/agree"
+            android:layout_toRightOf="@+id/agree"
+            android:layout_marginTop="47dp"
             android:textSize="13dp"
             android:textColor="#000000"
             android:lineSpacingExtra="1sp"
-            android:layout_marginTop="390dp"
-            tools:text="이용약관에 동의하기"/>
+            android:text="이용약관에 동의하기"/>
 
     </RelativeLayout>
 
