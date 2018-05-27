@@ -18,7 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignUp1Step" />
-        <activity android:name=".SignUp2Step"></activity>
+        <activity android:name=".SignUp2Step" />
+        <activity android:name=".BuskerCertification"></activity>
     </application>
 
 </manifest>
