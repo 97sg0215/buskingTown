@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BuskerCertification">
+
+    <RelativeLayout
+        android:id="@+id/statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="46.1dp"
+        android:background="@color/mainPurple">
+
+        <ImageButton
+            android:id="@+id/backBtn"
+            android:layout_width="12.5dp"
+            android:layout_height="12.5dp"
+            android:background="#fff"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="버스커인증"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fff"
+            android:fontFamily="@font/kopubbold"
+            android:textSize="17dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:lineSpacingExtra="2sp"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/kopubbold"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:text="완료"
+            android:textSize="17dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/buskerRelative"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+            <ImageButton
+            android:id="@+id/buskerImage"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@color/subGray"
+            android:layout_marginTop="45dp"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/certification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_below="@+id/buskerRelative"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/teamName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="활동팀명"
+            android:layout_marginTop="34dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="5dp"
+            android:inputType="text"
+            android:fontFamily="@font/kopubmedium"
+            android:textColor="@color/mainPurple"
+            android:lineSpacingExtra="1sp"
+            android:background="#00000000"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/overlapCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/teamName"
+            android:layout_marginRight="6dp"
+            android:lineSpacingExtra="1sp"
+            android:text="중복확인"
+            android:textColor="@color/mainPurple"
+            android:textSize="12sp" />
+
+        <View
+            android:id="@+id/teamnameUnderLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.9dp"
+            android:layout_below="@+id/teamName"
+            android:background="@color/mainPurple"/>
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/teamnameUnderLine"
+            android:layout_marginTop="35dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="5dp"
+            android:inputType="text"
+            android:fontFamily="@font/kopubmedium"
+            android:textColor="@color/mainPurple"
+            android:text="성명"
+            android:lineSpacingExtra="1sp"
+            android:background="#00000000"
+            android:textSize="12sp"/>
+
+        <View
+            android:id="@+id/nameUnderLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.9dp"
+            android:layout_below="@+id/name"
+            android:background="@color/mainPurple"/>
+
+        <EditText
+            android:id="@+id/cellPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nameUnderLine"
+            android:layout_marginTop="35dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="5dp"
+            android:inputType="text"
+            android:fontFamily="@font/kopubmedium"
+            android:textColor="@color/mainPurple"
+            android:text="휴대폰"
+            android:lineSpacingExtra="1sp"
+            android:background="#00000000"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/cellphoneCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/cellPhone"
+            android:layout_marginRight="6dp"
+            android:lineSpacingExtra="1sp"
+            android:text="인증확인"
+            android:textColor="@color/mainPurple"
+            android:textSize="12sp" />
+
+        <View
+            android:id="@+id/cellphoneUnderLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.9dp"
+            android:layout_below="@+id/cellPhone"
+            android:background="@color/mainPurple"/>
+
+        <EditText
+            android:id="@+id/certificationNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cellphoneUnderLine"
+            android:layout_marginTop="35dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="5dp"
+            android:inputType="text"
+            android:fontFamily="@font/kopubmedium"
+            android:textColor="@color/mainPurple"
+            android:text="인증번호"
+            android:lineSpacingExtra="1sp"
+            android:background="#00000000"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/certificationCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/certificationNumber"
+            android:layout_marginRight="6dp"
+            android:lineSpacingExtra="1sp"
+            android:text="확인"
+            android:textColor="@color/mainPurple"
+            android:textSize="12sp" />
+
+        <View
+            android:id="@+id/certificationnumberUnderLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.9dp"
+            android:layout_below="@+id/certificationNumber"
+            android:background="@color/mainPurple"/>
+
+        <EditText
+            android:id="@+id/activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/certificationnumberUnderLine"
+            android:layout_marginTop="35dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="5dp"
+            android:inputType="text"
+            android:fontFamily="@font/kopubmedium"
+            android:textColor="@color/mainPurple"
+            android:text="활동지 및 장르"
+            android:lineSpacingExtra="1sp"
+            android:background="#00000000"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/subGray"
+            android:lineSpacingExtra="1sp"
+            android:layout_alignTop="@+id/activity"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="6dp"
+            android:text="최대 5개까지 가능합니다. #홍대 #인디"/>
+
+        <View
+            android:id="@+id/activityUnderLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.9dp"
+            android:layout_below="@+id/activity"
+            android:background="@color/mainPurple"/>
+
+        <CheckBox
+            android:id="@+id/agree"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_below="@+id/activityUnderLine"
+            android:layout_marginTop="35dp"
+            android:checked="false"
+            android:button="@android:color/transparent"
+            android:background="@drawable/next_btn"/>
+
+        <TextView
+            android:id="@+id/useagree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/activityUnderLine"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/agree"
+            android:layout_marginTop="37dp"
+            android:textSize="13dp"
+            android:textColor="#000000"
+            android:lineSpacingExtra="1sp"
+            android:text="이용약관에 동의하기"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/nextBtn"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:text="완료"
+        android:fontFamily="@font/kopubbold"
+        android:textSize="14sp"
+        android:textColor="#fff"
+        android:lineSpacingExtra="-3.5sp"
+        android:background="@color/mainPurple"
+        style="?android:attr/borderlessButtonStyle"/>
+
+</RelativeLayout>
