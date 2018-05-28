@@ -151,6 +151,12 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(testActivity);
     }
 
+    //테스트 액티비티 이건 지울거임
+    public void testActivity2(View view) {
+        Intent testActivity2 = new Intent(getApplication(),BuskerCertification.class);
+        startActivity(testActivity2);
+    }
+
     //백버튼 2번이면 종료
     @Override
     public void onBackPressed() {

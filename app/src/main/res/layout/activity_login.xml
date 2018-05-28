@@ -19,7 +19,7 @@
         android:layout_centerHorizontal="true"
         android:textColor="#fff"
         android:textSize="20dp"
-        android:onClick="testActivity"/>
+        android:onClick="testActivity2"/>
 
     <RelativeLayout
         android:id="@+id/loginContent"
