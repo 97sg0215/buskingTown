@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -29,7 +28,7 @@
             android:layout_centerHorizontal="true"
             android:textColor="#fff"
             android:fontFamily="@font/kopubbold"
-            android:textSize="17dp"/>
+            android:textSize="17sp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -41,14 +40,15 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="30dp"
             android:text="완료"
-            android:textSize="17dp" />
+            android:textSize="17sp" />
 
     </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="46.1dp"
+        android:layout_below="@+id/statusBar"
+        android:layout_above="@+id/confirmBtn"
         android:overScrollMode="never"
         android:scrollbars="none">
 
@@ -78,7 +78,7 @@
                     android:layout_below="@+id/imageIcon"
                     android:text="사진을 선택해주세요"
                     android:layout_centerHorizontal="true"
-                    android:textSize="13dp"
+                    android:textSize="12sp"
                     android:textColor="@color/fontBlack"
                     android:layout_marginTop="15dp"/>
 
@@ -285,13 +285,14 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="27dp">
 
                     <CheckBox
                         android:id="@+id/agree"
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        android:layout_marginTop="35dp"
+                        android:layout_marginTop="40dp"
                         android:checked="false"
                         android:button="@android:color/transparent"
                         android:background="@drawable/next_btn"/>
@@ -302,8 +303,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:layout_toRightOf="@+id/agree"
-                        android:layout_marginTop="37dp"
-                        android:textSize="13dp"
+                        android:layout_marginTop="38dp"
+                        android:textSize="12sp"
                         android:textColor="#000000"
                         android:lineSpacingExtra="1sp"
                         android:text="이용약관에 동의하기"/>
@@ -312,34 +313,22 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <Button
-                        android:id="@+id/nextBtn"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginTop="45dp"
-                        android:text="완료"
-                        android:fontFamily="@font/kopubbold"
-                        android:textSize="14sp"
-                        android:textColor="#fff"
-                        android:lineSpacingExtra="-3.5sp"
-                        android:background="@color/mainPurple" />
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
         </LinearLayout>
 
     </ScrollView>
+
+    <Button
+        android:id="@+id/confirmBtn"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_alignParentBottom="true"
+        android:text="완 료"
+        android:fontFamily="@font/kopubbold"
+        android:textSize="14sp"
+        android:textColor="#fff"
+        android:lineSpacingExtra="-3.5sp"
+        android:background="@color/mainPurple"
+        android:layout_centerHorizontal="true"
+        style="?android:attr/borderlessButtonStyle"/>
 
 </RelativeLayout>

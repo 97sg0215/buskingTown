@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="456dp"
+    android:background="#fff"
+    tools:context=".CoinSendBefore_pop">
+
+    <TextView
+        android:id="@+id/idExplanation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13dp"
+        android:textColor="@color/fontGray"
+        android:text="버스커에게 보낼 코인과 메세지를 작성해주세요.\n100개이상 후원시 답장을 받을 수 있어요~"
+        android:fontFamily="@font/kopubdotummedium"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp" />
+
+    <ImageView
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/delet"
+        android:layout_toEndOf="@id/idExplanation"
+        android:layout_marginTop="15dp"/>
+
+    <RelativeLayout
+        android:id="@+id/coinLayout"
+        android:layout_width="110dp"
+        android:layout_height="35dp"
+        android:background="@drawable/busker_coin_rounded"
+        android:layout_marginRight="95dp"
+        android:layout_marginLeft="95dp"
+        android:layout_marginTop="86dp">
+
+        <ImageView
+            android:id="@+id/coinImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/coinbig"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:fontFamily="@font/kopubdotummedium"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="9dp"
+            android:text="0"
+            android:textSize="15sp" />
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="내 코인 50개"
+        android:layout_below="@+id/coinLayout"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/kopubbold"
+        android:textSize="12sp"
+        android:layout_marginTop="9dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="To. busker_id"
+        android:textColor="@color/mainPurple"
+        android:layout_marginLeft="16dp"
+        android:textSize="15sp"
+        android:layout_above="@+id/buskerLetter"/>
+
+    <RelativeLayout
+        android:id="@+id/buskerLetter"
+        android:layout_width="250dp"
+        android:layout_height="245dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/contentsOne"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/fontGray"
+            android:layout_marginTop="18dp"
+            android:text="따뜻한 말 한마디는 버스커에게 큰 힘이 됩"
+            />
+
+        <View
+            android:id="@+id/contentsOneUnderline"
+            android:layout_width="match_parent"
+            android:layout_height="0.9dp"
+            android:layout_below="@+id/contentsOne"
+            android:background="@color/subGray"/>
+
+        <TextView
+            android:id="@+id/contentsTwo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/fontGray"
+            android:text="니다 :)"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/contentsOneUnderline"/>
+
+        <View
+            android:id="@+id/contentsTwoUnderline"
+            android:layout_width="match_parent"
+            android:layout_height="0.9dp"
+            android:layout_below="@+id/contentsTwo"
+            android:background="@color/subGray"/>
+
+        <View
+            android:id="@+id/contentsThreeUnderline"
+            android:layout_width="match_parent"
+            android:layout_height="0.9dp"
+            android:layout_below="@+id/contentsTwoUnderline"
+            android:layout_marginTop="37dp"
+            android:background="@color/subGray"/>
+
+        <View
+            android:id="@+id/contentsFourUnderline"
+            android:layout_width="match_parent"
+            android:layout_height="0.9dp"
+            android:layout_below="@+id/contentsThreeUnderline"
+            android:layout_marginTop="37dp"
+            android:background="@color/subGray"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0/100자"
+            android:layout_below="@id/contentsFourUnderline"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10.5sp"/>
+
+        <RelativeLayout
+            android:id="@+id/sendButton"
+            android:layout_width="110dp"
+            android:layout_height="35dp"
+            android:background="@drawable/busker_coin_send"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="25dp"
+            android:layout_marginLeft="70dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="보내기"
+                android:textColor="#ffffff"
+                android:fontFamily="@font/kopubdotumbold"
+                android:textSize="14sp"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
