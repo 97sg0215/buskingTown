@@ -19,4 +19,7 @@
     <!-- 버스킹 타운 폰트 색 -->
     <color name="fontGray">#7B7B7B</color>
     <color name="fontBlack">#333333</color>
+
+    <!--버튼 그림자 색 -->
+    <color name="shadowGray">#40000000</color>
 </resources>

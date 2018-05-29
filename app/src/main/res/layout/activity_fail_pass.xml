@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     tools:context=".FailPass">
 
     <RelativeLayout
@@ -99,6 +100,7 @@
             android:layout_height="35dp"
             android:layout_below="@+id/fail"
             android:text="다시 도전하기"
+            android:fontFamily="@font/kopubdotumbold"
             android:textColor="#fff"
             android:background="@drawable/fail_btn"
             android:layout_centerVertical="true"

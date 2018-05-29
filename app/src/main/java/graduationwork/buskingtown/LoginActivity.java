@@ -153,7 +153,7 @@ public class LoginActivity extends AppCompatActivity {
 
     //테스트 액티비티 이건 지울거임
     public void testActivity2(View view) {
-        Intent testActivity2 = new Intent(getApplication(),WaitPass.class);
+        Intent testActivity2 = new Intent(getApplication(),FailPass.class);
         startActivity(testActivity2);
     }
 
