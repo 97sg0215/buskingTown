@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="20dp"
             android:background="#00000000"
             android:src="@drawable/backbtn" />
 
@@ -30,6 +30,17 @@
             android:text="마이페이지"
             android:textColor="#fff"
             android:textSize="17sp" />
+
+        <ImageButton
+            android:id="@+id/settingBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:background="#00000000"
+            android:src="@drawable/setting" />
+
     </RelativeLayout>
 
 
@@ -73,6 +84,7 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/userType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -176,7 +188,7 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/kopubmedium"
                         android:paddingLeft="15dp"
-                        android:text="보낸 코인함"
+                        android:text="버스커 되기"
                         android:textColor="@color/fontBlack" />
 
                     <View

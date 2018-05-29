@@ -4,8 +4,8 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/mainPurple</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/subPurple</item>
+        <item name="colorAccent">@color/fontBlack</item>
 
         <item name="android:statusBarColor">@color/mainPurple</item>
 
@@ -14,21 +14,12 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="DatePickerTheme" parent="android:Theme.Material.Light.Dialog">
-        <item name="android:datePickerMode">spinner</item>
-        <item name="colorAccent">@color/mainYellow</item>
-    </style>
 
-    <style name="MyDatePickerSpinnerStyle" parent="@android:style/Widget.Material.DatePicker">
-        <item name="android:datePickerMode">spinner</item>
-        <item name="android:calendarViewShown">false</item>
-        <item name="colorControlNormal">#d50000</item>
-    </style>
-
-    <style name="MyDatePickerStyle" parent="@android:style/Widget.Material.DatePicker">
-        <item name="android:colorControlActivated">#ffea00</item>
-        <item name="android:datePickerMode">spinner</item>
-        <item name="android:calendarViewShown">false</item>
+    <!-- 데이트피커 테마 지정 -->
+    <style name="DatePickerSpinner">
+        <item name="android:textSize">22dp</item>
+        <item name="android:textColorPrimary">@color/fontBlack</item>
+        <item name="android:colorControlNormal" tools:targetApi="lollipop">@color/mainPurple</item>
     </style>
 
 </resources>

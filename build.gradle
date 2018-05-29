@@ -19,9 +19,9 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven{
-            url "https://maven.google.com"
-        }
+        maven{ url "https://maven.google.com" }
+        //데이트피커 커스텀 라이브러리 주소
+        maven{ url "https://jitpack.io" }
     }
 }
 
