@@ -24,11 +24,13 @@
         <activity android:name=".SignUp1Step" />
         <activity android:name=".SignUp2Step" />
         <activity android:name=".TabBar" />
-        <activity android:name=".BuskerCertification"></activity>
+        <activity android:name=".BuskerCertification" />
         <!-- 코인 보내기전 팝업창 -->
         <activity
             android:name=".CoinSendBefore_pop"
             android:theme="@android:style/Theme.Dialog" />
+        <activity android:name=".WaitPass" />
+        <activity android:name=".FailPass"></activity>
     </application>
 
 </manifest>

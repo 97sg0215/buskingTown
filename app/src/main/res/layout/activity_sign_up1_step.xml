@@ -155,7 +155,7 @@
             android:layout_marginLeft="8dp"
             android:layout_toRightOf="@+id/agree"
             android:layout_marginTop="47dp"
-            android:textSize="13dp"
+            android:textSize="12sp"
             android:textColor="@color/fontBlack"
             android:lineSpacingExtra="1sp"
             android:text="이용약관에 동의하기"/>
