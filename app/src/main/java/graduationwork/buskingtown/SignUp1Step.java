@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,12 +17,24 @@ import android.widget.ImageButton;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import graduationwork.buskingtown.api.RestApiService;
+import graduationwork.buskingtown.model.SignUp;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class SignUp1Step extends AppCompatActivity {
+    private RestApiService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up1_step);
+
+        ApplicationController application = ApplicationController.getInstance();
+        application.buildNetworkService("290646e0.ngrok.io");
+        //application.buildNetworkService("자신의 ip", 8000);
+        apiService = ApplicationController.getInstance().getRestApiService();
 
         ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
@@ -182,6 +195,17 @@ public class SignUp1Step extends AppCompatActivity {
     //회원가입2 액티비티로 넘어가기
     public void nextSignUp(){
         Intent nextSignUpActivity = new Intent(getApplication(),SignUp2Step.class);
+
+        final EditText emailEdit = (EditText) findViewById(R.id.email);
+        final String checkEmail = emailEdit.getText().toString();
+
+        final EditText passWdEdit = (EditText) findViewById(R.id.passWd);
+        final String checkPw = passWdEdit.getText().toString();
+
+        //회원가입2단계로 데이터 넘김
+        nextSignUpActivity.putExtra("email",checkEmail);
+        nextSignUpActivity.putExtra("password",checkPw);
+
         startActivity(nextSignUpActivity);
     }
 
