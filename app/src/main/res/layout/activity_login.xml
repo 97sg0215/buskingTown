@@ -32,7 +32,7 @@
         android:gravity="center">
 
         <EditText
-            android:id="@+id/emailEdit"
+            android:id="@+id/idEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="45dp"
@@ -41,23 +41,23 @@
             android:inputType="textEmailAddress"
             android:fontFamily="@font/kopubmedium"
             android:textColor="@color/mainPurple"
-            android:hint="이메일"
+            android:hint="아이디"
             android:lineSpacingExtra="1sp"
             android:background="#00000000"
             android:textSize="12sp"/>
 
         <View
-            android:id="@+id/emailUnderLine"
+            android:id="@+id/idUnderLine"
             android:layout_width="match_parent"
             android:layout_height="0.9dp"
-            android:layout_below="@+id/emailEdit"
+            android:layout_below="@+id/idEdit"
             android:background="@color/transPurple"/>
 
         <EditText
             android:id="@+id/passWdEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/emailUnderLine"
+            android:layout_below="@+id/idUnderLine"
             android:layout_marginTop="34dp"
             android:paddingBottom="15dp"
             android:paddingLeft="5dp"

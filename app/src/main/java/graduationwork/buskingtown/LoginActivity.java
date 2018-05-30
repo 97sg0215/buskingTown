@@ -14,40 +14,44 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
+    String inputValue = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        //이메일 에디터 텍스트 입력 변수
-        final EditText emailEdit = (EditText) findViewById(R.id.emailEdit);
+        //아이디 에디터 텍스트 입력 변수
+        final EditText idEdit = (EditText) findViewById(R.id.idEdit);
 
         //비밀번호 에디터 텍스트 입력 변수
         final EditText passWdEdit = (EditText) findViewById(R.id.passWdEdit);
 
-        //이메일, 비밀번호 유효성 체크값 담음
-        final boolean[] emailOk = new boolean[1];
+        //아이디, 비밀번호 유효성 체크값 담음
+        final boolean[] idOk = new boolean[1];
         final boolean[] pwOk = new boolean[1];
 
         //이메일 에디터 텍스트 메소드
-        emailEdit.addTextChangedListener(new TextWatcher() {
+        idEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //아이디 공백 체크
+                inputValue = s.toString();
+                if (inputValue.replace(" ", "").equals("")||s.length()<3){
+                    idOk[0]=false;
+                } else {
+                    idOk[0]=true;
+                }
             }
 
             // 입력이 끝났을 때
             @Override
             public void afterTextChanged(Editable editable) {
-                //이메일 입력 값 문자열화
-                final String checkEmail = emailEdit.getText().toString();
-                //이메일 체크 값 담음
-                emailOk[0] = checkEmail(checkEmail);
 
                 //로그인 버튼 변수
                 final Button loginBtn = (Button) findViewById(R.id.loginBtn);
 
-                if(emailOk[0]&&pwOk[0]){ //이메일과 패스워드 모두 형식에 맞으면 로그인
+                if(idOk[0]&&pwOk[0]){ //이메일과 패스워드 모두 형식에 맞으면 로그인
                     loginBtn.setBackground(getDrawable(R.drawable.able_btn));
                     //로그인 버튼 클릭시 메소드
                     loginBtn.setOnClickListener(new Button.OnClickListener() {
@@ -87,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                 final Button loginBtn = (Button) findViewById(R.id.loginBtn);
 
 
-                if(emailOk[0]&&pwOk[0]){ //이메일과 패스워드 모두 형식에 맞으면 로그인
+                if(idOk[0]&&pwOk[0]){ //이메일과 패스워드 모두 형식에 맞으면 로그인
                     loginBtn.setBackground(getDrawable(R.drawable.able_btn));
                     //로그인 버튼 클릭시 메소드
                     loginBtn.setOnClickListener(new Button.OnClickListener() {
@@ -121,14 +125,6 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    //이메일 형식이 제대로 되어있나 체크 메소드
-    public static boolean checkEmail(String email){
-        String regex = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$";
-        Pattern p = Pattern.compile(regex);
-        Matcher m = p.matcher(email);
-        boolean isNormal = m.matches();
-        return isNormal;
-    }
 
     //비밀번호 형식이 제대로 되어있나 체크 메소드
     public static boolean checkPW(String pw){
