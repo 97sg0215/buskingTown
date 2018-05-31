@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Channel_2">
+
+    <RelativeLayout
+        android:id="@+id/statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="46.1dp"
+        android:background="@color/mainPurple">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/backbtn"
+            android:background="#00000000"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="busker_id"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fff"
+            android:fontFamily="@font/kopubbold"
+            android:textSize="17sp"/>
+
+        <ImageButton
+            android:id="@+id/morebtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:background="#00000000"
+            android:src="@drawable/more"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/statusBar"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/buskerRelative"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/profilebig"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="24.9dp"
+                    android:src="@drawable/profile_big"/>
+
+                <TextView
+                    android:id="@+id/buskerId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/profilebig"
+                    android:layout_marginTop="15dp"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/kopubbold"
+                    android:lineSpacingExtra="2sp"
+                    android:text="my_id_name"
+                    android:textColor="@color/fontBlack"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/buskerId"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/kopubbold"
+                    android:lineSpacingExtra="1.5sp"
+                    android:text="#건대 #발라드 #케이팝 #인디"
+                    android:textColor="@color/mainPurple"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:id="@id/buskerRelative"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tag"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingLeft="80dp"
+                    android:paddingRight="80dp">
+
+                    <ImageView
+                        android:id="@+id/smile"
+                        android:layout_width="10.5dp"
+                        android:layout_height="10.5dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/smile"/>
+
+                    <TextView
+                        android:id="@+id/smileCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_margin="7.5dp"
+                        android:layout_marginRight="12.5dp"
+                        android:layout_toRightOf="@+id/smile"
+                        android:fontFamily="@font/kopubbold"
+                        android:lineSpacingExtra="1sp"
+                        android:text="300,399"
+                        android:textColor="@color/fontBlack"
+                        android:textSize="12sp" />
+
+                    <View
+                        android:id="@+id/line"
+                        android:layout_width="1dp"
+                        android:layout_height="12dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_toRightOf="@+id/smileCount"
+                        android:background="@color/subGray">
+
+                    </View>
+
+                    <ImageView
+                        android:id="@+id/chart"
+                        android:layout_width="10.5dp"
+                        android:layout_height="10.5dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
+                        android:src="@drawable/chart"/>
+
+                    <TextView
+                        android:id="@+id/chartRank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8.5dp"
+                        android:layout_toRightOf="@+id/chart"
+                        android:fontFamily="@font/kopubbold"
+                        android:gravity="center_horizontal"
+                        android:lineSpacingExtra="1sp"
+                        android:text="3위"
+                        android:textColor="@color/fontBlack"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/fan_on"
+                    android:layout_width="110.2dp"
+                    android:layout_height="35dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/buskerRelative"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="125dp"
+                    android:layout_marginRight="125dp"
+                    android:src="@drawable/fan_on"/>
+
+                <LinearLayout
+                    android:id="@+id/liveBox"
+                    android:layout_below="@+id/fan_on"
+                    android:layout_width="match_parent"
+                    android:layout_height="53.5dp"
+                    android:background="@color/mainGray"
+                    android:layout_marginTop="25dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="20dp">
+
+                        <ImageView
+                            android:id="@+id/liveImage"
+                            android:layout_width="7dp"
+                            android:layout_height="7dp"
+                            android:layout_centerVertical="true"
+                            android:background="@color/subPink" />
+
+                        <TextView
+                            android:id="@+id/live"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="5dp"
+                            android:layout_toRightOf="@+id/liveImage"
+                            android:fontFamily="@font/kopubbold"
+                            android:lineSpacingExtra="1.5sp"
+                            android:text="LIVE"
+                            android:textColor="@color/subPink"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_margin="15dp"
+                            android:layout_toRightOf="@+id/live"
+                            android:fontFamily="@font/kopubbold"
+                            android:lineSpacingExtra="1.5sp"
+                            android:text="건대입구역 2번 출구 18:00~20:00"
+                            android:textColor="@color/fontBlack"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/box"
+                    android:layout_width="match_parent"
+                    android:layout_height="57.6dp"
+                    android:layout_below="@+id/liveBox">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentTop="true"
+                        android:background="@color/sub2Gray" />
+
+                    <ImageView
+                        android:id="@+id/board"
+                        android:layout_width="17.5dp"
+                        android:layout_height="17.5dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="89dp"
+                        android:layout_marginTop="20dp"
+                        android:src="@drawable/board" />
+
+                    <ImageView
+                        android:id="@+id/calendar"
+                        android:layout_width="17.5dp"
+                        android:layout_height="17.5dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="89dp"
+                        android:layout_marginTop="20dp"
+                        android:src="@drawable/calendar"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/sub2Gray" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/schedule"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_below="@+id/box">
+
+                    <ImageView
+                        android:id="@+id/date"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/date"/>
+
+                    <TextView
+                        android:id="@+id/dateSe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="10dp"
+                        android:layout_toRightOf="@+id/date"
+                        android:fontFamily="@font/kopubmedium"
+                        android:text="일 정"
+                        android:textColor="@color/fontBlack"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="23dp"
+                        android:layout_toRightOf="@+id/dateSe"
+                        android:fontFamily="@font/kopubbold"
+                        android:lineSpacingExtra="1.5sp"
+                        android:text="건대입구역 2번 출구 18:00~20:00"
+                        android:textColor="@color/fontBlack"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/dropdown"
+                        android:layout_width="15dp"
+                        android:layout_height="9.3dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/dropdown"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.9dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/sub2Gray" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/scheduleDetailOne"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_below="@+id/schedule"
+                    android:background="@color/mainGray">
+
+                    <TextView
+                        android:id="@+id/exDateOne"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="42dp"
+                        android:fontFamily="@font/kopubmedium"
+                        android:text="5.12"
+                        android:textColor="@color/fontBlack"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="33dp"
+                        android:layout_toRightOf="@+id/exDateOne"
+                        android:fontFamily="@font/kopubbold"
+                        android:lineSpacingExtra="1.5sp"
+                        android:text="건대입구역 2번 출구 18:00~20:00"
+                        android:textColor="@color/fontBlack"
+                        android:textSize="14sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.9dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/sub2Gray" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/concert"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_below="@+id/scheduleDetailOne">
+
+                <ImageView
+                    android:id="@+id/ticket"
+                    android:layout_width="12dp"
+                    android:layout_height="9.6dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ticket"/>
+
+                <TextView
+                    android:id="@+id/concertCo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"
+                    android:layout_toRightOf="@+id/ticket"
+                    android:fontFamily="@font/kopubmedium"
+                    android:text="콘서트"
+                    android:textColor="@color/fontBlack"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/concertCo"
+                    android:fontFamily="@font/kopubbold"
+                    android:lineSpacingExtra="1.5sp"
+                    android:text="건대입구역 2번 출구 18:00~20:00"
+                    android:textColor="@color/fontBlack"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/dropdownTwo"
+                    android:layout_width="15dp"
+                    android:layout_height="9.3dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/dropdown"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.9dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/sub2Gray" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/concertDatailOne"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_below="@+id/concert"
+                android:background="@color/mainGray">
+
+                <TextView
+                    android:id="@+id/exConcertOne"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="42dp"
+                    android:fontFamily="@font/kopubmedium"
+                    android:text="5.12"
+                    android:textColor="@color/fontBlack"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="33dp"
+                    android:layout_toRightOf="@+id/exConcertOne"
+                    android:fontFamily="@font/kopubbold"
+                    android:lineSpacingExtra="1.5sp"
+                    android:text="건대입구역 2번 출구 18:00~20:00"
+                    android:textColor="@color/fontBlack"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.9dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/sub2Gray" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/post"
+                android:layout_width="match_parent"
+                android:layout_height="69.2dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_below="@+id/concertDatailOne">
+
+                <ImageView
+                    android:id="@+id/profile_small"
+                    android:layout_width="32.5dp"
+                    android:layout_height="32.5dp"
+                    android:layout_marginTop="18.3dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/profile_small"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/profile_small"
+                    android:fontFamily="@font/kopubbold"
+                    android:lineSpacingExtra="1.5sp"
+                    android:text="busker_id"
+                    android:textColor="@color/fontBlack"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/more_black"
+                    android:layout_width="15dp"
+                    android:layout_height="3dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/more_black"/>
+
+
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/postImage"
+                android:layout_width="match_parent"
+                android:layout_height="360dp"
+                android:layout_below="@+id/post"
+                android:background="@color/subGray"/>
+
+
+            <RelativeLayout
+                android:id="@+id/postIcon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_below="@+id/postImage">
+
+                <ImageView
+                    android:id="@+id/heart"
+                    android:layout_width="22.5dp"
+                    android:layout_height="22.5dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/like" />
+
+                <ImageView
+                    android:layout_width="22.5dp"
+                    android:layout_height="22.5dp"
+                    android:layout_toRightOf="@+id/heart"
+                    android:layout_marginLeft="15dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/comment"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2,890 likes"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:lineSpacingExtra="1.5sp"
+                    android:textColor="@color/fontBlack"
+                    android:textSize="12sp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/write"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_below="@+id/postIcon">
+
+                <TextView
+                    android:id="@+id/postId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="-2sp"
+                    android:text="busker_id"
+                    android:textColor="@color/fontBlack"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/postId"
+                    android:layout_marginLeft="10dp"
+                    android:lineSpacingExtra="-2sp"
+                    android:text="게시물 내용은 이렇게 작성된다."
+                    android:textColor="@color/fontBlack"
+                    android:textSize="13sp"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
