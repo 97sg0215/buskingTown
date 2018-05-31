@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -47,8 +46,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/statusBar"
         android:overScrollMode="never"
         android:scrollbars="none">
 
@@ -67,14 +65,14 @@
                     android:layout_width="75dp"
                     android:layout_height="75dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="71dp"
+                    android:layout_marginTop="24.9dp"
                     android:src="@drawable/profile_big"/>
 
                 <TextView
                     android:id="@+id/buskerId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/profileImg"
+                    android:layout_below="@+id/profilebig"
                     android:layout_marginTop="15dp"
                     android:layout_centerHorizontal="true"
                     android:fontFamily="@font/kopubbold"
@@ -305,7 +303,7 @@
                         android:layout_margin="10dp"
                         android:layout_toRightOf="@+id/date"
                         android:fontFamily="@font/kopubmedium"
-                        android:text="일정"
+                        android:text="일 정"
                         android:textColor="@color/fontBlack"
                         android:textSize="14sp" />
 
@@ -338,11 +336,51 @@
 
                 </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/scheduleDetailOne"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_below="@+id/schedule"
+                android:background="@color/mainGray">
+
+                <TextView
+                    android:id="@+id/exDateOne"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="42dp"
+                    android:fontFamily="@font/kopubmedium"
+                    android:text="5.12"
+                    android:textColor="@color/fontBlack"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="33dp"
+                    android:layout_toRightOf="@+id/exDateOne"
+                    android:fontFamily="@font/kopubbold"
+                    android:lineSpacingExtra="1.5sp"
+                    android:text="건대입구역 2번 출구 18:00~20:00"
+                    android:textColor="@color/fontBlack"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.9dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/sub2Gray" />
+
+            </RelativeLayout>
+
+                </RelativeLayout>
+
                 <RelativeLayout
                     android:id="@+id/concert"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:layout_below="@+id/schedule">
+                    android:layout_below="@+id/scheduleDetailOne">
 
                     <ImageView
                         android:id="@+id/ticket"
@@ -368,7 +406,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@+id/concertCo"
                         android:fontFamily="@font/kopubbold"
                         android:lineSpacingExtra="1.5sp"
@@ -393,6 +431,43 @@
 
                 </RelativeLayout>
 
+                <RelativeLayout
+                    android:id="@+id/concertDatailOne"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_below="@+id/concert"
+                    android:background="@color/mainGray">
+
+                    <TextView
+                        android:id="@+id/exConcertOne"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="42dp"
+                        android:fontFamily="@font/kopubmedium"
+                        android:text="5.12"
+                        android:textColor="@color/fontBlack"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="33dp"
+                        android:layout_toRightOf="@+id/exConcertOne"
+                        android:fontFamily="@font/kopubbold"
+                        android:lineSpacingExtra="1.5sp"
+                        android:text="건대입구역 2번 출구 18:00~20:00"
+                        android:textColor="@color/fontBlack"
+                        android:textSize="14sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.9dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/sub2Gray" />
+
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/post"
@@ -400,7 +475,7 @@
                     android:layout_height="69.2dp"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
-                    android:layout_below="@+id/concert">
+                    android:layout_below="@+id/concertDatailOne">
 
                     <ImageView
                         android:id="@+id/profile_small"
@@ -478,6 +553,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/write"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
@@ -506,9 +582,6 @@
                         android:textSize="13sp"/>
 
                 </RelativeLayout>
-
-
-            </RelativeLayout>
 
         </LinearLayout>
 
