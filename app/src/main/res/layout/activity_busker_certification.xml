@@ -67,21 +67,11 @@
 
                 <ImageView
                     android:id="@+id/imageIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/image"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/imageIcon"
-                    android:text="사진을 선택해주세요"
-                    android:layout_centerHorizontal="true"
-                    android:textSize="12sp"
-                    android:textColor="@color/fontBlack"
-                    android:layout_marginTop="15dp"/>
+                    android:src="@drawable/image_choice"/>
 
             </RelativeLayout>
 
