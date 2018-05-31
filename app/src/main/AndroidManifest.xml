@@ -31,7 +31,8 @@
             android:theme="@android:style/Theme.Dialog" />
         <activity android:name=".WaitPass" />
         <activity android:name=".FailPass" />
-        <activity android:name=".Channel"></activity>
+        <activity android:name=".Channel" />
+        <activity android:name=".Channel_2"></activity>
     </application>
 
 </manifest>
