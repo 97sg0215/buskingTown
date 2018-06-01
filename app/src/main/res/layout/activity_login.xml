@@ -13,14 +13,66 @@
        android:layout_height="150dp"
        android:background="@drawable/city"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="테스트 액티비티 링크 바로 가기"
+        android:text="탭 액티비티 링크 바로 가기"
         android:layout_centerHorizontal="true"
         android:textColor="#fff"
-        android:textSize="20dp"
-        android:onClick="testActivity2"/>
+        android:textSize="15dp"
+        android:onClick="tabActivity"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="버스커 인증 액티비티 링크 바로 가기"
+        android:layout_centerHorizontal="true"
+        android:textColor="#fff"
+        android:textSize="15dp"
+        android:onClick="certification"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="채널 액티비티 링크 바로 가기"
+        android:layout_centerHorizontal="true"
+        android:textColor="#fff"
+        android:textSize="15dp"
+        android:onClick="channel"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="코인 보내기 전 팝업 액티비티 링크 바로 가기"
+        android:layout_centerHorizontal="true"
+        android:textColor="#fff"
+        android:textSize="15dp"
+        android:onClick="coin_send_before"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="통과 실패 액티비티 링크 바로 가기"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fff"
+            android:textSize="15dp"
+            android:onClick="failPass"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="통과 기다리기 액티비티 링크 바로 가기"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fff"
+            android:textSize="15dp"
+            android:onClick="waitPass"/>
+
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/loginContent"

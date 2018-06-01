@@ -142,14 +142,38 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //테스트 액티비티 이건 지울거임
-    public void testActivity(View view) {
+    public void tabActivity(View view) {
         Intent testActivity = new Intent(getApplication(),TabBar.class);
         startActivity(testActivity);
     }
 
     //테스트 액티비티 이건 지울거임
-    public void testActivity2(View view) {
+    public void certification(View view) {
+        Intent testActivity2 = new Intent(getApplication(),BuskerCertification.class);
+        startActivity(testActivity2);
+    }
+
+    //테스트 액티비티 이건 지울거임
+    public void channel(View view) {
+        Intent testActivity2 = new Intent(getApplication(),Channel.class);
+        startActivity(testActivity2);
+    }
+
+    //테스트 액티비티 이건 지울거임
+    public void coin_send_before(View view) {
+        Intent testActivity2 = new Intent(getApplication(),CoinSendBefore_pop.class);
+        startActivity(testActivity2);
+    }
+
+    //테스트 액티비티 이건 지울거임
+    public void failPass(View view) {
         Intent testActivity2 = new Intent(getApplication(),FailPass.class);
+        startActivity(testActivity2);
+    }
+
+    //테스트 액티비티 이건 지울거임
+    public void waitPass(View view) {
+        Intent testActivity2 = new Intent(getApplication(),WaitPass.class);
         startActivity(testActivity2);
     }
 
