@@ -71,6 +71,7 @@
                     android:layout_height="match_parent"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/image_choice"/>
 
             </RelativeLayout>
@@ -163,7 +164,7 @@
                         android:layout_marginTop="35dp"
                         android:paddingBottom="15dp"
                         android:paddingLeft="5dp"
-                        android:inputType="text"
+                        android:inputType="phone"
                         android:fontFamily="@font/kopubmedium"
                         android:textColor="@color/mainPurple"
                         android:hint="휴대폰"
@@ -204,7 +205,7 @@
                         android:layout_marginTop="35dp"
                         android:paddingBottom="15dp"
                         android:paddingLeft="5dp"
-                        android:inputType="text"
+                        android:inputType="number"
                         android:fontFamily="@font/kopubmedium"
                         android:textColor="@color/mainPurple"
                         android:hint="인증번호"

@@ -6,34 +6,151 @@ import android.graphics.Bitmap;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class BuskerCertification extends AppCompatActivity {
 
     final int REQ_CODE_SELECT_IMAGE=100;
 
 
+    //활동팀명,태그갯수 체크 유효성 체크값 담음
+    final boolean[] teamNameOk = new boolean[1];
+    final boolean[] cellPhoneOk = new boolean[1];
+    final boolean[] tagOk = new boolean[1];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_busker_certification);
 
+        //활동팀명,성명,휴대폰,활동지 및 장르(=태그) 에디터 텍스트 입력 변수
+        final EditText teamNameEdit = (EditText) findViewById(R.id.teamName);
+        final EditText nameEdit = (EditText) findViewById(R.id.name);
+        final EditText cellPhoneEdit = (EditText) findViewById(R.id.cellPhone);
+        final EditText tagEdit = (EditText) findViewById(R.id.activity);
+
+        //휴대폰 번호 입력 시 자동으로 하이픈 추가
+        cellPhoneEdit.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+
         ImageView imgChoice = (ImageView) findViewById(R.id.imageIcon);
         imgChoice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //갤러리 열기
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
                 intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
 
+            }
+        });
 
 
+
+        teamNameEdit.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //활동팀명 입력 값 문자열화
+                final String teamName = teamNameEdit.getText().toString();
+
+                //이메일 체크 값 담음
+                teamNameOk[0] = checkName(teamName);
+
+                useConfirmBtn();
+
+            }
+        });
+
+        nameEdit.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                useConfirmBtn();
+
+            }
+        });
+
+        cellPhoneEdit.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //버스커휴대폰번호 입력 값 문자열화
+                final String buskerPhone = cellPhoneEdit.getText().toString();
+
+                //휴대폰 체크 값 담음
+                cellPhoneOk[0] = checkPhone(buskerPhone);
+
+                useConfirmBtn();
+
+            }
+        });
+
+        tagEdit.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                //태그 입력 값 문자열화
+                final String buskerTag = tagEdit.getText().toString();
+
+                //태그 체크 값 담음
+                tagOk[0] = checktag(buskerTag);
+
+                useConfirmBtn();
 
             }
         });
@@ -44,11 +161,8 @@ public class BuskerCertification extends AppCompatActivity {
 
     // 선택된 이미지 가져오기
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if(requestCode == REQ_CODE_SELECT_IMAGE)
-        {
-            if(resultCode== Activity.RESULT_OK)
-            {
+        if(requestCode == REQ_CODE_SELECT_IMAGE){
+            if(resultCode== Activity.RESULT_OK) {
                 try {
                     //Uri에서 이미지 이름을 얻어온다.
                     //String name_Str = getImageNameToUri(data.getData());
@@ -61,15 +175,77 @@ public class BuskerCertification extends AppCompatActivity {
                     imageS.setImageBitmap(image_bitmap);
 
                 }catch (FileNotFoundException e) { e.printStackTrace(); }
-
                 catch (IOException e) { e.printStackTrace(); }
-
                 catch (Exception e) { e.printStackTrace();	}
-
             }
+        }
+    }
 
+    //아이디 형식이 제대로 되어있나 체크 메소드
+    public static boolean checkName(String buskerName){
+        return true;
+    }
+
+    //휴대폰번호 형식이 제대로 되어있나 체크 메소드
+    public static boolean checkPhone(String phone){
+        String regex =  "^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$";
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(phone);
+        boolean isNormal = m.matches();
+        return isNormal;
+    }
+
+    public static boolean checktag(String buskerTag){
+        return true;
+    }
+
+    public void useConfirmBtn(){
+        //확인 버튼 변수
+        final Button confirmBtn = (Button) findViewById(R.id.confirmBtn);
+
+        //팀명, 휴대폰, 태그 형식 모두 맞으면 버튼 활성화
+        if(teamNameOk[0]&&cellPhoneOk[0]&&tagOk[0]){
+
+            //색지정 할때 getApplicationContext().getResources().getColor(컬러이름)으로 해주세요.
+            confirmBtn.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.mainPurple));
+            //다음 로그인 버튼
+            confirmBtn.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    completeApply();
+                }
+            });
+        }else {
+            confirmBtn.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.subGray));
+            confirmBtn.setOnClickListener(null);
         }
 
+    }
+
+    public void completeApply() {
+        Intent waitPassActivity = new Intent(getApplication(),WaitPass.class);
+
+        final EditText teamNameEdit = (EditText) findViewById(R.id.teamName);
+        final String teamName = teamNameEdit.getText().toString();
+
+        final EditText nameEdit = (EditText) findViewById(R.id.name);
+        final String name = nameEdit.getText().toString();
+
+        final EditText cellPhoneEdit = (EditText) findViewById(R.id.cellPhone);
+        final String cellPhone = cellPhoneEdit.getText().toString();
+
+        final EditText tagEdit = (EditText) findViewById(R.id.activity);
+        final String tag = tagEdit.getText().toString();
+
+        //아이디, 휴대폰번호 로그 띄우기
+        Log.e("활동팀명",String.valueOf(teamName));
+        Log.e("이름",String.valueOf(name));
+        Log.e("휴대폰번호",String.valueOf(cellPhone));
+        Log.e("태그",String.valueOf(tag));
+
+
+        startActivity(waitPassActivity);
     }
 
 
