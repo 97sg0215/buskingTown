@@ -163,7 +163,7 @@
                     android:layout_width="110.2dp"
                     android:layout_height="35dp"
                     android:layout_below="@id/buskerRelative"
-                    android:background="@drawable/busker_coin_rounded"
+                    android:background="@drawable/fan_on_btn"
                     android:layout_centerHorizontal="true"
                     android:text="팬 할래요"
                     android:textColor="@color/mainPurple"
