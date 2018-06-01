@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -49,6 +50,7 @@ public class SignUp2Step extends AppCompatActivity implements DatePickerDialog.O
 
         //휴대폰 에디터 텍스트 입력 변수
         final EditText phoneNumEdit = (EditText) findViewById(R.id.phoneNum);
+        phoneNumEdit.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
         //아이디, 휴대폰 체크 유효성 체크값 담음
         final boolean[] idOk = new boolean[1];
@@ -118,6 +120,8 @@ public class SignUp2Step extends AppCompatActivity implements DatePickerDialog.O
                 phoneOk[0] = checkPhone(userPhone);
 
 
+
+
                 //확인 버튼 변수
                 final Button confirmBtn = (Button) findViewById(R.id.confirmBtn);
 
@@ -182,7 +186,7 @@ public class SignUp2Step extends AppCompatActivity implements DatePickerDialog.O
 
     //휴대폰번호 형식이 제대로 되어있나 체크 메소드
     public static boolean checkPhone(String phone){
-        String regex =  "^(?=.*[0-9]+).{3,16}$";
+        String regex =  "^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(phone);
         boolean isNormal = m.matches();
