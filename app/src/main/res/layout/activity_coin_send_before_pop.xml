@@ -38,24 +38,39 @@
             android:id="@+id/coinImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:src="@drawable/coinbig"
             android:layout_marginTop="7dp"
             android:layout_marginLeft="10dp"/>
 
-        <TextView
+        <EditText
+            android:id="@+id/coinCount"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00000000"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/mainPurple"
+            android:text=""
+            android:maxLength="3"
+            android:textSize="15sp"
+            android:fontFamily="@font/kopubdotummedium" />
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:fontFamily="@font/kopubdotummedium"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="9dp"
-            android:text="0"
-            android:textSize="15sp" />
+            android:text="내 코인 50개"
+            android:layout_below="@id/coinCount"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/kopubdotumbold"
+            android:textSize="12sp"
+            android:textColor="@color/subGray"
+            android:layout_marginTop="9dp"/>
 
 
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/coinTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="내 코인 50개"
@@ -74,7 +89,7 @@
         android:textSize="15sp"
         android:layout_above="@+id/buskerLetter"/>
 
-    <RelativeLayout
+    <FrameLayout
         android:id="@+id/buskerLetter"
         android:layout_width="250dp"
         android:layout_height="245dp"
@@ -82,84 +97,81 @@
         android:layout_marginRight="25dp"
         android:layout_alignParentBottom="true">
 
-        <TextView
-            android:id="@+id/contentsOne"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/fontGray"
-            android:layout_marginTop="18dp"
-            android:text="따뜻한 말 한마디는 버스커에게 큰 힘이 됩"
-            />
-
-        <View
-            android:id="@+id/contentsOneUnderline"
-            android:layout_width="match_parent"
-            android:layout_height="0.9dp"
-            android:layout_below="@+id/contentsOne"
-            android:background="@color/subGray"/>
-
-        <TextView
-            android:id="@+id/contentsTwo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/fontGray"
-            android:text="니다 :)"
-            android:layout_marginTop="8dp"
-            android:layout_below="@+id/contentsOneUnderline"/>
-
-        <View
-            android:id="@+id/contentsTwoUnderline"
-            android:layout_width="match_parent"
-            android:layout_height="0.9dp"
-            android:layout_below="@+id/contentsTwo"
-            android:background="@color/subGray"/>
-
-        <View
-            android:id="@+id/contentsThreeUnderline"
-            android:layout_width="match_parent"
-            android:layout_height="0.9dp"
-            android:layout_below="@+id/contentsTwoUnderline"
-            android:layout_marginTop="37dp"
-            android:background="@color/subGray"/>
-
-        <View
-            android:id="@+id/contentsFourUnderline"
-            android:layout_width="match_parent"
-            android:layout_height="0.9dp"
-            android:layout_below="@+id/contentsThreeUnderline"
-            android:layout_marginTop="37dp"
-            android:background="@color/subGray"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0/100자"
-            android:layout_below="@id/contentsFourUnderline"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="10.5sp"/>
-
         <RelativeLayout
-            android:id="@+id/sendButton"
-            android:layout_width="110dp"
-            android:layout_height="35dp"
-            android:background="@drawable/busker_coin_send"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="25dp"
-            android:layout_marginLeft="70dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/contentsOne"
+                android:layout_width="244dp"
+                android:layout_height="wrap_content"
+                android:maxLength="100"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="18.8dp"
+                android:background="#00000000"
+                android:hint="따뜻한 말 한마디는 버스커에게 큰 힘이 됩니다 :)"
+                android:gravity="top"
+                android:lineSpacingExtra="24sp"
+                android:textColorHint="@color/fontGray"
+                android:textSize="14sp" />
+
+            <View
+                android:id="@+id/contentsOneUnderline"
+                android:layout_width="match_parent"
+                android:layout_height="0.9dp"
+                android:layout_marginTop="45.7dp"
+                android:background="@color/subGray" />
+
+            <View
+                android:id="@+id/contentsTwoUnderline"
+                android:layout_width="match_parent"
+                android:layout_height="0.9dp"
+                android:layout_below="@+id/contentsOneUnderline"
+                android:layout_marginTop="35.7dp"
+                android:background="@color/subGray" />
+
+            <View
+                android:id="@+id/contentsThreeUnderline"
+                android:layout_width="match_parent"
+                android:layout_height="0.9dp"
+                android:layout_below="@+id/contentsTwoUnderline"
+                android:layout_marginTop="35.7dp"
+                android:background="@color/subGray" />
+
+            <View
+                android:id="@+id/contentsFourUnderline"
+                android:layout_width="match_parent"
+                android:layout_height="0.9dp"
+                android:layout_below="@+id/contentsThreeUnderline"
+                android:layout_marginTop="35.7dp"
+                android:background="@color/subGray" />
 
             <TextView
+                android:id="@+id/textCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="보내기"
-                android:textColor="#ffffff"
-                android:fontFamily="@font/kopubdotumbold"
-                android:textSize="14sp"
-                android:layout_centerInParent="true"/>
+                android:lineSpacingExtra="5.5sp"
+                android:text="0/100자"
+                android:layout_below="@id/contentsFourUnderline"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/fontGray" />
 
         </RelativeLayout>
 
-    </RelativeLayout>
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/sendBtn"
+        android:layout_width="110dp"
+        android:layout_height="35dp"
+        android:text="보내기"
+        android:textColor="#fff"
+        android:background="@drawable/busker_coin_send"
+        android:textSize="14sp"
+        android:fontFamily="@font/kopubdotumbold"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="25dp"/>
 
 </RelativeLayout>
