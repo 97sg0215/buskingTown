@@ -177,6 +177,12 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(testActivity2);
     }
 
+    //테스트 액티비티 이건 지울거임
+    public void coinSendSuccess(View view) {
+        Intent testActivity2 = new Intent(getApplication(),CoinSendSuccess_pop.class);
+        startActivity(testActivity2);
+    }
+
     //백버튼 2번이면 종료
     @Override
     public void onBackPressed() {

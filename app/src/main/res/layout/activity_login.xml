@@ -72,6 +72,15 @@
             android:textSize="15dp"
             android:onClick="waitPass"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="코인 보내기 성공한 액티비티 링크 바로가기"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fff"
+            android:textSize="15dp"
+            android:onClick="coinSendSuccess"/>
+
     </LinearLayout>
 
     <RelativeLayout

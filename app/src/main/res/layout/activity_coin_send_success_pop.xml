@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="250dp"
+    android:background="#fff"
+    tools:context=".CoinSendSuccess_pop">
+
+    <ImageButton
+        android:id="@+id/delete"
+        android:layout_width="17.5dp"
+        android:layout_height="17.5dp"
+        android:src="@drawable/delet"
+        android:background="#fff"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"/>
+
+    <ImageView
+        android:id="@+id/thankyouImg"
+        android:layout_width="172dp"
+        android:layout_height="36.5dp"
+        android:background="@drawable/thankyou"
+        android:layout_below="@id/delete"
+        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/coinSendCheckText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/kopubdotummedium"
+        android:text="성공적으로 전송되었어요.\n버스커가 확인하면 알려드릴게요 :)"
+        android:textColor="@color/mainPurple"
+        android:textSize="14sp"
+        android:layout_marginTop="19.7dp"
+        android:gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/thankyouImg"
+        android:lineSpacingExtra="6sp"/>
+
+    <Button
+        android:id="@+id/coinSendCheckBtn"
+        android:layout_width="160dp"
+        android:layout_height="35dp"
+        android:background="@drawable/able_btn"
+        android:layout_below="@+id/coinSendCheckText"
+        android:layout_centerHorizontal="true"
+        android:text="보낸 코인 확인하기"
+        android:textColor="#fff"
+        android:fontFamily="@font/kopubbold"
+        android:textSize="14sp"
+        android:layout_marginTop="40.7dp" />
+
+</RelativeLayout>

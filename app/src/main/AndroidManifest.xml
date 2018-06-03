@@ -32,7 +32,15 @@
         <activity android:name=".WaitPass" />
         <activity android:name=".FailPass" />
         <activity android:name=".Channel" />
-        <activity android:name=".Channel_2"></activity>
+        <activity android:name=".Channel_2" />
+        <!--코인 보내기 성공했을때 팝업창-->
+        <activity
+            android:theme="@android:style/Theme.Dialog"
+            android:name=".CoinSendSuccess_pop" />
+        <!--코인 보내기 실패했을때 팝업창-->
+        <activity
+            android:theme="@android:style/Theme.Dialog"
+            android:name=".CoinSendFail_pop"/>
     </application>
 
 </manifest>
