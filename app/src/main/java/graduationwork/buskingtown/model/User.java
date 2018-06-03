@@ -1,14 +1,11 @@
 package graduationwork.buskingtown.model;
-import java.util.HashMap;
-import java.util.Map;
 
-public class SignUp {
+public class User {
     private String access_token;
     private String email;
     private String username;
     private String password;
     Profile profile;
-
 
     public String getAccess_token() {
         return access_token;

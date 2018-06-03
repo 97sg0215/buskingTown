@@ -31,11 +31,6 @@ public class SignUp1Step extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up1_step);
 
-        ApplicationController application = ApplicationController.getInstance();
-        application.buildNetworkService("290646e0.ngrok.io");
-        //application.buildNetworkService("자신의 ip", 8000);
-        apiService = ApplicationController.getInstance().getRestApiService();
-
         ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
