@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -144,11 +145,14 @@ public class BuskerCertification extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
 
+
+
                 //태그 입력 값 문자열화
                 final String buskerTag = tagEdit.getText().toString();
 
                 //태그 체크 값 담음
                 tagOk[0] = checktag(buskerTag);
+
 
                 useConfirmBtn();
 
@@ -181,9 +185,14 @@ public class BuskerCertification extends AppCompatActivity {
         }
     }
 
-    //아이디 형식이 제대로 되어있나 체크 메소드
+    //활동팀명 형식이 제대로 되어있나 체크 메소드
     public static boolean checkName(String buskerName){
-        return true;
+
+        String regex =  "^[a-zA-Z가-힣0-9_]{4,15}$";
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(buskerName);
+        boolean isNormal = m.matches();
+        return isNormal;
     }
 
     //휴대폰번호 형식이 제대로 되어있나 체크 메소드
@@ -194,10 +203,36 @@ public class BuskerCertification extends AppCompatActivity {
         boolean isNormal = m.matches();
         return isNormal;
     }
+    public boolean checktag(String buskerTag){
+        int i = getCharNumber(buskerTag,'#');
+        if(i <=5){
+            int z = getCharNumber(buskerTag,' ');
+            if(z<=4){
+                return true;
+            }
+            Toast toast = Toast.makeText(this, "태그를 5개이하로 작성하세요.",Toast.LENGTH_SHORT);
+            toast.show();
+            return false;
 
-    public static boolean checktag(String buskerTag){
-        return true;
+        }else {
+            return false;
+        }
+
     }
+    static int getCharNumber(String str, char c)
+    {
+        int count = 0;
+        for(int i=0;i<str.length();i++)
+        {
+            if(str.charAt(i) == c){
+                count++;
+            }
+
+        }
+        return count;
+    }
+
+
 
     public void useConfirmBtn(){
         //확인 버튼 변수
