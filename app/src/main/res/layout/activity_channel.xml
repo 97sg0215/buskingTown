@@ -206,12 +206,12 @@
                         android:layout_height="match_parent"
                         android:paddingLeft="20dp">
 
-                        <ImageView
+                        <Button
                             android:id="@+id/liveImage"
                             android:layout_width="7dp"
                             android:layout_height="7dp"
                             android:layout_centerVertical="true"
-                            android:background="@color/subPink" />
+                            android:background="@drawable/live_round" />
 
                         <TextView
                             android:id="@+id/live"
