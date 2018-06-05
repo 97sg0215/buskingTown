@@ -106,6 +106,8 @@
                 android:id="@+id/contentsOne"
                 android:layout_width="244dp"
                 android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:lines="4"
                 android:maxLength="100"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="18.8dp"
@@ -147,13 +149,15 @@
                 android:layout_marginTop="35.7dp"
                 android:background="@color/subGray" />
 
+
+
             <TextView
                 android:id="@+id/textCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="5.5sp"
                 android:text="0/100자"
-                android:layout_below="@id/contentsFourUnderline"
+                android:layout_below="@+id/contentsFourUnderline"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/fontGray" />
