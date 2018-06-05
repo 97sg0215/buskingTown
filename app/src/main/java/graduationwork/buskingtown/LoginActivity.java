@@ -155,7 +155,7 @@ public class LoginActivity extends AppCompatActivity {
 
     //테스트 액티비티 이건 지울거임
     public void channel(View view) {
-        Intent testActivity2 = new Intent(getApplication(),Channel.class);
+        Intent testActivity2 = new Intent(getApplication(),ChannelBusker.class);
         startActivity(testActivity2);
     }
 

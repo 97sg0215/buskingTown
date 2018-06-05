@@ -31,7 +31,7 @@
             android:theme="@android:style/Theme.Dialog" />
         <activity android:name=".WaitPass" />
         <activity android:name=".FailPass" />
-        <activity android:name=".Channel" />
+        <activity android:name=".ChannelBusker" />
         <activity android:name=".Channel_2" />
         <!--코인 보내기 성공했을때 팝업창-->
         <activity
