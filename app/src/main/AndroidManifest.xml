@@ -41,6 +41,8 @@
         <activity
             android:name=".CoinSendFail_pop"
             android:theme="@android:style/Theme.Dialog" />
+        <activity android:name=".Channel_user_fragment1" />
+        <activity android:name=".Channel_user_fragment2"></activity>
     </application>
 
 </manifest>
