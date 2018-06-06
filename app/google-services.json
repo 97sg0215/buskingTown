@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "186822852339",
+    "firebase_url": "https://buksingtown.firebaseio.com",
+    "project_id": "buksingtown",
+    "storage_bucket": "buksingtown.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:186822852339:android:104bc4d5c0347510",
+        "android_client_info": {
+          "package_name": "graduationwork.buskingtown"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "186822852339-gobo78g444nrc3ctfvvii58bejcklmua.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "graduationwork.buskingtown",
+            "certificate_hash": "9560d52805a7feb09290954fef234371935a7786"
+          }
+        },
+        {
+          "client_id": "186822852339-f9mcrn2l82sh268gfjkovsc5if9s5bna.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "186822852339-f9mcrn2l82sh268gfjkovsc5if9s5bna.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUcHX5IvGyCivehTxofoulbpoTjS9m208"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "186822852339-f9mcrn2l82sh268gfjkovsc5if9s5bna.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

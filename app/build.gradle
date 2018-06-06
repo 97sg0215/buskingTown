@@ -16,20 +16,33 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    //fiebase연결
+    implementation 'com.google.firebase:firebase-core:11.6.2'
+    implementation 'com.google.firebase:firebase-auth:11.6.2'
     //피카소 라이브러리
     implementation 'com.squareup.picasso:picasso:2.3.3'
-    //APi연결을 위한 retrofit 라이브러리
+    //API연결을 위한 retrofit 라이브러리
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'io.reactivex:rxandroid:1.1.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
+
     //데이트피커 커스텀 라이브러리
     implementation 'com.github.drawers:SpinnerDatePicker:1.0.6'
 }
+
+apply plugin: 'com.google.gms.google-services'

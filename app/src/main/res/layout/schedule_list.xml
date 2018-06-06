@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="55dp">
+
+
+    <TextView
+        android:id="@+id/dateSe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="42dp"
+        android:fontFamily="@font/kopubbold"
+        android:text="0.00"
+        android:textColor="@color/fontBlack"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/scheduleList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="93.5dp"
+        android:fontFamily="@font/kopubmedium"
+        android:lineSpacingExtra="1.5sp"
+        android:text="새로 생길 일정"
+        android:textColor="@color/fontBlack"
+        android:textSize="14sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.9dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/sub2Gray" />
+
+</RelativeLayout>

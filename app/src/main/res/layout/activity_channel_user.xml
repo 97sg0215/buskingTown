@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Channel_2">
+    tools:context=".ChannelUser">
 
     <RelativeLayout
         android:id="@+id/statusBar"
@@ -163,7 +163,8 @@
                     android:textColor="#fff"
                     android:fontFamily="@font/kopubbold"
                     android:textSize="14sp"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginTop="20dp"
+                    style="?android:attr/borderlessButtonStyle"/>
 
                 <View
                     android:id="@+id/viewOne"
@@ -201,6 +202,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/scheduleList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -211,6 +213,17 @@
                     android:textColor="@color/fontBlack"
                     android:textSize="14sp" />
 
+                <ImageButton
+                    android:id="@+id/dropdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/dropdown"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:visibility="gone"
+                    />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.9dp"
@@ -219,11 +232,18 @@
 
             </RelativeLayout>
 
+            <LinearLayout
+                android:id="@+id/addSchedule"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            </LinearLayout>
+
             <RelativeLayout
                 android:id="@+id/concert"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:layout_below="@+id/schedule">
+                android:layout_below="@+id/addSchedule">
 
                 <ImageView
                     android:id="@+id/ticket"
@@ -270,8 +290,8 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="66.6dp"
+                    android:layout_height="146.4dp"
+                    android:gravity="center_vertical"
                     android:layout_centerHorizontal="true"
                     android:text="아직 올라온 게시물이 없습니다!"
                     android:fontFamily="@font/kopubdotummedium"

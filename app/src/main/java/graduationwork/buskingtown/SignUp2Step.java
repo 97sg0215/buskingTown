@@ -1,6 +1,7 @@
 package graduationwork.buskingtown;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,25 +14,32 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.tsongkha.spinnerdatepicker.DatePicker;
 import com.tsongkha.spinnerdatepicker.DatePickerDialog;
 import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder;
 
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.Profile;
+import graduationwork.buskingtown.model.ServiceBuilder;
 import graduationwork.buskingtown.model.SignUp;
+import graduationwork.buskingtown.model.User;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,6 +48,8 @@ import retrofit2.Response;
 public class SignUp2Step extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     private RestApiService apiService;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     //이전 액티비티에서 받아온 회원가입 포스트할 변수
     String userEmail, userPassword;
@@ -51,11 +61,9 @@ public class SignUp2Step extends AppCompatActivity implements DatePickerDialog.O
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        restApiBuilder();
 
-        ApplicationController application = ApplicationController.getInstance();
-        application.buildNetworkService("bf02c552.ngrok.io");
-        //application.buildNetworkService("자신의 ip", 8000);
-        apiService = ApplicationController.getInstance().getRestApiService();
+        mAuth = FirebaseAuth.getInstance();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up2_step);
@@ -97,7 +105,7 @@ public class SignUp2Step extends AppCompatActivity implements DatePickerDialog.O
                 final Button confirmBtn = (Button) findViewById(R.id.confirmBtn);
 
                 //아이디, 휴대폰 형식 모두 맞으면 버튼 활성화
-                if(idOk[0]&&phoneOk[0]){
+                if (idOk[0] && phoneOk[0]) {
                     //색지정 할때 getApplicationContext().getResources().getColor(컬러이름)으로 해주세요.
                     confirmBtn.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.mainPurple));
                     //다음 로그인 버튼
@@ -108,7 +116,7 @@ public class SignUp2Step extends AppCompatActivity implements DatePickerDialog.O
                             startTabBar();
                         }
                     });
-                }else {
+                } else {
                     confirmBtn.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.subGray));
                     confirmBtn.setOnClickListener(null);
                 }
@@ -142,7 +150,7 @@ public class SignUp2Step extends AppCompatActivity implements DatePickerDialog.O
                 final Button confirmBtn = (Button) findViewById(R.id.confirmBtn);
 
                 //아이디, 휴대폰 형식 모두 맞으면 버튼 활성화
-                if(idOk[0]&&phoneOk[0]){
+                if (idOk[0] && phoneOk[0]) {
 
                     //색지정 할때 getApplicationContext().getResources().getColor(컬러이름)으로 해주세요.
                     confirmBtn.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.mainPurple));
@@ -154,7 +162,7 @@ public class SignUp2Step extends AppCompatActivity implements DatePickerDialog.O
                             startTabBar();
                         }
                     });
-                }else {
+                } else {
                     confirmBtn.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.subGray));
                     confirmBtn.setOnClickListener(null);
                 }
@@ -185,8 +193,8 @@ public class SignUp2Step extends AppCompatActivity implements DatePickerDialog.O
     }
 
     //아이디 형식이 제대로 되어있나 체크 메소드
-    public static boolean checkId(String inputID){
-        String regex =  "^[a-z0-9_]{4,15}$";
+    public static boolean checkId(String inputID) {
+        String regex = "^[a-z0-9_]{4,15}$";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(inputID);
         boolean isNormal = m.matches();
@@ -194,64 +202,73 @@ public class SignUp2Step extends AppCompatActivity implements DatePickerDialog.O
     }
 
     //휴대폰번호 형식이 제대로 되어있나 체크 메소드
-    public static boolean checkPhone(String phone){
-        String regex =  "^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$";
+    public static boolean checkPhone(String phone) {
+        String regex = "^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(phone);
         boolean isNormal = m.matches();
         return isNormal;
     }
 
-    public void signUp(String id, String email, String password, String birth, String phone){
-        //회원가입 서버로 보내기
-        //POST
-        SignUp signUp = new SignUp();
+//    public void signUp(String id, String email, String password, String birth, String phone){
+//        //회원가입 서버로 보내기
+//        //POST
+//        SignUp signUp = new SignUp();
+//
+//        Profile profile = new Profile();
+//
+//        profile.setUser_birth(birth);
+//        profile.setUser_phone(phone);
+//
+//        //signUp POST
+//        signUp.setEmail(email);
+//        signUp.setUsername(id);
+//        signUp.setPassword(password);
+//        signUp.setProfile(profile);
+//        Log.e("프로필",String.valueOf(profile));
+//
+//        Call<SignUp> postCall = apiService.postSignUp(signUp);
+//        postCall.enqueue(new Callback<SignUp>() {
+//        @Override
+//        public void onResponse(Call<SignUp> call, Response<SignUp> response) {
+//            if( response.isSuccessful()) {
+//                Log.e("회원가입:","성공");
+//            } else {
+//            int StatusCode = response.code();
+//            String s = response.message();
+//            ResponseBody d = response.errorBody();
+//            SignUp a = response.body();
+//            Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
+//            Log.e("메세지",s);
+//            Log.e("리스폰스에러바디",String.valueOf(d));
+//            Log.e("리스폰스바디",String.valueOf(a));
+//            }
+//        }
+//
+//        @Override
+//        public void onFailure(Call<SignUp> call, Throwable t) {
+//            Log.i(ApplicationController.TAG, "실패 Message : " + t.getMessage());
+//            }
+//        });
+//    }
 
-        Profile profile = new Profile();
 
-        profile.setUser_birth(birth);
-        profile.setUser_phone(phone);
-
-        //signUp POST
-        signUp.setEmail(email);
-        signUp.setUsername(id);
-        signUp.setPassword(password);
-        signUp.setProfile(profile);
-        Log.e("프로필",String.valueOf(profile));
-
-        Call<SignUp> postCall = apiService.postSignUp(signUp);
-        postCall.enqueue(new Callback<SignUp>() {
-        @Override
-        public void onResponse(Call<SignUp> call, Response<SignUp> response) {
-            if( response.isSuccessful()) {
-            } else {
-            int StatusCode = response.code();
-            String s = response.message();
-            ResponseBody d = response.errorBody();
-            SignUp a = response.body();
-            Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
-            Log.e("메세지",s);
-            Log.e("리스폰스에러바디",String.valueOf(d));
-            Log.e("리스폰스바디",String.valueOf(a));
-            }
-        }
-
-        @Override
-        public void onFailure(Call<SignUp> call, Throwable t) {
-            Log.i(ApplicationController.TAG, "실패 Message : " + t.getMessage());
-            }
-        });
+    public void restApiBuilder() {
+        ApplicationController application = ApplicationController.getInstance();
+        application.buildNetworkService("127.0.0.1/8000");
+        //application.buildNetworkService("자신의 ip", 8000);
+        apiService = ApplicationController.getInstance().getRestApiService();
     }
 
     //마이페이지 액티비티로 넘어가기 (나중에 변경할 것)
     public void startTabBar() {
-        Intent tabBarActivity = new Intent(getApplication(),TabBar.class);
+        Intent tabBarActivity = new Intent(getApplication(), TabBar.class);
 
         //이전 액티비티에서 이메일, 비밀번호 받아와서 이어서 작성
         userEmail = getIntent().getStringExtra("email");
-        Log.e("이메일",String.valueOf(userEmail));
+        Log.e("이메일", String.valueOf(userEmail));
         userPassword = getIntent().getStringExtra("password");
-        Log.e("비밀번호",String.valueOf(userPassword));
+        Log.e("비밀번호", String.valueOf(userPassword));
 
         final EditText userIdEdit = (EditText) findViewById(R.id.inputID);
         userId = userIdEdit.getText().toString();
@@ -260,16 +277,24 @@ public class SignUp2Step extends AppCompatActivity implements DatePickerDialog.O
         userPhone = userPhoneEdit.getText().toString();
 
         //아이디, 휴대폰번호 로그 띄우기
-        Log.e("아이디",String.valueOf(userId));
-        Log.e("휴대폰번호",String.valueOf(userPhone));
-        Log.e("생년월일",String.valueOf(userBirth));
+        Log.e("아이디", String.valueOf(userId));
+        Log.e("휴대폰번호", String.valueOf(userPhone));
+        Log.e("생년월일", String.valueOf(userBirth));
 
-        signUp(userId,userEmail,userPassword,userBirth,userPhone);
+        // signUp(userId,userEmail,userPassword,userBirth,userPhone);
+        createAccount(userEmail,userPassword);
+
+        tabBarActivity.putExtra("id", userId);
+        tabBarActivity.putExtra("pw", userPassword);
+        tabBarActivity.putExtra("email", userEmail);
+        tabBarActivity.putExtra("phone", userPhone);
+        tabBarActivity.putExtra("birth", userBirth);
+
         startActivity(tabBarActivity);
     }
 
     //백버튼 메소드
-    public void previousActivity(View v){
+    public void previousActivity(View v) {
         onBackPressed();
     }
 
@@ -294,9 +319,43 @@ public class SignUp2Step extends AppCompatActivity implements DatePickerDialog.O
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         Calendar calendar = new GregorianCalendar(year, monthOfYear, dayOfMonth);
-        birthTextView.setText(year+"년 "+(monthOfYear+1)+"월 "+dayOfMonth+"일");
+        birthTextView.setText(year + "년 " + (monthOfYear + 1) + "월 " + dayOfMonth + "일");
 
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+     //   mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    private void createAccount(String email, String password) {
+        Log.e("TAG", "createAccount:" + email);
+        // [START create_user_with_email]
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.e("TAG","createUserWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.e("TAG", "createUserWithEmail:failure", task.getException());
+                        }
+                    }
+                });
+        // [END create_user_with_email]
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+//        if (mAuthListener != null) {
+//            mAuth.removeAuthStateListener(mAuthListener);
+//        }
     }
 }
 
