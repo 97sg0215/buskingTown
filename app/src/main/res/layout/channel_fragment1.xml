@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/schedule"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_below="@+id/box">
+
+            <ImageView
+                android:id="@+id/date"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginLeft="20dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/date"/>
+
+            <TextView
+                android:id="@+id/dateSe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="42dp"
+                android:fontFamily="@font/kopubbold"
+                android:text="일 정"
+                android:textColor="@color/fontBlack"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/scheduleList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="93.5dp"
+                android:fontFamily="@font/kopubmedium"
+                android:lineSpacingExtra="1.5sp"
+                android:text="앞으로의 일정이 없습니다."
+                android:textColor="@color/fontBlack"
+                android:textSize="14sp" />
+
+            <ImageButton
+                android:id="@+id/dropdown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dropdown"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:visibility="gone" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.9dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/sub2Gray" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/addSchedule"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/concert"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_below="@+id/addSchedule">
+
+            <ImageView
+                android:id="@+id/ticket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ticket"/>
+
+            <TextView
+                android:id="@+id/concertCo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="42dp"
+                android:fontFamily="@font/kopubbold"
+                android:text="콘서트"
+                android:textColor="@color/fontBlack"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="93.5dp"
+                android:fontFamily="@font/kopubmedium"
+                android:lineSpacingExtra="1.5sp"
+                android:text="진행중인 콘서트가 없습니다."
+                android:textColor="@color/fontBlack"
+                android:textSize="14sp" />
+
+            <ImageButton
+                android:id="@+id/dropdown2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dropdown"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:visibility="gone"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.9dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/sub2Gray" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/buskerPost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="146.4dp"
+                android:gravity="center_vertical"
+                android:layout_centerHorizontal="true"
+                android:text="아직 올라온 게시물이 없습니다!"
+                android:fontFamily="@font/kopubdotummedium"
+                android:textSize="14sp"
+                android:lineSpacingExtra="-5sp" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+</FrameLayout>
