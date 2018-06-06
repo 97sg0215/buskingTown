@@ -33,14 +33,14 @@
         <activity android:name=".FailPass" />
         <activity android:name=".ChannelBusker" />
         <activity android:name=".ChannelUser" />
-        <!--코인 보내기 성공했을때 팝업창-->
+        <!-- 코인 보내기 성공했을때 팝업창 -->
         <activity
-            android:theme="@android:style/Theme.Dialog"
-            android:name=".CoinSendSuccess_pop" />
-        <!--코인 보내기 실패했을때 팝업창-->
+            android:name=".CoinSendSuccess_pop"
+            android:theme="@android:style/Theme.Dialog" />
+        <!-- 코인 보내기 실패했을때 팝업창 -->
         <activity
-            android:theme="@android:style/Theme.Dialog"
-            android:name=".CoinSendFail_pop"/>
+            android:name=".CoinSendFail_pop"
+            android:theme="@android:style/Theme.Dialog" />
     </application>
 
 </manifest>
