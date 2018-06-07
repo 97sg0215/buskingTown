@@ -188,7 +188,7 @@
             </RelativeLayout>
 
             <View
-                android:id="@+id/viewOnd"
+                android:id="@+id/overLine"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/sub2Gray" />
@@ -202,30 +202,37 @@
                 android:orientation="horizontal"
                 android:gravity="center_horizontal">
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/board"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#fff"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
                     android:src="@drawable/board"
-                    android:layout_marginTop="20dp" />
+                     />
 
                 <ImageView
                     android:id="@+id/calendar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
                     android:src="@drawable/calendar"
-                    android:layout_marginLeft="148dp"/>
+                    android:layout_gravity="center"
+                    android:layout_weight="1"/>
 
             </LinearLayout>
 
             <View
-                android:id="@+id/viewTwo"
+                android:id="@+id/underline"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/sub2Gray" />
 
+
+            <FrameLayout
+                android:id="@+id/fragmentContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
