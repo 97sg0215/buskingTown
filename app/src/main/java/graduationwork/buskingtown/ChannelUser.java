@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +25,7 @@ public class ChannelUser extends AppCompatActivity {
         LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         for (int scheduleCount=0; scheduleCount<test_schedule; scheduleCount++) {
             addSchedule(inflater);
-            Log.e("for문 횟수",String.valueOf(scheduleCount));
+            Log.e("for문 횟수", String.valueOf(scheduleCount));
         }
     }
 
@@ -47,4 +48,5 @@ public class ChannelUser extends AppCompatActivity {
             });
         }
     }
+
 }
