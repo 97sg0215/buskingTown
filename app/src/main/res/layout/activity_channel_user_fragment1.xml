@@ -142,7 +142,5 @@
                 android:lineSpacingExtra="-5sp" />
 
         </RelativeLayout>
-
-
     </LinearLayout>
 </FrameLayout>
