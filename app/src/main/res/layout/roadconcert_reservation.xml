@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="320dp"
+    android:layout_height="166.5dp"
+    android:background="@color/mainGray">
+
+    <ImageView
+        android:id="@+id/dateImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/date"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="17dp"/>
+
+    <TextView
+        android:id="@+id/dateTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/dateImg"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:lineSpacingExtra="1.5sp"
+        android:text="0000-00-00(금)  00:00~00:00"/>
+
+    <TextView
+        android:id="@+id/locationName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dateTime"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/kopubbold"
+        android:textColor="@color/fontBlack"
+        android:textSize="14sp"
+        android:lineSpacingExtra="1.5sp"
+        android:text="장소명"/>
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dateTime"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/locationName"
+        android:text="주소가 있을자리"
+        android:textColor="@color/fontBlack"
+        android:fontFamily="@font/kopubdotummedium"
+        android:textSize="14sp"
+        android:lineSpacingExtra="1.5sp"
+        android:layout_marginLeft="27.5dp"/>
+
+    <TextView
+        android:id="@+id/datailAddressName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/location"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/kopubbold"
+        android:textColor="@color/fontBlack"
+        android:lineSpacingExtra="1.5sp"
+        android:textSize="14sp"
+        android:text="상세주소"/>
+
+    <TextView
+        android:id="@+id/datailAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/location"
+        android:layout_toRightOf="@id/datailAddressName"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:fontFamily="@font/kopubdotummedium"
+        android:textColor="@color/fontBlack"
+        android:lineSpacingExtra="1.5sp"
+        android:textSize="14sp"
+        android:text="상세주소가 있을자리"/>
+    
+    <Button
+        android:layout_width="110.2dp"
+        android:layout_height="35dp"
+        android:layout_below="@id/datailAddressName"
+        android:background="@drawable/fail_btn"
+        android:layout_marginLeft="105dp"
+        android:layout_marginTop="19.9dp"
+        android:text="공연취소"
+        android:textColor="#fff"
+        android:fontFamily="@font/kopubbold"
+        android:textSize="14sp"
+        android:lineSpacingExtra="-5sp"
+        style="?android:attr/borderlessButtonStyle"/>
+
+</RelativeLayout>
