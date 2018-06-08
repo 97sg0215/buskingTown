@@ -44,7 +44,8 @@
         <activity android:name=".ChannelBuskerSchedule" />
         <activity android:name=".ChannelBuskerReservation" />
         <activity android:name=".ChannelBuskerPracticeroom" />
-        <activity android:name=".ChannelBuskerConcert"></activity>
+        <activity android:name=".ChannelBuskerConcert" />
+        <activity android:name=".ChannelBuskerTab"></activity>
     </application>
 
 </manifest>
