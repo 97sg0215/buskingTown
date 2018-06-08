@@ -42,7 +42,9 @@
             android:name=".CoinSendFail_pop"
             android:theme="@android:style/Theme.Dialog" />
         <activity android:name=".ChannelBuskerSchedule" />
-        <activity android:name=".ChannelBuskerReservation"></activity>
+        <activity android:name=".ChannelBuskerReservation" />
+        <activity android:name=".ChannelBuskerPracticeroom" />
+        <activity android:name=".ChannelBuskerConcert"></activity>
     </application>
 
 </manifest>
