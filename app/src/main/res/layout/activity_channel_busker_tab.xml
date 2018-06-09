@@ -8,18 +8,6 @@
     tools:context=".ChannelBuskerTab">
 
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/statusBar"
-        android:overScrollMode="never"
-        android:scrollbars="none">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
         <LinearLayout
             android:id="@+id/buskerTab"
             android:layout_width="match_parent"
@@ -116,19 +104,18 @@
 
         </LinearLayout>
         <View
-            android:id="@+id/underline"
+            android:id="@+id/buskerTabunderline"
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_below="@+id/buskerTab"
             android:background="@color/sub2Gray" />
 
         <FrameLayout
-            android:id="@+id/fragmentContainer"
+            android:id="@+id/buskerFragmentContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/buskerTabunderline"/>
 
-        </LinearLayout>
-
-    </ScrollView>
 
 </RelativeLayout>
 
