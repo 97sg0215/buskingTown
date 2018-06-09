@@ -41,7 +41,6 @@
         <activity
             android:name=".CoinSendFail_pop"
             android:theme="@android:style/Theme.Dialog" />
-        <activity android:name=".ChannelBuskerTab"></activity>
     </application>
 
 </manifest>
