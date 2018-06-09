@@ -81,6 +81,15 @@
             android:textSize="15dp"
             android:onClick="coinSendSuccess"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="버스커메인채널 바로그기"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fff"
+            android:textSize="15dp"
+            android:onClick="buskerMainChannel"/>
+
     </LinearLayout>
 
     <RelativeLayout
