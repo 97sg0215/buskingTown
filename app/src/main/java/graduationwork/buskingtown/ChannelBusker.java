@@ -11,7 +11,7 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
 
     //호출될프래그먼트 변수들
     private final int scheduleFRAGMENT = 1;
-    private final int reservationFRAGMENT = 2;
+    private final int reservationTabFRAGMENT = 2;
 
     //탭바 아이콘 변수들
     private ImageView board, calendar;
@@ -44,7 +44,7 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
                 break;
 
             case R.id.calendar:
-                callFragment(reservationFRAGMENT);
+                callFragment(reservationTabFRAGMENT);
                 break;
         }
 
@@ -68,9 +68,9 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
                 calendar.setImageResource(R.drawable.unable_calendar);
                 break;
             case 2:
-                // '예약페이지' 호출
-                ChannelBuskerReservation reservationFragment = new ChannelBuskerReservation();
-                transaction.replace(R.id.fragmentContainer, reservationFragment);
+                // '예약 탭 페이지' 호출
+                ChannelBuskerTab reservationtabFragment = new ChannelBuskerTab();
+                transaction.replace(R.id.fragmentContainer, reservationtabFragment);
                 transaction.commit();
 
                 //버튼색 활성화

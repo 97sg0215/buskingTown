@@ -1,106 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="#fff"
     tools:context=".ChannelBuskerTab">
 
-    <LinearLayout
-        android:id="@+id/buskerTab"
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="47.1dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:layout_below="@id/statusBar"
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
-        <RelativeLayout
-            android:id="@+id/roadTab"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/buskerTab"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-            <TextView
-                android:id="@+id/roadConcert"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:lineSpacingExtra="2sp"
-                android:text="거리공연"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:textColor="@color/mainYellow"
-                android:textSize="15sp" />
-            <View
-                android:id="@+id/roadConcertBar"
-                android:layout_width="60dp"
-                android:layout_height="2.5dp"
-                android:layout_below="@+id/roadConcert"
-                android:layout_marginTop="12.5dp"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:background="@color/mainYellow" />
+            android:layout_height="47.1dp"
+            android:orientation="horizontal">
 
-        </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/roadTab"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/roadConcert"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="2sp"
+                    android:text="거리공연"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/mainYellow"
+                    android:textSize="15sp" />
+                <View
+                    android:id="@+id/roadConcertBar"
+                    android:layout_width="60dp"
+                    android:layout_height="2.5dp"
+                    android:layout_below="@+id/roadConcert"
+                    android:layout_marginTop="12.5dp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/mainYellow" />
 
-        <RelativeLayout
-            android:id="@+id/practiceTab"
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/practiceTab"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/practiceRoom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:lineSpacingExtra="2sp"
+                    android:text="연습실"
+                    android:textColor="@color/fontBlack"
+                    android:textSize="15sp" />
+
+                <View
+                    android:id="@+id/practiceRoomBar"
+                    android:layout_width="60dp"
+                    android:layout_height="2.5dp"
+                    android:layout_below="@+id/practiceRoom"
+                    android:layout_marginTop="12.5dp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/mainYellow"
+                    android:visibility="gone"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/concertTab"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/concert"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:lineSpacingExtra="2sp"
+                    android:text="콘서트장"
+                    android:textColor="@color/fontBlack"
+                    android:textSize="15sp" />
+
+                <View
+                    android:id="@+id/concertBar"
+                    android:layout_width="60dp"
+                    android:layout_height="2.5dp"
+                    android:layout_below="@+id/concert"
+                    android:layout_marginTop="12.5dp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/mainYellow"
+                    android:visibility="gone"/>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+        <View
+            android:id="@+id/underline"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_height="1dp"
+            android:background="@color/sub2Gray" />
 
-            <TextView
-                android:id="@+id/practiceRoom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:lineSpacingExtra="2sp"
-                android:text="연습실"
-                android:textColor="@color/fontBlack"
-                android:textSize="15sp" />
-
-            <View
-                android:id="@+id/practiceRoomBar"
-                android:layout_width="60dp"
-                android:layout_height="2.5dp"
-                android:layout_below="@+id/practiceRoom"
-                android:layout_marginTop="12.5dp"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:background="@color/mainYellow"
-                android:visibility="gone"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/concertTab"
+        <FrameLayout
+            android:id="@+id/fragmentContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_height="wrap_content"/>
 
-            <TextView
-                android:id="@+id/concert"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:lineSpacingExtra="2sp"
-                android:text="콘서트장"
-                android:textColor="@color/fontBlack"
-                android:textSize="15sp" />
+        </LinearLayout>
 
-            <View
-                android:id="@+id/concertBar"
-                android:layout_width="60dp"
-                android:layout_height="2.5dp"
-                android:layout_below="@+id/concert"
-                android:layout_marginTop="12.5dp"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:background="@color/mainYellow"
-                android:visibility="gone"/>
+    </ScrollView>
 
-        </RelativeLayout>
+</RelativeLayout>
 
-
-    </LinearLayout>
-
-</FrameLayout>

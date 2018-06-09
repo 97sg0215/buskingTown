@@ -206,11 +206,10 @@
                     android:id="@+id/board"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#fff"
-                    android:layout_weight="1"
                     android:layout_gravity="center"
-                    android:src="@drawable/board"
-                     />
+                    android:layout_weight="1"
+                    android:background="#fff"
+                    android:src="@drawable/board" />
 
                 <ImageView
                     android:id="@+id/calendar"
