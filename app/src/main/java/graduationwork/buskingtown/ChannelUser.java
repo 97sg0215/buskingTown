@@ -1,21 +1,20 @@
 package graduationwork.buskingtown;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 public class ChannelUser extends AppCompatActivity {
 
     int test_schedule=5;
+    int test_concert=5;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +26,11 @@ public class ChannelUser extends AppCompatActivity {
             addSchedule(inflater);
             Log.e("for문 횟수", String.valueOf(scheduleCount));
         }
+        for(int concertCount=0; concertCount<test_concert; concertCount++){
+            addConcert(inflater);
+            Log.e("fot문 횟수", String.valueOf(concertCount));
+        }
+
     }
 
     public void addSchedule(final LayoutInflater inflater){
@@ -49,4 +53,24 @@ public class ChannelUser extends AppCompatActivity {
         }
     }
 
+    public void addConcert(final LayoutInflater inflater){
+        final LinearLayout concertBox = (LinearLayout) findViewById(R.id.addConcert);
+        final ImageButton dropdownBtn2 = (ImageButton) findViewById(R.id.dropdown2);
+        if(test_concert > 1){
+            dropdownBtn2.setVisibility(View.VISIBLE);
+            View list = inflater.inflate(R.layout.concert_list,concertBox);
+            if(list.getParent()!=null)
+                ((ViewGroup)list.getParent()).removeView(list);
+            concertBox.addView(list);
+            concertBox.setVisibility(View.GONE);
+            dropdownBtn2.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    concertBox.setVisibility(View.VISIBLE);
+                    dropdownBtn2.setBackground(getDrawable(R.drawable.more));
+                }
+            });
+        }
+    }
 }
