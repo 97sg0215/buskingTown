@@ -30,9 +30,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    //fiebase연결
+//    //fiebase연결
     implementation 'com.google.firebase:firebase-core:11.6.2'
-    implementation 'com.google.firebase:firebase-auth:11.6.2'
+    //implementation 'com.google.firebase:firebase-auth:11.6.2'
     //피카소 라이브러리
     implementation 'com.squareup.picasso:picasso:2.3.3'
     //API연결을 위한 retrofit 라이브러리

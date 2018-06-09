@@ -2,12 +2,15 @@ package graduationwork.buskingtown.api;
 
 import android.database.Observable;
 
+import graduationwork.buskingtown.model.Login;
+import graduationwork.buskingtown.model.User;
 import graduationwork.buskingtown.model.OauthToken;
 import graduationwork.buskingtown.model.SignUp;
-import graduationwork.buskingtown.model.User;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -19,13 +22,12 @@ public interface RestApiService {
     @POST("sign_up/")
     Call<SignUp> postSignUp(@Body SignUp signUp);
 
-    //토큰 생성을 위한 포스트
-    @POST("/o/oauth2/token")
-    Observable<OauthToken> getAccessToken(@Query("grant_type") String grantType, @Query("username") String username, @Query("password") String password);
+    //로그인을 위한 데이터 포스트
+    @POST("accounts/login/")
+    Call<User> login(@Body Login login);
 
-//    @GET("user/")
-//    Class<Profile>  getPublicUserProfile (@Body Profile profile);
+    //유저 토큰 생성
+    @GET("user/")
+    Call<ResponseBody> getSecret(@Header("Authorization") String authToken);
 
-    @GET("user")
-    Call<User> getUserById(@Query("user_name") String username);
 }
