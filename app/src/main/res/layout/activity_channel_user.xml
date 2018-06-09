@@ -292,6 +292,13 @@
 
             </RelativeLayout>
 
+            <LinearLayout
+                android:id="@+id/addConcert"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            </LinearLayout>
+
             <RelativeLayout
                 android:id="@+id/buskerPost"
                 android:layout_width="match_parent"

@@ -15,7 +15,6 @@ public class ChannelUser extends AppCompatActivity {
     int test_schedule=5;
     int test_concert=5;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,12 +25,12 @@ public class ChannelUser extends AppCompatActivity {
             addSchedule(inflater);
             Log.e("for문 횟수", String.valueOf(scheduleCount));
         }
-        for(int concertCount=0; concertCount<test_concert; concertCount++){
+        for (int scheduleCount=0; scheduleCount<test_concert; scheduleCount++) {
             addConcert(inflater);
-            Log.e("fot문 횟수", String.valueOf(concertCount));
+            Log.e("for문 횟수", String.valueOf(scheduleCount));
         }
-
     }
+
 
     public void addSchedule(final LayoutInflater inflater){
         final LinearLayout scheduleBox = (LinearLayout) findViewById(R.id.addSchedule);
@@ -39,7 +38,7 @@ public class ChannelUser extends AppCompatActivity {
         if (test_schedule > 1 ){
             dropdownBtn.setVisibility(View.VISIBLE);
             View list = inflater.inflate(R.layout.schedule_list,scheduleBox,false);
-            if(list.getParent()!=null)
+            if(list.getParent()!= null)
                 ((ViewGroup)list.getParent()).removeView(list);
             scheduleBox.addView(list);
             scheduleBox.setVisibility(View.GONE);
@@ -58,7 +57,7 @@ public class ChannelUser extends AppCompatActivity {
         final ImageButton dropdownBtn2 = (ImageButton) findViewById(R.id.dropdown2);
         if(test_concert > 1){
             dropdownBtn2.setVisibility(View.VISIBLE);
-            View list = inflater.inflate(R.layout.concert_list,concertBox);
+            View list = inflater.inflate(R.layout.concert_list,concertBox,false);
             if(list.getParent()!=null)
                 ((ViewGroup)list.getParent()).removeView(list);
             concertBox.addView(list);
