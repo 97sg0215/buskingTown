@@ -23,6 +23,8 @@ public class ChannelBuskerTab extends Fragment {
         // Required empty public constructor
     }
 
+
+
     @Override
     @SuppressLint("ResourceAsColor")
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,6 +39,9 @@ public class ChannelBuskerTab extends Fragment {
         final View roadConcertBar = (View) v.findViewById(R.id.roadConcertBar);
         final View practiceRoomBar = (View) v.findViewById(R.id.practiceRoomBar);
         final View concertBar = (View) v.findViewById(R.id.concertBar);
+
+        //처음 childfragment 지정
+        getFragmentManager().beginTransaction().add(R.id.buskerFragmentContainer, new ChannelBuskerReservation()).commit();
 
         //클릭메소드 연결
         roadConcert.setOnClickListener(new View.OnClickListener(){
