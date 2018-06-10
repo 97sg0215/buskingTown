@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -185,6 +186,9 @@ public class BuskerCertification extends AppCompatActivity {
                     //배치해놓은 ImageView에 set
                     ImageView imageS = (ImageView)findViewById(R.id.imageIcon);
                     imageS.setImageBitmap(image_bitmap);
+
+                    String filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/SmartWheel" + System.currentTimeMillis() + ".jpg";
+                    Log.e("filepath",filePath);
 
                 }catch (FileNotFoundException e) { e.printStackTrace(); }
                 catch (IOException e) { e.printStackTrace(); }
