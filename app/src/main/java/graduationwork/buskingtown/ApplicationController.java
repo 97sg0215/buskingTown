@@ -10,6 +10,8 @@ import android.util.Log;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static graduationwork.buskingtown.api.RestApiService.API_URL;
+
 
 public class ApplicationController extends Application {
     public final static String TAG = "BuskingTown";
@@ -31,28 +33,10 @@ public class ApplicationController extends Application {
         return restApiService;
     }
 
-    private String API_URL;
 
-    public void buildNetworkService(String ip, int port) {
-        synchronized (ApplicationController.class) {
-            if (getRestApiService() == null) {
-                API_URL = String.format("http://%s:%d/", ip, port);
-                Log.i(TAG, API_URL);
-
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(API_URL)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-
-                restApiService = retrofit.create(RestApiService.class);
-            }
-        }
-    }
-
-    public void buildNetworkService(String ip) {
+    public void buildNetworkService() {
         synchronized (ApplicationController.class) {
             if (restApiService == null) {
-                API_URL = String.format("http://%s/", ip);
                 Log.i(TAG, API_URL);
 
                 Retrofit retrofit = new Retrofit.Builder()

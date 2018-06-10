@@ -1,6 +1,9 @@
 package graduationwork.buskingtown;
 
+import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -11,12 +14,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Base64;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.Login;
 import graduationwork.buskingtown.model.User;
+import graduationwork.buskingtown.model.UserDetail;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,7 +32,6 @@ public class LoginActivity extends AppCompatActivity {
     private RestApiService apiService;
 
     String inputValue = null;
-    String token = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,8 +165,17 @@ public class LoginActivity extends AppCompatActivity {
                 User user = response.body();
                 if (response.isSuccessful()) {
                     Log.e("로그인:", "성공");
-                    token = user.getToken();
-                    Log.e("토큰", token);
+                    //토큰 생성
+                    String base = username + ":" + password;
+                    String auth_header = "Basic " + android.util.Base64.encodeToString(base.getBytes(), android.util.Base64.NO_WRAP);
+
+                    accessToken(auth_header);
+                    Log.e("토큰", user.getToken());
+
+                    //유저 정보 보내기
+                    int id = user.getId();
+                    getUserDetail(auth_header,id);
+
                 } else {
                     //에러 상태 보려고 해둔 코드
                     int StatusCode = response.code();
@@ -182,9 +195,50 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void accessToken() {
-        Call<ResponseBody> call = apiService.getSecret(token);
+    public void saveUserInfo(String username,String user_phone){
+        SharedPreferences pref = getSharedPreferences("User", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("username",username);
+        editor.putString("user_phone",user_phone);
+        editor.commit();
+    }
 
+    public void getUserDetail(String token,int id){
+        final UserDetail[] userDetail = {new UserDetail()};
+        Call<UserDetail> userDetailCall = apiService.getUserDetail(token,id);
+        userDetailCall.enqueue(new Callback<UserDetail>() {
+            @Override
+            public void onResponse(Call<UserDetail> call, Response<UserDetail> response) {
+                userDetail[0] = response.body();
+                String username = userDetail[0].getUsername();
+                String userEmail = userDetail[0].getEmail();
+                String user_birth = userDetail[0].getProfile().getUser_birth();
+                String user_phone = userDetail[0].getProfile().getUser_phone();
+
+                if(response.isSuccessful()){
+                    Log.e("유저정보가져오기:", "성공");
+                    saveUserInfo(username,user_phone);
+                } else{
+                    //에러 상태 보려고 해둔 코드
+                    int StatusCode = response.code();
+                    String s = response.message();
+                    ResponseBody d = response.errorBody();
+                    Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
+                    Log.e("메세지", s);
+                    Log.e("리스폰스에러바디", String.valueOf(d));
+                    Log.e("리스폰스바디", String.valueOf(response.body()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserDetail> call, Throwable t) {
+                Log.i(ApplicationController.TAG, "유저 정보 서버 연결 실패 Message : " + t.getMessage());
+            }
+        });
+    }
+
+    public void accessToken(String token) {
+        Call<ResponseBody> call = apiService.getSecret(token);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -202,18 +256,15 @@ public class LoginActivity extends AppCompatActivity {
                     Log.e("리스폰스바디 : ", String.valueOf(response.body()));
                 }
             }
-
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
             }
         });
     }
 
     public void restApiBuilder() {
         ApplicationController application = ApplicationController.getInstance();
-        application.buildNetworkService("7780b895.ngrok.io");
-        //application.buildNetworkService("127.0.0.1", 8000);
+        application.buildNetworkService();
         apiService = ApplicationController.getInstance().getRestApiService();
     }
 
@@ -226,7 +277,7 @@ public class LoginActivity extends AppCompatActivity {
         String userID = idEdit.getText().toString();
         String userPW = passWdEdit.getText().toString();
 
-        //login(userID, userPW);
+       // login(userID, userPW);
 
         startActivity(tabActivity);
     }

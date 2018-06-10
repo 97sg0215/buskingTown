@@ -2,6 +2,7 @@ package graduationwork.buskingtown;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -41,6 +42,13 @@ public class BuskerCertification extends AppCompatActivity {
         final EditText nameEdit = (EditText) findViewById(R.id.name);
         final EditText cellPhoneEdit = (EditText) findViewById(R.id.cellPhone);
         final EditText tagEdit = (EditText) findViewById(R.id.activity);
+
+        //로그인 액티비티에서 얻어옵니다
+        SharedPreferences pref = getSharedPreferences("User", Activity.MODE_PRIVATE);
+        String user_phone = pref.getString("user_phone",null);
+        Log.e("핸드폰 번호",user_phone);
+
+        cellPhoneEdit.setText(user_phone);
 
         //휴대폰 번호 입력 시 자동으로 하이픈 추가
         cellPhoneEdit.addTextChangedListener(new PhoneNumberFormattingTextWatcher());

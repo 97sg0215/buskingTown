@@ -49,7 +49,6 @@ public class SignUp2Step extends AppCompatActivity implements DatePickerDialog.O
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         restApiBuilder();
 
-        //    mAuth = FirebaseAuth.getInstance();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up2_step);
@@ -241,8 +240,7 @@ public class SignUp2Step extends AppCompatActivity implements DatePickerDialog.O
 
     public void restApiBuilder() {
         ApplicationController application = ApplicationController.getInstance();
-        application.buildNetworkService("7780b895.ngrok.io");
-        //application.buildNetworkService("127.0.0.1", 8000);
+        application.buildNetworkService();
         apiService = ApplicationController.getInstance().getRestApiService();
     }
 
@@ -267,7 +265,7 @@ public class SignUp2Step extends AppCompatActivity implements DatePickerDialog.O
         Log.e("휴대폰번호", String.valueOf(userPhone));
         Log.e("생년월일", String.valueOf(userBirth));
 
-        //signUp(userId, userEmail, userPassword, userBirth, userPhone);
+  //      signUp(userId, userEmail, userPassword, userBirth, userPhone);
 
         startActivity(loginActivity);
     }
@@ -303,5 +301,4 @@ public class SignUp2Step extends AppCompatActivity implements DatePickerDialog.O
 
     }
 }
-
 

@@ -1,15 +1,15 @@
 package graduationwork.buskingtown.model;
 
 public class Profile {
-    String user;
+    int user;
     String user_birth;
     String user_phone;
 
-    public String getUser() {
+    public int getUser() {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(int user) {
         this.user = user;
     }
 

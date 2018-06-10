@@ -182,6 +182,7 @@
                 android:paddingRight="20dp">
 
                 <RelativeLayout
+                    android:id="@+id/goBusker"
                     android:layout_width="match_parent"
                     android:layout_height="55.5dp">
 
@@ -233,7 +234,7 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/kopubmedium"
                         android:paddingLeft="15dp"
-                        android:text="버스커 되기"
+                        android:text="보낸 코인함"
                         android:textColor="@color/fontBlack" />
 
                     <View
