@@ -32,6 +32,7 @@ public class BuskerCertification extends AppCompatActivity {
     final boolean[] teamNameOk = new boolean[1];
     final boolean[] cellPhoneOk = new boolean[1];
     final boolean[] tagOk = new boolean[1];
+    final boolean[] imageOk = new boolean[1];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +44,13 @@ public class BuskerCertification extends AppCompatActivity {
         final EditText nameEdit = (EditText) findViewById(R.id.name);
         final EditText cellPhoneEdit = (EditText) findViewById(R.id.cellPhone);
         final EditText tagEdit = (EditText) findViewById(R.id.activity);
-
-        //로그인 액티비티에서 얻어옵니다
-        SharedPreferences pref = getSharedPreferences("User", Activity.MODE_PRIVATE);
-        String user_phone = pref.getString("user_phone",null);
-        Log.e("핸드폰 번호",user_phone);
-
-        cellPhoneEdit.setText(user_phone);
+//
+//        //로그인 액티비티에서 얻어옵니다
+//        SharedPreferences pref = getSharedPreferences("User", Activity.MODE_PRIVATE);
+//        String user_phone = pref.getString("user_phone",null);
+//        Log.e("핸드폰 번호",user_phone);
+//
+//        cellPhoneEdit.setText(user_phone);
 
         //휴대폰 번호 입력 시 자동으로 하이픈 추가
         cellPhoneEdit.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
@@ -64,7 +65,11 @@ public class BuskerCertification extends AppCompatActivity {
                 intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
 
+                useConfirmBtn();
+
+
             }
+
         });
 
 
@@ -190,6 +195,8 @@ public class BuskerCertification extends AppCompatActivity {
                     String filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/SmartWheel" + System.currentTimeMillis() + ".jpg";
                     Log.e("filepath",filePath);
 
+                    imageOk[0] = checkImage(filePath);
+
                 }catch (FileNotFoundException e) { e.printStackTrace(); }
                 catch (IOException e) { e.printStackTrace(); }
                 catch (Exception e) { e.printStackTrace();	}
@@ -217,7 +224,7 @@ public class BuskerCertification extends AppCompatActivity {
     }
     public boolean checktag(String buskerTag){
         int i = getCharNumber(buskerTag,'#');
-        if(i <=5){
+        if(i>0 && i <=5){
             int z = getCharNumber(buskerTag,' ');
             if(z<=4){
                 return true;
@@ -231,6 +238,17 @@ public class BuskerCertification extends AppCompatActivity {
         }
 
     }
+
+    //이미지가 있는지 체크 메소드
+    public static boolean checkImage(String img){
+        if(img.equals(null)){
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+
     static int getCharNumber(String str, char c)
     {
         int count = 0;
@@ -251,7 +269,7 @@ public class BuskerCertification extends AppCompatActivity {
         final Button confirmBtn = (Button) findViewById(R.id.confirmBtn);
 
         //팀명, 휴대폰, 태그 형식 모두 맞으면 버튼 활성화
-        if(teamNameOk[0]&&cellPhoneOk[0]&&tagOk[0]){
+        if(teamNameOk[0]&&cellPhoneOk[0]&&tagOk[0]&&imageOk[0]){
 
             //색지정 할때 getApplicationContext().getResources().getColor(컬러이름)으로 해주세요.
             confirmBtn.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.mainPurple));
