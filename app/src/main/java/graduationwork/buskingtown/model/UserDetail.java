@@ -4,6 +4,7 @@ public class UserDetail {
     private String email;
     private String username;
     Profile profile;
+    Busker busker;
 
     public String getEmail() {
         return email;
@@ -27,5 +28,13 @@ public class UserDetail {
 
     public void setProfile(Profile profile) {
         this.profile = profile;
+    }
+
+    public Busker getBusker() {
+        return busker;
+    }
+
+    public void setBusker(Busker busker) {
+        this.busker = busker;
     }
 }

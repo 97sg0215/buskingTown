@@ -23,10 +23,18 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import graduationwork.buskingtown.api.RestApiService;
+import graduationwork.buskingtown.model.Busker;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class BuskerCertification extends AppCompatActivity {
 
-    final int REQ_CODE_SELECT_IMAGE=100;
+    private RestApiService apiService;
 
+    final int REQ_CODE_SELECT_IMAGE=100;
 
     //활동팀명,태그갯수 체크 유효성 체크값 담음
     final boolean[] teamNameOk = new boolean[1];
@@ -34,23 +42,24 @@ public class BuskerCertification extends AppCompatActivity {
     final boolean[] tagOk = new boolean[1];
     final boolean[] imageOk = new boolean[1];
 
+    //이전 사용자 변수
+    int user_id;
+    String user_token,user_phone;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_busker_certification);
+
+        restApiBuilder();
 
         //활동팀명,성명,휴대폰,활동지 및 장르(=태그) 에디터 텍스트 입력 변수
         final EditText teamNameEdit = (EditText) findViewById(R.id.teamName);
         final EditText nameEdit = (EditText) findViewById(R.id.name);
         final EditText cellPhoneEdit = (EditText) findViewById(R.id.cellPhone);
         final EditText tagEdit = (EditText) findViewById(R.id.activity);
-//
-//        //로그인 액티비티에서 얻어옵니다
-//        SharedPreferences pref = getSharedPreferences("User", Activity.MODE_PRIVATE);
-//        String user_phone = pref.getString("user_phone",null);
-//        Log.e("핸드폰 번호",user_phone);
-//
-//        cellPhoneEdit.setText(user_phone);
+
+        getLocalData();
 
         //휴대폰 번호 입력 시 자동으로 하이픈 추가
         cellPhoneEdit.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
@@ -66,13 +75,8 @@ public class BuskerCertification extends AppCompatActivity {
                 startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
 
                 useConfirmBtn();
-
-
             }
-
         });
-
-
 
         teamNameEdit.addTextChangedListener(new TextWatcher() {
 
@@ -278,7 +282,7 @@ public class BuskerCertification extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    completeApply();
+                    completeApply(user_id);
                 }
             });
         }else {
@@ -288,7 +292,7 @@ public class BuskerCertification extends AppCompatActivity {
 
     }
 
-    public void completeApply() {
+    public void completeApply(int id) {
         Intent waitPassActivity = new Intent(getApplication(),WaitPass.class);
 
         final EditText teamNameEdit = (EditText) findViewById(R.id.teamName);
@@ -309,9 +313,56 @@ public class BuskerCertification extends AppCompatActivity {
         Log.e("휴대폰번호",String.valueOf(cellPhone));
         Log.e("태그",String.valueOf(tag));
 
+        buskerSetting(id, teamName, name, cellPhone, tag, null);
 
         startActivity(waitPassActivity);
     }
 
+    public void buskerSetting(int id,String teamName,String name, String phone, String tag, String img){
+        Busker busker = new Busker();
+        busker.setUser(id);
+        busker.setBusker_user_name(name);
+        busker.setBusker_team_name(teamName);
+        busker.setBusker_phone(phone);
+        busker.setBusker_tag(tag);
+        busker.setBusker_image(img);
+        busker.setCertification(false);
 
+        Call<Busker> buskerCall = apiService.postBusker(user_token,busker);
+        buskerCall.enqueue(new Callback<Busker>() {
+            @Override
+            public void onResponse(Call<Busker> call, Response<Busker> response) {
+                if (response.isSuccessful()) {
+                    Log.e("버스커인증생성:", "성공");
+                } else {
+                    int StatusCode = response.code();
+                    String s = response.message();
+                    ResponseBody d = response.errorBody();
+                    Busker a = response.body();
+                    Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
+                    Log.e("메세지", s);
+                    Log.e("리스폰스에러바디", String.valueOf(d));
+                    Log.e("리스폰스바디", String.valueOf(a));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Busker> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void getLocalData(){
+        SharedPreferences pref = getSharedPreferences("User", Activity.MODE_PRIVATE);
+        user_token = pref.getString("auth_token",null);
+        user_phone = pref.getString("user_phone",null);
+        user_id = pref.getInt("user_id",0);
+    }
+
+    public void restApiBuilder() {
+        ApplicationController application = ApplicationController.getInstance();
+        application.buildNetworkService();
+        apiService = ApplicationController.getInstance().getRestApiService();
+    }
 }

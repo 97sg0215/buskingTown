@@ -2,6 +2,7 @@ package graduationwork.buskingtown.api;
 
 import android.database.Observable;
 
+import graduationwork.buskingtown.model.Busker;
 import graduationwork.buskingtown.model.Login;
 import graduationwork.buskingtown.model.User;
 import graduationwork.buskingtown.model.OauthToken;
@@ -18,7 +19,7 @@ import retrofit2.http.Query;
 
 public interface RestApiService {
 
-    public  static  final String API_URL="http://fdd6234b.ngrok.io/";
+    public  static  final String API_URL="http://83bb7633.ngrok.io/";
 
     //회원가입을 위한 데이터 포스트
     @POST("accounts/sign_up/")
@@ -36,4 +37,7 @@ public interface RestApiService {
     @GET("user/{user_id}/")
     Call<UserDetail> getUserDetail (@Header("Authorization")String authToken, @Path("user_id")int id);
 
+    //버스커 생성
+    @POST("accounts/certification/")
+    Call<Busker> postBusker (@Header("Authorization")String authToken, @Body Busker busker);
 }

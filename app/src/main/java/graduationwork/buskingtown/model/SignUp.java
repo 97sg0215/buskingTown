@@ -7,6 +7,7 @@ public class SignUp {
     private String username;
     private String password;
     Profile profile;
+    Busker busker;
 
     public String getEmail() {
         return email;
@@ -38,5 +39,13 @@ public class SignUp {
 
     public void setProfile(Profile profile) {
         this.profile = profile;
+    }
+
+    public Busker getBusker() {
+        return busker;
+    }
+
+    public void setBusker(Busker busker) {
+        this.busker = busker;
     }
 }

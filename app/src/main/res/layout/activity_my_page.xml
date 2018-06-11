@@ -120,7 +120,7 @@
                         android:layout_centerHorizontal="true"
                         android:fontFamily="@font/kopubbold"
                         android:lineSpacingExtra="-6.5sp"
-                        android:text="50"
+                        android:text="-"
                         android:textColor="@color/mainPurple"
                         android:textSize="18.5sp" />
 
@@ -153,7 +153,7 @@
                         android:layout_centerHorizontal="true"
                         android:fontFamily="@font/kopubbold"
                         android:lineSpacingExtra="-6.5sp"
-                        android:text="13"
+                        android:text="-"
                         android:textColor="@color/mainPurple"
                         android:textSize="18.5sp" />
 
@@ -187,6 +187,7 @@
                     android:layout_height="55.5dp">
 
                     <TextView
+                        android:id="@+id/goBuskerText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"

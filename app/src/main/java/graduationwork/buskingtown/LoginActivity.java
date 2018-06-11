@@ -157,7 +157,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public void login(String username, String password) {
         Login login = new Login(username, password);
-
         Call<User> userCall = apiService.login(login);
         userCall.enqueue(new Callback<User>() {
             @Override
@@ -195,9 +194,12 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void saveUserInfo(String username,String user_phone){
+    //유저 정보를 저장하여 다른 액티비티에서 불러오기 위함
+    public void saveUserInfo(String token,int user,String username,String user_phone){
         SharedPreferences pref = getSharedPreferences("User", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
+        editor.putString("auth_token",token);
+        editor.putInt("user_id",user);
         editor.putString("username",username);
         editor.putString("user_phone",user_phone);
         editor.commit();
@@ -216,8 +218,9 @@ public class LoginActivity extends AppCompatActivity {
                 String user_phone = userDetail[0].getProfile().getUser_phone();
 
                 if(response.isSuccessful()){
+                    Log.e("유저 아이디",String.valueOf(id));
                     Log.e("유저정보가져오기:", "성공");
-                    saveUserInfo(username,user_phone);
+                    saveUserInfo(token,id,username,user_phone);
                 } else{
                     //에러 상태 보려고 해둔 코드
                     int StatusCode = response.code();
@@ -277,7 +280,7 @@ public class LoginActivity extends AppCompatActivity {
         String userID = idEdit.getText().toString();
         String userPW = passWdEdit.getText().toString();
 
-       // login(userID, userPW);
+        login(userID, userPW);
 
         startActivity(tabActivity);
     }

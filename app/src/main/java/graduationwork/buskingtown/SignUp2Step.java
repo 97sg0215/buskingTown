@@ -265,7 +265,7 @@ public class SignUp2Step extends AppCompatActivity implements DatePickerDialog.O
         Log.e("휴대폰번호", String.valueOf(userPhone));
         Log.e("생년월일", String.valueOf(userBirth));
 
-  //      signUp(userId, userEmail, userPassword, userBirth, userPhone);
+        signUp(userId, userEmail, userPassword, userBirth, userPhone);
 
         startActivity(loginActivity);
     }
@@ -297,8 +297,6 @@ public class SignUp2Step extends AppCompatActivity implements DatePickerDialog.O
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         Calendar calendar = new GregorianCalendar(year, monthOfYear, dayOfMonth);
         birthTextView.setText(year + "년 " + (monthOfYear + 1) + "월 " + dayOfMonth + "일");
-
-
     }
 }
 
