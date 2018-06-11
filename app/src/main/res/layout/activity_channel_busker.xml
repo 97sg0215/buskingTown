@@ -22,6 +22,7 @@
             android:layout_marginLeft="20dp"/>
 
         <TextView
+            android:id="@+id/busker_main_team_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="busker_id"
@@ -70,7 +71,7 @@
                     android:src="@drawable/profile_big"/>
 
                 <TextView
-                    android:id="@+id/buskerId"
+                    android:id="@+id/busker_sub_team_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/profilebig"
@@ -86,7 +87,7 @@
                     android:id="@+id/tag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/buskerId"
+                    android:layout_below="@+id/busker_sub_team_name"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/kopubmedium"
