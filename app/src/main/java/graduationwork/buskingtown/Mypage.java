@@ -64,7 +64,6 @@ public class Mypage extends Fragment {
 
         getBuskerDetail(user_token,user_id);
 
-
         return v;
     }
 
@@ -90,7 +89,7 @@ public class Mypage extends Fragment {
         } else {
             //내 채널 되기 가기
             TextView go_Busker_text = (TextView) getActivity().findViewById(R.id.goBuskerText);
-            if(certification == true){
+            if(certification==true){
                 go_Busker_text.setText("내 채널 가기");
                 go_Busker.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -99,7 +98,7 @@ public class Mypage extends Fragment {
                         startActivity(i);
                     }
                 });
-            }else if(certification == false){
+            }else if(certification==false){
                 go_Busker.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -119,22 +118,26 @@ public class Mypage extends Fragment {
             public void onResponse(Call<UserDetail> call, Response<UserDetail> response) {
                 userDetail[0] = response.body();
                 busker = userDetail[0].getBusker();
-                certification = userDetail[0].getBusker().isCertification();
-                if(response.isSuccessful()){
-                    buskerCheck(certification,busker);
-                    Log.e("유저 아이디",String.valueOf(id));
-                    Log.e("인증상태",String.valueOf(certification));
-                    Log.e("버스커",String.valueOf(busker));
-                    Log.e("버스커유저정보가져오기:", "성공");
-                } else{
-                    //에러 상태 보려고 해둔 코드
-                    int StatusCode = response.code();
-                    String s = response.message();
-                    ResponseBody d = response.errorBody();
-                    Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
-                    Log.e("메세지", s);
-                    Log.e("리스폰스에러바디", String.valueOf(d));
-                    Log.e("리스폰스바디", String.valueOf(response.body()));
+                if(busker != null){
+                    certification = userDetail[0].getBusker().isCertification();
+                    if(response.isSuccessful()){
+                        Log.e("유저 아이디",String.valueOf(id));
+                        Log.e("인증상태",String.valueOf(certification));
+                        Log.e("버스커",String.valueOf(busker));
+                        Log.e("버스커유저정보가져오기:", "성공");
+                        buskerCheck(certification,busker);
+                    } else{
+                        //에러 상태 보려고 해둔 코드
+                        int StatusCode = response.code();
+                        String s = response.message();
+                        ResponseBody d = response.errorBody();
+                        Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
+                        Log.e("메세지", s);
+                        Log.e("리스폰스에러바디", String.valueOf(d));
+                        Log.e("리스폰스바디", String.valueOf(response.body()));
+                    }
+                }else {
+                    buskerCheck(false,null);
                 }
             }
 
