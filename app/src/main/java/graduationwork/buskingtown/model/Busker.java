@@ -1,13 +1,13 @@
 package graduationwork.buskingtown.model;
 
 public class Busker {
-     int user;
-     String busker_user_name;
-     String busker_team_name;
-     String busker_phone;
-     String busker_tag;
-     String busker_image;
-     boolean certification;
+     private int user;
+     private String busker_name;
+     private String team_name;
+     private String busker_phone;
+     private String busker_tag;
+     private String busker_image;
+     private boolean certification;
 
     public int getUser() {
         return user;
@@ -17,20 +17,20 @@ public class Busker {
         this.user = user;
     }
 
-    public String getBusker_user_name() {
-        return busker_user_name;
+    public String getBusker_name() {
+        return busker_name;
     }
 
-    public void setBusker_user_name(String busker_user_name) {
-        this.busker_user_name = busker_user_name;
+    public void setBusker_name(String busker_name) {
+        this.busker_name = busker_name;
     }
 
-    public String getBusker_team_name() {
-        return busker_team_name;
+    public String getTeam_name() {
+        return team_name;
     }
 
-    public void setBusker_team_name(String busker_team_name) {
-        this.busker_team_name = busker_team_name;
+    public void setTeam_name(String team_name) {
+        this.team_name = team_name;
     }
 
     public String getBusker_phone() {

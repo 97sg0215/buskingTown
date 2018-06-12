@@ -126,7 +126,7 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
             public void onResponse(Call<UserDetail> call, Response<UserDetail> response) {
                 userDetail[0] = response.body();
                 String username = userDetail[0].getUsername();
-                String busker_team_name = userDetail[0].getBusker().getBusker_team_name();
+                String busker_team_name = userDetail[0].getBusker().getTeam_name();
                 String busker_tag = userDetail[0].getBusker().getBusker_tag();
                 if(response.isSuccessful()){
                     Log.e("유저 아이디",String.valueOf(id));
