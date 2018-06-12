@@ -321,8 +321,8 @@ public class BuskerCertification extends AppCompatActivity {
     public void buskerSetting(int id,String teamName,String name, String phone, String tag, String img){
         Busker busker = new Busker();
         busker.setUser(id);
-        busker.setBusker_user_name(name);
-        busker.setBusker_team_name(teamName);
+        busker.setBusker_name(name);
+        busker.setTeam_name(teamName);
         busker.setBusker_phone(phone);
         busker.setBusker_tag(tag);
         busker.setBusker_image(img);
