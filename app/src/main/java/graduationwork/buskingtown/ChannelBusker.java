@@ -38,8 +38,8 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_channel_busker);
 
-        restApiBuilder();
-        getLocalData();
+        //restApiBuilder();
+        //getLocalData();
 
         ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
 
@@ -54,7 +54,7 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
         //액티비티 시작하자마자 실행 될 프래그먼트
         callFragment(scheduleFRAGMENT);
 
-        getUserDetail(user_token,user_id);
+        //getUserDetail(user_token,user_id);
 
     }
     //버튼 클릭시 프레그먼트 호출하는 메소드

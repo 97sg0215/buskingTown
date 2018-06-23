@@ -22,7 +22,7 @@
         android:layout_marginLeft="93.5dp"
         android:fontFamily="@font/kopubmedium"
         android:lineSpacingExtra="1.5sp"
-        android:text="새로 생길 콘서트"
+        android:text="-"
         android:textColor="@color/fontBlack"
         android:textSize="14sp" />
 

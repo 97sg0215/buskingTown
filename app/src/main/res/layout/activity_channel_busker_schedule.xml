@@ -48,7 +48,7 @@
                 android:textSize="14sp" />
 
             <ImageButton
-                android:id="@+id/dropdown"
+                android:id="@+id/dropdown_sch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/dropdown"
@@ -66,7 +66,7 @@
         </RelativeLayout>
 
         <LinearLayout
-            android:id="@+id/addSchedule"
+            android:id="@+id/addSchedule_sch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -109,7 +109,7 @@
                 android:textSize="14sp" />
 
             <ImageButton
-                android:id="@+id/dropdown2"
+                android:id="@+id/dropdown_con"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/dropdown"
@@ -125,6 +125,13 @@
                 android:background="@color/sub2Gray" />
 
         </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/addConcert_con"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/buskerPost"

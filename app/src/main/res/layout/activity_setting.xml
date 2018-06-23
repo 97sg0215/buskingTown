@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainGray"
+    tools:context=".Setting">
+
+    <RelativeLayout
+        android:id="@+id/statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="46.1dp"
+        android:background="@color/mainPurple">
+
+        <ImageButton
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:background="#00000000"
+            android:src="@drawable/backbtn" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="설정"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fff"
+            android:fontFamily="@font/kopubbold"
+            android:textSize="17sp"/>
+
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/versionInformation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:layout_below="@+id/statusBar">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="버전 정보"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/fontBlack"
+            android:fontFamily="@font/kopubmedium"
+            android:textSize="14sp"
+            android:lineSpacingExtra="34sp"
+            android:layout_marginTop="19dp"/>
+
+        <TextView
+            android:id="@+id/version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="1.1.1"
+            android:textColor="@color/subGray"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="19dp"/>
+
+        <View
+            android:id="@+id/versionUnderLine"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/sub2Gray"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="18dp"
+            android:layout_below="@+id/version"/>
+
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/noticePassWdChange"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#fff"
+        android:layout_below="@+id/versionInformation">
+
+        <TextView
+            android:id="@+id/notice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="알림"
+            android:textSize="14sp"
+            android:textColor="@color/fontBlack"
+            android:fontFamily="@font/kopubmedium"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:lineSpacingExtra="34sp"/>
+
+        <View
+            android:id="@+id/noticeUnderLine"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/sub2Gray"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/notice"/>
+
+        <TextView
+            android:id="@+id/passWdChange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="비밀번호 변경"
+            android:textColor="@color/fontBlack"
+            android:textSize="14sp"
+            android:fontFamily="@font/kopubmedium"
+            android:lineSpacingExtra="34sp"
+            android:layout_marginTop="19.5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@id/noticeUnderLine"/>
+
+        <View
+            android:id="@+id/passWdChangeUnderLine"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/sub2Gray"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/passWdChange"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#fff"
+        android:layout_below="@id/noticePassWdChange">
+
+        <TextView
+            android:id="@+id/memberLeave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="탈퇴 하기"
+            android:textColor="@color/fontBlack"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="19.5dp"/>
+
+        <View
+            android:id="@+id/memberLeaveUnderLine"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/sub2Gray"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/memberLeave"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

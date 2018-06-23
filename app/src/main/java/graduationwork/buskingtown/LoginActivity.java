@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Base64;
 import java.util.regex.Matcher;
@@ -76,7 +77,9 @@ public class LoginActivity extends AppCompatActivity {
                     //로그인 버튼 클릭시 메소드
                     loginBtn.setOnClickListener(new Button.OnClickListener() {
                                                     public void onClick(View v) {
-                                                        mainEnter();
+                                                        String userID = idEdit.getText().toString();
+                                                        String userPW = passWdEdit.getText().toString();
+                                                        login(userID, userPW);
                                                     }
                                                 }
                     );
@@ -116,7 +119,9 @@ public class LoginActivity extends AppCompatActivity {
                     //로그인 버튼 클릭시 메소드
                     loginBtn.setOnClickListener(new Button.OnClickListener() {
                                                     public void onClick(View v) {
-                                                        mainEnter();
+                                                        String userID = idEdit.getText().toString();
+                                                        String userPW = passWdEdit.getText().toString();
+                                                        login(userID, userPW);
                                                     }
                                                 }
                     );
@@ -175,7 +180,9 @@ public class LoginActivity extends AppCompatActivity {
                     int id = user.getId();
                     getUserDetail(auth_header,id);
 
+                    mainEnter();
                 } else {
+                    Toast.makeText(getApplicationContext(),"아이디 비밀번호를 확인해주세요",Toast.LENGTH_SHORT).show();
                     //에러 상태 보려고 해둔 코드
                     int StatusCode = response.code();
                     String s = response.message();
@@ -189,6 +196,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
+                Toast.makeText(getApplicationContext(),"아이디 비밀번호를 확인해주세요",Toast.LENGTH_SHORT).show();
                 Log.i(ApplicationController.TAG, "실패 Message : " + t.getMessage());
             }
         });
@@ -274,14 +282,6 @@ public class LoginActivity extends AppCompatActivity {
     //메인액티비티로 넘어가기
     public void mainEnter() {
         Intent tabActivity = new Intent(getApplication(), TabBar.class);
-
-        final EditText idEdit = (EditText) findViewById(R.id.idEdit);
-        final EditText passWdEdit = (EditText) findViewById(R.id.passWdEdit);
-        String userID = idEdit.getText().toString();
-        String userPW = passWdEdit.getText().toString();
-
-        login(userID, userPW);
-
         startActivity(tabActivity);
     }
 
@@ -316,8 +316,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //테스트 액티비티 이건 지울거임
-    public void waitPass(View view) {
-        Intent testActivity2 = new Intent(getApplication(), WaitPass.class);
+    public void setting(View view) {
+        Intent testActivity2 = new Intent(getApplication(), Setting.class);
         startActivity(testActivity2);
     }
 

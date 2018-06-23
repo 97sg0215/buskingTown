@@ -43,7 +43,7 @@
         android:layout_below="@id/dateTime"
         android:layout_marginTop="20dp"
         android:layout_toRightOf="@+id/locationName"
-        android:text="주소가 있을자리"
+        android:text="-"
         android:textColor="@color/fontBlack"
         android:fontFamily="@font/kopubdotummedium"
         android:textSize="14sp"
@@ -75,7 +75,7 @@
         android:textColor="@color/fontBlack"
         android:lineSpacingExtra="1.5sp"
         android:textSize="14sp"
-        android:text="상세주소가 있을자리"/>
+        android:text="-"/>
     
     <Button
         android:layout_width="110.2dp"
