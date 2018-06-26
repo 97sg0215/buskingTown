@@ -1,21 +1,10 @@
 package graduationwork.buskingtown.model;
-import java.util.HashMap;
-import java.util.Map;
 
 public class SignUp {
-    private String email;
     private String username;
     private String password;
-    Profile profile;
-    Busker busker;
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    private String email;
+    private Profile profile;
 
     public String getUsername() {
         return username;
@@ -33,19 +22,19 @@ public class SignUp {
         this.password = password;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public Profile getProfile() {
         return profile;
     }
 
     public void setProfile(Profile profile) {
         this.profile = profile;
-    }
-
-    public Busker getBusker() {
-        return busker;
-    }
-
-    public void setBusker(Busker busker) {
-        this.busker = busker;
     }
 }

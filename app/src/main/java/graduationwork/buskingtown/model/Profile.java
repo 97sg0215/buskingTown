@@ -1,9 +1,9 @@
 package graduationwork.buskingtown.model;
 
 public class Profile {
-    int user;
-    String user_birth;
-    String user_phone;
+    private int user;
+    private String user_birth;
+    private String user_phone;
 
     public int getUser() {
         return user;

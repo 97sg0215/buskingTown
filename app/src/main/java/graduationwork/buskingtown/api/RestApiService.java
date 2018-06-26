@@ -1,25 +1,38 @@
 package graduationwork.buskingtown.api;
 
-import android.database.Observable;
-
 import graduationwork.buskingtown.model.Busker;
 import graduationwork.buskingtown.model.Login;
-import graduationwork.buskingtown.model.User;
-import graduationwork.buskingtown.model.OauthToken;
 import graduationwork.buskingtown.model.SignUp;
+import graduationwork.buskingtown.model.User;
 import graduationwork.buskingtown.model.UserDetail;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 public interface RestApiService {
 
-    public  static  final String API_URL="http://83bb7633.ngrok.io/";
+    public  static  final String API_URL="http://450e1cf9.ngrok.io/";
+
+    //버스커 이미지업로드 포스트
+//    @POST("media/busker_profile_image/")
+//    Call<ResponseBody> uploadPhoto(@Part MultipartBody.Part file, @Part("file") RequestBody name);
+
+    @Multipart
+    @POST("media/busker_profile_image/")
+    Call<ResponseBody> uploadImage(@Part("image\"; filename=\"myfile.jpg\" ") RequestBody file);
+
+//
+//    @Multipart
+//    @POST("media/busker_profile_image/")
+//    Call<ResponseBody> uploadImage(@Part("file\"; fileName=\"myFile.png\" ")RequestBody requestBodyFile, @Part("image") RequestBody requestBodyJson);
 
     //회원가입을 위한 데이터 포스트
     @POST("accounts/sign_up/")

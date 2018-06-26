@@ -3,8 +3,8 @@ package graduationwork.buskingtown.model;
 public class UserDetail {
     private String email;
     private String username;
-    Profile profile;
-    Busker busker;
+    private Profile profile;
+    private Busker busker;
 
     public String getEmail() {
         return email;

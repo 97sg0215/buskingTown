@@ -1,12 +1,11 @@
 package graduationwork.buskingtown.model;
 
 public class User {
-    String token;
-    int id;
-    String username;
-    String email;
-    String user_birth;
-    String user_phone;
+    private String token;
+    private int id;
+    private String username;
+    private String email;
+    private Profile profile;
 
     public String getToken() {
         return token;
@@ -40,19 +39,11 @@ public class User {
         this.email = email;
     }
 
-    public String getUser_birth() {
-        return user_birth;
+    public Profile getProfile() {
+        return profile;
     }
 
-    public void setUser_birth(String user_birth) {
-        this.user_birth = user_birth;
-    }
-
-    public String getUser_phone() {
-        return user_phone;
-    }
-
-    public void setUser_phone(String user_phone) {
-        this.user_phone = user_phone;
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 }
