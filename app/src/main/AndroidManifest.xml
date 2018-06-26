@@ -41,7 +41,10 @@
         <activity
             android:name=".CoinSendFail_pop"
             android:theme="@android:style/Theme.Dialog" />
-        <activity android:name=".Setting"></activity>
+        <activity android:name=".Setting" />
+        <activity android:name=".CoinCharge" />
+        <activity android:name=".VersionInformation" />
+        <activity android:name=".PasswdChange"></activity>
     </application>
 
 </manifest>

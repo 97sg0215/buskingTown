@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".VersionInformation">
+
+    <RelativeLayout
+        android:id="@+id/statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="46.1dp"
+        android:background="@color/mainPurple">
+
+        <ImageButton
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:background="#00000000"
+            android:src="@drawable/backbtn" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="버전정보"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fff"
+            android:fontFamily="@font/kopubbold"
+            android:textSize="17sp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/statusBar"
+        android:background="#fff">
+
+        <TextView
+            android:id="@+id/nowVersion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="현재버전"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:lineSpacingExtra="34sp"
+            android:textColor="@color/fontBlack"
+            android:textSize="14sp"
+            android:fontFamily="@font/kopubmedium"/>
+
+        <TextView
+            android:id="@+id/versionNow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="26dp"
+            android:layout_marginTop="20dp"
+            android:lineSpacingExtra="3sp"
+            android:textSize="14sp"
+            android:fontFamily="@font/kopubmedium"/>
+
+        <View
+            android:id="@+id/versionUnderLine"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/sub2Gray"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/nowVersion"/>
+
+        <TextView
+            android:id="@+id/newVersion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="최신버전"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:lineSpacingExtra="34sp"
+            android:layout_below="@+id/versionUnderLine"
+            android:textColor="@color/fontBlack"
+            android:textSize="14sp"
+            android:fontFamily="@font/kopubmedium"
+            android:layout_marginBottom="18dp"/>
+
+        <TextView
+            android:id="@+id/versionNew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/versionUnderLine"
+            android:layout_marginRight="26dp"
+            android:layout_marginTop="20dp"
+            android:lineSpacingExtra="3sp"
+            android:textSize="14sp"
+            android:fontFamily="@font/kopubmedium"
+            android:layout_marginBottom="18dp"/>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
