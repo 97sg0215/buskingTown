@@ -316,8 +316,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //테스트 액티비티 이건 지울거임
-    public void setting(View view) {
-        Intent testActivity2 = new Intent(getApplication(), Setting.class);
+    public void waitPass(View view) {
+        Intent testActivity2 = new Intent(getApplication(), WaitPass.class);
         startActivity(testActivity2);
     }
 
@@ -330,6 +330,12 @@ public class LoginActivity extends AppCompatActivity {
     //테스트 액티비티 이건 지울거임
     public void buskerMainChannel(View view) {
         Intent testActivity2 = new Intent(getApplication(), ChannelBusker.class);
+        startActivity(testActivity2);
+    }
+
+    //테스트 액티비티 이건 지울거임
+    public void setting(View view) {
+        Intent testActivity2 = new Intent(getApplication(), Setting.class);
         startActivity(testActivity2);
     }
 
