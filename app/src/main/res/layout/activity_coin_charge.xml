@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainGray"
+    tools:context=".CoinCharge">
+
+    <RelativeLayout
+        android:id="@+id/statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="46.1dp"
+        android:background="@color/mainPurple">
+
+        <ImageButton
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:background="#00000000"
+            android:src="@drawable/backbtn" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="코인충전소"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fff"
+            android:fontFamily="@font/kopubbold"
+            android:textSize="17sp"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/statusBar"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/coinPosession"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/statusBar">
+
+                <TextView
+                    android:id="@+id/coinOwn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="보유하고 있는 코인"
+                    android:fontFamily="@font/kopubbold"
+                    android:textColor="@color/fontGray"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="1.5sp"
+                    android:layout_marginTop="45dp"
+                    android:layout_centerHorizontal="true"/>
+
+                <ImageView
+                    android:id="@+id/coinImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/coin"
+                    android:layout_below="@id/coinOwn"
+                    android:layout_marginTop="20dp"
+                    android:layout_centerHorizontal="true"/>
+
+                <TextView
+                    android:id="@+id/coinOwnCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/coinImage"
+                    android:layout_marginTop="20dp"
+                    android:lineSpacingExtra="2sp"
+                    android:text="-"
+                    android:fontFamily="@font/kopubbold"
+                    android:textColor="@color/fontBlack"
+                    android:textSize="20sp"/>
+
+                <View
+                    android:id="@+id/coinOwnCountUnderline"
+                    android:layout_width="100dp"
+                    android:layout_height="0.9dp"
+                    android:layout_below="@+id/coinOwnCount"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/transPurple"/>
+
+                <TextView
+                    android:id="@+id/coinExplanation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/coinOwnCountUnderline"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="30dp"
+                    android:lineSpacingExtra="9sp"
+                    android:textSize="12sp"
+                    android:textColor="@color/fontGray"
+                    android:fontFamily="@font/kopubmedium"
+                    android:text="충전할 수량을 선택하세요. \n코인 1개당 100원이며, 10%의 수수료가 포함되어 있습니다."/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/coinTen"
+                android:layout_width="wrap_content"
+                android:layout_height="37.5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_below="@+id/coinPosession"
+                android:layout_marginTop="15dp"
+                android:background="#fff">
+
+                <ImageView
+                    android:id="@+id/tenDollarImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/dollar"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:id="@+id/tenCoin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="코인 10개"
+                    android:fontFamily="@font/kopubbold"
+                    android:textColor="@color/fontGray"
+                    android:layout_toRightOf="@+id/tenDollarImage"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="15.3dp"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1100원"
+                    android:lineSpacingExtra="1.5sp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="17.5dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/mainPurple"
+                    android:fontFamily="@font/kopubbold"
+                    android:textSize="14sp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/coinThirty"
+                android:layout_width="wrap_content"
+                android:layout_height="37.5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_below="@+id/coinTen"
+                android:layout_marginTop="15dp"
+                android:background="#fff">
+
+                <ImageView
+                    android:id="@+id/thirtyDollarImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/dollar"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:id="@+id/thirtyCoin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="코인 30개"
+                    android:fontFamily="@font/kopubbold"
+                    android:textColor="@color/fontGray"
+                    android:layout_toRightOf="@+id/thirtyDollarImage"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="15.3dp"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3300원"
+                    android:lineSpacingExtra="1.5sp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="17.5dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/mainPurple"
+                    android:fontFamily="@font/kopubbold"
+                    android:textSize="14sp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/coinFifty"
+                android:layout_width="wrap_content"
+                android:layout_height="37.5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_below="@+id/coinThirty"
+                android:layout_marginTop="15dp"
+                android:background="#fff">
+
+                <ImageView
+                    android:id="@+id/fiftyDollarImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/dollar"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:id="@+id/fiftyCoin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="코인 50개"
+                    android:fontFamily="@font/kopubbold"
+                    android:textColor="@color/fontGray"
+                    android:layout_toRightOf="@+id/fiftyDollarImage"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="15.3dp"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5500원"
+                    android:lineSpacingExtra="1.5sp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="17.5dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/mainPurple"
+                    android:fontFamily="@font/kopubbold"
+                    android:textSize="14sp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/coinOnehundred"
+                android:layout_width="wrap_content"
+                android:layout_height="37.5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_below="@+id/coinFifty"
+                android:layout_marginTop="15dp"
+                android:background="#fff">
+
+                <ImageView
+                    android:id="@+id/onehundredDollarImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/dollar"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:id="@+id/onehundredCoin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="코인 100개"
+                    android:fontFamily="@font/kopubbold"
+                    android:textColor="@color/fontGray"
+                    android:layout_toRightOf="@+id/onehundredDollarImage"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="15.3dp"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="11000원"
+                    android:lineSpacingExtra="1.5sp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="17.5dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/mainPurple"
+                    android:fontFamily="@font/kopubbold"
+                    android:textSize="14sp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/coinThreehundred"
+                android:layout_width="wrap_content"
+                android:layout_height="37.5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_below="@+id/coinOnehundred"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="40dp"
+                android:background="#fff">
+
+                <ImageView
+                    android:id="@+id/threehundredDollarImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/dollar"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:id="@+id/threehundredCoin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="코인 100개"
+                    android:fontFamily="@font/kopubbold"
+                    android:textColor="@color/fontGray"
+                    android:layout_toRightOf="@+id/threehundredDollarImage"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="15.3dp"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="11000원"
+                    android:lineSpacingExtra="1.5sp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="17.5dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/mainPurple"
+                    android:fontFamily="@font/kopubbold"
+                    android:textSize="14sp"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

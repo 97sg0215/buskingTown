@@ -4,4 +4,559 @@
     android:layout_height="match_parent"
     android:background="#fff">
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/statusBar"
+            android:layout_width="match_parent"
+            android:layout_height="46.1dp"
+            android:background="@color/mainPurple">
+
+            <ImageButton
+                android:layout_width="114dp"
+                android:layout_height="19dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="13.5dp"
+                android:background="@drawable/logo"/>
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/statusBar"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/banner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="175dp">
+
+                    <ImageButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/banner"/>
+                    
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center_horizontal">
+
+                        <Button
+                            android:id="@+id/alignLeftButton"
+                            android:layout_width="3dp"
+                            android:layout_height="3dp"
+                            android:background="@drawable/able_circle"
+                            android:layout_marginTop="157dp" />
+
+                        <Button
+                            android:id="@+id/leftButton"
+                            android:layout_width="3dp"
+                            android:layout_height="3dp"
+                            android:background="@drawable/enable_circle"
+                            android:layout_marginTop="157dp"
+                            android:layout_alignLeft="@+id/alignLeftButton"
+                            android:layout_marginLeft="5dp"/>
+
+                        <Button
+                            android:id="@+id/centerButton"
+                            android:layout_width="3dp"
+                            android:layout_height="3dp"
+                            android:background="@drawable/enable_circle"
+                            android:layout_marginTop="157dp"
+                            android:layout_alignLeft="@+id/leftButton"
+                            android:layout_marginLeft="5dp"/>
+
+                        <Button
+                            android:id="@+id/rightButton"
+                            android:layout_width="3dp"
+                            android:layout_height="3dp"
+                            android:background="@drawable/enable_circle"
+                            android:layout_marginTop="157dp"
+                            android:layout_alignLeft="@+id/centerButton"
+                            android:layout_marginLeft="5dp"/>
+
+                        <Button
+                            android:id="@+id/alignRightButton"
+                            android:layout_width="3dp"
+                            android:layout_height="3dp"
+                            android:background="@drawable/enable_circle"
+                            android:layout_marginTop="157dp"
+                            android:layout_alignLeft="@+id/rightButton"
+                            android:layout_marginLeft="5dp"/>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/dayStandard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/topTen"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Top 10"
+                            android:textSize="15sp"
+                            android:textColor="@color/fontBlack"
+                            android:fontFamily="@font/kopubbold"
+                            android:lineSpacingExtra="2sp"
+                            android:layout_marginTop="25dp"
+                            android:layout_marginLeft="20dp"/>
+
+                        <TextView
+                            android:id="@+id/day"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@+id/topTen"
+                            android:layout_marginTop="25dp"
+                            android:layout_marginLeft="7.5dp"
+                            android:lineSpacingExtra="1sp"
+                            android:fontFamily="@font/kopubmedium"
+                            android:text="일간 기준"
+                            android:textColor="@color/mainYellow"
+                            android:textSize="15sp"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <HorizontalScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:id="@+id/buskerChannelFirst"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp">
+
+                            <ImageView
+                                android:id="@+id/buskerProfileImangeFirst"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/profile_border"
+                                android:src="@drawable/profile"
+                                android:layout_marginTop="15dp" />
+
+                            <TextView
+                                android:id="@+id/buskerIdFirst"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="-"
+                                android:textSize="10.5sp"
+                                android:textColor="@color/fontBlack"
+                                android:layout_marginTop="5dp"
+                                android:lineSpacingExtra="1sp"
+                                android:layout_marginLeft="10dp"
+                                android:fontFamily="@font/kopubmedium"
+                                android:layout_below="@id/buskerProfileImangeFirst"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/buskerChannelSecond"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp">
+
+                            <ImageView
+                                android:id="@+id/buskerProfileImangeSecond"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/profile_border"
+                                android:src="@drawable/profile"
+                                android:layout_marginTop="15dp" />
+
+                            <TextView
+                                android:id="@+id/buskerIdSecond"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="-"
+                                android:textSize="10.5sp"
+                                android:textColor="@color/fontBlack"
+                                android:layout_marginTop="5dp"
+                                android:lineSpacingExtra="1sp"
+                                android:layout_marginLeft="10dp"
+                                android:fontFamily="@font/kopubmedium"
+                                android:layout_below="@id/buskerProfileImangeSecond"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/buskerChannelThird"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp">
+
+                            <ImageView
+                                android:id="@+id/buskerProfileImangeThird"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/profile_border"
+                                android:src="@drawable/profile"
+                                android:layout_marginTop="15dp" />
+
+                            <TextView
+                                android:id="@+id/buskerIdThird"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="-"
+                                android:textSize="10.5sp"
+                                android:textColor="@color/fontBlack"
+                                android:layout_marginTop="5dp"
+                                android:lineSpacingExtra="1sp"
+                                android:layout_marginLeft="10dp"
+                                android:fontFamily="@font/kopubmedium"
+                                android:layout_below="@id/buskerProfileImangeThird"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/buskerChannelFourth"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp">
+
+                            <ImageView
+                                android:id="@+id/buskerProfileImangeFourth"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/profile_border"
+                                android:src="@drawable/profile"
+                                android:layout_marginTop="15dp" />
+
+                            <TextView
+                                android:id="@+id/buskerIdFourth"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="-"
+                                android:textSize="10.5sp"
+                                android:textColor="@color/fontBlack"
+                                android:layout_marginTop="5dp"
+                                android:lineSpacingExtra="1sp"
+                                android:layout_marginLeft="10dp"
+                                android:fontFamily="@font/kopubmedium"
+                                android:layout_below="@id/buskerProfileImangeFourth"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/buskerChannelFifth"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp">
+
+                            <ImageView
+                                android:id="@+id/buskerProfileImangeFifth"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/profile_border"
+                                android:src="@drawable/profile"
+                                android:layout_marginTop="15dp" />
+
+                            <TextView
+                                android:id="@+id/buskerIdFifth"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="-"
+                                android:textSize="10.5sp"
+                                android:textColor="@color/fontBlack"
+                                android:layout_marginTop="5dp"
+                                android:lineSpacingExtra="1sp"
+                                android:layout_marginLeft="10dp"
+                                android:fontFamily="@font/kopubmedium"
+                                android:layout_below="@id/buskerProfileImangeFifth"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/buskerChannelSixth"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp">
+
+                            <ImageView
+                                android:id="@+id/buskerProfileImangeSixth"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/profile_border"
+                                android:src="@drawable/profile"
+                                android:layout_marginTop="15dp" />
+
+                            <TextView
+                                android:id="@+id/buskerIdSixth"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="-"
+                                android:textSize="10.5sp"
+                                android:textColor="@color/fontBlack"
+                                android:layout_marginTop="5dp"
+                                android:lineSpacingExtra="1sp"
+                                android:layout_marginLeft="10dp"
+                                android:fontFamily="@font/kopubmedium"
+                                android:layout_below="@id/buskerProfileImangeSixth"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/buskerChannelSeventh"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp">
+
+                            <ImageView
+                                android:id="@+id/buskerProfileImangeSeventh"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/profile_border"
+                                android:src="@drawable/profile"
+                                android:layout_marginTop="15dp" />
+
+                            <TextView
+                                android:id="@+id/buskerIdSeventh"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="-"
+                                android:textSize="10.5sp"
+                                android:textColor="@color/fontBlack"
+                                android:layout_marginTop="5dp"
+                                android:lineSpacingExtra="1sp"
+                                android:layout_marginLeft="10dp"
+                                android:fontFamily="@font/kopubmedium"
+                                android:layout_below="@id/buskerProfileImangeSeventh"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/buskerChannelEighth"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp">
+
+                            <ImageView
+                                android:id="@+id/buskerProfileImangeEighth"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/profile_border"
+                                android:src="@drawable/profile"
+                                android:layout_marginTop="15dp" />
+
+                            <TextView
+                                android:id="@+id/buskerIdEighth"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="-"
+                                android:textSize="10.5sp"
+                                android:textColor="@color/fontBlack"
+                                android:layout_marginTop="5dp"
+                                android:lineSpacingExtra="1sp"
+                                android:layout_marginLeft="10dp"
+                                android:fontFamily="@font/kopubmedium"
+                                android:layout_below="@id/buskerProfileImangeEighth"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/buskerChannelNinth"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp">
+
+                            <ImageView
+                                android:id="@+id/buskerProfileImangeNinth"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/profile_border"
+                                android:src="@drawable/profile"
+                                android:layout_marginTop="15dp" />
+
+                            <TextView
+                                android:id="@+id/buskerIdNinth"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="-"
+                                android:textSize="10.5sp"
+                                android:textColor="@color/fontBlack"
+                                android:layout_marginTop="5dp"
+                                android:lineSpacingExtra="1sp"
+                                android:layout_marginLeft="10dp"
+                                android:fontFamily="@font/kopubmedium"
+                                android:layout_below="@id/buskerProfileImangeNinth"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/buskerChannelTenth"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="20dp">
+
+                            <ImageView
+                                android:id="@+id/buskerProfileImangeTenth"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/profile_border"
+                                android:src="@drawable/profile"
+                                android:layout_marginTop="15dp" />
+
+                            <TextView
+                                android:id="@+id/buskerIdTenth"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="-"
+                                android:textSize="10.5sp"
+                                android:textColor="@color/fontBlack"
+                                android:layout_marginTop="5dp"
+                                android:lineSpacingExtra="1sp"
+                                android:layout_marginLeft="10dp"
+                                android:fontFamily="@font/kopubmedium"
+                                android:layout_below="@id/buskerProfileImangeTenth"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </HorizontalScrollView>
+                
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    
+                    <RelativeLayout
+                        android:id="@+id/liveBusker"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_marginTop="25dp"
+                        android:background="@drawable/cityback">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="LIVE 중인 버스커가 없습니다."
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:textColor="@color/fontGray"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/kopubmedium"/>
+
+                    </RelativeLayout>
+                    
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/goingConcert"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="다가오는 콘서트"
+                            android:layout_marginLeft="20dp"
+                            android:fontFamily="@font/kopubbold"
+                            android:textColor="@color/fontBlack"
+                            android:textSize="15sp"
+                            android:lineSpacingExtra="-8.5sp"
+                            android:layout_marginTop="27.5dp"/>
+                        
+                        <TextView
+                            android:id="@+id/readyConcert"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="준비된 콘서트가 없습니다."
+                            android:textColor="@color/fontGray"
+                            android:layout_marginTop="112.9dp"
+                            android:layout_centerHorizontal="true"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:id="@+id/buskerStory"
+                        android:layout_width="match_parent"
+                        android:layout_height="390dp"
+                        android:layout_marginTop="87.1dp"
+                        android:background="@color/mainGray">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="25dp"
+                            android:fontFamily="@font/kopubbold"
+                            android:text="나의 버스커 스토리"
+                            android:textColor="@color/fontBlack"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/buskerStoryNone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="147dp"
+                            android:fontFamily="@font/kopubmedium"
+                            android:lineSpacingExtra="7sp"
+                            android:gravity="center"
+                            android:text="아직 버스커의 팬이 되지 않았나요?\n 같이 찾아봐요 :)"
+                            android:textColor="@color/fontGray"
+                            android:textSize="14sp" />
+
+                        <Button
+                            android:layout_width="190dp"
+                            android:layout_height="35dp"
+                            android:layout_below="@+id/buskerStoryNone"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="25.1dp"
+                            android:background="@drawable/fail_btn"
+                            android:fontFamily="@font/kopubbold"
+                            android:text="좋아하는 버스커 찾기"
+                            android:textColor="#fff"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
+
 </FrameLayout>
