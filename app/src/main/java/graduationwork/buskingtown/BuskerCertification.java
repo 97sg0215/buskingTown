@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -25,6 +27,9 @@ import java.util.regex.Pattern;
 
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.Busker;
+import okhttp3.MediaType;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -199,6 +204,9 @@ public class BuskerCertification extends AppCompatActivity {
                     String filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/SmartWheel" + System.currentTimeMillis() + ".jpg";
                     Log.e("filepath",filePath);
 
+                    File imgfile = new File(filePath);
+                    uploadFile(imgfile);
+
                     imageOk[0] = checkImage(filePath);
 
                 }catch (FileNotFoundException e) { e.printStackTrace(); }
@@ -206,6 +214,31 @@ public class BuskerCertification extends AppCompatActivity {
                 catch (Exception e) { e.printStackTrace();	}
             }
         }
+    }
+
+    public void uploadFile(File file){
+
+        //creating request body for file
+        RequestBody requestFile = RequestBody.create(MediaType.parse(getContentResolver().getType(Uri.fromFile(file))), file);
+
+        //creating a call and calling the upload image method
+        Call<ResponseBody> call = apiService.uploadImage(requestFile);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "File Uploaded Successfully...", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Some error occurred...", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     //활동팀명 형식이 제대로 되어있나 체크 메소드
