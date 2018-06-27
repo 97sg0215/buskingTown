@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainGray"
+    tools:context=".Customer_center">
+
+    <RelativeLayout
+        android:id="@+id/statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="46.1dp"
+        android:background="@color/mainPurple">
+
+        <ImageButton
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:background="#00000000"
+            android:src="@drawable/backbtn" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="고객센터"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fff"
+            android:fontFamily="@font/kopubbold"
+            android:textSize="15sp"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="46.1dp"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:background="#fff"
+                android:orientation="vertical">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55.4dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="도움말"
+                        android:layout_centerVertical="true"
+                        android:lineSpacingExtra="34sp"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/kopubmedium"
+                        android:textColor="@color/fontBlack" />
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:background="@color/sub2Gray"
+                        android:layout_alignParentBottom="true"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55.4dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="문의하기"
+                        android:layout_centerVertical="true"
+                        android:lineSpacingExtra="34sp"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/kopubmedium"
+                        android:textColor="@color/fontBlack" />
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:background="@color/sub2Gray"
+                        android:layout_alignParentBottom="true"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_marginTop="20dp"
+                android:background="#fff"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_centerVertical="true"
+                    android:text="약관 및 정책"
+                    android:lineSpacingExtra="36sp"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/kopubmedium"
+                    android:textColor="@color/subGray" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:background="@color/sub2Gray"
+                    android:layout_alignParentBottom="true"/>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55.4dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="이용약관"
+                        android:layout_centerVertical="true"
+                        android:lineSpacingExtra="34sp"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/kopubmedium"
+                        android:textColor="@color/fontBlack" />
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:background="@color/sub2Gray"
+                        android:layout_alignParentBottom="true"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55.4dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="위치기반서비스 이용약관"
+                        android:layout_centerVertical="true"
+                        android:lineSpacingExtra="34sp"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/kopubmedium"
+                        android:textColor="@color/fontBlack" />
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:background="@color/sub2Gray"
+                        android:layout_alignParentBottom="true"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55.4dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="개인정보 처리방침"
+                        android:layout_centerVertical="true"
+                        android:lineSpacingExtra="34sp"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/kopubmedium"
+                        android:textColor="@color/fontBlack" />
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:background="@color/sub2Gray"
+                        android:layout_alignParentBottom="true"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55.4dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="오픈소스 라이선스"
+                        android:layout_centerVertical="true"
+                        android:lineSpacingExtra="34sp"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/kopubmedium"
+                        android:textColor="@color/fontBlack" />
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:background="@color/sub2Gray"
+                        android:layout_alignParentBottom="true"/>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_marginTop="20dp"
+                android:background="#fff"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_centerVertical="true"
+                    android:text="회사소개"
+                    android:lineSpacingExtra="36sp"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/kopubmedium"
+                    android:textColor="@color/subGray"/>
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:background="@color/sub2Gray"
+                    android:layout_alignParentBottom="true"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="501dp">
+
+                    <TextView
+                        android:id="@+id/company"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="상호"
+                        android:layout_marginTop="19dp"
+                        android:lineSpacingExtra="36sp"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/kopubmedium"
+                        android:textColor="@color/fontBlack" />
+
+                    <TextView
+                        android:id="@+id/companyname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="(주)버스킹타운"
+                        android:layout_below="@+id/company"
+                        android:layout_marginTop="10dp"
+                        android:lineSpacingExtra="34sp"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/kopubmedium"
+                        android:textColor="@color/fontBlack" />
+
+                    <View
+                        android:id="@+id/companyview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:background="@color/sub2Gray"
+                        android:layout_marginTop="19.5dp"
+                        android:layout_below="@+id/companyname"/>
+
+
+                    <TextView
+                        android:id="@+id/ceo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="대표"
+                        android:layout_marginTop="19dp"
+                        android:lineSpacingExtra="36sp"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/kopubmedium"
+                        android:textColor="@color/fontBlack"
+                        android:layout_below="@+id/companyview"/>
+
+                    <TextView
+                        android:id="@+id/ceoname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="박민지 김수경 하성경 호정우"
+                        android:layout_below="@+id/ceo"
+                        android:layout_marginTop="10dp"
+                        android:lineSpacingExtra="34sp"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/kopubmedium"
+                        android:textColor="@color/fontBlack" />
+
+                    <View
+                        android:id="@+id/ceoview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:background="@color/sub2Gray"
+                        android:layout_marginTop="19.5dp"
+                        android:layout_below="@+id/ceoname"/>
+
+                    <TextView
+                        android:id="@+id/businessplace"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="사업장 소재지"
+                        android:layout_marginTop="19dp"
+                        android:lineSpacingExtra="36sp"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/kopubmedium"
+                        android:textColor="@color/fontBlack"
+                        android:layout_below="@+id/ceoview"/>
+
+                    <TextView
+                        android:id="@+id/placename"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="대한민국"
+                        android:layout_below="@+id/businessplace"
+                        android:layout_marginTop="10dp"
+                        android:lineSpacingExtra="34sp"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/kopubmedium"
+                        android:textColor="@color/fontBlack" />
+
+                    <View
+                        android:id="@+id/businessview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:background="@color/sub2Gray"
+                        android:layout_marginTop="19.5dp"
+                        android:layout_below="@+id/placename"/>
+
+                    <TextView
+                        android:id="@+id/businessnum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="사업자등록번호"
+                        android:layout_marginTop="19dp"
+                        android:lineSpacingExtra="36sp"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/kopubmedium"
+                        android:textColor="@color/fontBlack"
+                        android:layout_below="@+id/businessview"/>
+
+                    <TextView
+                        android:id="@+id/bunumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="111-11-11111"
+                        android:layout_below="@+id/businessnum"
+                        android:layout_marginTop="10dp"
+                        android:lineSpacingExtra="34sp"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/kopubmedium"
+                        android:textColor="@color/fontBlack" />
+
+                    <View
+                        android:id="@+id/numberview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:background="@color/sub2Gray"
+                        android:layout_marginTop="19.5dp"
+                        android:layout_below="@+id/bunumber"/>
+
+                    <TextView
+                        android:id="@+id/telenum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="통신판매번호"
+                        android:layout_marginTop="19dp"
+                        android:lineSpacingExtra="36sp"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/kopubmedium"
+                        android:textColor="@color/fontBlack"
+                        android:layout_below="@+id/numberview"/>
+
+                    <TextView
+                        android:id="@+id/telenumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2018-서울왕십리-11111"
+                        android:layout_below="@+id/telenum"
+                        android:layout_marginTop="10dp"
+                        android:lineSpacingExtra="34sp"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/kopubmedium"
+                        android:textColor="@color/fontBlack" />
+
+                    <View
+                        android:id="@+id/teleview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:background="@color/sub2Gray"
+                        android:layout_marginTop="19.5dp"
+                        android:layout_below="@+id/telenumber"/>
+
+                    <TextView
+                        android:id="@+id/centernum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="고객센터 상담번호"
+                        android:layout_marginTop="19dp"
+                        android:lineSpacingExtra="36sp"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/kopubmedium"
+                        android:textColor="@color/fontBlack"
+                        android:layout_below="@+id/teleview"/>
+
+                    <TextView
+                        android:id="@+id/centernumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="02-000-0000"
+                        android:layout_below="@+id/centernum"
+                        android:layout_marginTop="10dp"
+                        android:lineSpacingExtra="34sp"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/kopubmedium"
+                        android:textColor="@color/fontBlack" />
+
+                    <View
+                        android:id="@+id/centerview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:background="@color/sub2Gray"
+                        android:layout_marginTop="19.5dp"
+                        android:layout_below="@+id/centernumber"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

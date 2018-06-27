@@ -47,7 +47,8 @@
         <activity android:name=".PasswdChange" />
         <activity android:name=".WritePost" />
         <activity android:name=".OpenConcert" />
-        <activity android:name=".LikeBusker"></activity>
+        <activity android:name=".LikeBusker" />
+        <activity android:name=".Customer_center"></activity>
     </application>
 
 </manifest>
