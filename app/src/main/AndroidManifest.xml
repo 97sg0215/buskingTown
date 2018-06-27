@@ -44,7 +44,10 @@
         <activity android:name=".Setting" />
         <activity android:name=".CoinCharge" />
         <activity android:name=".VersionInformation" />
-        <activity android:name=".PasswdChange"></activity>
+        <activity android:name=".PasswdChange" />
+        <activity android:name=".WritePost" />
+        <activity android:name=".OpenConcert" />
+        <activity android:name=".LikeBusker"></activity>
     </application>
 
 </manifest>
