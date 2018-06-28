@@ -48,7 +48,7 @@
         <activity android:name=".WritePost" />
         <activity android:name=".OpenConcert" />
         <activity android:name=".LikeBusker" />
-        <activity android:name=".Customer_center"></activity>
+        <activity android:name=".Client_center"></activity>
     </application>
 
 </manifest>
