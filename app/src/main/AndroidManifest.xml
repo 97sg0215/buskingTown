@@ -59,7 +59,8 @@
         <activity android:name=".NoticeDetail" />
         <activity android:name=".ClientCenterLocationBased" />
         <activity android:name=".ClientCenterPersonalInformation" />
-        <activity android:name=".ClientCenterOpenSource"></activity>
         <activity android:name=".MycoinHouse" />
+        <activity android:name=".SettingNotice"/>
+        <activity android:name=".ClientCenterOpenSource"></activity>
     </application>
 </manifest>

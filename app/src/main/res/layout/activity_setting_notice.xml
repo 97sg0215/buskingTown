@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mainGray"
-    tools:context=".Setting">
+    tools:context=".SettingNotice">
 
     <RelativeLayout
         android:id="@+id/statusBar"
@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="설정"
+            android:text="알림"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:textColor="#fff"
@@ -32,121 +32,115 @@
             android:textSize="17sp"/>
 
     </RelativeLayout>
-    
+
     <RelativeLayout
-        android:id="@+id/versionInformation"
+        android:id="@+id/noticeSettingInformation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:background="#fff"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
         android:layout_below="@+id/statusBar">
 
         <TextView
+            android:id="@+id/noticeSetting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="버전 정보"
+            android:text="알림설정"
             android:textColor="@color/fontBlack"
             android:fontFamily="@font/kopubmedium"
             android:textSize="14sp"
             android:lineSpacingExtra="34sp"
             android:layout_marginTop="19dp"/>
-
-        <TextView
-            android:id="@+id/version"
+        
+        <Switch
+            android:id="@+id/noticeSettingSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="-"
-            android:textColor="@color/subGray"
-            android:layout_marginTop="19dp"/>
+            android:layout_marginTop="12.9dp"
+            android:track="@drawable/switch_track_off"
+            android:thumb="@drawable/switch_thumb_selector" />
 
         <View
-            android:id="@+id/versionUnderLine"
+            android:id="@+id/noticeSettingUnderLine"
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:background="@color/sub2Gray"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_marginTop="18dp"
-            android:layout_below="@+id/version"/>
+            android:layout_below="@+id/noticeSetting"/>
 
     </RelativeLayout>
-    
+
     <RelativeLayout
-        android:id="@+id/noticePassWdChange"
+        android:id="@+id/addReceiveLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="#fff"
-        android:layout_below="@+id/versionInformation">
+        android:layout_below="@+id/noticeSettingInformation">
 
         <TextView
-            android:id="@+id/notice"
+            android:id="@+id/eventReceive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="알림"
+            android:text="이벤트 소식 받기"
             android:textSize="14sp"
             android:textColor="@color/fontBlack"
             android:fontFamily="@font/kopubmedium"
             android:layout_marginTop="20dp"
             android:lineSpacingExtra="34sp"/>
 
+        <Switch
+            android:id="@+id/eventReceiveSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="12.9dp"
+            android:track="@drawable/switch_track_off"
+            android:thumb="@drawable/switch_thumb_selector" />
+
         <View
-            android:id="@+id/noticeUnderLine"
+            android:id="@+id/eventReceiveUnderLine"
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:background="@color/sub2Gray"
             android:layout_marginTop="20dp"
-            android:layout_below="@+id/notice"/>
+            android:layout_below="@+id/eventReceive"/>
 
         <TextView
-            android:id="@+id/passWdChange"
+            android:id="@+id/addReceive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="비밀번호 변경"
+            android:text="광고 수신 여부"
             android:textColor="@color/fontBlack"
             android:textSize="14sp"
             android:fontFamily="@font/kopubmedium"
             android:lineSpacingExtra="34sp"
             android:layout_marginTop="19.5dp"
-            android:layout_below="@id/noticeUnderLine"/>
+            android:layout_below="@id/eventReceiveUnderLine"/>
 
-        <View
-            android:id="@+id/passWdChangeUnderLine"
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:background="@color/sub2Gray"
-            android:layout_marginTop="20dp"
-            android:layout_below="@+id/passWdChange"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:background="#fff"
-        android:layout_below="@id/noticePassWdChange">
-
-        <TextView
-            android:id="@+id/memberLeave"
+        <Switch
+            android:id="@+id/addReceiveSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:text="탈퇴 하기"
-            android:textColor="@color/fontBlack"
-            android:layout_marginTop="19.5dp"/>
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="12.9dp"
+            android:layout_below="@id/eventReceiveUnderLine"
+            android:track="@drawable/switch_track_off"
+            android:thumb="@drawable/switch_thumb_selector" />
 
         <View
-            android:id="@+id/memberLeaveUnderLine"
+            android:id="@+id/addReceiveUnderLine"
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:background="@color/sub2Gray"
             android:layout_marginTop="20dp"
-            android:layout_below="@+id/memberLeave"/>
+            android:layout_below="@+id/addReceive"/>
 
     </RelativeLayout>
 
