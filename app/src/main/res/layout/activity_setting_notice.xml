@@ -38,8 +38,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#fff"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
         android:layout_below="@+id/statusBar">
 
         <TextView
@@ -49,6 +47,7 @@
             android:text="알림설정"
             android:textColor="@color/fontBlack"
             android:fontFamily="@font/kopubmedium"
+            android:layout_marginLeft="20dp"
             android:textSize="14sp"
             android:lineSpacingExtra="34sp"
             android:layout_marginTop="19dp"/>
@@ -58,6 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
             android:layout_marginTop="12.9dp"
             android:track="@drawable/switch_track_off"
             android:thumb="@drawable/switch_thumb_selector" />
@@ -79,8 +79,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:background="#fff"
         android:layout_below="@+id/noticeSettingInformation">
 
@@ -92,6 +90,7 @@
             android:textSize="14sp"
             android:textColor="@color/fontBlack"
             android:fontFamily="@font/kopubmedium"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:lineSpacingExtra="34sp"/>
 
@@ -100,6 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
             android:layout_marginTop="12.9dp"
             android:track="@drawable/switch_track_off"
             android:thumb="@drawable/switch_thumb_selector" />
@@ -108,6 +108,8 @@
             android:id="@+id/eventReceiveUnderLine"
             android:layout_width="wrap_content"
             android:layout_height="1dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
             android:background="@color/sub2Gray"
             android:layout_marginTop="20dp"
             android:layout_below="@+id/eventReceive"/>
@@ -122,6 +124,7 @@
             android:fontFamily="@font/kopubmedium"
             android:lineSpacingExtra="34sp"
             android:layout_marginTop="19.5dp"
+            android:layout_marginLeft="20dp"
             android:layout_below="@id/eventReceiveUnderLine"/>
 
         <Switch
@@ -129,6 +132,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
             android:layout_marginTop="12.9dp"
             android:layout_below="@id/eventReceiveUnderLine"
             android:track="@drawable/switch_track_off"
@@ -140,6 +144,8 @@
             android:layout_height="1dp"
             android:background="@color/sub2Gray"
             android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
             android:layout_below="@+id/addReceive"/>
 
     </RelativeLayout>
