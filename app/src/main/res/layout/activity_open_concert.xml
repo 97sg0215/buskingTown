@@ -266,6 +266,12 @@
                     android:fontFamily="@font/kopubmedium"
                     android:layout_marginLeft="10dp"/>
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/arrow_r"
+                    android:layout_alignParentRight="true"/>
+
             </RelativeLayout>
 
             <View

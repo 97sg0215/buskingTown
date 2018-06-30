@@ -48,6 +48,7 @@
         <activity android:name=".WritePost" />
         <activity android:name=".OpenConcert" />
         <activity android:name=".LikeBusker" />
+        <activity android:name=".MycoinHouse" />
         <activity android:name=".Client_center"></activity>
     </application>
 
