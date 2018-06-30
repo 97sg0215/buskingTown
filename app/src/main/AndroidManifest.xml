@@ -61,7 +61,5 @@
         <activity android:name=".ClientCenterPersonalInformation" />
         <activity android:name=".ClientCenterOpenSource"></activity>
         <activity android:name=".MycoinHouse" />
-        <activity android:name=".Client_center"></activity>
     </application>
-
 </manifest>
