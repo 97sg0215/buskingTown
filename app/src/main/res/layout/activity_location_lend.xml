@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    tools:context=".OpenConcert">
+    tools:context=".LocationLend">
 
     <RelativeLayout
         android:id="@+id/statusBar"
@@ -25,7 +25,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="글쓰기"
+            android:text="장소 빌려주기"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:textColor="#fff"
@@ -76,7 +76,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="사진을 선택해주세요. (최대 5장)"
+                    android:text="장소 사진을 선택해주세요. (최대 5장)"
                     android:fontFamily="@font/kopubmedium"
                     android:textColor="@color/fontBlack"
                     android:textSize="12sp"
@@ -85,6 +85,100 @@
                     android:layout_marginTop="15.2dp"/>
 
             </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="73dp"
+                android:paddingLeft="73dp"
+                android:paddingTop="18.8dp"
+                android:paddingBottom="18.8dp"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/checkPracticeRoom"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:checked="false"
+                    android:button="@android:color/transparent"
+                    android:background="@drawable/next_btn"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="연습실"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:textSize="14sp"
+                    android:textColor="@color/fontBlack"
+                    android:fontFamily="@font/kopubmedium" />
+
+                <CheckBox
+                    android:id="@+id/checkConcert"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:checked="false"
+                    android:button="@android:color/transparent"
+                    android:background="@drawable/next_btn"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="콘서트장"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/fontBlack"
+                    android:fontFamily="@font/kopubmedium" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/choiceUnderLine"
+                android:layout_width="match_parent"
+                android:layout_height="0.9dp"
+                android:background="@color/sub2Gray"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp">
+
+                <ImageView
+                    android:id="@+id/phoneS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="21.2dp"
+                    android:background="@drawable/phone_s"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="연락처"
+                    android:layout_marginTop="19.2dp"
+                    android:textColor="@color/fontBlack"
+                    android:fontFamily="@font/kopubbold"
+                    android:layout_marginLeft="10dp"/>
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#0000000"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="14sp"
+                    android:layout_marginTop="19.2dp"
+                    android:textColor="@color/fontBlack"
+                    android:hint="010-0000-0000"
+                    android:fontFamily="@font/kopubmedium"
+                    android:textColorHint="@color/fontGray"/>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/phoneNumUnderLine"
+                android:layout_width="match_parent"
+                android:layout_height="0.9dp"
+                android:background="@color/sub2Gray"/>
 
             <RelativeLayout
                 android:id="@+id/dateLayout"
@@ -101,7 +195,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/date"
                     android:layout_centerVertical="true"/>
-                
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -155,10 +249,9 @@
             </RelativeLayout>
 
             <View
-                android:id="@+id/dateUnderLine"
+                android:id="@+id/dateNumUnderLine"
                 android:layout_width="match_parent"
                 android:layout_height="0.9dp"
-                android:layout_below="@+id/teamName"
                 android:background="@color/sub2Gray"/>
 
             <RelativeLayout
@@ -232,17 +325,15 @@
             </RelativeLayout>
 
             <View
-                android:id="@+id/timeUnderLine"
+                android:id="@+id/timeNumUnderLine"
                 android:layout_width="match_parent"
                 android:layout_height="0.9dp"
                 android:background="@color/sub2Gray"/>
 
-            <RelativeLayout
-                android:id="@+id/placesLayout"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
+                android:layout_height="55.6dp"
+                android:orientation="horizontal"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp">
 
@@ -251,35 +342,37 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/places"
+                    android:layout_marginTop="20.7dp"
                     android:layout_centerVertical="true"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/placesImage"
-                    android:text="장 소"
-                    android:lineSpacingExtra="1.5sp"
+                    android:text="장소"
+                    android:layout_weight="100"
+                    android:fontFamily="@font/kopubbold"
                     android:textColor="@color/fontBlack"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/kopubmedium"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20.2dp"
+                    android:textSize="14sp"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/arrow_r"
-                    android:layout_alignParentRight="true"/>
+                    android:layout_marginTop="19.8dp"
+                    android:layout_weight="1"/>
 
-            </RelativeLayout>
+            </LinearLayout>
 
             <View
-                android:id="@+id/placesUnderLine"
+                android:id="@+id/locationNumUnderLine"
                 android:layout_width="match_parent"
                 android:layout_height="0.9dp"
                 android:background="@color/sub2Gray"/>
 
             <RelativeLayout
-                android:id="@+id/concertInformationLayout"
+                android:id="@+id/locationInformation"
                 android:layout_width="match_parent"
                 android:layout_height="157.6dp"
                 android:paddingLeft="20dp"
@@ -291,7 +384,7 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:textColorHint="@color/fontGray"
-                    android:hint="콘서트를 설명해주세요."
+                    android:hint="장소를 설명해주세요."
                     android:lineSpacingExtra="1.5sp"
                     android:textSize="13sp"
                     android:fontFamily="@font/kopubmedium"/>
@@ -299,86 +392,188 @@
             </RelativeLayout>
 
             <View
-                android:id="@+id/concertInformationUnderLine"
+                android:id="@+id/locationInformationUnderLine"
                 android:layout_width="match_parent"
                 android:layout_height="0.9dp"
                 android:background="@color/sub2Gray"/>
 
-            <RelativeLayout
-                android:id="@+id/price"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingRight="20dp"
-                android:paddingLeft="22.5dp"
-                android:paddingTop="22.2dp"
-                android:paddingBottom="21.4dp">
+                android:layout_height="55.6dp"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
                 <ImageView
                     android:id="@+id/moneySSImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/money_ss"
-                    android:layout_centerVertical="true"/>
+                    android:layout_marginTop="22.2dp"
+                    android:background="@drawable/money_ss" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="가 격"
-                    android:textSize="14sp"
-                    android:lineSpacingExtra="1.5sp"
-                    android:layout_toRightOf="@+id/moneySSImage"
-                    android:layout_marginLeft="12.7dp"
+                    android:text="가격"
+                    android:textColor="@color/fontBlack"
                     android:fontFamily="@font/kopubbold"
-                    android:textColor="@color/fontBlack"/>
+                    android:layout_marginTop="20.2dp"
+                    android:layout_weight="100"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="14sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="/인당"
-                    android:layout_alignParentRight="true"
-                    android:lineSpacingExtra="-1sp"
+                    android:text="/일"
+                    android:layout_marginTop="20.2dp"
                     android:fontFamily="@font/kopubmedium"
+                    android:textColor="@color/fontGray"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/priceUnderLine"
+                android:layout_width="match_parent"
+                android:layout_height="0.9dp"
+                android:background="@color/sub2Gray"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="55.1dp"
+                android:orientation="horizontal"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp">
+
+                <ImageView
+                    android:id="@+id/addS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/add_s"
+                    android:layout_marginTop="21.7dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="옵션 추가"
+                    android:layout_marginTop="19.7dp"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/kopubbold"
                     android:textSize="14sp"
-                    android:textColor="@color/fontGray"/>
+                    android:textColor="@color/mainYellow" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/optionAddUnderLine"
+                android:layout_width="match_parent"
+                android:layout_height="0.9dp"
+                android:background="@color/sub2Gray"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="54.6dp"
+                android:orientation="horizontal"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="21.2dp"
+                    android:background="@drawable/loyalty"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이용 규칙"
+                    android:fontFamily="@font/kopubbold"
+                    android:textColor="@color/fontBlack"
+                    android:textSize="14sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="19.2dp"/>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/rullAddUnderLine"
+                android:layout_width="match_parent"
+                android:layout_height="0.9dp"
+                android:background="@color/sub2Gray"/>
+            
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="53.4dp"
+                android:paddingTop="20.2dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:background="@color/mainGray">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/kopubmedium"
+                    android:textColor="@color/fontGray"
+                    android:hint="- 작성해주세요. 예) 건물내에서 흡연 금지입니다."
+                    android:textColorHint="@color/fontGray"
+                    android:textSize="14.5sp"/>
 
             </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/totalPeople"
+            <View
+                android:id="@+id/rullAdddUnderLine"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
+                android:layout_height="0.9dp"
+                android:background="@color/sub2Gray"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="54.6dp"
+                android:orientation="horizontal"
                 android:paddingRight="20dp"
-                android:paddingTop="22.2dp"
-                android:paddingBottom="22.8dp">
+                android:paddingLeft="20dp">
 
                 <ImageView
-                    android:id="@+id/totalTicket"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ticket"
-                    android:layout_centerVertical="true"/>
+                    android:layout_marginTop="21.2dp"
+                    android:background="@drawable/loyalty"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="총 수용인원"
-                    android:textSize="14sp"
-                    android:lineSpacingExtra="1.5sp"
-                    android:layout_toRightOf="@+id/totalTicket"
-                    android:layout_marginLeft="12.7dp"
+                    android:text="환물 정책"
                     android:fontFamily="@font/kopubbold"
-                    android:textColor="@color/fontBlack"/>
+                    android:textColor="@color/fontBlack"
+                    android:textSize="14sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="19.2dp"/>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/refundUnderLine"
+                android:layout_width="match_parent"
+                android:layout_height="0.9dp"
+                android:background="@color/sub2Gray"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="53.4dp"
+                android:paddingTop="20.2dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:background="@color/mainGray">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="명"
-                    android:layout_alignParentRight="true"
-                    android:lineSpacingExtra="-1sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:fontFamily="@font/kopubmedium"
-                    android:textSize="14sp"
-                    android:textColor="@color/fontGray"/>
+                    android:textColor="@color/fontGray"
+                    android:hint="- 작성해주세요. 예) 대관일 7일전 취소시 전액 환불"
+                    android:textColorHint="@color/fontGray"
+                    android:textSize="14.5sp"/>
 
             </RelativeLayout>
 

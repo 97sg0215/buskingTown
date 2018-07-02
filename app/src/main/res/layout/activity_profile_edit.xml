@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".ProfileEdit">
+
+    <RelativeLayout
+        android:id="@+id/statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="46.1dp"
+        android:background="@color/mainPurple">
+
+        <ImageButton
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:background="#00000000"
+            android:src="@drawable/backbtn" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="프로필 편집"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fff"
+            android:fontFamily="@font/kopubbold"
+            android:textSize="17sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:lineSpacingExtra="2sp"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/kopubbold"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:text="완료"
+            android:textSize="17sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/profileInformation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/statusBar">
+
+        <ImageButton
+            android:id="@+id/profilePicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/profile_big"
+            android:layout_marginTop="25dp"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/teamNameEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profileInformation">
+
+        <View
+            android:id="@+id/teamNameOverLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="25dp"
+            android:background="@color/sub2Gray" />
+
+        <TextView
+            android:id="@+id/teamNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/kopubbold"
+            android:textColor="@color/fontBlack"
+            android:layout_below="@id/teamNameOverLine"
+            android:layout_marginTop="19.7dp"
+            android:layout_marginLeft="20dp"
+            android:lineSpacingExtra="1.5sp"
+            android:textSize="14sp"
+            android:text="팀 명"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19.7dp"
+            android:layout_below="@id/teamNameOverLine"
+            android:layout_marginLeft="71.5dp"
+            android:textColor="@color/fontBlack"
+            android:text="-"
+            android:fontFamily="@font/kopubdotummedium"
+            android:textSize="14sp"
+            android:lineSpacingExtra="1.5sp"
+            android:background="#00000000"
+            android:inputType="text"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/tagEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/teamNameEdit">
+
+        <View
+            android:id="@+id/tagOverLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="25dp"
+            android:background="@color/sub2Gray" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/kopubbold"
+            android:textColor="@color/fontBlack"
+            android:layout_below="@id/tagOverLine"
+            android:layout_marginTop="19.7dp"
+            android:layout_marginLeft="20dp"
+            android:lineSpacingExtra="1.5sp"
+            android:textSize="14sp"
+            android:text="태 그"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19.7dp"
+            android:layout_below="@id/tagOverLine"
+            android:layout_marginLeft="71.5dp"
+            android:textColor="@color/fontBlack"
+            android:text="-"
+            android:fontFamily="@font/kopubdotummedium"
+            android:textSize="14sp"
+            android:lineSpacingExtra="1.5sp"
+            android:background="#00000000"
+            android:inputType="text"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/memberEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tagEdit">
+
+        <View
+            android:id="@+id/memberOverLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="25dp"
+            android:background="@color/sub2Gray" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/kopubbold"
+            android:textColor="@color/fontBlack"
+            android:layout_below="@id/memberOverLine"
+            android:layout_marginTop="19.7dp"
+            android:layout_marginLeft="20dp"
+            android:textSize="14sp"
+            android:lineSpacingExtra="1.5sp"
+            android:text="맴버장"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19.7dp"
+            android:layout_below="@id/memberOverLine"
+            android:layout_marginLeft="71.5dp"
+            android:textColor="@color/fontBlack"
+            android:fontFamily="@font/kopubdotummedium"
+            android:text="-"
+            android:textSize="14sp"
+            android:lineSpacingExtra="1.5sp"
+            android:background="#00000000"
+            android:inputType="text"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/cellPhoneEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/memberEdit">
+
+        <View
+            android:id="@+id/cellPhoneOverLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="25dp"
+            android:background="@color/sub2Gray" />
+
+        <TextView
+            android:id="@+id/cellPhoneContact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/kopubbold"
+            android:textColor="@color/fontBlack"
+            android:layout_below="@id/cellPhoneOverLine"
+            android:layout_marginTop="19.7dp"
+            android:layout_marginLeft="20dp"
+            android:lineSpacingExtra="1.5sp"
+            android:textSize="14sp"
+            android:text="연락처"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19.7dp"
+            android:layout_below="@id/cellPhoneOverLine"
+            android:layout_marginLeft="71.5dp"
+            android:text="-"
+            android:textColor="@color/fontBlack"
+            android:fontFamily="@font/kopubdotummedium"
+            android:textSize="14sp"
+            android:lineSpacingExtra="1.5sp"
+            android:background="#00000000"
+            android:inputType="phone"/>
+
+        <View
+            android:id="@+id/cellPhonUnderLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="25dp"
+            android:layout_below="@id/cellPhoneContact"
+            android:background="@color/sub2Gray" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
