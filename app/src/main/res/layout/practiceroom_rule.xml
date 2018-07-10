@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:layout_marginBottom="20dp"
+    android:background="@color/mainGray">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:layout_marginTop="20dp"
+        android:layout_centerVertical="true"
+        android:text="- 이용 규칙을 입력해주세요"
+        android:textColor="@color/fontBlack"
+        android:lineSpacingExtra="1.5sp"
+        android:fontFamily="@font/kopubmedium"/>
+
+</RelativeLayout>

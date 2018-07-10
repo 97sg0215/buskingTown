@@ -8,6 +8,6 @@ public class ClientCenterOpenSource extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_clientcenter__opensource);
+        setContentView(R.layout.activity_clientcenter_opensource);
     }
 }

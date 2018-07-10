@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".ChannelBuskerPracticeroomDetail">
+
+    <RelativeLayout
+        android:id="@+id/statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="46.1dp"
+        android:background="@color/mainPurple">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/backbtn"
+            android:background="#00000000"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"/>
+
+        <TextView
+            android:id="@+id/busker_main_team_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fff"
+            android:fontFamily="@font/kopubbold"
+            android:textSize="17sp"/>
+
+        <ImageButton
+            android:id="@+id/morebtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:background="#00000000"
+            android:src="@drawable/more"
+            android:contentDescription="TODO" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/statusBar"
+        android:layout_above="@+id/tabBtn"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/practiceRoom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@id/practiceRoomImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:background="@color/subGray"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="15dp"
+                    android:layout_alignBottom="@+id/practiceRoomImage">
+
+                    <Button
+                        android:id="@+id/alignLeftButton"
+                        android:layout_width="3dp"
+                        android:layout_height="3dp"
+                        android:background="@drawable/able_circle"/>
+
+                    <Button
+                        android:id="@+id/leftButton"
+                        android:layout_width="3dp"
+                        android:layout_height="3dp"
+                        android:background="@drawable/enable_circle"
+                        android:layout_alignStart="@+id/alignLeftButton"
+                        android:layout_marginLeft="5dp"/>
+
+                    <Button
+                        android:id="@+id/centerButton"
+                        android:layout_width="3dp"
+                        android:layout_height="3dp"
+                        android:background="@drawable/enable_circle"
+                        android:layout_alignStart="@+id/leftButton"
+                        android:layout_marginLeft="5dp"/>
+
+                    <Button
+                        android:id="@+id/rightButton"
+                        android:layout_width="3dp"
+                        android:layout_height="3dp"
+                        android:background="@drawable/enable_circle"
+                        android:layout_alignLeft="@+id/centerButton"
+                        android:layout_marginLeft="5dp"/>
+
+                    <Button
+                        android:id="@+id/alignRightButton"
+                        android:layout_width="3dp"
+                        android:layout_height="3dp"
+                        android:background="@drawable/enable_circle"
+                        android:layout_alignStart="@+id/rightButton"
+                        android:layout_marginLeft="5dp"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <TextView
+                    android:id="@+id/practiceRoomName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:textSize="15sp"
+                    android:lineSpacingExtra="2sp"
+                    android:text="-"
+                    android:fontFamily="@font/kopubbold"
+                    android:textColor="@color/mainPurple"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10.5sp"
+                    android:lineSpacingExtra="1sp"
+                    android:text="-"
+                    android:layout_below="@id/practiceRoomName"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/kopubmedium"
+                    android:textColor="@color/fontBlack"/>
+
+                <ImageButton
+                    android:layout_width="22.5dp"
+                    android:layout_height="22.5dp"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentRight="true"
+                    android:background="#00000000"
+                    android:src="@drawable/phone"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/sub2Gray" />
+
+            <RelativeLayout
+                android:id="@+id/select"
+                android:layout_width="match_parent"
+                android:layout_height="55dp">
+
+                <ImageView
+                    android:id="@+id/menu"
+                    android:layout_width="12dp"
+                    android:layout_height="8dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/menu"/>
+
+                <TextView
+                    android:id="@+id/dateSe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/menu"
+                    android:layout_marginLeft="10dp"
+                    android:text="선택"
+                    android:fontFamily="@font/kopubbold"
+                    android:textColor="@color/fontBlack"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/sub2Gray" />
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="123.5dp"
+                android:paddingLeft="35dp"
+                android:paddingRight="35dp"
+                android:background="@color/mainGray">
+
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="25dp">
+
+                <TextView
+                    android:id="@+id/introduce"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:lineSpacingExtra="2sp"
+                    android:layout_marginTop="25dp"
+                    android:fontFamily="@font/kopubbold"
+                    android:textColor="@color/fontBlack"
+                    android:text="소개" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:lineSpacingExtra="8sp"
+                    android:layout_below="@+id/introduce"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/kopubmedium"
+                    android:textColor="@color/fontBlack"
+                    android:text="-"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/mapimage"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@color/sub2Gray">
+
+                <TextView
+                    android:id="@+id/maptext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="지도 \n(위치에 핀)"
+                    android:fontFamily="@font/kopubmedium"
+                    android:textColor="@color/mainPurple"
+                    android:textSize="15sp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rule"
+                android:layout_width="match_parent"
+                android:layout_height="55dp">
+
+                <ImageView
+                    android:id="@+id/ruleimage"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/loyalty"/>
+
+                <TextView
+                    android:id="@+id/ruleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/ruleimage"
+                    android:layout_marginLeft="10dp"
+                    android:text="이용 규칙"
+                    android:fontFamily="@font/kopubbold"
+                    android:textColor="@color/fontBlack"
+                    android:lineSpacingExtra="1.5dp"
+                    android:textSize="14sp" />
+
+                <ImageButton
+                    android:id="@+id/dropdown_sch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/dropdown"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.9dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/sub2Gray" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/addRule"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/refund"
+                android:layout_width="match_parent"
+                android:layout_height="55dp">
+
+                <ImageView
+                    android:id="@+id/refundimage"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/loyalty"/>
+
+                <TextView
+                    android:id="@+id/refundText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/refundimage"
+                    android:layout_marginStart="10dp"
+                    android:text="환불 정책"
+                    android:fontFamily="@font/kopubbold"
+                    android:textColor="@color/fontBlack"
+                    android:lineSpacingExtra="1.5dp"
+                    android:textSize="14sp" />
+
+                <ImageButton
+                    android:id="@+id/dropdown_sch_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/dropdown"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.9dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/sub2Gray" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/addRefund"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            </LinearLayout>
+            
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/tabBtn"
+        android:layout_width="match_parent"
+        android:layout_height="46.1dp"
+        android:background="@color/mainPurple"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="197dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:textSize="15sp"
+                android:textColor="#ffffff"
+                android:layout_centerVertical="true"
+                android:lineSpacingExtra="-4.5sp"
+                tools:text="원 / 일"
+                android:fontFamily="@font/kopubmedium" />
+
+        </RelativeLayout>
+
+        
+        <RelativeLayout
+            android:layout_width="162dp"
+            android:layout_height="match_parent">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:text="예약하기"
+                android:fontFamily="@font/kopubbold"
+                android:textSize="15sp"
+                android:textColor="#fff"
+                android:lineSpacingExtra="-4.5sp"
+                android:layout_centerHorizontal="true"
+                style="?android:attr/borderlessButtonStyle"/>
+
+        </RelativeLayout>
+        
+    </LinearLayout>
+
+</RelativeLayout>
