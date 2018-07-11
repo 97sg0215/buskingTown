@@ -63,7 +63,8 @@
         <activity android:name=".SettingNotice" />
         <activity android:name=".ClientCenterOpenSource" />
         <activity android:name=".ProfileEdit" />
-        <activity android:name=".LocationLend"></activity>
+        <activity android:name=".LocationLend" />
+        <activity android:name=".UserProfileEdit"></activity>
     </application>
 
 </manifest>

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileEdit">
+    tools:context=".UserProfileEdit">
 
     <RelativeLayout
         android:id="@+id/statusBar"
@@ -45,7 +46,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/profileInformation"
+        android:id="@+id/profileInformationUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#fff"
@@ -63,14 +64,14 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/teamNameEdit"
+        android:id="@+id/nameEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#fff"
-        android:layout_below="@+id/profileInformation">
+        android:layout_below="@+id/profileInformationUser">
 
         <View
-            android:id="@+id/teamNameOverLine"
+            android:id="@+id/nameOverLine"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/sub2Gray" />
@@ -83,14 +84,14 @@
             android:paddingTop="19.7dp">
 
             <TextView
-                android:id="@+id/teamNameText"
+                android:id="@+id/nameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/kopubbold"
                 android:textColor="@color/fontBlack"
                 android:lineSpacingExtra="1.5sp"
                 android:textSize="14sp"
-                android:text="팀 명"/>
+                android:text="이 름"/>
 
             <EditText
                 android:layout_width="wrap_content"
@@ -109,59 +110,14 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/tagEdit"
+        android:id="@+id/userIdEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#fff"
-        android:layout_below="@+id/teamNameEdit">
+        android:layout_below="@+id/nameEdit">
 
         <View
-            android:id="@+id/tagOverLine"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/sub2Gray" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingTop="19.7dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/kopubbold"
-                android:textColor="@color/fontBlack"
-                android:lineSpacingExtra="1.5sp"
-                android:textSize="14sp"
-                android:text="태 그"/>
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="23dp"
-                android:textColor="@color/fontBlack"
-                android:text="-"
-                android:fontFamily="@font/kopubdotummedium"
-                android:textSize="14sp"
-                android:lineSpacingExtra="1.5sp"
-                android:background="#00000000"
-                android:inputType="text"/>
-
-        </LinearLayout>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/memberEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#fff"
-        android:layout_below="@+id/tagEdit">
-
-        <View
-            android:id="@+id/memberOverLine"
+            android:id="@+id/userIdOverLine"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/sub2Gray" />
@@ -180,7 +136,7 @@
                 android:textColor="@color/fontBlack"
                 android:textSize="14sp"
                 android:lineSpacingExtra="1.5sp"
-                android:text="맴버장"/>
+                android:text="아이디"/>
 
             <EditText
                 android:layout_width="wrap_content"
@@ -194,20 +150,19 @@
                 android:background="#00000000"
                 android:inputType="text"/>
 
-
         </LinearLayout>
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/cellPhoneEdit"
+        android:id="@+id/userCellPhoneEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#fff"
-        android:layout_below="@+id/memberEdit">
+        android:layout_below="@+id/userIdEdit">
 
         <View
-            android:id="@+id/cellPhoneOverLine"
+            android:id="@+id/userCellPhoneOverLine"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/sub2Gray" />
@@ -220,7 +175,7 @@
             android:paddingTop="19.7dp">
 
             <TextView
-                android:id="@+id/cellPhoneContact"
+                android:id="@+id/userCellPhoneContact"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/kopubbold"
@@ -246,9 +201,9 @@
     </RelativeLayout>
 
     <View
-        android:id="@+id/cellPhoneUnderLine"
+        android:id="@+id/userCellPhoneUnderLine"
         android:layout_width="match_parent"
-        android:layout_below="@+id/cellPhoneEdit"
+        android:layout_below="@+id/userCellPhoneEdit"
         android:layout_height="1dp"
         android:background="@color/sub2Gray" />
 
