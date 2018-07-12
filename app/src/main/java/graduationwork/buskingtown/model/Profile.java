@@ -1,9 +1,14 @@
 package graduationwork.buskingtown.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Profile {
-    private int user;
-    private String user_birth;
-    private String user_phone;
+    @SerializedName("user")
+    int user;
+    @SerializedName("user_birth")
+    String user_birth;
+    @SerializedName("user_phone")
+    String user_phone;
 
     public int getUser() {
         return user;

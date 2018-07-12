@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -29,9 +30,11 @@ import java.util.regex.Pattern;
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.Profile;
 import graduationwork.buskingtown.model.SignUp;
+import graduationwork.buskingtown.model.User;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.HttpException;
 import retrofit2.Response;
 
 public class SignUp2Step extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
@@ -214,42 +217,43 @@ public class SignUp2Step extends AppCompatActivity implements DatePickerDialog.O
     }
 
     public void signUpNow(String username, String email, String password, String birth, String phone) {
-       SignUp signUp = new SignUp();
-       Profile profile = new Profile();
+        Profile profile = new Profile();
+        profile.setUser_birth(birth);
+        profile.setUser_phone(phone);
 
-       profile.setUser_birth(birth);
-       profile.setUser_phone(phone);
+        SignUp signUp = new SignUp();
+        signUp.setUsername(username);
+        signUp.setEmail(email);
+        signUp.setPassword(password);
+        signUp.setProfile(profile);
+        signUp.setBusker(null);
 
-       signUp.setProfile(profile);
-       signUp.setPassword(password);
-       signUp.setEmail(email);
-       signUp.setUsername(username);
+        Call<SignUp> callUserSignUp = apiService.postSignUp(signUp);
+        callUserSignUp.enqueue(new Callback<SignUp>() {
+            @Override
+            public void onResponse(Call<SignUp> call, Response<SignUp> response) {
+                SignUp sign = response.body();
+                if (response.isSuccessful()) {
+                    Log.e("회원가입:", "성공");
+                    startLogin();
+                } else {
+                    Toast.makeText(getApplicationContext(), "회원가입에 실패했습니다.\n다시 시도해주세요", Toast.LENGTH_SHORT).show();
+                    int StatusCode = response.code();
+                    String s = response.message();
+                    ResponseBody d = response.errorBody();
+                    Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
+                    Log.e("메세지", s);
+                    Log.e("리스폰스에러바디", String.valueOf(d));
+                    Log.e("리스폰스바디", String.valueOf(sign));
+                }
+            }
 
-       Call<SignUp> postCall = apiService.postSignUp(signUp);
-       postCall.enqueue(new Callback<SignUp>() {
-           @Override
-           public void onResponse(Call<SignUp> call, Response<SignUp> response) {
-               if (response.isSuccessful()) {
-                   Log.e("회원가입:", "성공");
-                   startLogin();
-               } else {
-                   Toast.makeText(getApplicationContext(),"회원가입에 실패했습니다.\n다시 시도해주세요",Toast.LENGTH_SHORT).show();
-                   int StatusCode = response.code();
-                   String s = response.message();
-                   ResponseBody d = response.errorBody();
-                   SignUp a = response.body();
-                   Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
-                   Log.e("메세지", s);
-                   Log.e("리스폰스에러바디", String.valueOf(d));
-                   Log.e("리스폰스바디", String.valueOf(a));
-               }
-           }
-           @Override
-           public void onFailure(Call<SignUp> call, Throwable t) {
-               Toast.makeText(getApplicationContext(),"회원가입에 실패했습니다.\n다시 시도해주세요",Toast.LENGTH_SHORT).show();
-               Log.i(ApplicationController.TAG, "실패 Message : " + t.getMessage());
-           }
-       });
+            @Override
+            public void onFailure(Call<SignUp> call, Throwable t) {
+                Toast.makeText(getApplicationContext(),"회원가입에 실패했습니다.\n다시 시도해주세요",Toast.LENGTH_SHORT).show();
+                Log.i(ApplicationController.TAG, "실패 Message : " + t.getMessage());
+            }
+        });
     }
 
 

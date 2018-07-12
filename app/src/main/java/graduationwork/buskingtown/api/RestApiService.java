@@ -2,6 +2,7 @@ package graduationwork.buskingtown.api;
 
 import graduationwork.buskingtown.model.Busker;
 import graduationwork.buskingtown.model.Login;
+import graduationwork.buskingtown.model.Response;
 import graduationwork.buskingtown.model.SignUp;
 import graduationwork.buskingtown.model.User;
 import graduationwork.buskingtown.model.UserDetail;
@@ -19,15 +20,19 @@ import retrofit2.http.Path;
 
 public interface RestApiService {
 
-    public  static  final String API_URL="http://450e1cf9.ngrok.io/";
+    public  static  final String API_URL="http://d52f3fd5.ngrok.io/";
 
     //버스커 이미지업로드 포스트
 //    @POST("media/busker_profile_image/")
 //    Call<ResponseBody> uploadPhoto(@Part MultipartBody.Part file, @Part("file") RequestBody name);
 
+//    @Multipart
+//    @POST("media/busker_profile_image/")
+//    Call<ResponseBody> uploadImage(@Part("image\"; filename=\"myfile.jpg\" ") RequestBody file);
+
     @Multipart
     @POST("media/busker_profile_image/")
-    Call<ResponseBody> uploadImage(@Part("image\"; filename=\"myfile.jpg\" ") RequestBody file);
+    Call<Response> uploadImage(@Part MultipartBody.Part image);
 
 //
 //    @Multipart
@@ -53,4 +58,17 @@ public interface RestApiService {
     //버스커 생성
     @POST("accounts/certification/")
     Call<Busker> postBusker (@Header("Authorization")String authToken, @Body Busker busker);
+
+    //이미지 포함 버스커 생성
+    @Multipart
+    @POST("accounts/certification/")
+    Call<Busker> postBuskerImage (@Header("Authorization")String authToken,
+                             @Part("Busker") Busker busker,
+                             @Part("file\"; filename=\"profile.png\" ") RequestBody busker_image);
+
+//    //이미지 포함 버스커 생성
+//    @POST("accounts/certification/")
+//    Call<Busker> postBusker (@Header("Authorization")String authToken,
+//                             @Body Busker busker,
+//                             @Part("file\"; filename=\"profile.png\" ") MultipartBody.Part busker_image);
 }

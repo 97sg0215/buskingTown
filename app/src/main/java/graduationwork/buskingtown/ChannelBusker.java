@@ -111,8 +111,8 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("auth_token",token);
         editor.putInt("user_id",user);
-       // editor.putString("username",username);
-       // editor.putString("user_phone",user_phone);
+        // editor.putString("username",username);
+        // editor.putString("user_phone",user_phone);
         editor.putString("busker_team_name", busker_team_name);
         editor.putString("busker_tag", tag);
         editor.commit();
@@ -131,7 +131,7 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
                 if(response.isSuccessful()){
                     Log.e("유저 아이디",String.valueOf(id));
                     Log.e("유저정보가져오기:", "성공");
-                   // saveBuskerUserInfo(token,id,busker_team_name,busker_tag);
+                    // saveBuskerUserInfo(token,id,busker_team_name,busker_tag);
                     buskerInfoSetting(busker_team_name,busker_tag);
                 } else{
                     //에러 상태 보려고 해둔 코드

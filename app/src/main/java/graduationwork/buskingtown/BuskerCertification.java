@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -19,27 +18,35 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.Busker;
 import okhttp3.MediaType;
-import okhttp3.Request;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.google.gson.internal.bind.TypeAdapters.URL;
+
 public class BuskerCertification extends AppCompatActivity {
 
     private RestApiService apiService;
 
     final int REQ_CODE_SELECT_IMAGE=100;
+
+    private String mImageUrl = "";
 
     //활동팀명,태그갯수 체크 유효성 체크값 담음
     final boolean[] teamNameOk = new boolean[1];
@@ -49,7 +56,7 @@ public class BuskerCertification extends AppCompatActivity {
 
     //이전 사용자 변수
     int user_id;
-    String user_token,user_phone;
+    String user_token,user_phone, filePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,13 +208,14 @@ public class BuskerCertification extends AppCompatActivity {
                     ImageView imageS = (ImageView)findViewById(R.id.imageIcon);
                     imageS.setImageBitmap(image_bitmap);
 
-                    String filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/SmartWheel" + System.currentTimeMillis() + ".jpg";
+                    filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/SmartWheel" + System.currentTimeMillis() + ".jpg";
                     Log.e("filepath",filePath);
 
-                    File imgfile = new File(filePath);
-                    uploadFile(imgfile);
-
                     imageOk[0] = checkImage(filePath);
+
+                    //이미지 업로드 스트림
+                    InputStream is = getContentResolver().openInputStream(data.getData());
+
 
                 }catch (FileNotFoundException e) { e.printStackTrace(); }
                 catch (IOException e) { e.printStackTrace(); }
@@ -216,30 +224,52 @@ public class BuskerCertification extends AppCompatActivity {
         }
     }
 
-    public void uploadFile(File file){
+    public byte[] getBytes(InputStream is) throws IOException {
+        ByteArrayOutputStream byteBuff = new ByteArrayOutputStream();
 
-        //creating request body for file
-        RequestBody requestFile = RequestBody.create(MediaType.parse(getContentResolver().getType(Uri.fromFile(file))), file);
+        int buffSize = 1024;
+        byte[] buff = new byte[buffSize];
 
-        //creating a call and calling the upload image method
-        Call<ResponseBody> call = apiService.uploadImage(requestFile);
+        int len = 0;
+        while ((len = is.read(buff)) != -1) {
+            byteBuff.write(buff, 0, len);
+        }
 
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(), "File Uploaded Successfully...", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Some error occurred...", Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
+        return byteBuff.toByteArray();
     }
+
+
+//    private void uploadImage(byte[] imageBytes) {
+//
+//        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), imageBytes);
+//
+//        MultipartBody.Part body = MultipartBody.Part.createFormData("image", "image.jpg", requestFile);
+//        Call<graduationwork.buskingtown.model.Response> call = apiService.uploadImage(body);
+//        call.enqueue(new Callback<graduationwork.buskingtown.model.Response>() {
+//            @Override
+//            public void onResponse(Call<graduationwork.buskingtown.model.Response> call, Response<graduationwork.buskingtown.model.Response> response) {
+//
+//                if (response.isSuccessful()) {
+//                    graduationwork.buskingtown.model.Response responseBody = response.body();
+//                    mImageUrl = URL + responseBody.getPath();
+//                } else {
+//                    ResponseBody errorBody = response.errorBody();
+//                    Gson gson = new Gson();
+//                    try {
+//                        Response errorResponse = gson.fromJson(errorBody.string(), Response.class);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<graduationwork.buskingtown.model.Response> call, Throwable t) {
+//                Log.i(ApplicationController.TAG, "이미지 업로드 실패 Message : " + t.getMessage());
+//            }
+//
+//        });
+//    }
 
     //활동팀명 형식이 제대로 되어있나 체크 메소드
     public static boolean checkName(String buskerName){
@@ -346,20 +376,44 @@ public class BuskerCertification extends AppCompatActivity {
         Log.e("휴대폰번호",String.valueOf(cellPhone));
         Log.e("태그",String.valueOf(tag));
 
-        buskerSetting(id, teamName, name, cellPhone, tag, null);
+        buskerSetting(id, teamName, name, cellPhone, tag, filePath);
 
         startActivity(waitPassActivity);
     }
 
-    public void buskerSetting(int id,String teamName,String name, String phone, String tag, String img){
+    public void buskerSetting(int id,String teamName,String name, String phone, String tag,String filePath){
         Busker busker = new Busker();
-        busker.setUser(id);
+//        busker.setUser(id);
         busker.setBusker_name(name);
         busker.setTeam_name(teamName);
         busker.setBusker_phone(phone);
         busker.setBusker_tag(tag);
-        busker.setBusker_image(img);
         busker.setCertification(false);
+
+      //  RequestBody user = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(id));
+        RequestBody busker_name = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(name));
+        RequestBody team_name = RequestBody.create(MediaType.parse("text/plain"),String.valueOf(teamName));
+        RequestBody busker_phone = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(phone));
+        RequestBody busker_tag = RequestBody.create(MediaType.parse("text/plain"),String.valueOf(tag));
+
+//       RequestBody busker = RequestBody.create(MediaType.parse("text/plain"),String.valueOf(tag));
+        RequestBody requestFile = null;
+//
+//        MultipartBody.Part busker_name_per = MultipartBody.Part.create(busker_name);
+//        MultipartBody.Part team_name_per = MultipartBody.Part.create(team_name);
+//        MultipartBody.Part busker_phone_per = MultipartBody.Part.create(busker_phone);
+//        MultipartBody.Part busker_tag_per = MultipartBody.Part.create(busker_tag);
+//        MultipartBody.Part certification_per = MultipartBody.Part.create(certification);
+
+        MultipartBody.Part imagenPerfil = null;
+        if(filePath!=null){
+            File file = new File(filePath);
+            Log.i("Register","Nombre del archivo "+file.getName());
+            // create RequestBody instance from file
+            requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            // MultipartBody.Part is used to send also the actual file name
+            imagenPerfil = MultipartBody.Part.createFormData("imagenPerfil", file.getName(), requestFile);
+        }
 
         Call<Busker> buskerCall = apiService.postBusker(user_token,busker);
         buskerCall.enqueue(new Callback<Busker>() {
@@ -381,7 +435,7 @@ public class BuskerCertification extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Busker> call, Throwable t) {
-
+                Log.e("버스커 세팅 메세지", "통신연결 실패");
             }
         });
     }
