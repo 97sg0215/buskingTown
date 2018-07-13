@@ -49,8 +49,7 @@
             <RelativeLayout
                 android:id="@+id/coinPosession"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/statusBar">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/coinOwn"

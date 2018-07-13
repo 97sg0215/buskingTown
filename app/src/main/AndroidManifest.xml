@@ -64,7 +64,13 @@
         <activity android:name=".ClientCenterOpenSource" />
         <activity android:name=".ProfileEdit" />
         <activity android:name=".LocationLend" />
-        <activity android:name=".UserProfileEdit"></activity>
+        <activity android:name=".UserProfileEdit" />
+        <activity android:name=".BuskingOpen" />
+        <activity android:name=".LocationSearch" />
+        <activity android:name=".BuskingOpen_map" />
+        <activity android:name=".RealtimeBusking_LocationSearch" />
+        <activity android:name=".LocationLendStart" />
+        <activity android:name=".ChannelManagementSetting"></activity>
     </application>
 
 </manifest>

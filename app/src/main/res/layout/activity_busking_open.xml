@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".BuskingOpen">
+
+    <RelativeLayout
+        android:id="@+id/statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="46.1dp"
+        android:background="@color/mainPurple">
+
+        <ImageButton
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:background="#00000000"
+            android:src="@drawable/backbtn" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="버스킹 개설하기"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fff"
+            android:fontFamily="@font/kopubbold"
+            android:textSize="17sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:lineSpacingExtra="2sp"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/kopubbold"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:text="완료"
+            android:textSize="17sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/dateLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/statusBar"
+        android:paddingTop="9.6dp"
+        android:paddingBottom="10.9dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <ImageView
+            android:id="@+id/dateImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/date"
+            android:layout_centerVertical="true"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/dateImage"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/concertStartDate"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:text="-"
+                android:fontFamily="@font/kopubmedium"
+                android:textColor="@color/mainPurple"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:background="@drawable/date_rounded"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/dateUnderLine"
+        android:layout_width="match_parent"
+        android:layout_height="0.9dp"
+        android:layout_below="@+id/dateLayout"
+        android:background="@color/sub2Gray"/>
+
+    <RelativeLayout
+        android:id="@+id/timeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dateUnderLine"
+        android:paddingTop="11.2dp"
+        android:paddingBottom="10.9dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <ImageView
+            android:id="@+id/timeImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/time"
+            android:layout_centerVertical="true"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/timeImage"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/timeStartDate"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_weight="4"
+                android:text="-"
+                android:fontFamily="@font/kopubmedium"
+                android:textColor="@color/mainPurple"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:background="@drawable/date_rounded"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="~"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/kopubmedium"
+                android:layout_weight="2"
+                android:layout_toRightOf="@+id/concertStartDate"
+                android:layout_marginLeft="11.1dp"
+                android:gravity="center"
+                android:textColor="@color/mainPurple"
+                android:textSize="12sp"
+                android:lineSpacingExtra="-3sp"/>
+
+            <Button
+                android:id="@+id/timeEndDate"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:layout_weight="4"
+                android:text="-"
+                android:fontFamily="@font/kopubmedium"
+                android:textColor="@color/mainPurple"
+                android:textSize="14sp"
+                android:layout_marginLeft="10.9dp"
+                android:gravity="center"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/date_rounded"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/timeUnderLine"
+        android:layout_width="match_parent"
+        android:layout_height="0.9dp"
+        android:layout_below="@+id/timeLayout"
+        android:background="@color/sub2Gray"/>
+
+    <RelativeLayout
+        android:id="@+id/placesLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/timeUnderLine"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <ImageView
+            android:id="@+id/placesImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/places"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/placesImage"
+            android:text="장 소"
+            android:lineSpacingExtra="1.5sp"
+            android:textColor="@color/fontBlack"
+            android:textSize="14sp"
+            android:fontFamily="@font/kopubmedium"
+            android:layout_marginLeft="10dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/arrow_r"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/placesUnderLine"
+        android:layout_width="match_parent"
+        android:layout_height="0.9dp"
+        android:layout_below="@+id/placesLayout"
+        android:background="@color/sub2Gray"/>
+
+    <Button
+        android:id="@+id/confirmBtn"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_alignParentBottom="true"
+        android:text="완 료"
+        android:fontFamily="@font/kopubbold"
+        android:textSize="14sp"
+        android:textColor="#fff"
+        android:lineSpacingExtra="-3.5sp"
+        android:background="@color/mainPurple"
+        android:layout_centerHorizontal="true"
+        style="?android:attr/borderlessButtonStyle"/>
+
+</RelativeLayout>

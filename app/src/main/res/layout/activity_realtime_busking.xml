@@ -35,6 +35,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/searchLoca"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_below="@+id/statusBar"
@@ -80,6 +81,33 @@
             android:layout_alignParentRight="true"
             android:background="#00000000"
             android:src="@drawable/ic_gps"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/searchLoc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/searchLoca"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/searchLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="검색장소"
+            android:fontFamily="@font/kopubmedium"
+            android:textSize="13sp"
+            android:textColor="@color/subGray"/>
+
+        <View
+            android:id="@+id/nameUnderLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/searchLocation"
+            android:layout_marginTop="20dp"
+            android:background="@color/sub2Gray"/>
 
     </RelativeLayout>
 

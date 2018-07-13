@@ -74,6 +74,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/dateImage"
             android:layout_marginLeft="10dp"
             android:orientation="horizontal">
 
@@ -83,7 +84,6 @@
                 android:layout_height="35dp"
                 android:layout_weight="1"
                 android:layout_toRightOf="@+id/dateImage"
-                android:layout_marginLeft="10dp"
                 android:text="-"
                 android:fontFamily="@font/kopubmedium"
                 android:textColor="@color/mainPurple"
