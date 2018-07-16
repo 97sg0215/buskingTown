@@ -106,14 +106,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/dateImage"
                     android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/concertStartDate"
-                        android:layout_width="135dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="35dp"
-                        android:layout_weight="1"
-                        android:layout_marginLeft="10dp"
+                        android:layout_weight="4"
                         android:text="-"
                         android:fontFamily="@font/kopubmedium"
                         android:textColor="@color/mainPurple"
@@ -128,7 +128,7 @@
                         android:text="~"
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/kopubmedium"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:layout_marginLeft="11.1dp"
                         android:gravity="center"
                         android:textColor="@color/mainPurple"
@@ -137,10 +137,10 @@
 
                     <Button
                         android:id="@+id/concertEndDate"
-                        android:layout_width="135dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="35dp"
                         android:layout_centerVertical="true"
-                        android:layout_weight="1"
+                        android:layout_weight="4"
                         android:text="-"
                         android:fontFamily="@font/kopubmedium"
                         android:textColor="@color/mainPurple"
@@ -181,15 +181,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/timeImage"
                     android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/timeStartDate"
-                        android:layout_width="135dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="35dp"
-                        android:layout_weight="1"
-                        android:layout_toRightOf="@+id/dateImage"
-                        android:layout_marginLeft="10dp"
+                        android:layout_weight="4"
                         android:text="-"
                         android:fontFamily="@font/kopubmedium"
                         android:textColor="@color/mainPurple"
@@ -204,8 +203,7 @@
                         android:text="~"
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/kopubmedium"
-                        android:layout_weight="1"
-                        android:layout_toRightOf="@+id/concertStartDate"
+                        android:layout_weight="2"
                         android:layout_marginLeft="11.1dp"
                         android:gravity="center"
                         android:textColor="@color/mainPurple"
@@ -214,10 +212,10 @@
 
                     <Button
                         android:id="@+id/timeEndDate"
-                        android:layout_width="135dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="35dp"
                         android:layout_centerVertical="true"
-                        android:layout_weight="1"
+                        android:layout_weight="4"
                         android:text="-"
                         android:fontFamily="@font/kopubmedium"
                         android:textColor="@color/mainPurple"
@@ -304,21 +302,19 @@
                 android:layout_height="0.9dp"
                 android:background="@color/sub2Gray"/>
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/price"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingRight="20dp"
+                android:layout_height="55.6dp"
                 android:paddingLeft="22.5dp"
-                android:paddingTop="22.2dp"
-                android:paddingBottom="21.4dp">
+                android:paddingRight="20dp">
 
                 <ImageView
                     android:id="@+id/moneySSImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/money_ss"
-                    android:layout_centerVertical="true"/>
+                    android:layout_marginTop="22.2dp"
+                    android:background="@drawable/money_ss" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -326,38 +322,54 @@
                     android:text="가 격"
                     android:textSize="14sp"
                     android:lineSpacingExtra="1.5sp"
-                    android:layout_toRightOf="@+id/moneySSImage"
                     android:layout_marginLeft="12.7dp"
+                    android:layout_marginTop="20.2dp"
                     android:fontFamily="@font/kopubbold"
                     android:textColor="@color/fontBlack"/>
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00000000"
+                    android:layout_marginLeft="18dp"
+                    android:textSize="14sp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="19.2dp"
+                    android:textColor="@color/fontBlack"
+                    android:fontFamily="@font/kopubmedium"
+                    android:textColorHint="@color/fontGray"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="/인당"
-                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="20.2dp"
                     android:lineSpacingExtra="-1sp"
                     android:fontFamily="@font/kopubmedium"
                     android:textSize="14sp"
                     android:textColor="@color/fontGray"/>
 
-            </RelativeLayout>
+            </LinearLayout>
 
-            <RelativeLayout
+            <View
+                android:id="@+id/moneySSUnderLine"
+                android:layout_width="match_parent"
+                android:layout_height="0.9dp"
+                android:background="@color/sub2Gray"/>
+
+            <LinearLayout
                 android:id="@+id/totalPeople"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="54.6dp"
                 android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingTop="22.2dp"
-                android:paddingBottom="22.8dp">
+                android:paddingRight="20dp">
 
                 <ImageView
                     android:id="@+id/totalTicket"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ticket"
-                    android:layout_centerVertical="true"/>
+                    android:layout_marginTop="22.2dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -365,22 +377,41 @@
                     android:text="총 수용인원"
                     android:textSize="14sp"
                     android:lineSpacingExtra="1.5sp"
-                    android:layout_toRightOf="@+id/totalTicket"
+                    android:layout_marginTop="19.2dp"
                     android:layout_marginLeft="12.7dp"
                     android:fontFamily="@font/kopubbold"
                     android:textColor="@color/fontBlack"/>
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00000000"
+                    android:layout_marginLeft="18dp"
+                    android:textSize="14sp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="19.2dp"
+                    android:textColor="@color/fontBlack"
+                    android:fontFamily="@font/kopubmedium"
+                    android:textColorHint="@color/fontGray"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="명"
-                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="20.2dp"
                     android:lineSpacingExtra="-1sp"
                     android:fontFamily="@font/kopubmedium"
                     android:textSize="14sp"
                     android:textColor="@color/fontGray"/>
 
-            </RelativeLayout>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/priceUnderLine"
+                android:layout_width="match_parent"
+                android:layout_height="0.9dp"
+                android:background="@color/sub2Gray"
+                android:paddingBottom="1.6dp"/>
 
         </LinearLayout>
 

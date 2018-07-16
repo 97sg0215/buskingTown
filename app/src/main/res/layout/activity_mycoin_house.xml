@@ -34,25 +34,18 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/SeeCoinText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/statusBar"
-        android:paddingTop="24.9dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
-
         <TextView
+            android:id="@+id/SeeCoinText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/statusBar"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="25dp"
             android:text="조회 설정"
             android:lineSpacingExtra="2sp"
             android:textSize="15sp"
             android:fontFamily="@font/kopubbold"
             android:textColor="@color/fontBlack"/>
-
-    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/dateSeeLayout"
@@ -80,10 +73,9 @@
 
             <Button
                 android:id="@+id/concertStartDate"
-                android:layout_width="135dp"
+                android:layout_width="wrap_content"
                 android:layout_height="35dp"
-                android:layout_weight="1"
-                android:layout_toRightOf="@+id/dateImage"
+                android:layout_weight="4"
                 android:text="-"
                 android:fontFamily="@font/kopubmedium"
                 android:textColor="@color/mainPurple"
@@ -96,10 +88,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="~"
-                android:layout_centerVertical="true"
                 android:fontFamily="@font/kopubmedium"
-                android:layout_weight="1"
-                android:layout_toRightOf="@+id/concertStartDate"
+                android:layout_weight="2"
                 android:layout_marginLeft="11.1dp"
                 android:gravity="center"
                 android:textColor="@color/mainPurple"
@@ -108,17 +98,15 @@
 
             <Button
                 android:id="@+id/concertEndDate"
-                android:layout_width="135dp"
+                android:layout_width="wrap_content"
                 android:layout_height="35dp"
-                android:layout_centerVertical="true"
-                android:layout_weight="1"
+                android:layout_weight="4"
                 android:text="-"
                 android:fontFamily="@font/kopubmedium"
                 android:textColor="@color/mainPurple"
                 android:textSize="14sp"
                 android:layout_marginLeft="10.9dp"
                 android:gravity="center"
-                android:layout_alignParentRight="true"
                 android:background="@drawable/date_rounded"/>
 
         </LinearLayout>
@@ -145,8 +133,6 @@
                 android:layout_width="135dp"
                 android:layout_height="35dp"
                 android:layout_weight="1"
-                android:layout_toRightOf="@+id/dateImage"
-                android:layout_marginLeft="10dp"
                 android:text="1개월"
                 android:fontFamily="@font/kopubmedium"
                 android:textColor="#fff"
@@ -214,7 +200,7 @@
     <LinearLayout
         android:id="@+id/dateBox"
         android:layout_width="match_parent"
-        android:layout_height="29.1dp"
+        android:layout_height="wrap_content"
         android:background="#fff"
         android:orientation="horizontal"
         android:layout_below="@+id/timeSeeUnderLine"
@@ -223,8 +209,7 @@
         <TextView
             android:id="@+id/dateSS"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="9.2dp"
+            android:layout_height="29.1dp"
             android:layout_weight="1"
             android:fontFamily="@font/kopubmedium"
             android:gravity="center"
@@ -243,8 +228,7 @@
         <TextView
             android:id="@+id/dealCoin"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="9.2dp"
+            android:layout_height="29.1dp"
             android:gravity="center"
             android:textSize="12sp"
             android:textColor="@color/fontGray"
@@ -263,8 +247,7 @@
         <TextView
             android:id="@+id/nowCoin"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="9.2dp"
+            android:layout_height="29.1dp"
             android:gravity="center"
             android:textSize="12sp"
             android:textColor="@color/fontGray"
@@ -280,5 +263,16 @@
         android:layout_height="1dp"
         android:layout_below="@+id/dateBox"
         android:background="@color/sub2Gray" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dateBoxUnderLine"
+        android:text="거래 내역이 없습니다."
+        android:textSize="14sp"
+        android:textColor="@color/fontGray"
+        android:lineSpacingExtra="-5sp"
+        android:layout_marginTop="75dp"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

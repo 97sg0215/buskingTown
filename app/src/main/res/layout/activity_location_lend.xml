@@ -50,7 +50,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/statusBar"
-        android:layout_above="@+id/confirmBtn"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="21dp"
         android:overScrollMode="never"
         android:scrollbars="none">
 
@@ -69,66 +71,66 @@
                     android:id="@+id/imageWhite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/image_w"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="93dp"/>
+                    android:layout_marginTop="93dp"
+                    android:background="@drawable/image_w" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="장소 사진을 선택해주세요. (최대 5장)"
-                    android:fontFamily="@font/kopubmedium"
-                    android:textColor="@color/fontBlack"
-                    android:textSize="12sp"
                     android:layout_below="@+id/imageWhite"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="15.2dp"/>
+                    android:layout_marginTop="15.2dp"
+                    android:fontFamily="@font/kopubmedium"
+                    android:text="장소 사진을 선택해주세요. (최대 5장)"
+                    android:textColor="@color/fontBlack"
+                    android:textSize="12sp" />
 
             </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingRight="73dp"
-                android:paddingLeft="73dp"
-                android:paddingTop="18.8dp"
+                android:orientation="horizontal"
                 android:paddingBottom="18.8dp"
-                android:orientation="horizontal">
+                android:paddingLeft="73dp"
+                android:paddingRight="73dp"
+                android:paddingTop="18.8dp">
 
                 <CheckBox
                     android:id="@+id/checkPracticeRoom"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
-                    android:checked="false"
+                    android:background="@drawable/next_btn"
                     android:button="@android:color/transparent"
-                    android:background="@drawable/next_btn"/>
+                    android:checked="false" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="연습실"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:textSize="14sp"
+                    android:fontFamily="@font/kopubmedium"
+                    android:text="연습실"
                     android:textColor="@color/fontBlack"
-                    android:fontFamily="@font/kopubmedium" />
+                    android:textSize="14sp" />
 
                 <CheckBox
                     android:id="@+id/checkConcert"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
-                    android:checked="false"
+                    android:background="@drawable/next_btn"
                     android:button="@android:color/transparent"
-                    android:background="@drawable/next_btn"/>
+                    android:checked="false" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="콘서트장"
                     android:layout_marginLeft="10dp"
-                    android:textSize="14sp"
+                    android:fontFamily="@font/kopubmedium"
+                    android:text="콘서트장"
                     android:textColor="@color/fontBlack"
-                    android:fontFamily="@font/kopubmedium" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -136,40 +138,49 @@
                 android:id="@+id/choiceUnderLine"
                 android:layout_width="match_parent"
                 android:layout_height="0.9dp"
-                android:background="@color/sub2Gray"/>
+                android:background="@color/sub2Gray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
                 android:orientation="horizontal"
-                android:paddingLeft="20dp">
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
                 <ImageView
                     android:id="@+id/phoneS"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="21.2dp"
-                    android:background="@drawable/phone_s"/>
+                    android:background="@drawable/phone_s" />
 
                 <TextView
+                    android:id="@+id/phonText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/kopubbold"
                     android:text="연락처"
                     android:layout_marginTop="19.2dp"
-                    android:textColor="@color/fontBlack"
-                    android:fontFamily="@font/kopubbold"
-                    android:layout_marginLeft="10dp"/>
+                    android:textColor="@color/fontBlack" />
 
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="#00000000"
-                    android:layout_marginLeft="10dp"
-                    android:textSize="14sp"
-                    android:layout_marginTop="19.2dp"
-                    android:textColor="@color/fontBlack"
-                    android:fontFamily="@font/kopubmedium"
-                    android:textColorHint="@color/fontGray"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="8.2dp">
+
+                    <Button
+                        android:id="@+id/phoneBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/date_rounded"
+                        android:fontFamily="@font/kopubmedium"
+                        android:text="-"
+                        android:textColor="@color/mainPurple"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -177,23 +188,23 @@
                 android:id="@+id/phoneNumUnderLine"
                 android:layout_width="match_parent"
                 android:layout_height="0.9dp"
-                android:background="@color/sub2Gray"/>
+                android:background="@color/sub2Gray" />
 
             <RelativeLayout
                 android:id="@+id/dateLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="9.6dp"
                 android:paddingBottom="10.9dp"
                 android:paddingLeft="20dp"
-                android:paddingRight="20dp">
+                android:paddingRight="20dp"
+                android:paddingTop="9.6dp">
 
                 <ImageView
                     android:id="@+id/dateImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/date"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/date" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -207,41 +218,37 @@
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
                         android:layout_weight="4"
-                        android:text="-"
+                        android:background="@drawable/date_rounded"
                         android:fontFamily="@font/kopubmedium"
-                        android:textColor="@color/mainPurple"
-                        android:textSize="14sp"
                         android:gravity="center"
-                        android:layout_centerVertical="true"
-                        android:background="@drawable/date_rounded"/>
+                        android:text="-"
+                        android:textColor="@color/mainPurple"
+                        android:textSize="14sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="~"
-                        android:layout_centerVertical="true"
-                        android:fontFamily="@font/kopubmedium"
-                        android:layout_weight="2"
                         android:layout_marginLeft="11.1dp"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/kopubmedium"
                         android:gravity="center"
+                        android:lineSpacingExtra="-3sp"
+                        android:text="~"
                         android:textColor="@color/mainPurple"
-                        android:textSize="12sp"
-                        android:lineSpacingExtra="-3sp"/>
+                        android:textSize="12sp" />
 
                     <Button
                         android:id="@+id/concertEndDate"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
-                        android:layout_centerVertical="true"
-                        android:layout_weight="4"
-                        android:text="-"
-                        android:fontFamily="@font/kopubmedium"
-                        android:textColor="@color/mainPurple"
-                        android:textSize="14sp"
                         android:layout_marginLeft="10.9dp"
+                        android:layout_weight="4"
+                        android:background="@drawable/date_rounded"
+                        android:fontFamily="@font/kopubmedium"
                         android:gravity="center"
-                        android:layout_alignParentRight="true"
-                        android:background="@drawable/date_rounded"/>
+                        android:text="-"
+                        android:textColor="@color/mainPurple"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
@@ -251,29 +258,29 @@
                 android:id="@+id/dateNumUnderLine"
                 android:layout_width="match_parent"
                 android:layout_height="0.9dp"
-                android:background="@color/sub2Gray"/>
+                android:background="@color/sub2Gray" />
 
             <RelativeLayout
                 android:id="@+id/timeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="11.2dp"
                 android:paddingBottom="10.9dp"
                 android:paddingLeft="20dp"
-                android:paddingRight="20dp">
+                android:paddingRight="20dp"
+                android:paddingTop="11.2dp">
 
                 <ImageView
                     android:id="@+id/timeImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/time"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/time" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/timeImage"
                     android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/timeImage"
                     android:orientation="horizontal">
 
                     <Button
@@ -281,43 +288,37 @@
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
                         android:layout_weight="4"
-                        android:layout_toRightOf="@+id/dateImage"
-                        android:text="-"
+                        android:background="@drawable/date_rounded"
                         android:fontFamily="@font/kopubmedium"
-                        android:textColor="@color/mainPurple"
-                        android:textSize="14sp"
                         android:gravity="center"
-                        android:layout_centerVertical="true"
-                        android:background="@drawable/date_rounded"/>
+                        android:text="-"
+                        android:textColor="@color/mainPurple"
+                        android:textSize="14sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="~"
-                        android:layout_centerVertical="true"
-                        android:fontFamily="@font/kopubmedium"
-                        android:layout_weight="2"
-                        android:layout_toRightOf="@+id/concertStartDate"
                         android:layout_marginLeft="11.1dp"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/kopubmedium"
                         android:gravity="center"
+                        android:lineSpacingExtra="-3sp"
+                        android:text="~"
                         android:textColor="@color/mainPurple"
-                        android:textSize="12sp"
-                        android:lineSpacingExtra="-3sp"/>
+                        android:textSize="12sp" />
 
                     <Button
                         android:id="@+id/timeEndDate"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
-                        android:layout_centerVertical="true"
-                        android:layout_weight="4"
-                        android:text="-"
-                        android:fontFamily="@font/kopubmedium"
-                        android:textColor="@color/mainPurple"
-                        android:textSize="14sp"
                         android:layout_marginLeft="10.9dp"
+                        android:layout_weight="4"
+                        android:background="@drawable/date_rounded"
+                        android:fontFamily="@font/kopubmedium"
                         android:gravity="center"
-                        android:layout_alignParentRight="true"
-                        android:background="@drawable/date_rounded"/>
+                        android:text="-"
+                        android:textColor="@color/mainPurple"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
@@ -327,7 +328,7 @@
                 android:id="@+id/timeNumUnderLine"
                 android:layout_width="match_parent"
                 android:layout_height="0.9dp"
-                android:background="@color/sub2Gray"/>
+                android:background="@color/sub2Gray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -340,27 +341,27 @@
                     android:id="@+id/placesImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/places"
+                    android:layout_centerVertical="true"
                     android:layout_marginTop="20.7dp"
-                    android:layout_centerVertical="true"/>
+                    android:background="@drawable/places" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="장소"
-                    android:layout_weight="100"
-                    android:fontFamily="@font/kopubbold"
-                    android:textColor="@color/fontBlack"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="20.2dp"
-                    android:textSize="14sp"/>
+                    android:layout_weight="100"
+                    android:fontFamily="@font/kopubbold"
+                    android:text="장소"
+                    android:textColor="@color/fontBlack"
+                    android:textSize="14sp" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/arrow_r"
                     android:layout_marginTop="19.8dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:background="@drawable/arrow_r" />
 
             </LinearLayout>
 
@@ -368,7 +369,7 @@
                 android:id="@+id/locationNumUnderLine"
                 android:layout_width="match_parent"
                 android:layout_height="0.9dp"
-                android:background="@color/sub2Gray"/>
+                android:background="@color/sub2Gray" />
 
             <RelativeLayout
                 android:id="@+id/locationInformation"
@@ -382,19 +383,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:textColorHint="@color/fontGray"
+                    android:fontFamily="@font/kopubmedium"
                     android:hint="장소를 설명해주세요."
                     android:lineSpacingExtra="1.5sp"
-                    android:textSize="13sp"
-                    android:fontFamily="@font/kopubmedium"/>
+                    android:textColorHint="@color/fontGray"
+                    android:textSize="13sp" />
 
             </RelativeLayout>
 
             <View
-                android:id="@+id/locationInformationUnderLine"
+                android:id="@+id/optionNameUnder"
                 android:layout_width="match_parent"
                 android:layout_height="0.9dp"
-                android:background="@color/sub2Gray"/>
+                android:background="@color/sub2Gray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -403,41 +404,88 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp">
 
-                <ImageView
-                    android:id="@+id/moneySSImage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="22.2dp"
-                    android:background="@drawable/money_ss" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="가격"
-                    android:textColor="@color/fontBlack"
-                    android:fontFamily="@font/kopubbold"
-                    android:layout_marginTop="20.2dp"
                     android:layout_marginLeft="10dp"
-                    android:textSize="14sp"/>
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="#00000000"
-                    android:layout_marginLeft="18dp"
-                    android:textSize="14sp"
-                    android:layout_weight="1"
-                    android:layout_marginTop="19.2dp"
+                    android:layout_marginTop="20.2dp"
+                    android:fontFamily="@font/kopubbold"
+                    android:text="옵션명"
                     android:textColor="@color/fontBlack"
-                    android:fontFamily="@font/kopubmedium"
-                    android:textColorHint="@color/fontGray"/>
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="8.2dp">
+
+                    <Button
+                        android:id="@+id/optionBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/date_rounded"
+                        android:fontFamily="@font/kopubmedium"
+                        android:hint="옵션명을 입력해주세요. 예) A Room"
+                        android:paddingLeft="14.8dp"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/fontBlack"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/locationInformationUnderLine"
+                android:layout_width="match_parent"
+                android:layout_height="0.9dp"
+                android:background="@color/sub2Gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="55.6dp"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="/일"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20.2dp"
+                    android:fontFamily="@font/kopubbold"
+                    android:text="가 격"
+                    android:textColor="@color/fontBlack"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="23dp"
+                    android:layout_marginTop="8.2dp">
+
+                    <Button
+                        android:id="@+id/priceBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/date_rounded"
+                        android:fontFamily="@font/kopubmedium"
+                        android:hint="/일"
+                        android:paddingLeft="14.8dp"
+                        android:paddingRight="15dp"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/fontBlack"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="20.2dp"
                     android:fontFamily="@font/kopubmedium"
+                    android:text="/일"
                     android:textColor="@color/fontGray"
                     android:textSize="14sp" />
 
@@ -447,31 +495,31 @@
                 android:id="@+id/priceUnderLine"
                 android:layout_width="match_parent"
                 android:layout_height="0.9dp"
-                android:background="@color/sub2Gray"/>
+                android:background="@color/sub2Gray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="55.1dp"
                 android:orientation="horizontal"
-                android:paddingRight="20dp"
-                android:paddingLeft="20dp">
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
                 <ImageView
                     android:id="@+id/addS"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/add_s"
-                    android:layout_marginTop="21.7dp"/>
+                    android:layout_marginTop="21.7dp"
+                    android:background="@drawable/add_s" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="옵션 추가"
-                    android:layout_marginTop="19.7dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginTop="19.7dp"
                     android:fontFamily="@font/kopubbold"
-                    android:textSize="14sp"
-                    android:textColor="@color/mainYellow" />
+                    android:text="옵션 추가"
+                    android:textColor="@color/mainYellow"
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -479,30 +527,30 @@
                 android:id="@+id/optionAddUnderLine"
                 android:layout_width="match_parent"
                 android:layout_height="0.9dp"
-                android:background="@color/sub2Gray"/>
+                android:background="@color/sub2Gray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="54.6dp"
                 android:orientation="horizontal"
-                android:paddingRight="20dp"
-                android:paddingLeft="20dp">
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="21.2dp"
-                    android:background="@drawable/loyalty"/>
+                    android:background="@drawable/loyalty" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="이용 규칙"
-                    android:fontFamily="@font/kopubbold"
-                    android:textColor="@color/fontBlack"
-                    android:textSize="14sp"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="19.2dp"/>
+                    android:layout_marginTop="19.2dp"
+                    android:fontFamily="@font/kopubbold"
+                    android:text="이용 규칙"
+                    android:textColor="@color/fontBlack"
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -510,24 +558,24 @@
                 android:id="@+id/rullAddUnderLine"
                 android:layout_width="match_parent"
                 android:layout_height="0.9dp"
-                android:background="@color/sub2Gray"/>
-            
+                android:background="@color/sub2Gray" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="53.4dp"
-                android:paddingTop="20.2dp"
+                android:background="@color/mainGray"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:background="@color/mainGray">
+                android:paddingTop="20.2dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/kopubmedium"
-                    android:textColor="@color/fontGray"
                     android:hint="- 작성해주세요. 예) 건물내에서 흡연 금지입니다."
+                    android:textColor="@color/fontGray"
                     android:textColorHint="@color/fontGray"
-                    android:textSize="14.5sp"/>
+                    android:textSize="14.5sp" />
 
             </RelativeLayout>
 
@@ -535,30 +583,30 @@
                 android:id="@+id/rullAdddUnderLine"
                 android:layout_width="match_parent"
                 android:layout_height="0.9dp"
-                android:background="@color/sub2Gray"/>
+                android:background="@color/sub2Gray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="54.6dp"
                 android:orientation="horizontal"
-                android:paddingRight="20dp"
-                android:paddingLeft="20dp">
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="21.2dp"
-                    android:background="@drawable/loyalty"/>
+                    android:background="@drawable/loyalty" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="환물 정책"
-                    android:fontFamily="@font/kopubbold"
-                    android:textColor="@color/fontBlack"
-                    android:textSize="14sp"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="19.2dp"/>
+                    android:layout_marginTop="19.2dp"
+                    android:fontFamily="@font/kopubbold"
+                    android:text="환물 정책"
+                    android:textColor="@color/fontBlack"
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -566,24 +614,24 @@
                 android:id="@+id/refundUnderLine"
                 android:layout_width="match_parent"
                 android:layout_height="0.9dp"
-                android:background="@color/sub2Gray"/>
+                android:background="@color/sub2Gray" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="53.4dp"
-                android:paddingTop="20.2dp"
+                android:background="@color/mainGray"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:background="@color/mainGray">
+                android:paddingTop="20.2dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/kopubmedium"
-                    android:textColor="@color/fontGray"
                     android:hint="- 작성해주세요. 예) 대관일 7일전 취소시 전액 환불"
+                    android:textColor="@color/fontGray"
                     android:textColorHint="@color/fontGray"
-                    android:textSize="14.5sp"/>
+                    android:textSize="14.5sp" />
 
             </RelativeLayout>
 

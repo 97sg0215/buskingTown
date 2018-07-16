@@ -68,7 +68,6 @@
         <activity android:name=".BuskingOpen" />
         <activity android:name=".LocationSearch" />
         <activity android:name=".BuskingOpen_map" />
-        <activity android:name=".RealtimeBusking_LocationSearch" />
         <activity android:name=".LocationLendStart" />
         <activity android:name=".ChannelManagementSetting"></activity>
     </application>
