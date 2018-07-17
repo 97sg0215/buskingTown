@@ -22,7 +22,6 @@ import java.util.regex.Pattern;
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.Login;
 import graduationwork.buskingtown.model.User;
-import graduationwork.buskingtown.model.UserDetail;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //restApiBuilder();
+        restApiBuilder();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -179,7 +178,6 @@ public class LoginActivity extends AppCompatActivity {
                     //유저 정보 보내기
                     int id = user.getId();
                     getUserDetail(auth_header,id);
-
                     mainEnter();
                 } else {
                     Toast.makeText(getApplicationContext(),"아이디 비밀번호를 확인해주세요",Toast.LENGTH_SHORT).show();
@@ -202,23 +200,13 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    //유저 정보를 저장하여 다른 액티비티에서 불러오기 위함
-    public void saveUserInfo(String token,int user,String username,String user_phone){
-        SharedPreferences pref = getSharedPreferences("User", Activity.MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString("auth_token",token);
-        editor.putInt("user_id",user);
-        editor.putString("username",username);
-        editor.putString("user_phone",user_phone);
-        editor.commit();
-    }
 
     public void getUserDetail(String token,int id){
-        final UserDetail[] userDetail = {new UserDetail()};
-        Call<UserDetail> userDetailCall = apiService.getUserDetail(token,id);
-        userDetailCall.enqueue(new Callback<UserDetail>() {
+        final User[] userDetail = {new User()};
+        Call<User> userDetailCall = apiService.getUserDetail(token,id);
+        userDetailCall.enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<UserDetail> call, Response<UserDetail> response) {
+            public void onResponse(Call<User> call, Response<User> response) {
                 userDetail[0] = response.body();
                 String username = userDetail[0].getUsername();
                 String userEmail = userDetail[0].getEmail();
@@ -228,7 +216,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     Log.e("유저 아이디",String.valueOf(id));
                     Log.e("유저정보가져오기:", "성공");
-                    saveUserInfo(token,id,username,user_phone);
+                    saveUserInfo(token,id,username);
                 } else{
                     //에러 상태 보려고 해둔 코드
                     int StatusCode = response.code();
@@ -242,7 +230,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<UserDetail> call, Throwable t) {
+            public void onFailure(Call<User> call, Throwable t) {
                 Log.i(ApplicationController.TAG, "유저 정보 서버 연결 실패 Message : " + t.getMessage());
             }
         });
@@ -271,6 +259,16 @@ public class LoginActivity extends AppCompatActivity {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
             }
         });
+    }
+
+    //유저 정보를 저장하여 다른 액티비티에서 불러오기 위함
+    public void saveUserInfo(String token,int user,String username){
+        SharedPreferences pref = getSharedPreferences("User", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("auth_token",token);
+        editor.putInt("user_id",user);
+        editor.putString("username",username);
+        editor.commit();
     }
 
     public void restApiBuilder() {

@@ -48,22 +48,4 @@ public class ApplicationController extends Application {
             }
         }
     }
-
-    private String API_URL2;
-
-    public void buildNetworkService2(String ip) {
-        synchronized (ApplicationController.class) {
-            if (restApiService == null) {
-                API_URL2 = String.format("http://%s/", ip);
-                Log.i(TAG, API_URL2);
-
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(API_URL2)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-
-                restApiService = retrofit.create(RestApiService.class);
-            }
-        }
-    }
 }

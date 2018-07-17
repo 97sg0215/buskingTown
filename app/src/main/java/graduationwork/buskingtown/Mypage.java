@@ -17,8 +17,7 @@ import com.squareup.picasso.Picasso;
 
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.Busker;
-import graduationwork.buskingtown.model.Login;
-import graduationwork.buskingtown.model.UserDetail;
+import graduationwork.buskingtown.model.User;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,7 +36,6 @@ public class Mypage extends Fragment {
     //유저 정보 변수들
     String user_token,user_name;
     int user_id;
-    Busker busker;
     boolean certification;
 
     @Override
@@ -62,7 +60,7 @@ public class Mypage extends Fragment {
         //여기다 링크 바로가기 선언하세요
         go_Busker = (RelativeLayout) v.findViewById(R.id.goBusker);
 
-        getBuskerDetail(user_token,user_id);
+        getBusker(user_token,user_id);
 
         return v;
     }
@@ -74,7 +72,7 @@ public class Mypage extends Fragment {
         user_id = pref.getInt("user_id",0);
     }
 
-    public void buskerCheck(boolean certification,Busker busker){
+    public void buskerCheck(boolean certification, Busker busker){
         Log.e("인증상태-",String.valueOf(certification));
         Log.e("버스커-",String.valueOf(busker));
         if(busker == null){
@@ -110,23 +108,23 @@ public class Mypage extends Fragment {
         }
     }
 
-    public void getBuskerDetail(String token,int id){
-        final UserDetail[] userDetail = {new UserDetail()};
-        Call<UserDetail> userDetailCall = apiService.getUserDetail(token,id);
-        userDetailCall.enqueue(new Callback<UserDetail>() {
+    public void getBusker(String token,int id){
+        final Busker[] busker = {new Busker()};
+        final User[] userDetail = {new User()};
+        Call<User> userDetailCall = apiService.getUserDetail(token,id);
+        userDetailCall.enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<UserDetail> call, Response<UserDetail> response) {
+            public void onResponse(Call<User> call, Response<User> response) {
                 userDetail[0] = response.body();
-                busker = userDetail[0].getBusker();
-                if(busker != null){
+                if (userDetail[0].getBusker() != null) {
                     certification = userDetail[0].getBusker().isCertification();
-                    if(response.isSuccessful()){
-                        Log.e("유저 아이디",String.valueOf(id));
-                        Log.e("인증상태",String.valueOf(certification));
-                        Log.e("버스커",String.valueOf(busker));
+                    if (response.isSuccessful()) {
+                        Log.e("유저 아이디", String.valueOf(id));
+                        Log.e("인증상태", String.valueOf(certification));
+                        Log.e("버스커", String.valueOf(busker));
                         Log.e("버스커유저정보가져오기:", "성공");
-                        buskerCheck(certification,busker);
-                    } else{
+                        buskerCheck(certification, busker[0]);
+                    } else {
                         //에러 상태 보려고 해둔 코드
                         int StatusCode = response.code();
                         String s = response.message();
@@ -136,13 +134,13 @@ public class Mypage extends Fragment {
                         Log.e("리스폰스에러바디", String.valueOf(d));
                         Log.e("리스폰스바디", String.valueOf(response.body()));
                     }
-                }else {
-                    buskerCheck(false,null);
+                } else {
+                    buskerCheck(false, null);
                 }
             }
 
             @Override
-            public void onFailure(Call<UserDetail> call, Throwable t) {
+            public void onFailure(Call<User> call, Throwable t) {
                 Log.i(ApplicationController.TAG, "유저 정보 서버 연결 실패 Message : " + t.getMessage());
             }
         });

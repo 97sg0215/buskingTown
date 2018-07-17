@@ -1,20 +1,15 @@
 package graduationwork.buskingtown.model;
 
-import com.google.gson.annotations.SerializedName;
-
 public class Profile {
-    @SerializedName("user")
-    int user;
-    @SerializedName("user_birth")
+    String user;
     String user_birth;
-    @SerializedName("user_phone")
     String user_phone;
 
-    public int getUser() {
+    public String getUser() {
         return user;
     }
 
-    public void setUser(int user) {
+    public void setUser(String user) {
         this.user = user;
     }
 

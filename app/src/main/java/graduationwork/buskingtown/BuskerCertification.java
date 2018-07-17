@@ -18,9 +18,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -38,15 +35,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.google.gson.internal.bind.TypeAdapters.URL;
-
 public class BuskerCertification extends AppCompatActivity {
 
     private RestApiService apiService;
 
     final int REQ_CODE_SELECT_IMAGE=100;
-
-    private String mImageUrl = "";
 
     //활동팀명,태그갯수 체크 유효성 체크값 담음
     final boolean[] teamNameOk = new boolean[1];
@@ -54,9 +47,8 @@ public class BuskerCertification extends AppCompatActivity {
     final boolean[] tagOk = new boolean[1];
     final boolean[] imageOk = new boolean[1];
 
-    //이전 사용자 변수
+    String user_token, filePath;
     int user_id;
-    String user_token,user_phone, filePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,14 +56,13 @@ public class BuskerCertification extends AppCompatActivity {
         setContentView(R.layout.activity_busker_certification);
 
         restApiBuilder();
+        getLocalData();
 
         //활동팀명,성명,휴대폰,활동지 및 장르(=태그) 에디터 텍스트 입력 변수
         final EditText teamNameEdit = (EditText) findViewById(R.id.teamName);
         final EditText nameEdit = (EditText) findViewById(R.id.name);
         final EditText cellPhoneEdit = (EditText) findViewById(R.id.cellPhone);
         final EditText tagEdit = (EditText) findViewById(R.id.activity);
-
-        getLocalData();
 
         //휴대폰 번호 입력 시 자동으로 하이픈 추가
         cellPhoneEdit.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
@@ -86,9 +77,10 @@ public class BuskerCertification extends AppCompatActivity {
                 intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
 
-                useConfirmBtn();
             }
         });
+
+
 
         teamNameEdit.addTextChangedListener(new TextWatcher() {
 
@@ -216,60 +208,12 @@ public class BuskerCertification extends AppCompatActivity {
                     //이미지 업로드 스트림
                     InputStream is = getContentResolver().openInputStream(data.getData());
 
-
                 }catch (FileNotFoundException e) { e.printStackTrace(); }
                 catch (IOException e) { e.printStackTrace(); }
                 catch (Exception e) { e.printStackTrace();	}
             }
         }
     }
-
-    public byte[] getBytes(InputStream is) throws IOException {
-        ByteArrayOutputStream byteBuff = new ByteArrayOutputStream();
-
-        int buffSize = 1024;
-        byte[] buff = new byte[buffSize];
-
-        int len = 0;
-        while ((len = is.read(buff)) != -1) {
-            byteBuff.write(buff, 0, len);
-        }
-
-        return byteBuff.toByteArray();
-    }
-
-
-//    private void uploadImage(byte[] imageBytes) {
-//
-//        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), imageBytes);
-//
-//        MultipartBody.Part body = MultipartBody.Part.createFormData("image", "image.jpg", requestFile);
-//        Call<graduationwork.buskingtown.model.Response> call = apiService.uploadImage(body);
-//        call.enqueue(new Callback<graduationwork.buskingtown.model.Response>() {
-//            @Override
-//            public void onResponse(Call<graduationwork.buskingtown.model.Response> call, Response<graduationwork.buskingtown.model.Response> response) {
-//
-//                if (response.isSuccessful()) {
-//                    graduationwork.buskingtown.model.Response responseBody = response.body();
-//                    mImageUrl = URL + responseBody.getPath();
-//                } else {
-//                    ResponseBody errorBody = response.errorBody();
-//                    Gson gson = new Gson();
-//                    try {
-//                        Response errorResponse = gson.fromJson(errorBody.string(), Response.class);
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<graduationwork.buskingtown.model.Response> call, Throwable t) {
-//                Log.i(ApplicationController.TAG, "이미지 업로드 실패 Message : " + t.getMessage());
-//            }
-//
-//        });
-//    }
 
     //활동팀명 형식이 제대로 되어있나 체크 메소드
     public static boolean checkName(String buskerName){
@@ -291,7 +235,7 @@ public class BuskerCertification extends AppCompatActivity {
     }
     public boolean checktag(String buskerTag){
         int i = getCharNumber(buskerTag,'#');
-        if(i>0 && i <=5){
+        if(i <=5){
             int z = getCharNumber(buskerTag,' ');
             if(z<=4){
                 return true;
@@ -345,7 +289,26 @@ public class BuskerCertification extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    completeApply(user_id);
+                    final EditText teamNameEdit = (EditText) findViewById(R.id.teamName);
+                    final String teamName = teamNameEdit.getText().toString();
+
+                    final EditText nameEdit = (EditText) findViewById(R.id.name);
+                    final String name = nameEdit.getText().toString();
+
+                    final EditText cellPhoneEdit = (EditText) findViewById(R.id.cellPhone);
+                    final String cellPhone = cellPhoneEdit.getText().toString();
+
+                    final EditText tagEdit = (EditText) findViewById(R.id.activity);
+                    final String tag = tagEdit.getText().toString();
+
+                    //아이디, 휴대폰번호 로그 띄우기
+                    Log.e("활동팀명",String.valueOf(teamName));
+                    Log.e("이름",String.valueOf(name));
+                    Log.e("휴대폰번호",String.valueOf(cellPhone));
+                    Log.e("태그",String.valueOf(tag));
+
+
+                    buskerSetting(teamName,name,cellPhone,tag,filePath);
                 }
             });
         }else {
@@ -355,96 +318,53 @@ public class BuskerCertification extends AppCompatActivity {
 
     }
 
-    public void completeApply(int id) {
-        Intent waitPassActivity = new Intent(getApplication(),WaitPass.class);
+    public void buskerSetting(String teamName,String name, String phone, String tag,String filePath){
+            // add another part within the multipart request
+            RequestBody user = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(user_id));
+            RequestBody busker_name = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(name));
+            RequestBody team_name = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(teamName));
+            RequestBody busker_phone = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(phone));
+            RequestBody busker_tag = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(tag));
 
-        final EditText teamNameEdit = (EditText) findViewById(R.id.teamName);
-        final String teamName = teamNameEdit.getText().toString();
+//            File file = new File(filePath);
+//            MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
 
-        final EditText nameEdit = (EditText) findViewById(R.id.name);
-        final String name = nameEdit.getText().toString();
 
-        final EditText cellPhoneEdit = (EditText) findViewById(R.id.cellPhone);
-        final String cellPhone = cellPhoneEdit.getText().toString();
-
-        final EditText tagEdit = (EditText) findViewById(R.id.activity);
-        final String tag = tagEdit.getText().toString();
-
-        //아이디, 휴대폰번호 로그 띄우기
-        Log.e("활동팀명",String.valueOf(teamName));
-        Log.e("이름",String.valueOf(name));
-        Log.e("휴대폰번호",String.valueOf(cellPhone));
-        Log.e("태그",String.valueOf(tag));
-
-        buskerSetting(id, teamName, name, cellPhone, tag, filePath);
-
-        startActivity(waitPassActivity);
-    }
-
-    public void buskerSetting(int id,String teamName,String name, String phone, String tag,String filePath){
-        Busker busker = new Busker();
-//        busker.setUser(id);
-        busker.setBusker_name(name);
-        busker.setTeam_name(teamName);
-        busker.setBusker_phone(phone);
-        busker.setBusker_tag(tag);
-        busker.setCertification(false);
-
-      //  RequestBody user = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(id));
-        RequestBody busker_name = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(name));
-        RequestBody team_name = RequestBody.create(MediaType.parse("text/plain"),String.valueOf(teamName));
-        RequestBody busker_phone = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(phone));
-        RequestBody busker_tag = RequestBody.create(MediaType.parse("text/plain"),String.valueOf(tag));
-
-//       RequestBody busker = RequestBody.create(MediaType.parse("text/plain"),String.valueOf(tag));
-        RequestBody requestFile = null;
-//
-//        MultipartBody.Part busker_name_per = MultipartBody.Part.create(busker_name);
-//        MultipartBody.Part team_name_per = MultipartBody.Part.create(team_name);
-//        MultipartBody.Part busker_phone_per = MultipartBody.Part.create(busker_phone);
-//        MultipartBody.Part busker_tag_per = MultipartBody.Part.create(busker_tag);
-//        MultipartBody.Part certification_per = MultipartBody.Part.create(certification);
-
-        MultipartBody.Part imagenPerfil = null;
-        if(filePath!=null){
-            File file = new File(filePath);
-            Log.i("Register","Nombre del archivo "+file.getName());
-            // create RequestBody instance from file
-            requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            // MultipartBody.Part is used to send also the actual file name
-            imagenPerfil = MultipartBody.Part.createFormData("imagenPerfil", file.getName(), requestFile);
-        }
-
-        Call<Busker> buskerCall = apiService.postBusker(user_token,busker);
-        buskerCall.enqueue(new Callback<Busker>() {
+        Call<Busker> postBusker = apiService.postBusker(user_token,user,busker_name,team_name,busker_tag,busker_phone);
+        postBusker.enqueue(new Callback<Busker>() {
             @Override
             public void onResponse(Call<Busker> call, Response<Busker> response) {
                 if (response.isSuccessful()) {
-                    Log.e("버스커인증생성:", "성공");
+                    Log.e("버스커세팅:", "성공");
+                    completeApply();
                 } else {
+                    Toast.makeText(getApplicationContext(), "버스커인증하기에 실패했습니다.\n다시 시도해주세요", Toast.LENGTH_SHORT).show();
                     int StatusCode = response.code();
-                    String s = response.message();
-                    ResponseBody d = response.errorBody();
-                    Busker a = response.body();
                     Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
-                    Log.e("메세지", s);
-                    Log.e("리스폰스에러바디", String.valueOf(d));
-                    Log.e("리스폰스바디", String.valueOf(a));
+                    Log.e("메세지", String.valueOf(response.message()));
+                    Log.e("리스폰스에러바디", String.valueOf(response.errorBody()));
+                    Log.e("리스폰스바디", String.valueOf(response.body()));
                 }
             }
 
             @Override
             public void onFailure(Call<Busker> call, Throwable t) {
-                Log.e("버스커 세팅 메세지", "통신연결 실패");
+                Log.e("call","실패");
+                Toast.makeText(getApplicationContext(), "버스커인증하기에 실패했습니다.\n다시 시도해주세요", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+
     public void getLocalData(){
         SharedPreferences pref = getSharedPreferences("User", Activity.MODE_PRIVATE);
         user_token = pref.getString("auth_token",null);
-        user_phone = pref.getString("user_phone",null);
         user_id = pref.getInt("user_id",0);
+    }
+
+    public void completeApply() {
+        Intent waitPassActivity = new Intent(getApplication(),WaitPass.class);
+        startActivity(waitPassActivity);
     }
 
     public void restApiBuilder() {

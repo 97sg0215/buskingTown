@@ -1,11 +1,12 @@
 package graduationwork.buskingtown.model;
 
 public class User {
-    private String token;
-    private int id;
-    private String username;
-    private String email;
-    private Profile profile;
+    String token;
+    int id;
+    String username;
+    String email;
+    Profile profile;
+    Busker busker;
 
     public String getToken() {
         return token;
@@ -45,5 +46,13 @@ public class User {
 
     public void setProfile(Profile profile) {
         this.profile = profile;
+    }
+
+    public Busker getBusker() {
+        return busker;
+    }
+
+    public void setBusker(Busker busker) {
+        this.busker = busker;
     }
 }
