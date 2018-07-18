@@ -1,6 +1,8 @@
 package graduationwork.buskingtown;
 
 import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -27,7 +29,7 @@ public class Mypage extends Fragment {
 
     private RestApiService apiService;
 
-    RelativeLayout go_Busker;
+    RelativeLayout go_Busker,logout;
 
     public Mypage(){
         // Required empty public constructor
@@ -59,8 +61,17 @@ public class Mypage extends Fragment {
 
         //여기다 링크 바로가기 선언하세요
         go_Busker = (RelativeLayout) v.findViewById(R.id.goBusker);
+        logout = (RelativeLayout)v.findViewById(R.id.logOut);
 
         getBusker(user_token,user_id);
+
+        //로그아웃
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setLogout();
+            }
+        });
 
         return v;
     }
@@ -150,5 +161,16 @@ public class Mypage extends Fragment {
         ApplicationController application = ApplicationController.getInstance();
         application.buildNetworkService();
         apiService = ApplicationController.getInstance().getRestApiService();
+    }
+
+    public void setLogout(){
+        SharedPreferences pref = this.getActivity().getSharedPreferences(String.valueOf(getContext()),Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.clear(); //clear all stored data
+        editor.commit();
+
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

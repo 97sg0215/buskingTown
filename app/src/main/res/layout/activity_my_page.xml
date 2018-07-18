@@ -310,6 +310,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/logOut"
                     android:layout_width="match_parent"
                     android:layout_height="55.5dp">
 
