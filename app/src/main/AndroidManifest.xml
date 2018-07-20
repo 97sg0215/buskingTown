@@ -49,8 +49,6 @@
         <activity android:name=".OpenConcert" />
         <activity android:name=".LikeBusker" />
         <activity android:name=".ClientCenter" />
-        <activity android:name=".RealtimeBusking" />
-        <activity android:name=".RealtimeBuskingTab" />
         <activity android:name=".RealtimeBuskingMap" />
         <activity android:name=".ClientCenterCounsel" />
         <activity android:name=".ClientCenterCounselDetail" />
