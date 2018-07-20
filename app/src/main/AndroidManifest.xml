@@ -69,7 +69,7 @@
         <activity android:name=".LocationSearch" />
         <activity android:name=".BuskingOpen_map" />
         <activity android:name=".LocationLendStart" />
-        <activity android:name=".ChannelManagementSetting"></activity>
+        <activity android:name=".ChannelManagementSetting" />
     </application>
 
 </manifest>

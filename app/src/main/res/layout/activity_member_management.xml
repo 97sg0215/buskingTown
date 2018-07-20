@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
-    tools:context=".FailPass">
+    tools:context=".MemberManagement">
 
     <RelativeLayout
         android:id="@+id/statusBar"
@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="버스커 승인 실패"
+            android:text="팀원 관리"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:textColor="#fff"
@@ -34,74 +34,62 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/sorry"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/statusBar"
         android:gravity="center">
 
         <ImageView
-            android:id="@+id/sorryImg"
+            android:id="@+id/sorry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="130.9dp"
-            android:src="@drawable/sorry"
-            android:layout_centerHorizontal="true"/>
+            android:layout_marginTop="154.1dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/sorry"/>
 
         <TextView
-            android:id="@+id/failPassText"
+            android:id="@+id/sorrytext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20.8dp"
-            android:layout_below="@+id/sorryImg"
-            android:text="승인에 통과하지 못했어요."
+            android:layout_marginTop="20.3dp"
+            android:lineSpacingExtra="3sp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:layout_below="@+id/sorry"
+            android:text="아직 초대 된 멤버가 없군요. \n멤버를 초대해서 팀을 만드세요"
             android:fontFamily="@font/kopubmedium"
             android:textColor="@color/mainPurple"
-            android:textSize="15sp"
-            android:layout_centerHorizontal="true"/>
+            android:textSize="15sp" />
 
         <View
             android:id="@+id/line"
             android:layout_width="23dp"
             android:layout_height="4dp"
-            android:layout_marginTop="34.8dp"
-            android:layout_below="@+id/failPassText"
+            android:layout_marginTop="14.3dp"
+            android:layout_below="@+id/sorrytext"
             android:background="@drawable/small_line"
             android:layout_centerHorizontal="true" />
 
-        <TextView
-            android:id="@+id/fail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/line"
-            android:text="다시 도전하시겠어요?"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="34.8dp"
-            android:gravity="center"
-            android:textColor="@color/fontBlack"
-            android:fontFamily="@font/kopubdotummedium"
-            android:textSize="12sp"/>
-
         <Button
-            android:id="@+id/challenge"
+            android:id="@+id/inviteBtn"
             android:layout_width="190dp"
             android:layout_height="35dp"
-            android:layout_below="@+id/fail"
-            android:text="다시 도전하기"
+            android:layout_below="@+id/line"
+            android:text="멤버 초대하기"
             android:fontFamily="@font/kopubdotumbold"
             android:textColor="#fff"
             android:background="@drawable/fail_btn"
+            android:lineSpacingExtra="-5sp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20.2dp"/>
+            android:layout_marginTop="47.4dp"/>
 
         <ImageView
             android:id="@+id/city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="78.1dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:src="@drawable/bt_image2" />
+            android:src="@drawable/bt_image2"/>
 
     </RelativeLayout>
 

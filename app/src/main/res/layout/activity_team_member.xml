@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".TeamMember">
+
+    <RelativeLayout
+        android:id="@+id/statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="46.1dp"
+        android:background="@color/mainPurple">
+
+        <ImageButton
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:background="#00000000"
+            android:src="@drawable/backbtn" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="팀원"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fff"
+            android:fontFamily="@font/kopubbold"
+            android:textSize="17sp"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/statusBar"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:paddingLeft="20dp">
+
+                <ImageButton
+                    android:id="@+id/plus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="#00000000"
+                    android:src="@drawable/ic_plus"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/plus"
+                    android:layout_marginLeft="15dp"
+                    android:text="멤버 초대하기"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/mainYellow"
+                    android:fontFamily="@font/kopubbold"
+                    android:textSize="15sp"
+                    android:lineSpacingExtra="33sp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="23dp"
+                android:paddingLeft="20dp"
+                android:background="@color/mainGray">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textSize="12sp"
+                    android:textColor="@color/fontGray"
+                    android:lineSpacingExtra="28sp"
+                    tools:text="내 프로필"
+                    android:fontFamily="@font/kopubmedium"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70.5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp">
+
+                    <ImageView
+                        android:id="@+id/profileImg"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/profile_small"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15sp"
+                        android:layout_toRightOf="@+id/profileImg"
+                        android:layout_centerVertical="true"
+                        android:textSize="15sp"
+                        android:fontFamily="@font/kopubbold"
+                        android:textColor="@color/fontBlack"
+                        android:lineSpacingExtra="33sp"
+                        android:text="my_id"/>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="23dp"
+                android:paddingLeft="20dp"
+                android:background="@color/mainGray"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/standBy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textSize="12sp"
+                    android:textColor="@color/fontGray"
+                    android:lineSpacingExtra="28sp"
+                    tools:text="초대수락 대기 중인 멤버"
+                    android:fontFamily="@font/kopubmedium"/>
+
+                <TextView
+                    android:id="@+id/standByNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/standBy"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/fontGray"
+                    android:lineSpacingExtra="28sp"
+                    tools:text="(-)"
+                    android:fontFamily="@font/kopubmedium"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/standByMember"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="23dp"
+                android:paddingLeft="20dp"
+                android:background="@color/mainGray">
+
+                <TextView
+                    android:id="@+id/member"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textSize="12sp"
+                    android:textColor="@color/fontGray"
+                    android:lineSpacingExtra="28sp"
+                    tools:text="멤버"
+                    android:fontFamily="@font/kopubmedium"/>
+
+                <TextView
+                    android:id="@+id/memberNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/member"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/fontGray"
+                    android:lineSpacingExtra="28sp"
+                    tools:text="(-)"
+                    android:fontFamily="@font/kopubmedium"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/myMember"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MemberAdd">
+
+    <RelativeLayout
+        android:id="@+id/statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="46.1dp"
+        android:background="@color/mainPurple">
+
+        <ImageButton
+            android:id="@+id/clearBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_d"
+            android:background="#00000000"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="팀원 추가"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fff"
+            android:fontFamily="@font/kopubbold"
+            android:textSize="17sp"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/statusBar"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="22.5dp"
+        android:textSize="13sp"
+        android:textColor="@color/fontGray"
+        android:lineSpacingExtra="35sp"
+        android:text="이메일/닉네임을 검색하세요"
+        android:fontFamily="@font/kopubmedium"/>
+
+    <LinearLayout
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/text"
+        android:background="#fff">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+
+            <EditText
+                android:id="@+id/memberSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:textColor="@color/fontBlack"
+                android:lineSpacingExtra="35sp"
+                android:layout_centerVertical="true"
+                android:inputType="text"
+                android:fontFamily="@font/kopubmedium"
+                android:background="#00000000"
+                android:hint="대/소문자를 정확하게 입력해주세요" />
+
+
+            <ImageButton
+                android:id="@+id/clearbtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/search_img"
+                android:layout_marginRight="15dp"
+                android:background="#00000000"
+                android:src="@drawable/ic_clear"
+                android:visibility="gone"/>
+
+            <ImageButton
+                android:id="@+id/search_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:background="#00000000"
+                android:src="@drawable/search"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search"
+        android:layout_marginTop="70.3dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/nomember"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textSize="15sp"
+            android:textColor="@color/mainPurple"
+            android:lineSpacingExtra="2sp"
+            android:fontFamily="@font/kopubmedium"
+            android:text="사용자를 찾을 수 없습니다"/>
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="23dp"
+            android:layout_height="4dp"
+            android:layout_marginTop="35.3dp"
+            android:layout_below="@id/nomember"
+            android:background="@drawable/divider"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/adminApprove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line"
+            android:lineSpacingExtra="9sp"
+            android:text="이메일이나 닉네임을 다시 확인해주세요. \n이미 버스커인 회원은 초대할 수 없습니다."
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="34.8dp"
+            android:gravity="center"
+            android:textColor="@color/fontBlack"
+            android:fontFamily="@font/kopubdotummedium"
+            android:textSize="12sp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
