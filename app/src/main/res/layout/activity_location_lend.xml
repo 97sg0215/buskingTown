@@ -164,23 +164,25 @@
                     android:layout_marginTop="19.2dp"
                     android:textColor="@color/fontBlack" />
 
-                <LinearLayout
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="8.2dp">
 
-                    <Button
-                        android:id="@+id/phoneBtn"
+                    <EditText
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:background="@drawable/date_rounded"
                         android:fontFamily="@font/kopubmedium"
-                        android:text="-"
                         android:textColor="@color/mainPurple"
-                        android:textSize="14sp" />
+                        android:hint="010-1234-5678"
+                        android:textSize="14sp"
+                        android:textColorHint="@color/fontGray"
+                        android:inputType="phone"
+                        android:paddingLeft="15.1dp"/>
 
-                </LinearLayout>
+                </FrameLayout>
 
             </LinearLayout>
 
@@ -407,32 +409,30 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="20.2dp"
                     android:fontFamily="@font/kopubbold"
                     android:text="옵션명"
                     android:textColor="@color/fontBlack"
                     android:textSize="14sp" />
 
-                <LinearLayout
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="8.2dp">
 
-                    <Button
-                        android:id="@+id/optionBtn"
+                    <EditText
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:background="@drawable/date_rounded"
                         android:fontFamily="@font/kopubmedium"
-                        android:hint="옵션명을 입력해주세요. 예) A Room"
-                        android:paddingLeft="14.8dp"
-                        android:gravity="center_vertical"
                         android:textColor="@color/fontBlack"
-                        android:textSize="14sp" />
+                        android:hint="옵션명을 입력해주세요."
+                        android:textSize="14sp"
+                        android:textColorHint="@color/fontGray"
+                        android:paddingLeft="15.1dp"/>
 
-                </LinearLayout>
+                </FrameLayout>
 
             </LinearLayout>
 
@@ -452,33 +452,43 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="20.2dp"
                     android:fontFamily="@font/kopubbold"
                     android:text="가 격"
                     android:textColor="@color/fontBlack"
                     android:textSize="14sp" />
 
-                <LinearLayout
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:layout_marginLeft="23dp"
                     android:layout_marginTop="8.2dp">
 
-                    <Button
-                        android:id="@+id/priceBtn"
+                    <EditText
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:background="@drawable/date_rounded"
                         android:fontFamily="@font/kopubmedium"
-                        android:hint="/일"
-                        android:paddingLeft="14.8dp"
-                        android:paddingRight="15dp"
-                        android:gravity="center_vertical"
                         android:textColor="@color/fontBlack"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:paddingLeft="15.1dp"/>
 
-                </LinearLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingRight="15dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="/일"
+                            android:textColor="@color/fontGray"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"/>
+
+                    </RelativeLayout>
+
+                </FrameLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
