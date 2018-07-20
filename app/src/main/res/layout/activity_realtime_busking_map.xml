@@ -6,25 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".RealtimeBuskingMap">
 
-    <RelativeLayout
-        android:id="@+id/mapsearchimage"
+    <com.nhn.android.maps.NMapView
+        android:id="@+id/map_view"
         android:layout_width="match_parent"
-        android:layout_height="426dp"
-        android:background="@color/subGray">
+        android:layout_height="match_parent"></com.nhn.android.maps.NMapView>
 
-        <TextView
-            android:id="@+id/maptext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="지도 \n(다른사람이 예약한 핀 보이게)"
-            android:fontFamily="@font/kopubmedium"
-            android:textColor="@color/mainPurple"
-            android:textSize="15sp"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:layout_marginTop="176dp"/>
-
-    </RelativeLayout>
 
 </RelativeLayout>
