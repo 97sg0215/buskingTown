@@ -30,7 +30,7 @@
             android:layout_centerHorizontal="true"
             android:textColor="#fff"
             android:fontFamily="@font/kopubbold"
-            android:textSize="15sp"/>
+            android:textSize="17sp"/>
 
     </RelativeLayout>
 

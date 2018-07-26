@@ -37,7 +37,7 @@
                     android:layout_below="@+id/filter"
                     android:text="준비된 콘서트가 없습니다."
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="75dp"
                     android:fontFamily="@font/kopubdotummedium"
                     android:textColor="@color/fontBlack"
                     android:textSize="14sp"/>

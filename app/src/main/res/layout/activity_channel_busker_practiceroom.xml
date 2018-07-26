@@ -38,10 +38,16 @@
                     android:layout_below="@+id/filter"
                     android:text="준비된 연습실이 없습니다."
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="75dp"
                     android:fontFamily="@font/kopubdotummedium"
                     android:textColor="@color/fontBlack"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    android:visibility="invisible"/>
+
+                <FrameLayout
+                    android:id="@+id/fragmentPracticeList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
         </RelativeLayout>
 </FrameLayout>

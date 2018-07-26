@@ -6,7 +6,6 @@
     android:background="#fff"
     tools:context=".Mypage">
 
-
     <RelativeLayout
         android:id="@+id/statusBar"
         android:layout_width="match_parent"

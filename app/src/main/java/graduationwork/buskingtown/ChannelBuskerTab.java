@@ -18,11 +18,9 @@ public class ChannelBuskerTab extends Fragment {
     //탭바 아이콘 변수들
     private TextView roadConcert, practiceRoom, concert;
 
-
     public ChannelBuskerTab(){
         // Required empty public constructor
     }
-
 
 
     @Override
