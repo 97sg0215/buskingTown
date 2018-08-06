@@ -2,11 +2,20 @@ package graduationwork.buskingtown.model;
 
 public class Busker {
     int user;
+    int busker_id;
     String busker_name;
     String team_name;
     String busker_tag;
     String busker_phone;
-    boolean certification;
+    Boolean certification;
+
+    public int getBusker_id() {
+        return busker_id;
+    }
+
+    public void setBusker_id(int busker_id) {
+        this.busker_id = busker_id;
+    }
 
     public int getUser() {
         return user;
@@ -48,11 +57,11 @@ public class Busker {
         this.busker_phone = busker_phone;
     }
 
-    public boolean isCertification() {
+    public Boolean getCertification() {
         return certification;
     }
 
-    public void setCertification(boolean certification) {
+    public void setCertification(Boolean certification) {
         this.certification = certification;
     }
 }

@@ -37,8 +37,8 @@ public class Mypage extends Fragment {
 
     //유저 정보 변수들
     String user_token,user_name;
-    int user_id;
-    boolean certification;
+    int user_id,busker_id;
+    Boolean certification;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -83,7 +83,7 @@ public class Mypage extends Fragment {
         user_id = pref.getInt("user_id",0);
     }
 
-    public void buskerCheck(boolean certification, Busker busker){
+    public void buskerCheck(Boolean certification, Busker busker){
         Log.e("인증상태-",String.valueOf(certification));
         Log.e("버스커-",String.valueOf(busker));
         if(busker == null){
@@ -95,19 +95,11 @@ public class Mypage extends Fragment {
                     startActivity(i);
                 }
             });
-        } else {
+        }
+        else {
             //내 채널 되기 가기
             TextView go_Busker_text = (TextView) getActivity().findViewById(R.id.goBuskerText);
-            if(certification==true){
-                go_Busker_text.setText("내 채널 가기");
-                go_Busker.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent i = new Intent(getActivity(),ChannelBusker.class);
-                        startActivity(i);
-                    }
-                });
-            }else if(certification==false){
+            if(certification == null){
                 go_Busker.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -115,6 +107,25 @@ public class Mypage extends Fragment {
                         startActivity(i);
                     }
                 });
+            } else {
+                if(certification == true){
+                    go_Busker_text.setText("내 채널 가기");
+                    go_Busker.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent i = new Intent(getActivity(),ChannelBusker.class);
+                            startActivity(i);
+                        }
+                    });
+                }else if(certification == false){
+                    go_Busker.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent i = new Intent(getActivity(),FailPass.class);
+                            startActivity(i);
+                        }
+                    });
+                }
             }
         }
     }
@@ -128,13 +139,16 @@ public class Mypage extends Fragment {
             public void onResponse(Call<User> call, Response<User> response) {
                 userDetail[0] = response.body();
                 if (userDetail[0].getBusker() != null) {
-                    certification = userDetail[0].getBusker().isCertification();
+                    certification = userDetail[0].getBusker().getCertification();
+                    busker_id = userDetail[0].getBusker().getBusker_id();
                     if (response.isSuccessful()) {
                         Log.e("유저 아이디", String.valueOf(id));
+                        Log.e("버스커 아이디", String.valueOf(busker_id));
                         Log.e("인증상태", String.valueOf(certification));
                         Log.e("버스커", String.valueOf(busker));
                         Log.e("버스커유저정보가져오기:", "성공");
                         buskerCheck(certification, busker[0]);
+                        saveBuskerInfo(busker_id);
                     } else {
                         //에러 상태 보려고 해둔 코드
                         int StatusCode = response.code();
@@ -146,7 +160,7 @@ public class Mypage extends Fragment {
                         Log.e("리스폰스바디", String.valueOf(response.body()));
                     }
                 } else {
-                    buskerCheck(false, null);
+                    buskerCheck(null, null);
                 }
             }
 
@@ -155,6 +169,13 @@ public class Mypage extends Fragment {
                 Log.i(ApplicationController.TAG, "유저 정보 서버 연결 실패 Message : " + t.getMessage());
             }
         });
+    }
+
+    public void saveBuskerInfo(int busker_id){
+        SharedPreferences pref = getActivity().getSharedPreferences("BuskerUser", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putInt("busker_id",busker_id);
+        editor.commit();
     }
 
     public void restApiBuilder() {

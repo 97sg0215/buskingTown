@@ -11,6 +11,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
@@ -21,7 +22,7 @@ import retrofit2.http.Path;
 
 public interface RestApiService {
 
-    public  static  final String API_URL="http://8d1e4962.ngrok.io/";
+    public  static  final String API_URL="http://36c5bf6a.ngrok.io/";
 
     //회원가입을 위한 데이터 포스트
     @POST("accounts/sign_up/")
@@ -48,4 +49,8 @@ public interface RestApiService {
                              @Part("team_name") RequestBody team_name,
                              @Part("busker_tag") RequestBody busker_tag,
                              @Part("busker_phone") RequestBody busker_phone);
+
+    //버스커 객체 삭제 > 인증시 오류 해결을 위해
+    @DELETE("accounts/delete/{busker_id}/")
+    Call<Busker> deleteBusker (@Header("Authorization")String autoToken, @Path("busker_id")int id);
 }

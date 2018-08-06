@@ -27,6 +27,7 @@ import java.util.regex.Pattern;
 
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.Busker;
+import graduationwork.buskingtown.model.User;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -356,11 +357,14 @@ public class BuskerCertification extends AppCompatActivity {
     }
 
 
+
+
     public void getLocalData(){
         SharedPreferences pref = getSharedPreferences("User", Activity.MODE_PRIVATE);
         user_token = pref.getString("auth_token",null);
         user_id = pref.getInt("user_id",0);
     }
+
 
     public void completeApply() {
         Intent waitPassActivity = new Intent(getApplication(),WaitPass.class);
