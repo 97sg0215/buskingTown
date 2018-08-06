@@ -41,6 +41,7 @@
         android:layout_below="@+id/statusBar">
 
         <TextView
+            android:id="@+id/versioIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="버전 정보"

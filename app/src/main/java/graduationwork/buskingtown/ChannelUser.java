@@ -20,6 +20,12 @@ public class ChannelUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_channel_user);
 
+        ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { ChannelUser.super.onBackPressed(); }
+        });
+
         LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         for (int scheduleCount=0; scheduleCount<test_schedule; scheduleCount++) {
             addSchedule(inflater);
@@ -71,5 +77,9 @@ public class ChannelUser extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    public void previousActivity(View v){
+        onBackPressed();
     }
 }

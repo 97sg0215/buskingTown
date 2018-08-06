@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -54,6 +55,12 @@ public class BuskerCertification extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_busker_certification);
+
+        ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { BuskerCertification.super.onBackPressed(); }
+        });
 
         restApiBuilder();
         getLocalData();
@@ -371,5 +378,9 @@ public class BuskerCertification extends AppCompatActivity {
         ApplicationController application = ApplicationController.getInstance();
         application.buildNetworkService();
         apiService = ApplicationController.getInstance().getRestApiService();
+    }
+
+    public void previousActivity(View v){
+        onBackPressed();
     }
 }
