@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.TimePicker;
 
 import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder;
@@ -35,6 +36,12 @@ public class BuskingOpen extends AppCompatActivity implements DatePickerDialog.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_busking_open);
+
+        ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { BuskingOpen.super.onBackPressed(); }
+        });
 
         //시간을 가져오기위한 Calendar 인스턴스 선언
         Calendar cal = new GregorianCalendar();
@@ -135,6 +142,10 @@ public class BuskingOpen extends AppCompatActivity implements DatePickerDialog.O
     @Override
     public void onDateSet(com.tsongkha.spinnerdatepicker.DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         concertDateButton.setText(year + "년 " + (monthOfYear + 1) + "월 " + dayOfMonth + "일");
+    }
+
+    public void previousActivity(View v){
+        onBackPressed();
     }
 
 }
