@@ -1,5 +1,6 @@
 package graduationwork.buskingtown;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 
 import android.app.TimePickerDialog;
@@ -16,6 +17,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+
+
 
 public class BuskingOpen extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, com.tsongkha.spinnerdatepicker.DatePickerDialog.OnDateSetListener {
     String concertDatePick;
@@ -65,13 +68,13 @@ public class BuskingOpen extends AppCompatActivity implements DatePickerDialog.O
 
             case R.id.timeStartDate:
                 //여기서 리스너도 등록함
-                new TimePickerDialog(BuskingOpen.this, startTimeSetListener, mHour, mMinute, false).show();
+                new TimePickerDialog(BuskingOpen.this, R.style.TimePicker, startTimeSetListener, mHour, mMinute, false).show();
 
                 break;
 
             case R.id.timeEndDate:
                 //여기서 리스너도 등록함
-                new TimePickerDialog(BuskingOpen.this, endTimeSetListener, mHour, mMinute, false).show();
+                new TimePickerDialog(BuskingOpen.this, R.style.TimePicker, endTimeSetListener, mHour, mMinute, false).show();
 
                 break;
         }
