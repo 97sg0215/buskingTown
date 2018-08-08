@@ -22,4 +22,11 @@
         <item name="android:colorControlNormal" tools:targetApi="lollipop">@color/mainPurple</item>
     </style>
 
+    <!-- 타임피커 테마 지정 -->
+    <style name="TimePicker"  parent="Theme.AppCompat.Light.Dialog" >
+        <item name="android:colorAccent">@color/mainPurple</item>
+        <item name="android:colorControlActivated">@color/mainPurple</item>
+    </style>
+    
+
 </resources>

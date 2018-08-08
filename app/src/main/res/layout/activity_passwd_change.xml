@@ -32,6 +32,7 @@
             android:textSize="17sp"/>
 
         <TextView
+            android:id="@+id/passwdOK"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#ffffff"

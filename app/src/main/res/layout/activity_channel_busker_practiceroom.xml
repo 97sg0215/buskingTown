@@ -41,8 +41,7 @@
                     android:layout_marginTop="75dp"
                     android:fontFamily="@font/kopubdotummedium"
                     android:textColor="@color/fontBlack"
-                    android:textSize="14sp"
-                    android:visibility="invisible"/>
+                    android:textSize="14sp"/>
 
                 <FrameLayout
                     android:id="@+id/fragmentPracticeList"

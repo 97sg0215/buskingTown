@@ -1,34 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
     tools:context=".ChannelBuskerReservation">
 
-    <ImageButton
-        android:id="@+id/add"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:background="@drawable/add"
-        android:layout_marginTop="25.2dp"
-        android:layout_centerHorizontal="true"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/add"
-        android:layout_centerHorizontal="true"
-        android:text="새로운 거리공연 예약"
-        android:layout_marginTop="15dp"
-        android:fontFamily="@font/kopubdotummedium"
-        android:textColor="@color/fontGray"
-        android:textSize="14sp"
-        android:lineSpacingExtra="1.5sp"/>
-
-    <FrameLayout
-        android:id="@+id/fragmentRoadconcert"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-</RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/add"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/add"
+                android:layout_marginTop="25.2dp"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/add"
+                android:layout_centerHorizontal="true"
+                android:text="새로운 거리공연 예약"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/kopubdotummedium"
+                android:textColor="@color/fontGray"
+                android:textSize="14sp"
+                android:lineSpacingExtra="1.5sp"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/reservation_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

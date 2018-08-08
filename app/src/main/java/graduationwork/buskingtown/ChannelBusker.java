@@ -1,5 +1,6 @@
 package graduationwork.buskingtown;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +23,10 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_channel_busker);
 
         ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { ChannelBusker.super.onBackPressed(); }
+        });
 
         //아이콘에 대한 참조 변수
         board = (ImageView) findViewById(R.id.board);
@@ -80,7 +85,9 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
                 break;
 
         }
-
+    }
+    public void previousActivity(View v){
+        onBackPressed();
     }
 
 }
