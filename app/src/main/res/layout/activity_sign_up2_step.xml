@@ -84,6 +84,19 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/inputID"
+            android:fontFamily="@font/kopubmedium"
+            android:lineSpacingExtra="1sp"
+            android:textColor="@color/mainPurple"
+            android:layout_marginTop="44dp"
+            android:layout_marginRight="6dp"
+            android:textSize="12sp"
+            android:layout_alignParentRight="true"
+            android:text="인증하기"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/signUp2Label"
             android:fontFamily="@font/kopubmedium"
             android:lineSpacingExtra="1sp"
@@ -101,35 +114,11 @@
             android:layout_below="@+id/inputID"
             android:background="@color/transPurple"/>
 
-        <!-- 터치시 데이트 피커 후 0000 년  00 월 00일로 세팅 -->
-        <TextView
-            android:id="@+id/birth"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/idUnderLine"
-            android:layout_marginTop="44dp"
-            android:paddingLeft="5dp"
-            android:fontFamily="@font/kopubmedium"
-            android:textColor="@color/mainPurple"
-            android:hint="생년월일"
-            android:textColorHint="@color/mainPurple"
-            android:lineSpacingExtra="1sp"
-            android:background="#00000000"
-            android:textSize="12sp"/>
-
-        <View
-            android:id="@+id/birthUnderLine"
-            android:layout_width="match_parent"
-            android:layout_height="0.9dp"
-            android:layout_below="@+id/birth"
-            android:layout_marginTop="15dp"
-            android:background="@color/transPurple"/>
-
         <EditText
             android:id="@+id/phoneNum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/birthUnderLine"
+            android:layout_below="@+id/idUnderLine"
             android:layout_marginTop="44dp"
             android:paddingBottom="15dp"
             android:paddingLeft="5dp"
@@ -141,19 +130,6 @@
             android:lineSpacingExtra="1sp"
             android:background="#00000000"
             android:textSize="12sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/birthUnderLine"
-            android:fontFamily="@font/kopubmedium"
-            android:lineSpacingExtra="1sp"
-            android:textColor="@color/mainPurple"
-            android:layout_marginTop="44dp"
-            android:layout_marginRight="6dp"
-            android:textSize="12sp"
-            android:layout_alignParentRight="true"
-            android:text="인증하기"/>
 
         <View
             android:id="@+id/phoneUnderLine"
