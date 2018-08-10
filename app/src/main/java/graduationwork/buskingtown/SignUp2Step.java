@@ -176,26 +176,7 @@ public class SignUp2Step extends AppCompatActivity implements DatePickerDialog.O
             }
         });
 
-        birthTextView = (TextView) findViewById(R.id.birth);
 
-        //날짜형태
-        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
-
-        //달력 객체 불러옴
-        final GregorianCalendar calendar = new GregorianCalendar();
-        birthYear = calendar.get(Calendar.YEAR);
-        birthMonth = calendar.get(Calendar.MONTH);
-        birthDay = calendar.get(Calendar.DAY_OF_MONTH);
-
-        //생년월일 클릭시 데이트피커
-        TextView birthBtn = (TextView) findViewById(R.id.birth);
-        birthBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDate(birthYear, birthMonth, birthDay, R.style.DatePickerSpinner);
-                userBirth = String.valueOf(simpleDateFormat.format(calendar.getTime()));
-            }
-        });
     }
 
     //아이디 형식이 제대로 되어있나 체크 메소드
