@@ -210,7 +210,6 @@ public class LoginActivity extends AppCompatActivity {
                 userDetail[0] = response.body();
                 String username = userDetail[0].getUsername();
                 String userEmail = userDetail[0].getEmail();
-                String user_birth = userDetail[0].getProfile().getUser_birth();
                 String user_phone = userDetail[0].getProfile().getUser_phone();
 
                 if(response.isSuccessful()){
