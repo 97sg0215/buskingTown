@@ -2,7 +2,6 @@ package graduationwork.buskingtown.model;
 
 public class Profile {
     String user;
-    String user_birth;
     String user_phone;
 
     public String getUser() {
@@ -11,14 +10,6 @@ public class Profile {
 
     public void setUser(String user) {
         this.user = user;
-    }
-
-    public String getUser_birth() {
-        return user_birth;
-    }
-
-    public void setUser_birth(String user_birth) {
-        this.user_birth = user_birth;
     }
 
     public String getUser_phone() {

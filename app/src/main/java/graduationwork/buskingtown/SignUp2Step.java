@@ -222,8 +222,6 @@ public class SignUp2Step extends AppCompatActivity implements DatePickerDialog.O
         SignUp signUp = new SignUp();
 
         Profile profile = new Profile();
-
-        profile.setUser_birth(birth);
         profile.setUser_phone(phone);
 
         //signUp POST
