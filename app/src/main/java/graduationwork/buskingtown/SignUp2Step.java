@@ -175,7 +175,7 @@ public class SignUp2Step extends AppCompatActivity {
 
     //아이디 형식이 제대로 되어있나 체크 메소드
     public static boolean checkId(String inputID) {
-        String regex = "^[a-z0-9_]{4,15}$";
+        String regex = "^[A-Za-z0-9_]{4,15}$";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(inputID);
         boolean isNormal = m.matches();
