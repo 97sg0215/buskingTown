@@ -31,6 +31,8 @@ public class Mypage extends Fragment {
 
     RelativeLayout go_Busker,logout;
 
+    TextView go_Busker_text;
+
     public Mypage(){
         // Required empty public constructor
     }
@@ -61,6 +63,7 @@ public class Mypage extends Fragment {
 
         //여기다 링크 바로가기 선언하세요
         go_Busker = (RelativeLayout) v.findViewById(R.id.goBusker);
+        go_Busker_text = (TextView) getActivity().findViewById(R.id.goBuskerText);
         logout = (RelativeLayout)v.findViewById(R.id.logOut);
 
         getBusker(user_token,user_id);
@@ -76,13 +79,17 @@ public class Mypage extends Fragment {
         return v;
     }
 
+    //user 정보 불러오기
     public void getLocalData(){
         SharedPreferences pref = getActivity().getSharedPreferences("User", Activity.MODE_PRIVATE);
         user_token = pref.getString("auth_token",null);
         user_name = pref.getString("username",null);
         user_id = pref.getInt("user_id",0);
     }
-
+    /*
+    버스커 객체를 확인하여 null 값이면 BuskerCertification 액티비티를 띄우고
+    null값이 아니면 인증 상태를 확인하여 true > 버스커 채널 가기, false > 재시도, null > 대기 상태 액티비티로 이동
+    */
     public void buskerCheck(Boolean certification, Busker busker){
         Log.e("인증상태-",String.valueOf(certification));
         Log.e("버스커-",String.valueOf(busker));
@@ -97,8 +104,7 @@ public class Mypage extends Fragment {
             });
         }
         else {
-            //내 채널 되기 가기
-            TextView go_Busker_text = (TextView) getActivity().findViewById(R.id.goBuskerText);
+            //내 채널 가기
             if(certification == null){
                 go_Busker.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -130,6 +136,7 @@ public class Mypage extends Fragment {
         }
     }
 
+    //버스커 객체를 확인하기 위함 busker 모델에서 인증 상태와 busker_id를 불러옴
     public void getBusker(String token,int id){
         final Busker[] busker = {new Busker()};
         final User[] userDetail = {new User()};
@@ -171,6 +178,7 @@ public class Mypage extends Fragment {
         });
     }
 
+    //busker 정보를 저장하기 위함 key값 : BuskerUser
     public void saveBuskerInfo(int busker_id){
         SharedPreferences pref = getActivity().getSharedPreferences("BuskerUser", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
@@ -184,8 +192,9 @@ public class Mypage extends Fragment {
         apiService = ApplicationController.getInstance().getRestApiService();
     }
 
+    //로그아웃 메소드
     public void setLogout(){
-        SharedPreferences pref = this.getActivity().getSharedPreferences(String.valueOf(getContext()),Context.MODE_PRIVATE);
+        SharedPreferences pref = getActivity().getSharedPreferences("User", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.clear(); //clear all stored data
         editor.commit();
@@ -193,5 +202,6 @@ public class Mypage extends Fragment {
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+        getActivity().finish();
     }
 }

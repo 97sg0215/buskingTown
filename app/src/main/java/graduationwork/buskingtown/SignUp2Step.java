@@ -37,16 +37,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SignUp2Step extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class SignUp2Step extends AppCompatActivity {
 
     private RestApiService apiService;
 
     //이전 액티비티에서 받아온 회원가입 포스트할 변수
-    String userEmail, userPassword, userBirth, userId;
-    int birthYear, birthMonth, birthDay;
-    SimpleDateFormat simpleDateFormat;
-
-    TextView birthTextView;
+    String userEmail, userPassword, userId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,7 +56,7 @@ public class SignUp2Step extends AppCompatActivity implements DatePickerDialog.O
         userEmail = getIntent().getStringExtra("email");
         Log.e("이메일", String.valueOf(userEmail));
         userPassword = getIntent().getStringExtra("password");
-        Log.e("비밀번호", String.valueOf(userPassword));
+        Log.e("비밀번호", String.valueOf("보안을 위해 띄우지 않습니다."));
 
         ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
 
@@ -110,7 +106,7 @@ public class SignUp2Step extends AppCompatActivity implements DatePickerDialog.O
                             String userID = inputIDEdit.getText().toString();
                             String userPhone = phoneNumEdit.getText().toString();
 
-                            signUp(userID,userEmail,userPassword,userBirth,userPhone);
+                            signUp(userID,userEmail,userPassword,userPhone);
                         }
                     });
                 } else {
@@ -159,12 +155,10 @@ public class SignUp2Step extends AppCompatActivity implements DatePickerDialog.O
                             String userID = inputIDEdit.getText().toString();
                             String userPhone = phoneNumEdit.getText().toString();
 
-                            signUp(userID,userEmail,userPassword,userBirth,userPhone);
+                            signUp(userID,userEmail,userPassword,userPhone);
 
                             Log.e("아이디",String.valueOf(userID));
                             Log.e("이메일",String.valueOf(userEmail));
-                            Log.e("비번",String.valueOf(userPassword));
-                            Log.e("생일", String.valueOf(userBirth));
                             Log.e("폰",String.valueOf(userPhone));
                         }
                     });
@@ -197,7 +191,7 @@ public class SignUp2Step extends AppCompatActivity implements DatePickerDialog.O
         return isNormal;
     }
 
-    public void signUp(String id, String email, String password, String birth, String phone) {
+    public void signUp(String id, String email, String password, String phone) {
         //회원가입 서버로 보내기
         //POST
         SignUp signUp = new SignUp();
@@ -274,26 +268,6 @@ public class SignUp2Step extends AppCompatActivity implements DatePickerDialog.O
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-    }
-
-    //데이트피커다이얼로그 보여주는 메소드
-    void showDate(int year, int monthOfYear, int dayOfMonth, int spinnerTheme) {
-        new SpinnerDatePickerDialogBuilder()
-                .context(SignUp2Step.this)
-                .callback(SignUp2Step.this)
-                .spinnerTheme(spinnerTheme)
-                .showTitle(true)
-                .defaultDate(year, monthOfYear, dayOfMonth)
-                .build()
-                .show();
-    }
-
-    @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        Calendar calendar = new GregorianCalendar(year, monthOfYear, dayOfMonth);
-        birthTextView.setText(year + "년 " + (monthOfYear + 1) + "월 " + dayOfMonth + "일");
-
-
     }
 }
 

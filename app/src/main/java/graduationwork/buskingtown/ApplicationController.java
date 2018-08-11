@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static graduationwork.buskingtown.api.RestApiService.API_URL;
 
-
+//네트워크 연결 메소드화
 public class ApplicationController extends Application {
     public final static String TAG = "BuskingTown";
     private static ApplicationController instance;

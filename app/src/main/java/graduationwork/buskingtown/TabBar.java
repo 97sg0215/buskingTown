@@ -1,5 +1,7 @@
 package graduationwork.buskingtown;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +9,9 @@ import android.view.View;
 import android.widget.ImageView;
 
 public class TabBar extends AppCompatActivity implements View.OnClickListener {
+
+    String user_token,user_name;
+    int user_id;
 
     //호출될프래그먼트 변수들
     private final int rankingFRAGMENT = 1;
@@ -23,6 +28,8 @@ public class TabBar extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_bar);
+
+        getLocalData();
 
         //아이콘에 대한 참조 변수
         ranking = (ImageView) findViewById(R.id.ranking);
@@ -152,5 +159,12 @@ public class TabBar extends AppCompatActivity implements View.OnClickListener {
 
                 break;
         }
+    }
+
+    public void getLocalData(){
+        SharedPreferences pref = getSharedPreferences("User", Activity.MODE_PRIVATE);
+        user_token = pref.getString("auth_token",null);
+        user_name = pref.getString("username",null);
+        user_id = pref.getInt("user_id",0);
     }
 }

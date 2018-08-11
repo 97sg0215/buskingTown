@@ -31,7 +31,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private RestApiService apiService;
 
-    String inputValue = null;
+    String inputValue = null, user_token, user_name;
+    int user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,16 @@ public class LoginActivity extends AppCompatActivity {
         //아이디, 비밀번호 유효성 체크값 담음
         final boolean[] idOk = new boolean[1];
         final boolean[] pwOk = new boolean[1];
+
+        getLocalData();
+
+        //로그인 유지, 어플리케이션에 회원정보가 저장되어 있으면 로그인 액티비티 종료하고 바로 메인 화면으로 넘어감
+        if (user_token!=null){
+            Intent i = new Intent(getApplication(), TabBar.class);
+            startActivity(i);
+            saveUserInfo(user_token,user_id,user_name);
+            finish();
+        }
 
 
         //이메일 에디터 텍스트 메소드
@@ -158,9 +169,11 @@ public class LoginActivity extends AppCompatActivity {
         return isNormal;
     }
 
-
+    //로그인 메소드
     public void login(String username, String password) {
+        //로그인 객체 생성
         Login login = new Login(username, password);
+        //로그인 모델 call
         Call<User> userCall = apiService.login(login);
         userCall.enqueue(new Callback<User>() {
             @Override
@@ -168,17 +181,21 @@ public class LoginActivity extends AppCompatActivity {
                 User user = response.body();
                 if (response.isSuccessful()) {
                     Log.e("로그인:", "성공");
-                    //토큰 생성
+                    //성공시 토큰 생성
                     String base = username + ":" + password;
                     String auth_header = "Basic " + android.util.Base64.encodeToString(base.getBytes(), android.util.Base64.NO_WRAP);
 
+                    //토큰에 접근하여 권한 생성
                     accessToken(auth_header);
                     Log.e("토큰", user.getToken());
 
                     //유저 정보 보내기
                     int id = user.getId();
                     getUserDetail(auth_header,id);
+
+                    //메인 홈 진행
                     mainEnter();
+
                 } else {
                     Toast.makeText(getApplicationContext(),"아이디 비밀번호를 확인해주세요",Toast.LENGTH_SHORT).show();
                     //에러 상태 보려고 해둔 코드
@@ -200,7 +217,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-
+    //user 정보를 얻어와 저장 하기 위함
     public void getUserDetail(String token,int id){
         final User[] userDetail = {new User()};
         Call<User> userDetailCall = apiService.getUserDetail(token,id);
@@ -215,6 +232,8 @@ public class LoginActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     Log.e("유저 아이디",String.valueOf(id));
                     Log.e("유저정보가져오기:", "성공");
+
+                    //유저 정보 저장 메소드
                     saveUserInfo(token,id,username);
                 } else{
                     //에러 상태 보려고 해둔 코드
@@ -235,6 +254,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    //토큰에 접근하여 권한 부여
     public void accessToken(String token) {
         Call<ResponseBody> call = apiService.getSecret(token);
         call.enqueue(new Callback<ResponseBody>() {
@@ -270,6 +290,7 @@ public class LoginActivity extends AppCompatActivity {
         editor.commit();
     }
 
+    //네트워크 연결 메소드
     public void restApiBuilder() {
         ApplicationController application = ApplicationController.getInstance();
         application.buildNetworkService();
@@ -280,61 +301,17 @@ public class LoginActivity extends AppCompatActivity {
     public void mainEnter() {
         Intent tabActivity = new Intent(getApplication(), TabBar.class);
         startActivity(tabActivity);
+        finish();
     }
 
-    //테스트 액티비티 이건 지울거임
-    public void tabActivity(View view) {
-        Intent testActivity = new Intent(getApplication(), TabBar.class);
-        startActivity(testActivity);
+    // 저장 되어 있는 user 불러오기
+    public void getLocalData(){
+        SharedPreferences pref = getSharedPreferences("User", Activity.MODE_PRIVATE);
+        user_token = pref.getString("auth_token",null);
+        user_name = pref.getString("username",null);
+        user_id = pref.getInt("user_id",0);
     }
 
-    //테스트 액티비티 이건 지울거임
-    public void certification(View view) {
-        Intent testActivity2 = new Intent(getApplication(), BuskerCertification.class);
-        startActivity(testActivity2);
-    }
-
-    //테스트 액티비티 이건 지울거임
-    public void channel(View view) {
-        Intent testActivity2 = new Intent(getApplication(), ChannelUser.class);
-        startActivity(testActivity2);
-    }
-
-    //테스트 액티비티 이건 지울거임
-    public void coin_send_before(View view) {
-        Intent testActivity2 = new Intent(getApplication(), CoinSendBefore_pop.class);
-        startActivity(testActivity2);
-    }
-
-    //테스트 액티비티 이건 지울거임
-    public void failPass(View view) {
-        Intent testActivity2 = new Intent(getApplication(), FailPass.class);
-        startActivity(testActivity2);
-    }
-
-    //테스트 액티비티 이건 지울거임
-    public void waitPass(View view) {
-        Intent testActivity2 = new Intent(getApplication(), WaitPass.class);
-        startActivity(testActivity2);
-    }
-
-    //테스트 액티비티 이건 지울거임
-    public void coinSendSuccess(View view) {
-        Intent testActivity2 = new Intent(getApplication(), CoinSendSuccess_pop.class);
-        startActivity(testActivity2);
-    }
-
-    //테스트 액티비티 이건 지울거임
-    public void buskerMainChannel(View view) {
-        Intent testActivity2 = new Intent(getApplication(), ChannelBusker.class);
-        startActivity(testActivity2);
-    }
-
-    //테스트 액티비티 이건 지울거임
-    public void setting(View view) {
-        Intent testActivity2 = new Intent(getApplication(), Setting.class);
-        startActivity(testActivity2);
-    }
 
     //백버튼 2번이면 종료
     @Override

@@ -9,6 +9,9 @@ public class Busker {
     String busker_phone;
     Boolean certification;
 
+    int follwer;
+    int coin;
+
     public int getBusker_id() {
         return busker_id;
     }
@@ -63,5 +66,21 @@ public class Busker {
 
     public void setCertification(Boolean certification) {
         this.certification = certification;
+    }
+
+    public int getFollwer() {
+        return follwer;
+    }
+
+    public void setFollwer(int follwer) {
+        this.follwer = follwer;
+    }
+
+    public int getCoin() {
+        return coin;
+    }
+
+    public void setCoin(int coin) {
+        this.coin = coin;
     }
 }
