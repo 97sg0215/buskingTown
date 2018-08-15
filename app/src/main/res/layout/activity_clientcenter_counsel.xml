@@ -49,6 +49,7 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/counselLayout"
                 android:layout_width="match_parent"
                 android:layout_height="55.5dp">
 

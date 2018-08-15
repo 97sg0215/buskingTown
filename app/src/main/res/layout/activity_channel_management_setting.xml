@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/mainGray"
     tools:context=".ChannelManagementSetting">
 
     <RelativeLayout
@@ -34,239 +35,251 @@
 
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/buskerTeamm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/statusBar"
-        android:paddingBottom="2dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="22.5dp"
-        android:text="버스커 팀"
-        android:textColor="@color/subGray"
-        android:textSize="13sp"
-        android:fontFamily="@font/kopubmedium"/>
-
-    <RelativeLayout
-        android:id="@+id/buskerTeamLayout"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#fff"
-        android:layout_below="@+id/buskerTeamm">
+        android:layout_below="@+id/statusBar"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/buskerTeamManagement"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="버스커 팀원 관리"
-            android:textColor="@color/fontBlack"
-            android:fontFamily="@font/kopubmedium"
-            android:textSize="14sp"
-            android:layout_marginLeft="20dp"
-            android:lineSpacingExtra="34sp"
-            android:layout_marginTop="19dp"/>
+            android:layout_marginTop="22.5dp"
+            android:orientation="vertical">
 
-        <View
-            android:id="@+id/versionUnderLine"
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:background="@color/sub2Gray"
-            android:layout_marginTop="17dp"
-            android:layout_below="@+id/buskerTeamManagement"/>
+            <TextView
+                android:id="@+id/buskerTeam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/statusBar"
+                android:paddingBottom="2.5dp"
+                android:layout_marginLeft="20dp"
+                android:text="버스커 팀"
+                android:textColor="@color/subGray"
+                android:textSize="13sp"
+                android:fontFamily="@font/kopubmedium"/>
 
-    </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/buskerTeamLayout"
+                android:layout_width="match_parent"
+                android:layout_height="50.5dp"
+                android:background="#fff">
 
-    <RelativeLayout
-        android:id="@+id/showText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/buskerTeamLayout"
-        android:layout_marginTop="22.5dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="버스커 팀원관리"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:lineSpacingExtra="34sp"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/kopubmedium"
+                    android:textColor="@color/fontBlack" />
 
-        <TextView
-            android:layout_width="wrap_content"
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:background="@color/sub2Gray"
+                    android:layout_alignParentBottom="true"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="공연"
-            android:layout_marginLeft="20dp"
-            android:paddingBottom="2dp"
-            android:textColor="@color/subGray"
-            android:textSize="13sp"
-            android:fontFamily="@font/kopubmedium"/>
+            android:layout_marginTop="22.5dp"
+            android:orientation="vertical">
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/show"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/statusBar"
+                android:paddingBottom="2.5dp"
+                android:layout_marginLeft="20dp"
+                android:text="공연"
+                android:textColor="@color/subGray"
+                android:textSize="13sp"
+                android:fontFamily="@font/kopubmedium"/>
 
-    <RelativeLayout
-        android:id="@+id/showLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#fff"
-        android:layout_below="@+id/showText">
+            <RelativeLayout
+                android:id="@+id/roadReservation"
+                android:layout_width="match_parent"
+                android:layout_height="50.5dp"
+                android:background="#fff">
 
-        <TextView
-            android:id="@+id/roadConcertText"
-            android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="거리공연 예약"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:lineSpacingExtra="34sp"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/kopubmedium"
+                    android:textColor="@color/fontBlack" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:background="@color/sub2Gray"
+                    android:layout_alignParentBottom="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/practiceReservation"
+                android:layout_width="match_parent"
+                android:layout_height="50.5dp"
+                android:background="#fff">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="연습실 예약"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:lineSpacingExtra="34sp"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/kopubmedium"
+                    android:textColor="@color/fontBlack" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:background="@color/sub2Gray"
+                    android:layout_alignParentBottom="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/concertReservation"
+                android:layout_width="match_parent"
+                android:layout_height="50.5dp"
+                android:background="#fff">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="콘서트 예약"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:lineSpacingExtra="34sp"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/kopubmedium"
+                    android:textColor="@color/fontBlack" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:background="@color/sub2Gray"
+                    android:layout_alignParentBottom="true"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="거리공연 예약"
-            android:textSize="14sp"
-            android:layout_marginLeft="20dp"
-            android:textColor="@color/fontBlack"
-            android:fontFamily="@font/kopubmedium"
-            android:layout_marginTop="20dp"
-            android:lineSpacingExtra="34sp"/>
+            android:layout_marginTop="22.5dp"
+            android:orientation="vertical">
 
-        <View
-            android:id="@+id/roadConcertUnderLine"
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:background="@color/sub2Gray"
-            android:layout_marginTop="17dp"
-            android:layout_below="@+id/roadConcertText"/>
+            <TextView
+                android:id="@+id/channel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/statusBar"
+                android:paddingBottom="2.5dp"
+                android:layout_marginLeft="20dp"
+                android:text="채널관리"
+                android:textColor="@color/subGray"
+                android:textSize="13sp"
+                android:fontFamily="@font/kopubmedium"/>
 
-        <TextView
-            android:id="@+id/practiceRoomText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="연습실 예약"
-            android:layout_marginLeft="20dp"
-            android:textColor="@color/fontBlack"
-            android:textSize="14sp"
-            android:fontFamily="@font/kopubmedium"
-            android:lineSpacingExtra="34sp"
-            android:layout_marginTop="19.5dp"
-            android:layout_below="@id/roadConcertUnderLine"/>
+            <RelativeLayout
+                android:id="@+id/statsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="50.5dp"
+                android:background="#fff">
 
-        <View
-            android:id="@+id/practiceRoomUnderLine"
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:background="@color/sub2Gray"
-            android:layout_marginTop="17dp"
-            android:layout_below="@+id/practiceRoomText"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="통계 보기"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:lineSpacingExtra="34sp"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/kopubmedium"
+                    android:textColor="@color/fontBlack" />
 
-        <TextView
-            android:id="@+id/concertManagementText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="콘서트 관리"
-            android:layout_marginLeft="20dp"
-            android:textColor="@color/fontBlack"
-            android:textSize="14sp"
-            android:fontFamily="@font/kopubmedium"
-            android:lineSpacingExtra="34sp"
-            android:layout_marginTop="19.5dp"
-            android:layout_below="@id/practiceRoomUnderLine"/>
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:background="@color/sub2Gray"
+                    android:layout_alignParentBottom="true"/>
 
-        <View
-            android:id="@+id/concertManagementUnderLine"
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:background="@color/sub2Gray"
-            android:layout_marginTop="17dp"
-            android:layout_below="@+id/concertManagementText"/>
+            </RelativeLayout>
 
-    </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/coinLayout"
+                android:layout_width="match_parent"
+                android:layout_height="50.5dp"
+                android:background="#fff">
 
-    <RelativeLayout
-        android:id="@+id/channelManageText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/showLayout"
-        android:layout_marginTop="22.5dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="코인 관리"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:lineSpacingExtra="34sp"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/kopubmedium"
+                    android:textColor="@color/fontBlack" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="채널 관리"
-            android:layout_marginLeft="20dp"
-            android:paddingBottom="2dp"
-            android:textColor="@color/subGray"
-            android:textSize="13sp"
-            android:fontFamily="@font/kopubmedium"/>
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:background="@color/sub2Gray"
+                    android:layout_alignParentBottom="true"/>
 
-    </RelativeLayout>
+            </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/channelManageLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#fff"
-        android:layout_below="@+id/channelManageText">
+            <RelativeLayout
+                android:id="@+id/deleteChannel"
+                android:layout_width="match_parent"
+                android:layout_height="50.5dp"
+                android:background="#fff">
 
-        <TextView
-            android:id="@+id/totalSeeText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="통계 보기"
-            android:textSize="14sp"
-            android:layout_marginLeft="20dp"
-            android:textColor="@color/fontBlack"
-            android:fontFamily="@font/kopubmedium"
-            android:layout_marginTop="20dp"
-            android:lineSpacingExtra="34sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="채널 삭제"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:lineSpacingExtra="34sp"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/kopubmedium"
+                    android:textColor="@color/mainPurple" />
 
-        <View
-            android:id="@+id/totalSeeTextUnderLine"
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:background="@color/sub2Gray"
-            android:layout_marginTop="17dp"
-            android:layout_below="@+id/totalSeeText"/>
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:background="@color/sub2Gray"
+                    android:layout_alignParentBottom="true"/>
 
-        <TextView
-            android:id="@+id/coinManagementText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="코인 관리"
-            android:layout_marginLeft="20dp"
-            android:textColor="@color/fontBlack"
-            android:textSize="14sp"
-            android:fontFamily="@font/kopubmedium"
-            android:lineSpacingExtra="34sp"
-            android:layout_marginTop="19.5dp"
-            android:layout_below="@id/totalSeeTextUnderLine"/>
+            </RelativeLayout>
 
-        <View
-            android:id="@+id/coinManagementUnderLine"
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:background="@color/sub2Gray"
-            android:layout_marginTop="17dp"
-            android:layout_below="@+id/coinManagementText"/>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/channelDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/coinManagementUnderLine"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="34.5dp"
-            android:text="채널 삭제"
-            android:fontFamily="@font/kopubmedium"
-            android:textColor="@color/mainPurple"
-            android:textSize="14sp"/>
 
-        <View
-            android:id="@+id/channelDeleteUnderLine"
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:background="@color/sub2Gray"
-            android:layout_marginTop="17dp"
-            android:layout_below="@+id/channelDelete"/>
 
-    </RelativeLayout>
 
+
+    </LinearLayout>
 </RelativeLayout>
+

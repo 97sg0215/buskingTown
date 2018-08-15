@@ -57,6 +57,7 @@
 
 
                 <RelativeLayout
+                    android:id="@+id/counselBox"
                     android:layout_width="match_parent"
                     android:layout_height="55.4dp">
 
@@ -79,6 +80,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/enquireBox"
                     android:layout_width="match_parent"
                     android:layout_height="55.4dp">
 
@@ -131,6 +133,7 @@
 
 
                 <RelativeLayout
+                    android:id="@+id/conditionsBox"
                     android:layout_width="match_parent"
                     android:layout_height="55.4dp">
 
@@ -153,6 +156,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/locationbasedBox"
                     android:layout_width="match_parent"
                     android:layout_height="55.4dp">
 
@@ -175,6 +179,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/personalifBox"
                     android:layout_width="match_parent"
                     android:layout_height="55.4dp">
 
@@ -197,6 +202,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/opensourceBox"
                     android:layout_width="match_parent"
                     android:layout_height="55.4dp">
 

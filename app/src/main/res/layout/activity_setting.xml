@@ -75,7 +75,7 @@
     </RelativeLayout>
     
     <RelativeLayout
-        android:id="@+id/noticeLayout"
+        android:id="@+id/settingnoticeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -95,7 +95,7 @@
             android:lineSpacingExtra="34sp"/>
 
         <View
-            android:id="@+id/noticeUnderLine"
+            android:id="@+id/settingnoticeUnderLine"
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:layout_marginRight="20dp"
@@ -111,7 +111,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#fff"
-        android:layout_below="@+id/noticeLayout">
+        android:layout_below="@+id/settingnoticeLayout">
 
         <TextView
             android:id="@+id/passWdChange"

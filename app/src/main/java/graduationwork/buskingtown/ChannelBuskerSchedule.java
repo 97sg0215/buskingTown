@@ -1,6 +1,7 @@
 package graduationwork.buskingtown;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 public class ChannelBuskerSchedule extends Fragment {
 
@@ -24,6 +27,15 @@ public class ChannelBuskerSchedule extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.activity_channel_busker_schedule, container, false);
+
+        ImageView pen = (ImageView)v.findViewById(R.id.pen);
+        pen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent writePost = new Intent(getActivity(), WritePost.class);
+                startActivity(writePost);
+            }
+        });
 
         for (int scheduleCount=0; scheduleCount<test__schedule; scheduleCount++) {
             final ImageButton dropdownBtn = (ImageButton)v.findViewById(R.id.dropdown_sch);

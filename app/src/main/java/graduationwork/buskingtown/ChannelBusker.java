@@ -22,10 +22,14 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_channel_busker);
 
-        ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
-        backBtn.setOnClickListener(new View.OnClickListener() {
+        //채널설정
+        ImageButton moreBtn = (ImageButton) findViewById(R.id.morebtn);
+        moreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { ChannelBusker.super.onBackPressed(); }
+            public void onClick(View v){
+                Intent channelManagementSetting = new Intent(getApplication(),ChannelManagementSetting.class);
+                startActivity(channelManagementSetting);
+            }
         });
 
         //아이콘에 대한 참조 변수
@@ -86,8 +90,4 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
 
         }
     }
-    public void previousActivity(View v){
-        onBackPressed();
-    }
-
 }

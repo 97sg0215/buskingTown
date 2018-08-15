@@ -10,9 +10,7 @@ import android.widget.TextView;
 
 public class Setting extends AppCompatActivity {
 
-    private View versionInformation;
-    private View noticeLayout;
-    private View PassWdChangeLayout;
+    private View versionInformation,settingnoticeLayout, PassWdChangeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +23,7 @@ public class Setting extends AppCompatActivity {
             public void onClick(View v) { Setting.super.onBackPressed(); }
         });
 
-        //버전정보 화면전환
+        //버전정보
         versionInformation = (RelativeLayout) findViewById(R.id.versionInformation);
         versionInformation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,17 +33,17 @@ public class Setting extends AppCompatActivity {
             }
         });
 
-        //알림 화면전환
-        noticeLayout = (RelativeLayout) findViewById(R.id.noticeLayout);
-        noticeLayout.setOnClickListener(new View.OnClickListener() {
+        //알림
+        settingnoticeLayout = (RelativeLayout) findViewById(R.id.settingnoticeLayout);
+        settingnoticeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent notice = new Intent(getApplication(),Notice.class);
-                startActivity(notice);
+                Intent settingnotice = new Intent(getApplication(),SettingNotice.class);
+                startActivity(settingnotice);
             }
         });
 
-        //비밀번호변경 화면전환
+        //비밀번호변경
         PassWdChangeLayout = (RelativeLayout) findViewById(R.id.PassWdChangeLayout);
         PassWdChangeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +53,7 @@ public class Setting extends AppCompatActivity {
             }
         });
 
-        //탈퇴하기 부분 만들어줘야함
+        //탈퇴하기 부분 ???
 
     }
 
