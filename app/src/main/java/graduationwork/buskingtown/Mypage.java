@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -29,7 +30,7 @@ public class Mypage extends Fragment {
 
     private RestApiService apiService;
 
-    RelativeLayout go_Busker,logout;
+    RelativeLayout go_Busker,coinLayout,coinhouseLayout,locationLendLayout,noticeLayout,clientcenterLayout,logout;
 
     TextView go_Busker_text;
 
@@ -49,6 +50,16 @@ public class Mypage extends Fragment {
 
         restApiBuilder();
 
+        //설정버튼
+        ImageButton settingBtn = (ImageButton) v.findViewById(R.id.settingBtn);
+        settingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent setting = new Intent(getActivity(),Setting.class);
+                startActivity(setting);
+            }
+        });
+
         //프로필 이미지 변수
         ImageView profile = (ImageView) v.findViewById(R.id.profileImg);
         //임시 이미지
@@ -63,10 +74,60 @@ public class Mypage extends Fragment {
 
         //여기다 링크 바로가기 선언하세요
         go_Busker = (RelativeLayout) v.findViewById(R.id.goBusker);
-        go_Busker_text = (TextView) v.findViewById(R.id.goBuskerText);
+        go_Busker_text = (TextView) getActivity().findViewById(R.id.goBuskerText);
+        coinLayout = (RelativeLayout) v.findViewById(R.id.coinLayout);
+        coinhouseLayout = (RelativeLayout) v.findViewById(R.id.coinhouseLayout);
+        locationLendLayout = (RelativeLayout) v.findViewById(R.id.locationLendLyout);
+        noticeLayout = (RelativeLayout) v.findViewById(R.id.noticeLayout);
+        clientcenterLayout = (RelativeLayout) v.findViewById(R.id.clientcenterLayout);
         logout = (RelativeLayout)v.findViewById(R.id.logOut);
 
         getBusker(user_token,user_id);
+
+        //코인충전소
+        coinLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent coinCharge = new Intent(getActivity(),CoinCharge.class);
+                startActivity(coinCharge);
+            }
+        });
+
+        //보낸코인함
+        coinhouseLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mycoinHouse = new Intent(getActivity(),MycoinHouse.class);
+                startActivity(mycoinHouse);
+            }
+        });
+
+        //장소빌려주기
+        locationLendLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent locationLendStart = new Intent(getActivity(),LocationLendStart.class);
+                startActivity(locationLendStart);
+            }
+        });
+
+        //공지사항/이벤트
+        noticeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent notice = new Intent(getActivity(),Notice.class);
+                startActivity(notice);
+            }
+        });
+
+        //고객센터
+        clientcenterLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent clientCenter = new Intent(getActivity(),ClientCenter.class);
+                startActivity(clientCenter);
+            }
+        });
 
         //로그아웃
         logout.setOnClickListener(new View.OnClickListener() {

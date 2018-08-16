@@ -314,6 +314,15 @@
                     android:textSize="14sp"
                     android:lineSpacingExtra="-5sp" />
 
+                <ImageView
+                    android:id="@+id/message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="60dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/message"/>
+
             </RelativeLayout>
 
         </LinearLayout>

@@ -22,7 +22,7 @@ import retrofit2.http.Path;
 
 public interface RestApiService {
 
-    public  static  final String API_URL="http://36c5bf6a.ngrok.io/";
+    public  static  final String API_URL="http://d04fda66.ngrok.io/";
 
     //회원가입을 위한 데이터 포스트
     @POST("accounts/sign_up/")

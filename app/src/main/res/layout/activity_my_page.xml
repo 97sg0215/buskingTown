@@ -195,6 +195,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/coinLayout"
                     android:layout_width="match_parent"
                     android:layout_height="55.5dp">
 
@@ -216,6 +217,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/coinhouseLayout"
                     android:layout_width="match_parent"
                     android:layout_height="55.5dp">
 
@@ -237,6 +239,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/locationLendLyout"
                     android:layout_width="match_parent"
                     android:layout_height="55.5dp">
 
@@ -258,6 +261,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/noticeLayout"
                     android:layout_width="match_parent"
                     android:layout_height="55.5dp">
 
@@ -279,6 +283,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/clientcenterLayout"
                     android:layout_width="match_parent"
                     android:layout_height="55.5dp">
 
