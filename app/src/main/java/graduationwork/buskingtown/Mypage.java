@@ -74,7 +74,7 @@ public class Mypage extends Fragment {
 
         //여기다 링크 바로가기 선언하세요
         go_Busker = (RelativeLayout) v.findViewById(R.id.goBusker);
-        go_Busker_text = (TextView) getActivity().findViewById(R.id.goBuskerText);
+        go_Busker_text = (TextView) v.findViewById(R.id.goBuskerText);
         coinLayout = (RelativeLayout) v.findViewById(R.id.coinLayout);
         coinhouseLayout = (RelativeLayout) v.findViewById(R.id.coinhouseLayout);
         locationLendLayout = (RelativeLayout) v.findViewById(R.id.locationLendLyout);
