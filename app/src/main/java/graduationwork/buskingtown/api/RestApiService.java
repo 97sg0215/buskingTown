@@ -1,5 +1,6 @@
 package graduationwork.buskingtown.api;
 
+import java.util.List;
 import java.util.Map;
 
 import graduationwork.buskingtown.model.Busker;
@@ -22,7 +23,7 @@ import retrofit2.http.Path;
 
 public interface RestApiService {
 
-    public  static  final String API_URL="http://d04fda66.ngrok.io/";
+    public  static  final String API_URL="http://cb87dc62.ngrok.io/";
 
     //회원가입을 위한 데이터 포스트
     @POST("accounts/sign_up/")
@@ -53,4 +54,10 @@ public interface RestApiService {
     //버스커 객체 삭제 > 인증시 오류 해결을 위해
     @DELETE("accounts/delete/{busker_id}/")
     Call<Busker> deleteBusker (@Header("Authorization")String autoToken, @Path("busker_id")int id);
+
+    @GET("/busker/")
+    Call<List<Busker>> top_10_busker (@Header("Authorization")String autoToken);
+
+    @GET("/busker/{busker_id}/")
+    Call<Busker> buskerDetail (@Header("Authorization")String autoToken, @Path("busker_id")int id);
 }

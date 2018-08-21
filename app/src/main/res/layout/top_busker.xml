@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/buskerChannelFirst"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="20dp">
+
+        <ImageView
+            android:id="@+id/buskerProfileImangeFirst"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:background="@drawable/profile_border"
+            android:src="@drawable/profile_big"
+            android:layout_marginTop="15dp" />
+
+        <TextView
+            android:id="@+id/buskerTeamName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textSize="10.5sp"
+            android:textColor="@color/fontBlack"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:lineSpacingExtra="1sp"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/kopubmedium"
+            android:layout_below="@id/buskerProfileImangeFirst"/>
+
+
+</RelativeLayout>

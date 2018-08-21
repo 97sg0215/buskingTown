@@ -7,6 +7,8 @@ import graduationwork.buskingtown.api.RestApiService;
 import android.app.Application;
 import android.util.Log;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -38,6 +40,12 @@ public class ApplicationController extends Application {
         synchronized (ApplicationController.class) {
             if (restApiService == null) {
                 Log.i(TAG, API_URL);
+
+                // Add logging into retrofit 2.0
+                HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+                logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+                OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+                httpClient.interceptors().add(logging);
 
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(API_URL)

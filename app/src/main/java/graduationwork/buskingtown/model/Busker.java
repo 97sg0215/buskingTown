@@ -1,5 +1,7 @@
 package graduationwork.buskingtown.model;
 
+import java.util.ArrayList;
+
 public class Busker {
     int user;
     int busker_id;
