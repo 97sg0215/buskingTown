@@ -11,6 +11,8 @@ public class Busker {
     String busker_phone;
     Boolean certification;
 
+    String path;
+
     int follwer;
     int coin;
 
@@ -85,4 +87,6 @@ public class Busker {
     public void setCoin(int coin) {
         this.coin = coin;
     }
+
+    public  String getPath(){ return path; }
 }
