@@ -199,6 +199,7 @@
                             android:layout_height="wrap_content"
                             android:text="준비된 콘서트가 없습니다."
                             android:textColor="@color/fontGray"
+                            android:textSize="14sp"
                             android:layout_marginTop="112.9dp"
                             android:layout_centerHorizontal="true"/>
 

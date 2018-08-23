@@ -135,7 +135,8 @@
                     android:layout_below="@+id/takeMessage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="40dp"
+                    android:paddingBottom="25dp"
                     android:overScrollMode="never"
                     android:scrollbars="none">
 
@@ -144,10 +145,189 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-
                     </LinearLayout>
 
                 </HorizontalScrollView>
+
+                <RelativeLayout
+                    android:id="@+id/noneMessageLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="241.5dp"
+                    android:layout_below="@+id/takeMessage"
+                    android:gravity="center"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="받은 메세지가 없어요. 노력해주세요 :)"
+                        android:textColor="@color/fontGray"
+                        android:fontFamily="@font/kopubdotummedium"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:layout_centerVertical="true"/>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/accountLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/mainGray"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <TextView
+                    android:id="@+id/accountBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="25dp"
+                    android:paddingRight="9.9dp"
+                    android:text="계좌로 돌려받기"
+                    android:textColor="@color/fontBlack"
+                    android:fontFamily="@font/kopubbold"
+                    android:textSize="15sp"
+                    android:lineSpacingExtra="2sp"/>
+
+                <TextView
+                    android:id="@+id/accountInf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="* 환급 받게 될 금액 : 코인 수 x 100 원"
+                    android:paddingTop="27.6dp"
+                    android:layout_toRightOf="@id/accountBack"
+                    android:textSize="10.5sp"
+                    android:lineSpacingExtra="1sp"
+                    android:fontFamily="@font/kopubdotummedium"
+                    android:textColor="@color/subPink"/>
+
+                <TextView
+                    android:id="@+id/coinGet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="코인 수"
+                    android:layout_below="@id/accountBack"
+                    android:textColor="@color/fontBlack"
+                    android:fontFamily="@font/kopubdotumbold"
+                    android:layout_marginTop="29.5dp"
+                    android:paddingRight="11dp"
+                    android:textSize="14sp"/>
+
+                <FrameLayout
+                    android:id="@+id/coinGetSu"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_toRightOf="@id/coinGet"
+                    android:layout_below="@+id/accountInf"
+                    android:layout_marginTop="22.8dp">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/date_rounded"
+                        android:fontFamily="@font/kopubmedium"
+                        android:textColor="@color/fontBlack"
+                        android:textSize="14sp"
+                        android:paddingLeft="15.1dp"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingRight="15dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="/일"
+                            android:textColor="@color/fontGray"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"/>
+
+                    </RelativeLayout>
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/bankChoice"
+                    android:layout_width="105dp"
+                    android:layout_height="35dp"
+                    android:layout_below="@+id/coinGetSu"
+                    android:layout_marginTop="15dp">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/date_rounded"
+                        android:fontFamily="@font/kopubmedium"
+                        android:textColor="@color/fontBlack"
+                        android:textSize="14sp"
+                        android:paddingLeft="15.1dp"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="15dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="은행선택"
+                            android:textColor="@color/fontGray"
+                            android:layout_centerVertical="true"/>
+
+                    </RelativeLayout>
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/accountNum"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_toRightOf="@id/bankChoice"
+                    android:layout_below="@+id/coinGetSu"
+                    android:paddingLeft="15dp"
+                    android:layout_marginTop="15dp">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/date_rounded"
+                        android:fontFamily="@font/kopubmedium"
+                        android:textColor="@color/fontBlack"
+                        android:textSize="14sp"
+                        android:paddingLeft="15.1dp"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingRight="15dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="계좌번호"
+                            android:textColor="@color/fontGray"
+                            android:paddingLeft="15dp"
+                            android:layout_centerVertical="true"/>
+
+                    </RelativeLayout>
+
+                </FrameLayout>
+                
+                <Button
+                    android:layout_width="110.2dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/fail_btn"
+                    android:layout_below="@+id/accountNum"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="25dp"
+                    android:text="환급하기"
+                    android:textColor="#fff"
+                    android:fontFamily="@font/kopubdotumbold"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="25.1dp"/>
 
             </RelativeLayout>
 
