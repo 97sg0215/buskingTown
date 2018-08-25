@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import graduationwork.buskingtown.model.Busker;
+import graduationwork.buskingtown.model.Connection;
 import graduationwork.buskingtown.model.Login;
 import graduationwork.buskingtown.model.User;
 import graduationwork.buskingtown.model.SignUp;
@@ -23,7 +24,10 @@ import retrofit2.http.Path;
 
 public interface RestApiService {
 
-    public  static  final String API_URL="http://cb87dc62.ngrok.io/";
+    public  static  final String API_URL="http://45ba703b.ngrok.io/";
+
+    //민지씨 이미지 테스트
+    @POST("accounts/imageTest/")
 
     //회원가입을 위한 데이터 포스트
     @POST("accounts/sign_up/")
@@ -57,9 +61,19 @@ public interface RestApiService {
     @DELETE("accounts/delete/{busker_id}/")
     Call<Busker> deleteBusker (@Header("Authorization")String autoToken, @Path("busker_id")int id);
 
+    //버스커 리스트 불러오기
     @GET("/busker/")
     Call<List<Busker>> top_10_busker (@Header("Authorization")String autoToken);
 
+    //각 버스커 불러오기
     @GET("/busker/{busker_id}/")
     Call<Busker> buskerDetail (@Header("Authorization")String autoToken, @Path("busker_id")int id);
+
+    //팔로잉API
+    @POST("/accounts/following/")
+    Call<Connection> following (@Header("Authorization")String autoToken, @Body Connection connection);
+
+    //팔로우하는 버스커 목록 불러오기 creator = 일반 유저 , following = 버스커 유저
+    @GET("/followingList/")
+    Call<Connection> get_followings (@Header("Authorization")String autoToken);
 }

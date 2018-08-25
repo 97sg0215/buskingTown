@@ -13,7 +13,6 @@ public class Busker {
 
     String path;
 
-    int follwer;
     int coin;
 
     public int getBusker_id() {
@@ -70,14 +69,6 @@ public class Busker {
 
     public void setCertification(Boolean certification) {
         this.certification = certification;
-    }
-
-    public int getFollwer() {
-        return follwer;
-    }
-
-    public void setFollwer(int follwer) {
-        this.follwer = follwer;
     }
 
     public int getCoin() {
