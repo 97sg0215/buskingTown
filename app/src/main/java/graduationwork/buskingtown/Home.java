@@ -34,7 +34,6 @@ public class Home extends Fragment {
     int user_id;
 
     ArrayList<Integer> busker_id = new ArrayList<>();
-    ArrayList<Integer> busker_user_id = new ArrayList<>();
 
     public Home(){
         // Required empty public constructor
@@ -59,9 +58,7 @@ public class Home extends Fragment {
                     for(int i=0; i< busker.size();i++) {
                         //버스커 각 개인 아이디 확인
                         busker_id.add(busker.get(i).getBusker_id());
-                        busker_user_id.add(busker.get(i).getUser());
                         Log.e("버스커 리스트", String.valueOf(busker_id));
-                        Log.e("버스커의 유저 리스트", String.valueOf(busker_user_id));
 
                         //버스커 리스트 세팅
                         final LinearLayout top_busker_list = (LinearLayout)v.findViewById(R.id.busker_top_list);

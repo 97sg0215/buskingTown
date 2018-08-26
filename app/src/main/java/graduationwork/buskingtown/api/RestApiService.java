@@ -24,10 +24,7 @@ import retrofit2.http.Path;
 
 public interface RestApiService {
 
-    public  static  final String API_URL="http://45ba703b.ngrok.io/";
-
-    //민지씨 이미지 테스트
-    @POST("accounts/imageTest/")
+    public  static  final String API_URL="http://458e38c1.ngrok.io/";
 
     //회원가입을 위한 데이터 포스트
     @POST("accounts/sign_up/")
@@ -53,9 +50,7 @@ public interface RestApiService {
                              @Part("busker_name") RequestBody busker_name,
                              @Part("team_name") RequestBody team_name,
                              @Part("busker_tag") RequestBody busker_tag,
-                             @Part("busker_phone") RequestBody busker_phone,
-                             @Part MultipartBody.Part busker_image);
-                             //@Part("file\"; fileName=\"myFile.png\" ")RequestBody busker_image);
+                             @Part("busker_phone") RequestBody busker_phone);
 
     //버스커 객체 삭제 > 인증시 오류 해결을 위해
     @DELETE("accounts/delete/{busker_id}/")
@@ -73,7 +68,11 @@ public interface RestApiService {
     @POST("/accounts/following/")
     Call<Connection> following (@Header("Authorization")String autoToken, @Body Connection connection);
 
-    //팔로우하는 버스커 목록 불러오기 creator = 일반 유저 , following = 버스커 유저
+    //팔로우하는 버스커 목록 불러오기 user = 일반 유저 , following = 버스커 유저
     @GET("/followingList/")
-    Call<Connection> get_followings (@Header("Authorization")String autoToken);
+    Call<List<Connection>> get_followings (@Header("Authorization")String autoToken);
+
+    //언팔로우API
+    @DELETE("/accounts/unfollowing/{connection_id}")
+    Call<Connection> unfollowing (@Header("Authorization")String autoToken, @Path("connection_id")int connection_id);
 }

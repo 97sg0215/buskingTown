@@ -4,8 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class Connection {
     private int following;
-    private int creator;
-    private String created;
+    private int user;
+    private int connection_id;
 
     public int getFollowing() {
         return following;
@@ -15,19 +15,19 @@ public class Connection {
         this.following = following;
     }
 
-    public int getCreator() {
-        return creator;
+    public int getUser() {
+        return user;
     }
 
-    public void setCreator(int creator) {
-        this.creator = creator;
+    public void setUser(int user) {
+        this.user = user;
     }
 
-    public String getCreated() {
-        return created;
+    public int getConnection_id() {
+        return connection_id;
     }
 
-    public void setCreated(String created) {
-        this.created = created;
+    public void setConnection_id(int connection_id) {
+        this.connection_id = connection_id;
     }
 }
