@@ -229,6 +229,7 @@ public class Mypage extends Fragment {
                     }
                 } else {
                     buskerCheck(null, null);
+                    saveBuskerInfo(0);
                 }
             }
 

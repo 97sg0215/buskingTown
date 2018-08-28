@@ -2,7 +2,7 @@ package graduationwork.buskingtown.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Connection {
+public class Connections {
     private int following;
     private int user;
     private int connection_id;

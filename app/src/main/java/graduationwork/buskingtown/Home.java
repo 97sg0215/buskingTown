@@ -93,7 +93,7 @@ public class Home extends Fragment {
                     int StatusCode = response.code();
                     String s = response.message();
                     ResponseBody d = response.errorBody();
-                    Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
+                    Log.i(ApplicationController.TAG, "홈 상태 Code : " + StatusCode);
                     Log.e("메세지", s);
                     Log.e("리스폰스에러바디", String.valueOf(d));
                     Log.e("리스폰스바디", String.valueOf(response.body()));

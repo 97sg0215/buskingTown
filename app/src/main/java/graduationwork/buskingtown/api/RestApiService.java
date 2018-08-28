@@ -1,14 +1,12 @@
 package graduationwork.buskingtown.api;
 
 import java.util.List;
-import java.util.Map;
 
 import graduationwork.buskingtown.model.Busker;
-import graduationwork.buskingtown.model.Connection;
+import graduationwork.buskingtown.model.Connections;
 import graduationwork.buskingtown.model.Login;
 import graduationwork.buskingtown.model.User;
 import graduationwork.buskingtown.model.SignUp;
-import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -19,12 +17,11 @@ import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 
 public interface RestApiService {
 
-    public  static  final String API_URL="http://458e38c1.ngrok.io/";
+    public  static  final String API_URL="http://6a25c8ac.ngrok.io/";
 
     //회원가입을 위한 데이터 포스트
     @POST("accounts/sign_up/")
@@ -66,13 +63,13 @@ public interface RestApiService {
 
     //팔로잉API
     @POST("/accounts/following/")
-    Call<Connection> following (@Header("Authorization")String autoToken, @Body Connection connection);
+    Call<Connections> follow (@Header("Authorization")String autoToken, @Body Connections connection);
 
     //팔로우하는 버스커 목록 불러오기 user = 일반 유저 , following = 버스커 유저
     @GET("/followingList/")
-    Call<List<Connection>> get_followings (@Header("Authorization")String autoToken);
+    Call<List<Connections>> get_followings (@Header("Authorization")String autoToken);
 
     //언팔로우API
-    @DELETE("/accounts/unfollowing/{connection_id}")
-    Call<Connection> unfollowing (@Header("Authorization")String autoToken, @Path("connection_id")int connection_id);
+    @DELETE("/accounts/unfollowing/{connection_id}/")
+    Call<Connections> unfollow (@Header("Authorization")String autoToken, @Path("connection_id")int connection_id);
 }

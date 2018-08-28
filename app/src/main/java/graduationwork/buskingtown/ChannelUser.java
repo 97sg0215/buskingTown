@@ -21,7 +21,7 @@ import java.util.List;
 
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.Busker;
-import graduationwork.buskingtown.model.Connection;
+import graduationwork.buskingtown.model.Connections;
 import graduationwork.buskingtown.model.Profile;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -42,6 +42,7 @@ public class ChannelUser extends AppCompatActivity {
     Button following_btn;
 
     ArrayList<Integer> all_user_id = new ArrayList<>();
+    ArrayList<Integer> all_busker_id = new ArrayList<>();
     ArrayList<Integer> get_follower_id = new ArrayList<>();
 
     RestApiService apiService;
@@ -67,71 +68,46 @@ public class ChannelUser extends AppCompatActivity {
 
         following_btn = (Button) findViewById(R.id.fan_on);
 
-        //팔로우 인지 아닌지 체크 우선
-        Call<List<Connection>> getConnections = apiService.get_followings(user_token);
-        getConnections.enqueue(new Callback<List<Connection>>() {
+
+        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        for (int scheduleCount=0; scheduleCount<test_schedule; scheduleCount++) {
+            addSchedule(inflater);
+        }
+        for (int scheduleCount=0; scheduleCount<test_concert; scheduleCount++) {
+            addConcert(inflater);
+        }
+    }
+
+    public void following_check(){
+        Call<List<Connections>> getConnections = apiService.get_followings(user_token);
+        getConnections.enqueue(new Callback<List<Connections>>() {
             @Override
-            public void onResponse(Call<List<Connection>> call, Response<List<Connection>> response) {
-                if(response.isSuccessful()){
-                    List<Connection> connections = response.body();
-                    int followr_counts = 0;
-                    for (int i=0; i<connections.size(); i++){
-                        all_user_id.add(connections.get(i).getUser());
-                        if(user_id==all_user_id.get(i)) {
-                            get_follower_id.add(connections.get(i).getFollowing());
-                            Log.e("팔로우 목록", String.valueOf(get_follower_id));
-                            if (busker_id == connections.get(i).getFollowing()) {
+            public void onResponse(Call<List<Connections>> call, Response<List<Connections>> response) {
+                if (response.isSuccessful()) {
+                    List<Connections> connections = response.body();
+                    if(connections.size()!=0){
+                        for (int i = 0; i < connections.size(); i++) {
+                            all_user_id.add(connections.get(i).getUser());
+                            all_busker_id.add(connections.get(i).getFollowing());
+                            //팔로우 되어있을 경우
+                            if (user_id == all_user_id.get(i)&&busker_id==all_busker_id.get(i)) {
+                                get_follower_id.add(connections.get(i).getFollowing());
+                                Log.e("팔로우 목록", String.valueOf(get_follower_id));
                                 connection_id = connections.get(i).getConnection_id();
                                 following_btn.setBackground(getDrawable(R.drawable.disable_btn));
                                 following_btn.setText("팬이에요");
                                 String fan_stat = following_btn.getText().toString();
                                 unfollowing(connection_id, fan_stat);
+                            }//팔로우 안되어 있을 경우
+                            else {
+                                follow(user_id,busker_id);
                             }
                         }
-                            else {
-                                //아닐 경우 팔로우 버튼 누르면 팔로우
-                                following_btn.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        Connection connection = new Connection();
-                                        connection.setUser(user_id);
-                                        connection.setFollowing(busker_id);
-                                        Log.e("팔로워", String.valueOf(user_id));
-                                        Log.e("버스커",String.valueOf(busker_id));
-                                        Call<Connection> set_following = apiService.following(user_token,connection);
-                                        set_following.enqueue(new Callback<Connection>() {
-                                            @Override
-                                            public void onResponse(Call<Connection> call, Response<Connection> response) {
-                                                if(response.isSuccessful()){
-                                                    Log.e("팔로워", String.valueOf(user_id));
-                                                    Log.e("버스커",String.valueOf(busker_id));
-                                                    following_btn.setBackground(getDrawable(R.drawable.disable_btn));
-                                                    following_btn.setText("팬이에요");
-                                                    String fan_stat = following_btn.getText().toString();
-                                                    connection_id = connection.getConnection_id();
-                                                    unfollowing(connection_id,fan_stat);
-                                                } else{
-                                                    //에러 상태 보려고 해둔 코드
-                                                    int StatusCode = response.code();
-                                                    String s = response.message();
-                                                    ResponseBody d = response.errorBody();
-                                                    Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
-                                                    Log.e("메세지", s);
-                                                    Log.e("리스폰스에러바디", String.valueOf(d));
-                                                    Log.e("리스폰스바디", String.valueOf(response.body()));
-                                                }
-                                            }
-                                            @Override
-                                            public void onFailure(Call<Connection> call, Throwable t) {
-                                                Log.i(ApplicationController.TAG, "유저 정보 서버 연결 실패 Message : " + t.getMessage());
-                                            }
-                                        });
-                                    }
-                                });
-                            }
+                    }//커넥션 목록 없을때
+                    else {
+                        follow(user_id,busker_id);
                     }
-
-                }else {
+                } else {
                     int StatusCode = response.code();
                     String s = response.message();
                     ResponseBody d = response.errorBody();
@@ -141,22 +117,83 @@ public class ChannelUser extends AppCompatActivity {
                     Log.e("리스폰스바디", String.valueOf(response.body()));
                 }
             }
-
             @Override
-            public void onFailure(Call<List<Connection>> call, Throwable t) {
+            public void onFailure(Call<List<Connections>> call, Throwable t) {
                 Log.i(ApplicationController.TAG, "커넥션 정보 서버 연결 실패 Message : " + t.getMessage());
             }
         });
+    }
 
+    public void follow(int user_id, int busker_id){
+        following_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Connections connections = new Connections();
+                connections.setUser(user_id);
+                connections.setFollowing(busker_id);
+                Call<Connections> follow = apiService.follow(user_token,connections);
+                follow.enqueue(new Callback<Connections>() {
+                    @Override
+                    public void onResponse(Call<Connections> call, Response<Connections> response) {
+                        if(response.isSuccessful()){
+                            Log.e("팔로워ok", String.valueOf(user_id));
+                            Log.e("버스커ok", String.valueOf(busker_id));
+                            following_btn.setBackground(getDrawable(R.drawable.disable_btn));
+                            following_btn.setText("팬이에요");
+                            int connection_id = response.body().getConnection_id();
+                            Log.e("커넥션 아이디",String.valueOf(connection_id));
+                            unfollowing(connection_id,following_btn.getText().toString());
+                        }else {
+                            int StatusCode = response.code();
+                            String s = response.message();
+                            ResponseBody d = response.errorBody();
+                            Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
+                            Log.e("메세지", s);
+                            Log.e("리스폰스에러바디", String.valueOf(d));
+                            Log.e("리스폰스바디", String.valueOf(response.body()));
+                        }
+                    }
 
+                    @Override
+                    public void onFailure(Call<Connections> call, Throwable t) {
+                        Log.i(ApplicationController.TAG, "팔로우 정보 서버 연결 실패 Message : " + t.getMessage());
+                    }
+                });
+            }
+        });
+    }
 
+    public void unfollowing(int connection_id,String text){
+        if(text.equals("팬이에요")){
+            following_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Call<Connections> unfollow = apiService.unfollow(user_token,connection_id);
+                    unfollow.enqueue(new Callback<Connections>() {
+                        @Override
+                        public void onResponse(Call<Connections> call, Response<Connections> response) {
+                            if (response.isSuccessful()) {
+                                Log.e("언팔로우:", "완료");
+                                Log.e("언팔로우된 커넥션 아이디:", String.valueOf(connection_id));
+                                following_btn.setText("팬 할래요");
+                                following_btn.setBackground(getDrawable(R.drawable.able_btn));
+                                follow(user_id,busker_id);
+                            } else {
+                                int StatusCode = response.code();
+                                Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
+                                Log.e("메세지", String.valueOf(response.message()));
+                                Log.e("리스폰스에러바디", String.valueOf(response.errorBody()));
+                                Log.e("리스폰스바디", String.valueOf(response.body()));
+                            }
+                        }
 
-        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        for (int scheduleCount=0; scheduleCount<test_schedule; scheduleCount++) {
-            addSchedule(inflater);
-        }
-        for (int scheduleCount=0; scheduleCount<test_concert; scheduleCount++) {
-            addConcert(inflater);
+                        @Override
+                        public void onFailure(Call<Connections> call, Throwable t) {
+                            Log.i(ApplicationController.TAG, "언팔로우 정보 서버 삭제 실패 Message : " + t.getMessage());
+                        }
+                    });
+                }
+            });
         }
     }
 
@@ -201,42 +238,14 @@ public class ChannelUser extends AppCompatActivity {
         }
     }
 
-    public void unfollowing(int connection_id,String text){
-        if(text.equals("팬이에요")){
-            following_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Call<Connection> unfollow = apiService.unfollowing(user_token,connection_id);
-                    unfollow.enqueue(new Callback<Connection>() {
-                        @Override
-                        public void onResponse(Call<Connection> call, Response<Connection> response) {
-                            if (response.isSuccessful()) {
-                                Log.e("언팔로우:", "완료");
-                            } else {
-                                int StatusCode = response.code();
-                                Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
-                                Log.e("메세지", String.valueOf(response.message()));
-                                Log.e("리스폰스에러바디", String.valueOf(response.errorBody()));
-                                Log.e("리스폰스바디", String.valueOf(response.body()));
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<Connection> call, Throwable t) {
-                            Log.i(ApplicationController.TAG, "커넥션 정보 서버 삭제 실패 Message : " + t.getMessage());
-                        }
-                    });
-                }
-            });
-        }
-    }
-
     //user데이터 얻어오기
     public void getLocalData(){
         SharedPreferences pref = getSharedPreferences("User", Activity.MODE_PRIVATE);
         user_token = pref.getString("auth_token",null);
         user_name = pref.getString("username",null);
         user_id = pref.getInt("user_id",0);
+
+        following_check();
     }
 
     //버스커 정보 화면에 세팅(이름 및 팔로워등 세팅, 메소드가 길어지면 게시글 같은 건 따로 메소드 정의하세요)
