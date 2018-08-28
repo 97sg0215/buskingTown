@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private RestApiService apiService;
 
-    String inputValue = null, user_token, user_name;
+    String inputValue = null, user_token, user_name,user_image;
     int user_id;
 
     @Override
@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         if (user_token!=null){
             Intent i = new Intent(getApplication(), TabBar.class);
             startActivity(i);
-            saveUserInfo(user_token,user_id,user_name);
+            saveUserInfo(user_token,user_id,user_name,user_image);
             finish();
         }
 
@@ -226,15 +226,15 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<User> call, Response<User> response) {
                 userDetail[0] = response.body();
                 String username = userDetail[0].getUsername();
-                String userEmail = userDetail[0].getEmail();
-                String user_phone = userDetail[0].getProfile().getUser_phone();
+                String user_image = userDetail[0].getProfile().getUser_image();
 
                 if(response.isSuccessful()){
                     Log.e("유저 아이디",String.valueOf(id));
+                    Log.e("유저 이미지",String.valueOf(user_image));
                     Log.e("유저정보가져오기:", "성공");
 
                     //유저 정보 저장 메소드
-                    saveUserInfo(token,id,username);
+                    saveUserInfo(token,id,username,user_image);
                 } else{
                     //에러 상태 보려고 해둔 코드
                     int StatusCode = response.code();
@@ -281,12 +281,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //유저 정보를 저장하여 다른 액티비티에서 불러오기 위함
-    public void saveUserInfo(String token,int user,String username){
+    public void saveUserInfo(String token,int user,String username,String user_image){
         SharedPreferences pref = getSharedPreferences("User", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("auth_token",token);
         editor.putInt("user_id",user);
         editor.putString("username",username);
+        editor.putString("user_image",user_image);
         editor.commit();
     }
 
@@ -310,6 +311,7 @@ public class LoginActivity extends AppCompatActivity {
         user_token = pref.getString("auth_token",null);
         user_name = pref.getString("username",null);
         user_id = pref.getInt("user_id",0);
+        user_image = pref.getString("user_image",null);
     }
 
 

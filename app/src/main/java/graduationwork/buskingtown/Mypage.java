@@ -1,11 +1,16 @@
 package graduationwork.buskingtown;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,12 +20,24 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.Busker;
+import graduationwork.buskingtown.model.Profile;
 import graduationwork.buskingtown.model.User;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,16 +47,22 @@ public class Mypage extends Fragment {
 
     private RestApiService apiService;
 
+    private Uri mImageCaptureUri;
+
+    final int REQ_CODE_SELECT_IMAGE=100;
+
     RelativeLayout go_Busker,coinLayout,coinhouseLayout,locationLendLayout,noticeLayout,clientcenterLayout,logout;
 
     TextView go_Busker_text;
+
+    ImageView profile;
 
     public Mypage(){
         // Required empty public constructor
     }
 
     //유저 정보 변수들
-    String user_token,user_name;
+    String user_token,user_name,user_image, real_album_path;
     int user_id,busker_id;
     Boolean certification;
 
@@ -60,14 +83,46 @@ public class Mypage extends Fragment {
             }
         });
 
-        //프로필 이미지 변수
-        ImageView profile = (ImageView) v.findViewById(R.id.profileImg);
-        //임시 이미지
-        int imageresource = getResources().getIdentifier("@drawable/test_img", "drawable", getActivity().getPackageName());
-        //이미지 원형 처리
-        Picasso.with(getActivity()).load(imageresource).transform(new CircleTransForm()).into(profile);
-
         getLocalData();
+
+        //프로필 이미지 변수
+        profile  = (ImageView) v.findViewById(R.id.profileImg);
+
+        if(user_image!=null){
+            Picasso.with(getActivity()).load(user_image).transform(new CircleTransForm()).into(profile);
+        }
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //runtime permission
+                PermissionListener permissionListener= new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted() {
+                        Toast.makeText(getContext(),"권한허가",Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                        Toast.makeText(getContext(),"권한거부\n"+ deniedPermissions.toString(),Toast.LENGTH_SHORT).show();
+
+                    }
+
+                };
+                TedPermission.with(getContext())
+                        .setPermissionListener(permissionListener)
+                        .setRationaleMessage("사진에 접근하기위해서는 사진 접근 권한이 필요해요")
+                        .setDeniedMessage("접근을 거부 하셨군요 \n [설정]->[권한]에서 권한을 허용할 수 있어요.")
+                        .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        .check();
+
+                //갤러리 열기
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
+                intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
+            }
+        });
 
         TextView userID = (TextView) v.findViewById(R.id.userId);
         userID.setText(user_name);
@@ -140,13 +195,88 @@ public class Mypage extends Fragment {
         return v;
     }
 
+    // 선택된 이미지 가져오기
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == REQ_CODE_SELECT_IMAGE){
+            if(resultCode== Activity.RESULT_OK) {
+                try {
+                    //이미지 데이터를 비트맵으로 받아온다.
+                    Bitmap image_bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
+
+                    //배치해놓은 ImageView에 set
+                    Picasso.with(getActivity()).load(data.getData()).transform(new CircleTransForm()).into(profile);
+
+                    mImageCaptureUri = data.getData();
+                    Log.e("SmartWheel", mImageCaptureUri.getPath().toString());
+                    real_album_path= getPath(mImageCaptureUri);
+                    Log.e("real_album_path",real_album_path);
+
+                    //이미지 변경 및 업데이트
+                    profile_update(real_album_path);
+                }catch (FileNotFoundException e) { e.printStackTrace(); }
+                catch (IOException e) { e.printStackTrace(); }
+                catch (Exception e) { e.printStackTrace();	}
+            }
+        }
+    }
+
+    public String getPath(Uri uri) {
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getActivity().managedQuery(uri, projection, null, null, null);
+        getActivity().startManagingCursor(cursor);
+        int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(columnIndex);
+    }
+
+    public void profile_update(String path){
+        //이미지 업로드
+        File file = new File(path);
+        Log.e("파일경로",String.valueOf(path));
+        Log.e("파일이름",String.valueOf(file.getName()));
+        RequestBody surveyBody = RequestBody.create(MediaType.parse("image/*"), file);
+        Log.e("이미지",String.valueOf(surveyBody.contentType()));
+        MultipartBody.Part filePart = MultipartBody.Part.createFormData("user_image", file.getName(), surveyBody);
+
+        Call<Profile> updatd_profile = apiService.updateProfile(user_token,user_id,filePart);
+        updatd_profile.enqueue(new Callback<Profile>() {
+            @Override
+            public void onResponse(Call<Profile> call, Response<Profile> response) {
+                if(response.isSuccessful()){
+                    Log.e("프로필 업로드:", "Success");
+                    Log.e("프로필 이미지:", String .valueOf(response.body().getUser_image()));
+                    user_image = response.body().getUser_image();
+                    SharedPreferences pref = getActivity().getSharedPreferences("User", Activity.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString("user_image",user_image);
+                    editor.commit();
+                }else {
+                    Toast.makeText(getContext(), "이미지 업로드에 실패했습니다.\n다시 시도해주세요", Toast.LENGTH_SHORT).show();
+                    int StatusCode = response.code();
+                    Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
+                    Log.e("메세지", String.valueOf(response.message()));
+                    Log.e("리스폰스에러바디", String.valueOf(response.errorBody()));
+                    Log.e("리스폰스바디", String.valueOf(response.body()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Profile> call, Throwable t) {
+                Log.i(ApplicationController.TAG, "프로필 업데이트 서버 연결 실패 Message : " + t.getMessage());
+                Toast.makeText(getContext(), "이미지 업로드에 실패했습니다.\n다시 시도해주세요", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     //user 정보 불러오기
     public void getLocalData(){
         SharedPreferences pref = getActivity().getSharedPreferences("User", Activity.MODE_PRIVATE);
         user_token = pref.getString("auth_token",null);
         user_name = pref.getString("username",null);
         user_id = pref.getInt("user_id",0);
+        user_image = pref.getString("user_image",null);
     }
+
     /*
     버스커 객체를 확인하여 null 값이면 BuskerCertification 액티비티를 띄우고
     null값이 아니면 인증 상태를 확인하여 true > 버스커 채널 가기, false > 재시도, null > 대기 상태 액티비티로 이동
@@ -239,6 +369,7 @@ public class Mypage extends Fragment {
             }
         });
     }
+
 
     //busker 정보를 저장하기 위함 key값 : BuskerUser
     public void saveBuskerInfo(int busker_id){

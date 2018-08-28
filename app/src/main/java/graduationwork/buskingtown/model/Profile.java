@@ -6,7 +6,7 @@ import java.util.List;
 public class Profile {
     String user;
     String user_phone;
-    List<Busker> busker;
+    String user_image;
 
     public String getUser() {
         return user;
@@ -24,7 +24,11 @@ public class Profile {
         this.user_phone = user_phone;
     }
 
-    public List<Busker> get_followings(){
-        return busker;
+    public String getUser_image() {
+        return user_image;
+    }
+
+    public void setUser_image(String user_image) {
+        this.user_image = user_image;
     }
 }

@@ -50,9 +50,6 @@ public class BuskerCertification extends AppCompatActivity {
 
     private RestApiService apiService;
 
-    private static final int PICK_FROM_CAMERA = 0;
-    private static final int PICK_FROM_ALBUM = 1;
-    private static final int CROP_FROM_IMAGE = 2;
     private Uri mImageCaptureUri;
 
     final int REQ_CODE_SELECT_IMAGE=100;
@@ -63,7 +60,7 @@ public class BuskerCertification extends AppCompatActivity {
     final boolean[] tagOk = new boolean[1];
     final boolean[] imageOk = new boolean[1];
 
-    String user_token, filePath;
+    String user_token;
     String real_album_path;
     int user_id;
 
@@ -227,18 +224,12 @@ public class BuskerCertification extends AppCompatActivity {
         if(requestCode == REQ_CODE_SELECT_IMAGE){
             if(resultCode== Activity.RESULT_OK) {
                 try {
-                    //Uri에서 이미지 이름을 얻어온다.
-                    //String name_Str = getImageNameToUri(data.getData());
-
                     //이미지 데이터를 비트맵으로 받아온다.
                     Bitmap image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
 
                     //배치해놓은 ImageView에 set
                     ImageView imageS = (ImageView)findViewById(R.id.imageIcon);
                     imageS.setImageBitmap(image_bitmap);
-
-//                    filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/SmartWheel" + System.currentTimeMillis() + ".jpg";
-//                    Log.e("filepath",filePath);
 
                     mImageCaptureUri = data.getData();
                     Log.e("SmartWheel", mImageCaptureUri.getPath().toString());

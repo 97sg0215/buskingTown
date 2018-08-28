@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,10 +36,11 @@ public class ChannelUser extends AppCompatActivity {
     int test_concert=5;
 
     int busker_id, user_id, connection_id;
-    String user_token, user_name, busker_team_name, busker_tag;
+    String user_token, user_name, busker_team_name, busker_tag, busker_image;
 
     //버스커 정보 세팅
     TextView mainTeamName, subTeamName, tag;
+    ImageView busker_main_image;
 
     Button following_btn;
 
@@ -65,6 +68,7 @@ public class ChannelUser extends AppCompatActivity {
         mainTeamName = (TextView) findViewById(R.id.busker_main_team_name);
         subTeamName = (TextView) findViewById(R.id.busker_sub_team_name);
         tag = (TextView) findViewById(R.id.tag);
+        busker_main_image = (ImageView) findViewById(R.id.profilebig);
 
         following_btn = (Button) findViewById(R.id.fan_on);
 
@@ -249,11 +253,13 @@ public class ChannelUser extends AppCompatActivity {
     }
 
     //버스커 정보 화면에 세팅(이름 및 팔로워등 세팅, 메소드가 길어지면 게시글 같은 건 따로 메소드 정의하세요)
-    public void buskerSetting(String busker_team_name, String busker_tag){
+    public void buskerSetting(String busker_team_name, String busker_tag,String busker_image){
         Log.e("버스커 정보", String.valueOf(busker_team_name));
         mainTeamName.setText(busker_team_name);
         subTeamName.setText(busker_team_name);
         tag.setText(busker_tag);
+
+        Picasso.with(getApplication()).load(busker_image).transform(new CircleTransForm()).into(busker_main_image);
     }
 
     //busker데이터 얻어오기
@@ -267,7 +273,8 @@ public class ChannelUser extends AppCompatActivity {
                     busker[0] = response.body();
                     busker_team_name = busker[0].getTeam_name();
                     busker_tag = busker[0].getBusker_tag();
-                    buskerSetting(busker_team_name,busker_tag);
+                    busker_image = busker[0].getBusker_image();
+                    buskerSetting(busker_team_name,busker_tag,busker_image);
                 }
                 else {
                     //에러 상태 보려고 해둔 코드

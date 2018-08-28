@@ -5,6 +5,7 @@ import java.util.List;
 import graduationwork.buskingtown.model.Busker;
 import graduationwork.buskingtown.model.Connections;
 import graduationwork.buskingtown.model.Login;
+import graduationwork.buskingtown.model.Profile;
 import graduationwork.buskingtown.model.User;
 import graduationwork.buskingtown.model.SignUp;
 import okhttp3.MultipartBody;
@@ -17,6 +18,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 
@@ -39,6 +41,11 @@ public interface RestApiService {
     //유저 개인 정보 받아오기
     @GET("user/{user_id}/")
     Call<User> getUserDetail (@Header("Authorization")String authToken, @Path("user_id")int id);
+
+    //유저 프로필 업데이트
+    @Multipart
+    @PUT("/accounts/update_profile/{user_id}/")
+    Call<Profile> updateProfile (@Header("Authorization")String authToken, @Path("user_id")int id, @Part MultipartBody.Part user_image);
 
     //버스커 생성
     @Multipart
