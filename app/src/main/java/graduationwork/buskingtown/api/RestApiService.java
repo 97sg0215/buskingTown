@@ -7,6 +7,7 @@ import graduationwork.buskingtown.model.Connections;
 import graduationwork.buskingtown.model.Login;
 import graduationwork.buskingtown.model.User;
 import graduationwork.buskingtown.model.SignUp;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -47,7 +48,8 @@ public interface RestApiService {
                              @Part("busker_name") RequestBody busker_name,
                              @Part("team_name") RequestBody team_name,
                              @Part("busker_tag") RequestBody busker_tag,
-                             @Part("busker_phone") RequestBody busker_phone);
+                             @Part("busker_phone") RequestBody busker_phone,
+                             @Part MultipartBody.Part busker_image);
 
     //버스커 객체 삭제 > 인증시 오류 해결을 위해
     @DELETE("accounts/delete/{busker_id}/")

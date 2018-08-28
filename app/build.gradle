@@ -45,6 +45,9 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.1.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 
+    //앨범 접근 퍼미션 라이브러리
+    implementation 'gun0912.ted:tedpermission:2.0.0'
+
     //데이트피커 커스텀 라이브러리
     implementation 'com.github.drawers:SpinnerDatePicker:1.0.6'
 

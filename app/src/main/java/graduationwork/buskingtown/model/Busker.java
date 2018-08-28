@@ -9,9 +9,8 @@ public class Busker {
     String team_name;
     String busker_tag;
     String busker_phone;
+    String busker_image;
     Boolean certification;
-
-    String path;
 
     int coin;
 
@@ -79,5 +78,12 @@ public class Busker {
         this.coin = coin;
     }
 
-    public  String getPath(){ return path; }
+
+    public String getBusker_image() {
+        return busker_image;
+    }
+
+    public void setBusker_image(String busker_image) {
+        this.busker_image = busker_image;
+    }
 }

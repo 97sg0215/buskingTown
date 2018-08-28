@@ -1,11 +1,16 @@
 package graduationwork.buskingtown;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
@@ -18,10 +23,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,10 +43,17 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 
 public class BuskerCertification extends AppCompatActivity {
 
     private RestApiService apiService;
+
+    private static final int PICK_FROM_CAMERA = 0;
+    private static final int PICK_FROM_ALBUM = 1;
+    private static final int CROP_FROM_IMAGE = 2;
+    private Uri mImageCaptureUri;
 
     final int REQ_CODE_SELECT_IMAGE=100;
 
@@ -49,6 +64,7 @@ public class BuskerCertification extends AppCompatActivity {
     final boolean[] imageOk = new boolean[1];
 
     String user_token, filePath;
+    String real_album_path;
     int user_id;
 
     @Override
@@ -58,6 +74,28 @@ public class BuskerCertification extends AppCompatActivity {
 
         restApiBuilder();
         getLocalData();
+
+        //runtime permission
+        PermissionListener permissionListener= new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                Toast.makeText(BuskerCertification.this,"권한허가",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                Toast.makeText(BuskerCertification.this,"권한거부\n"+ deniedPermissions.toString(),Toast.LENGTH_SHORT).show();
+
+            }
+
+        };
+        TedPermission.with(this)
+                .setPermissionListener(permissionListener)
+                .setRationaleMessage("사진에 접근하기위해서는 사진 접근 권한이 필요해요")
+                .setDeniedMessage("접근을 거부 하셨군요 \n [설정]->[권한]에서 권한을 허용할 수 있어요.")
+                .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .check();
+
 
         //활동팀명,성명,휴대폰,활동지 및 장르(=태그) 에디터 텍스트 입력 변수
         final EditText teamNameEdit = (EditText) findViewById(R.id.teamName);
@@ -184,8 +222,6 @@ public class BuskerCertification extends AppCompatActivity {
 
     }
 
-
-
     // 선택된 이미지 가져오기
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == REQ_CODE_SELECT_IMAGE){
@@ -201,13 +237,15 @@ public class BuskerCertification extends AppCompatActivity {
                     ImageView imageS = (ImageView)findViewById(R.id.imageIcon);
                     imageS.setImageBitmap(image_bitmap);
 
-                    filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/SmartWheel" + System.currentTimeMillis() + ".jpg";
-                    Log.e("filepath",filePath);
+//                    filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/SmartWheel" + System.currentTimeMillis() + ".jpg";
+//                    Log.e("filepath",filePath);
 
-                    imageOk[0] = checkImage(filePath);
+                    mImageCaptureUri = data.getData();
+                    Log.e("SmartWheel", mImageCaptureUri.getPath().toString());
+                    real_album_path= getPath(mImageCaptureUri);
+                    Log.e("real_album_path",real_album_path);
 
-                    //이미지 업로드 스트림
-                    InputStream is = getContentResolver().openInputStream(data.getData());
+                    imageOk[0] = checkImage(real_album_path);
 
                 }catch (FileNotFoundException e) { e.printStackTrace(); }
                 catch (IOException e) { e.printStackTrace(); }
@@ -215,6 +253,16 @@ public class BuskerCertification extends AppCompatActivity {
             }
         }
     }
+
+    public String getPath(Uri uri) {
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        startManagingCursor(cursor);
+        int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(columnIndex);
+    }
+
 
     //활동팀명 형식이 제대로 되어있나 체크 메소드
     public static boolean checkName(String buskerName){
@@ -302,11 +350,7 @@ public class BuskerCertification extends AppCompatActivity {
                     final EditText tagEdit = (EditText) findViewById(R.id.activity);
                     final String tag = tagEdit.getText().toString();
 
-                    //아이디, 휴대폰번호 로그 띄우기
-
-
-
-                    buskerSetting(teamName,name,cellPhone,tag,filePath);
+                    buskerSetting(teamName,name,cellPhone,tag,real_album_path);
                 }
             });
         }else {
@@ -324,22 +368,30 @@ public class BuskerCertification extends AppCompatActivity {
         RequestBody busker_phone = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(phone));
         RequestBody busker_tag = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(tag));
 
+
+
         Log.e("아이디",String.valueOf(user_id));
         Log.e("활동팀명",String.valueOf(teamName));
         Log.e("이름",String.valueOf(name));
         Log.e("휴대폰번호",String.valueOf(phone));
         Log.e("태그",String.valueOf(tag));
 
-//            File file = new File(filePath);
-//            MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
+        //이미지 업로드
+        File file = new File(filePath);
+        Log.e("파일경로",String.valueOf(filePath));
+        Log.e("파일이름",String.valueOf(file.getName()));
+        RequestBody surveyBody = RequestBody.create(MediaType.parse("image/*"), file);
+        Log.e("이미지",String.valueOf(surveyBody.contentType()));
+        MultipartBody.Part filePart = MultipartBody.Part.createFormData("busker_image", file.getName(), surveyBody);
 
 
-        Call<Busker> postBusker = apiService.postBusker(user_token,user,busker_name,team_name,busker_tag,busker_phone);
+        Call<Busker> postBusker = apiService.postBusker(user_token,user,busker_name,team_name,busker_tag,busker_phone,filePart);
         postBusker.enqueue(new Callback<Busker>() {
             @Override
             public void onResponse(Call<Busker> call, Response<Busker> response) {
                 if (response.isSuccessful()) {
                     Log.e("버스커세팅:", "성공");
+                    Log.e("버스커이미지:", String .valueOf(response.body().getBusker_image()));
                     completeApply();
                 } else {
                     Toast.makeText(getApplicationContext(), "버스커인증하기에 실패했습니다.\n다시 시도해주세요", Toast.LENGTH_SHORT).show();
@@ -354,6 +406,7 @@ public class BuskerCertification extends AppCompatActivity {
             @Override
             public void onFailure(Call<Busker> call, Throwable t) {
                 Log.e("call","실패");
+                Log.i(ApplicationController.TAG, "버스커인증 서버 연결 실패 Message : " + t.getMessage());
                 Toast.makeText(getApplicationContext(), "버스커인증하기에 실패했습니다.\n다시 시도해주세요", Toast.LENGTH_SHORT).show();
             }
         });
