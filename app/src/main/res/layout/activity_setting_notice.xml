@@ -60,7 +60,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
             android:layout_marginTop="12.9dp"
-            android:track="@drawable/switch_track_off"
+            android:track="@drawable/switch_track_selector"
             android:thumb="@drawable/switch_thumb_selector" />
 
         <View
@@ -102,7 +102,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
             android:layout_marginTop="12.9dp"
-            android:track="@drawable/switch_track_off"
+            android:track="@drawable/switch_track_selector"
             android:thumb="@drawable/switch_thumb_selector" />
 
         <View
@@ -136,7 +136,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginTop="12.9dp"
             android:layout_below="@id/eventReceiveUnderLine"
-            android:track="@drawable/switch_track_off"
+            android:track="@drawable/switch_track_selector"
             android:thumb="@drawable/switch_thumb_selector" />
 
         <View
