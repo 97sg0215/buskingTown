@@ -203,16 +203,13 @@ public class Mypage extends Fragment {
                     //이미지 데이터를 비트맵으로 받아온다.
                     Bitmap image_bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
 
-                    //배치해놓은 ImageView에 set
-                    Picasso.with(getActivity()).load(data.getData()).transform(new CircleTransForm()).into(profile);
-
                     mImageCaptureUri = data.getData();
                     Log.e("SmartWheel", mImageCaptureUri.getPath().toString());
                     real_album_path= getPath(mImageCaptureUri);
                     Log.e("real_album_path",real_album_path);
 
                     //이미지 변경 및 업데이트
-                    profile_update(real_album_path);
+                    profile_update(real_album_path,data);
                 }catch (FileNotFoundException e) { e.printStackTrace(); }
                 catch (IOException e) { e.printStackTrace(); }
                 catch (Exception e) { e.printStackTrace();	}
@@ -229,22 +226,27 @@ public class Mypage extends Fragment {
         return cursor.getString(columnIndex);
     }
 
-    public void profile_update(String path){
+    public void profile_update(String path,Intent data){
         //이미지 업로드
         File file = new File(path);
         Log.e("파일경로",String.valueOf(path));
         Log.e("파일이름",String.valueOf(file.getName()));
         RequestBody surveyBody = RequestBody.create(MediaType.parse("image/*"), file);
         Log.e("이미지",String.valueOf(surveyBody.contentType()));
+        Log.e("사용자",String.valueOf(user_id));
+        RequestBody user = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(user_id));
         MultipartBody.Part filePart = MultipartBody.Part.createFormData("user_image", file.getName(), surveyBody);
 
-        Call<Profile> updatd_profile = apiService.updateProfile(user_token,user_id,filePart);
-        updatd_profile.enqueue(new Callback<Profile>() {
+        Call<Profile> update_profile = apiService.updateProfile(user_token,user_id,user,filePart);
+        update_profile.enqueue(new Callback<Profile>() {
             @Override
             public void onResponse(Call<Profile> call, Response<Profile> response) {
                 if(response.isSuccessful()){
                     Log.e("프로필 업로드:", "Success");
                     Log.e("프로필 이미지:", String .valueOf(response.body().getUser_image()));
+                    //배치해놓은 ImageView에 set
+                    Picasso.with(getActivity()).load(data.getData()).transform(new CircleTransForm()).into(profile);
+                    //다른 액티비티에서 받아올 수 있게
                     user_image = response.body().getUser_image();
                     SharedPreferences pref = getActivity().getSharedPreferences("User", Activity.MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();

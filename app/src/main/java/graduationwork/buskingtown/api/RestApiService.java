@@ -24,7 +24,7 @@ import retrofit2.http.Path;
 
 public interface RestApiService {
 
-    public  static  final String API_URL="http://6a25c8ac.ngrok.io/";
+    public  static  final String API_URL="http://744631f5.ngrok.io/";
 
     //회원가입을 위한 데이터 포스트
     @POST("accounts/sign_up/")
@@ -45,7 +45,10 @@ public interface RestApiService {
     //유저 프로필 업데이트
     @Multipart
     @PUT("/accounts/update_profile/{user_id}/")
-    Call<Profile> updateProfile (@Header("Authorization")String authToken, @Path("user_id")int id, @Part MultipartBody.Part user_image);
+    Call<Profile> updateProfile (@Header("Authorization")String authToken,
+                                 @Path("user_id")int id,
+                                 @Part("user") RequestBody user,
+                                 @Part MultipartBody.Part user_image);
 
     //버스커 생성
     @Multipart

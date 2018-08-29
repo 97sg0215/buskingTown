@@ -192,10 +192,6 @@ public class LoginActivity extends AppCompatActivity {
                     //유저 정보 보내기
                     int id = user.getId();
                     getUserDetail(auth_header,id);
-
-                    //메인 홈 진행
-                    mainEnter();
-
                 } else {
                     Toast.makeText(getApplicationContext(),"아이디 비밀번호를 확인해주세요",Toast.LENGTH_SHORT).show();
                     //에러 상태 보려고 해둔 코드
@@ -235,6 +231,10 @@ public class LoginActivity extends AppCompatActivity {
 
                     //유저 정보 저장 메소드
                     saveUserInfo(token,id,username,user_image);
+
+                    //메인 홈 진행
+                    mainEnter();
+
                 } else{
                     //에러 상태 보려고 해둔 코드
                     int StatusCode = response.code();

@@ -198,6 +198,7 @@ public class SignUp2Step extends AppCompatActivity {
 
         Profile profile = new Profile();
         profile.setUser_phone(phone);
+        profile.setUser_image(null);
 
         //signUp POST
         signUp.setEmail(email);
@@ -221,20 +222,6 @@ public class SignUp2Step extends AppCompatActivity {
                     Log.e("메세지", String.valueOf(response.message()));
                     Log.e("리스폰스에러바디", String.valueOf(response.errorBody()));
                     Log.e("리스폰스바디", String.valueOf(response.body()));
-
-                    if (response.code() == 400) {
-                        if(!response.isSuccessful()) {
-                            JSONObject jsonObject = null;
-                            try {
-                                jsonObject = new JSONObject(response.errorBody().toString());
-                                String userMessage = jsonObject.getString("userMessage");
-                                String internalMessage = jsonObject.getString("internalMessage");
-                                String errorCode = jsonObject.getString("errorCode");
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
                 }
             }
 

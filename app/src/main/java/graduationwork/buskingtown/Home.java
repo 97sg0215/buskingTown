@@ -35,6 +35,8 @@ public class Home extends Fragment {
     String user_token, user_name;
     int user_id;
 
+    LinearLayout top_busker_list;
+
     ArrayList<Integer> busker_id = new ArrayList<>();
     ArrayList<String> busker_image = new ArrayList<>();
 
@@ -52,7 +54,13 @@ public class Home extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.activity_home, container, false);
 
-        retrofit2.Call<List<Busker>> busker_list = apiService.top_10_busker(user_token);
+        top_busker_list = (LinearLayout)v.findViewById(R.id.busker_top_list);
+
+        return v;
+    }
+
+    public void getBuskerList(LayoutInflater inflater,String token){
+        retrofit2.Call<List<Busker>> busker_list = apiService.top_10_busker(token);
         busker_list.enqueue(new Callback<List<Busker>>() {
             @Override
             public void onResponse(retrofit2.Call<List<Busker>> call, Response<List<Busker>> response) {
@@ -66,7 +74,6 @@ public class Home extends Fragment {
                             Log.e("버스커 리스트", String.valueOf(busker_id));
 
                             //버스커 리스트 세팅
-                            final LinearLayout top_busker_list = (LinearLayout)v.findViewById(R.id.busker_top_list);
                             View list = inflater.inflate(R.layout.top_busker,top_busker_list,false);
 
                             Log.e("버스커", String.valueOf(busker.get(i).getTeam_name()));
@@ -115,7 +122,6 @@ public class Home extends Fragment {
             }
         });
 
-        return v;
     }
 
     //user데이터 얻어오기
@@ -124,6 +130,8 @@ public class Home extends Fragment {
         user_token = pref.getString("auth_token",null);
         user_name = pref.getString("username",null);
         user_id = pref.getInt("user_id",0);
+
+        getBuskerList(getLayoutInflater(),user_token);
     }
 
     //api연결
