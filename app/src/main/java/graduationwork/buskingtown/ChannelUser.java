@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -98,7 +99,8 @@ public class ChannelUser extends AppCompatActivity {
                                 get_follower_id.add(connections.get(i).getFollowing());
                                 Log.e("팔로우 목록", String.valueOf(get_follower_id));
                                 connection_id = connections.get(i).getConnection_id();
-                                following_btn.setBackground(getDrawable(R.drawable.disable_btn));
+                                following_btn.setBackground(getDrawable(R.drawable.fan_on_btn));
+                                following_btn.setTextColor(Color.parseColor("#000000"));
                                 following_btn.setText("팬이에요");
                                 String fan_stat = following_btn.getText().toString();
                                 unfollowing(connection_id, fan_stat);
@@ -142,7 +144,8 @@ public class ChannelUser extends AppCompatActivity {
                         if(response.isSuccessful()){
                             Log.e("팔로워ok", String.valueOf(user_id));
                             Log.e("버스커ok", String.valueOf(busker_id));
-                            following_btn.setBackground(getDrawable(R.drawable.disable_btn));
+                            following_btn.setBackground(getDrawable(R.drawable.fan_on_btn));
+                            following_btn.setTextColor(getResources().getColor(R.color.mainPurple));
                             following_btn.setText("팬이에요");
                             int connection_id = response.body().getConnection_id();
                             Log.e("커넥션 아이디",String.valueOf(connection_id));
@@ -180,6 +183,7 @@ public class ChannelUser extends AppCompatActivity {
                                 Log.e("언팔로우:", "완료");
                                 Log.e("언팔로우된 커넥션 아이디:", String.valueOf(connection_id));
                                 following_btn.setText("팬 할래요");
+                                following_btn.setTextColor(Color.parseColor("#FFFFFF"));
                                 following_btn.setBackground(getDrawable(R.drawable.able_btn));
                                 follow(user_id,busker_id);
                             } else {
