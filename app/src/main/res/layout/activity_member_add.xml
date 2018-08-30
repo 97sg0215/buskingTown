@@ -141,4 +141,57 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search"
+        android:layout_marginTop="75dp"
+        android:visibility="gone">
+
+        <ImageButton
+            android:id="@+id/buskerProfileAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/profile_big"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/buskerIdAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/buskerProfileAdd"
+            android:layout_marginTop="15dp"
+            android:layout_centerHorizontal="true"
+            android:textSize="15sp"
+            android:textColor="@color/fontBlack"
+            android:fontFamily="@font/kopubdotumbold"
+            android:text="-"/>
+
+        <TextView
+            android:id="@+id/buskerCheckText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/buskerIdAdd"
+            android:text="이 버스커가 맞으신가요?"
+            android:fontFamily="@font/kopubdotummedium"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/mainPurple"
+            android:textSize="14sp"
+            android:layout_centerHorizontal="true"/>
+        
+        <Button
+            android:id="@+id/addMember"
+            android:layout_width="190dp"
+            android:layout_height="35dp"
+            android:layout_below="@id/buskerCheckText"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fff"
+            android:fontFamily="@font/kopubdotumbold"
+            android:textSize="14sp"
+            android:text="맴버 초대하기"
+            android:background="@drawable/fail_btn"/>
+
+    </RelativeLayout>
+
 </RelativeLayout>
