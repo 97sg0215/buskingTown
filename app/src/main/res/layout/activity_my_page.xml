@@ -34,18 +34,11 @@
 
     </RelativeLayout>
 
-
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="46.1dp"
-        android:overScrollMode="never"
-        android:scrollbars="none">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="46.1dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
             <RelativeLayout
                 android:id="@+id/profileContent"
@@ -91,10 +84,14 @@
 
             </RelativeLayout>
 
+
+
             <LinearLayout
+                android:id="@+id/label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#fff"
+                android:layout_below="@+id/profileContent"
                 android:orientation="horizontal">
 
                 <RelativeLayout
@@ -163,6 +160,19 @@
                 </RelativeLayout>
 
             </LinearLayout>
+
+
+    <ScrollView
+        android:layout_below="@+id/label"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -327,5 +337,7 @@
         </LinearLayout>
 
     </ScrollView>
+
+    </RelativeLayout>
 
 </FrameLayout>

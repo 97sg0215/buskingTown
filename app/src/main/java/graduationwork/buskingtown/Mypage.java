@@ -30,9 +30,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.Busker;
+import graduationwork.buskingtown.model.Connections;
 import graduationwork.buskingtown.model.Profile;
 import graduationwork.buskingtown.model.User;
 import okhttp3.MediaType;
@@ -53,17 +55,21 @@ public class Mypage extends Fragment {
 
     RelativeLayout go_Busker,coinLayout,coinhouseLayout,locationLendLayout,noticeLayout,clientcenterLayout,logout;
 
-    TextView go_Busker_text;
+    TextView go_Busker_text, followingAmount;
 
     ImageView profile;
+
+    ArrayList<Integer> all_user_id = new ArrayList<>();
+    ArrayList<Integer> all_busker_id = new ArrayList<>();
+    ArrayList<Integer> get_follower_id = new ArrayList<>();
 
     public Mypage(){
         // Required empty public constructor
     }
 
     //유저 정보 변수들
-    String user_token,user_name,user_image, real_album_path;
-    int user_id,busker_id;
+    String user_token,user_name,user_image, real_album_path,team_name;
+    int user_id,busker_id,busker_type;
     Boolean certification;
 
     @Override
@@ -84,6 +90,8 @@ public class Mypage extends Fragment {
         });
 
         getLocalData();
+
+        getBusker(user_token,user_id);
 
         //프로필 이미지 변수
         profile  = (ImageView) v.findViewById(R.id.profileImg);
@@ -124,6 +132,10 @@ public class Mypage extends Fragment {
             }
         });
 
+        followingAmount = (TextView) v.findViewById(R.id.followingAmount);
+
+
+
         TextView userID = (TextView) v.findViewById(R.id.userId);
         userID.setText(user_name);
 
@@ -137,7 +149,6 @@ public class Mypage extends Fragment {
         clientcenterLayout = (RelativeLayout) v.findViewById(R.id.clientcenterLayout);
         logout = (RelativeLayout)v.findViewById(R.id.logOut);
 
-        getBusker(user_token,user_id);
 
         //코인충전소
         coinLayout.setOnClickListener(new View.OnClickListener() {
@@ -248,10 +259,7 @@ public class Mypage extends Fragment {
                     Picasso.with(getActivity()).load(data.getData()).transform(new CircleTransForm()).into(profile);
                     //다른 액티비티에서 받아올 수 있게
                     user_image = response.body().getUser_image();
-                    SharedPreferences pref = getActivity().getSharedPreferences("User", Activity.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = pref.edit();
-                    editor.putString("user_image",user_image);
-                    editor.commit();
+                    saveUserInfo(user_token,user_id,user_name,user_image);
                 }else {
                     Toast.makeText(getContext(), "이미지 업로드에 실패했습니다.\n다시 시도해주세요", Toast.LENGTH_SHORT).show();
                     int StatusCode = response.code();
@@ -277,6 +285,49 @@ public class Mypage extends Fragment {
         user_name = pref.getString("username",null);
         user_id = pref.getInt("user_id",0);
         user_image = pref.getString("user_image",null);
+
+        get_follow_count(user_token,user_id);
+    }
+
+    public void get_follow_count(String user_token,int user_id){
+        Call<List<Connections>> getConnections = apiService.get_followings(user_token);
+        getConnections.enqueue(new Callback<List<Connections>>() {
+            @Override
+            public void onResponse(Call<List<Connections>> call, Response<List<Connections>> response) {
+                if (response.isSuccessful()) {
+                    List<Connections> connections = response.body();
+                    if(connections.size()!=0){
+                        for (int i = 0; i < connections.size(); i++) {
+                            all_user_id.add(connections.get(i).getUser());
+                            all_busker_id.add(connections.get(i).getFollowing());
+                            //팔로우 되어있을 경우
+                            if (user_id == all_user_id.get(i)) {
+                                get_follower_id.add(connections.get(i).getFollowing());
+                                Log.e("팔로우 목록", String.valueOf(get_follower_id));
+                                followingAmount.setText(String.valueOf(get_follower_id.size()));
+                            } else {
+                                followingAmount.setText("0");
+                            }
+                        }
+                    }//커넥션 목록 없을때
+                    else {
+                        followingAmount.setText("0");
+                    }
+                } else {
+                    int StatusCode = response.code();
+                    String s = response.message();
+                    ResponseBody d = response.errorBody();
+                    Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
+                    Log.e("메세지", s);
+                    Log.e("리스폰스에러바디", String.valueOf(d));
+                    Log.e("리스폰스바디", String.valueOf(response.body()));
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Connections>> call, Throwable t) {
+                Log.i(ApplicationController.TAG, "커넥션 정보 서버 연결 실패 Message : " + t.getMessage());
+            }
+        });
     }
 
     /*
@@ -341,6 +392,8 @@ public class Mypage extends Fragment {
                 if (userDetail[0].getBusker() != null) {
                     certification = userDetail[0].getBusker().getCertification();
                     busker_id = userDetail[0].getBusker().getBusker_id();
+                    busker_type = userDetail[0].getBusker().getBusker_type();
+                    team_name = userDetail[0].getBusker().getTeam_name();
                     if (response.isSuccessful()) {
                         Log.e("유저 아이디", String.valueOf(id));
                         Log.e("버스커 아이디", String.valueOf(busker_id));
@@ -348,7 +401,7 @@ public class Mypage extends Fragment {
                         Log.e("버스커", String.valueOf(busker));
                         Log.e("버스커유저정보가져오기:", "성공");
                         buskerCheck(certification, busker[0]);
-                        saveBuskerInfo(busker_id);
+                        saveBuskerInfo(busker_id,busker_type,team_name);
                     } else {
                         //에러 상태 보려고 해둔 코드
                         int StatusCode = response.code();
@@ -361,7 +414,7 @@ public class Mypage extends Fragment {
                     }
                 } else {
                     buskerCheck(null, null);
-                    saveBuskerInfo(0);
+                    saveBuskerInfo(0,0,null);
                 }
             }
 
@@ -374,10 +427,23 @@ public class Mypage extends Fragment {
 
 
     //busker 정보를 저장하기 위함 key값 : BuskerUser
-    public void saveBuskerInfo(int busker_id){
-        SharedPreferences pref = getActivity().getSharedPreferences("BuskerUser", Activity.MODE_PRIVATE);
+    public void saveBuskerInfo(int busker_id,int busker_type,String team_name){
+        SharedPreferences pref = this.getActivity().getSharedPreferences("BuskerUser", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
+        editor.putInt("busker_type",busker_type);
         editor.putInt("busker_id",busker_id);
+        editor.putString("team_name",team_name);
+        editor.commit();
+    }
+
+    //유저 정보를 저장하여 다른 액티비티에서 불러오기 위함
+    public void saveUserInfo(String token,int user,String username,String user_image){
+        SharedPreferences pref = this.getActivity().getSharedPreferences("User", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("auth_token",token);
+        editor.putInt("user_id",user);
+        editor.putString("username",username);
+        editor.putString("user_image",user_image);
         editor.commit();
     }
 
