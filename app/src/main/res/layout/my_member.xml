@@ -5,7 +5,7 @@
     android:layout_height="70.5dp">
 
         <ImageView
-            android:id="@+id/profileImg"
+            android:id="@+id/member_profileImg"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="20dp"
@@ -13,15 +13,16 @@
             android:src="@drawable/profile_small"/>
 
         <TextView
+            android:id="@+id/member_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15sp"
-            android:layout_toRightOf="@+id/profileImg"
+            android:layout_toRightOf="@+id/member_profileImg"
             android:layout_centerVertical="true"
             android:textSize="15sp"
             android:fontFamily="@font/kopubbold"
             android:textColor="@color/fontBlack"
             android:lineSpacingExtra="33sp"
-            android:text="busker_id"/>
+            android:text="-"/>
 
 </RelativeLayout>

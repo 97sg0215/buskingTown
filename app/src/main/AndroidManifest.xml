@@ -79,6 +79,8 @@
         <activity android:name=".LocationLendStart" />
         <activity android:name=".ChannelManagementSetting" />
         <activity android:name=".MemberManagement" />
+        <activity android:name=".MemberAdd" />
+        <activity android:name=".TeamMember"/>
     </application>
 
 </manifest>

@@ -20,7 +20,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:background="#00000000"
-            android:src="@drawable/backbtn" />
+            android:src="@drawable/backbtn"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -47,6 +47,7 @@
             android:orientation="vertical">
             
             <RelativeLayout
+                android:id="@+id/plus_member"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:paddingLeft="20dp">
@@ -103,28 +104,30 @@
                     android:paddingRight="20dp">
 
                     <ImageView
-                        android:id="@+id/profileImg"
+                        android:id="@+id/my_profileImg"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_centerVertical="true"
                         android:src="@drawable/profile_small"/>
 
                     <TextView
+                        android:id="@+id/my_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15sp"
-                        android:layout_toRightOf="@+id/profileImg"
+                        android:layout_toRightOf="@+id/my_profileImg"
                         android:layout_centerVertical="true"
                         android:textSize="15sp"
                         android:fontFamily="@font/kopubbold"
                         android:textColor="@color/fontBlack"
                         android:lineSpacingExtra="33sp"
-                        android:text="my_id"/>
+                        android:text="-"/>
 
                 </RelativeLayout>
             </LinearLayout>
 
             <RelativeLayout
+                android:id="@+id/waitingGroup"
                 android:layout_width="match_parent"
                 android:layout_height="23dp"
                 android:paddingLeft="20dp"

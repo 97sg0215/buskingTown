@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Busker {
     int user;
     int busker_id;
+    int busker_type;
     String busker_name;
     String team_name;
     String busker_tag;
@@ -28,6 +29,14 @@ public class Busker {
 
     public void setUser(int user) {
         this.user = user;
+    }
+
+    public int getBusker_type() {
+        return busker_type;
+    }
+
+    public void setBusker_type(int busker_type) {
+        this.busker_type = busker_type;
     }
 
     public String getBusker_name() {

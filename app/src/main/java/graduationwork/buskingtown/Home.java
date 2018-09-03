@@ -24,6 +24,7 @@ import java.util.List;
 
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.Busker;
+import graduationwork.buskingtown.model.User;
 import okhttp3.ResponseBody;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -60,7 +61,7 @@ public class Home extends Fragment {
     }
 
     public void getBuskerList(LayoutInflater inflater,String token){
-        retrofit2.Call<List<Busker>> busker_list = apiService.top_10_busker(token);
+        retrofit2.Call<List<Busker>> busker_list = apiService.all_busker(token);
         busker_list.enqueue(new Callback<List<Busker>>() {
             @Override
             public void onResponse(retrofit2.Call<List<Busker>> call, Response<List<Busker>> response) {
@@ -68,7 +69,7 @@ public class Home extends Fragment {
                     List<Busker> busker = response.body();
                     for(int i=0; i< busker.size();i++) {
                         //허용된 버스커만 각 개인 아이디 확인
-                        if(busker.get(i).getCertification()!=null&&busker.get(i).getCertification()!=false){
+                        if(busker.get(i).getCertification()!=null&&busker.get(i).getCertification()!=false&&busker.get(i).getBusker_type()==1){
                             busker_id.add(busker.get(i).getBusker_id());
                             busker_image.add(busker.get(i).getBusker_image());
                             Log.e("버스커 리스트", String.valueOf(busker_id));
@@ -80,25 +81,19 @@ public class Home extends Fragment {
                             TextView top_team_name = (TextView) list.findViewById(R.id.buskerTeamName);
                             ImageView top_team_image = (ImageView) list.findViewById(R.id.buskerProfileImangeFirst);
                             top_team_name.setText(String.valueOf(busker.get(i).getTeam_name()));
-                            Picasso.with(getActivity()).load(busker_image.get(i)).transform(new CircleTransForm()).into(top_team_image);
+                            Picasso.with(getActivity()).load(busker.get(i).getBusker_image()).transform(new CircleTransForm()).into(top_team_image);
                             if(list.getParent()!= null)
                                 ((ViewGroup)list.getParent()).removeView(list);
                             top_busker_list.addView(list);
 
                             //각 버스커 채널 들어가기
+                            String final_busker_team = busker.get(i).getTeam_name();
                             int finalI = busker.get(i).getBusker_id();
                             int final_id = busker.get(i).getUser();
-                            Log.e("뿅",String.valueOf(finalI));
                             list.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Intent buskerChannel = new Intent(getActivity(), ChannelUser.class);
-                                    //개인 아이디를 다음 액티비티에서 받아 세팅
-                                    buskerChannel.putExtra("busker_id",finalI);
-                                    buskerChannel.putExtra("busker_user_id",final_id);
-                                    Log.e("버스커 아이디 보내기",String.valueOf(finalI));
-                                    Log.e("버스커 유저 아이디 보내기",String.valueOf(final_id));
-                                    startActivity(buskerChannel);
+                                    my_channel_check(final_busker_team,finalI,final_id);
                                 }
                             });
                         }
@@ -118,10 +113,51 @@ public class Home extends Fragment {
 
             @Override
             public void onFailure(retrofit2.Call<List<Busker>> call, Throwable t) {
-                Log.i(ApplicationController.TAG, "유저 정보 서버 연결 실패 Message : " + t.getMessage());
+                Log.i(ApplicationController.TAG, "버스커 정보 서버 연결 실패 Message : " + t.getMessage());
             }
         });
 
+    }
+
+    public void my_channel_check(String team_name,int final_busker_id, int final_user_id){
+        retrofit2.Call<User> userDetail = apiService.getUserDetail(user_token,user_id);
+        userDetail.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(retrofit2.Call<User> call, Response<User> response) {
+                if(response.isSuccessful()){
+                    User user = response.body();
+                    if(user.getBusker()!=null){ //유저가 버스커일 경우
+                        //내 채널이 아닐 경우, 팀네임이 같지않은 경우
+                        if(!user.getBusker().getTeam_name().equals(team_name)){
+                            Intent buskerChannel = new Intent(getActivity(), ChannelUser.class);
+                            //개인 아이디를 다음 액티비티에서 받아 세팅
+                            buskerChannel.putExtra("busker_id",final_busker_id);
+                            buskerChannel.putExtra("busker_user_id",final_user_id);
+                            startActivity(buskerChannel);
+                        } //내 채널일 경우, 팀네임이 같을 경우
+                        else {
+                            Intent buskerChannel = new Intent(getActivity(), ChannelBusker.class);
+                            //개인 아이디를 다음 액티비티에서 받아 세팅
+                            buskerChannel.putExtra("busker_id",final_busker_id);
+                            buskerChannel.putExtra("busker_user_id",final_user_id);
+                            startActivity(buskerChannel);
+                        }
+                    } //내 채널이 아닐 경우, 유저가 버스커가 아닐 경우 정상 진행
+                    else {
+                        Intent buskerChannel = new Intent(getActivity(), ChannelUser.class);
+                        //개인 아이디를 다음 액티비티에서 받아 세팅
+                        buskerChannel.putExtra("busker_id",final_busker_id);
+                        buskerChannel.putExtra("busker_user_id",final_user_id);
+                        startActivity(buskerChannel);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<User> call, Throwable t) {
+                Log.i(ApplicationController.TAG, "유저 정보 서버 연결 실패 Message : " + t.getMessage());
+            }
+        });
     }
 
     //user데이터 얻어오기

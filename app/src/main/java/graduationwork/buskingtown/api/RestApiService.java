@@ -24,7 +24,7 @@ import retrofit2.http.Path;
 
 public interface RestApiService {
 
-    public  static  final String API_URL="http://744631f5.ngrok.io/";
+    public  static  final String API_URL="http://b1d68ff7.ngrok.io/";
 
     //회원가입을 위한 데이터 포스트
     @POST("accounts/sign_up/")
@@ -50,12 +50,17 @@ public interface RestApiService {
                                  @Part("user") RequestBody user,
                                  @Part MultipartBody.Part user_image);
 
+    //유저 리스트 받아오기 (검색을 위함)
+    @GET("/user/")
+    Call<List<User>> userList (@Header("Authorization")String autoToken);
+
     //버스커 생성
     @Multipart
     @POST("accounts/certification/")
     Call<Busker> postBusker (@Header("Authorization")String authToken,
                              @Part("user") RequestBody user,
                              @Part("busker_name") RequestBody busker_name,
+                             @Part("busker_type") RequestBody busker_type,
                              @Part("team_name") RequestBody team_name,
                              @Part("busker_tag") RequestBody busker_tag,
                              @Part("busker_phone") RequestBody busker_phone,
@@ -67,7 +72,7 @@ public interface RestApiService {
 
     //버스커 리스트 불러오기
     @GET("/busker/")
-    Call<List<Busker>> top_10_busker (@Header("Authorization")String autoToken);
+    Call<List<Busker>> all_busker (@Header("Authorization")String autoToken);
 
     //각 버스커 불러오기
     @GET("/busker/{busker_id}/")

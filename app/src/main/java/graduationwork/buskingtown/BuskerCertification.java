@@ -354,6 +354,7 @@ public class BuskerCertification extends AppCompatActivity {
     public void buskerSetting(String teamName,String name, String phone, String tag,String filePath){
         // add another part within the multipart request
         RequestBody user = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(user_id));
+        RequestBody busker_type = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(1));
         RequestBody busker_name = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(name));
         RequestBody team_name = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(teamName));
         RequestBody busker_phone = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(phone));
@@ -376,7 +377,7 @@ public class BuskerCertification extends AppCompatActivity {
         MultipartBody.Part filePart = MultipartBody.Part.createFormData("busker_image", file.getName(), surveyBody);
 
 
-        Call<Busker> postBusker = apiService.postBusker(user_token,user,busker_name,team_name,busker_tag,busker_phone,filePart);
+        Call<Busker> postBusker = apiService.postBusker(user_token,user,busker_name,busker_type,team_name,busker_tag,busker_phone,filePart);
         postBusker.enqueue(new Callback<Busker>() {
             @Override
             public void onResponse(Call<Busker> call, Response<Busker> response) {
