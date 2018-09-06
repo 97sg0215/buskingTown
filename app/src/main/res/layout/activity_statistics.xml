@@ -192,34 +192,91 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/timeSeeLayout"
         android:background="@color/mainGray"
         android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/allStatistics"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="60dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
 
             <TextView
-                android:id="@+id/allStatistics"
+                android:id="@+id/allText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+                android:layout_marginTop="20dp"
                 android:layout_marginLeft="15dp"
                 android:textSize="14sp"
                 android:textColor="@color/mainPurple"
                 android:lineSpacingExtra="1.5sp"
                 android:text="전체 통계"/>
 
+            <ImageView
+                android:id="@+id/dropdownImg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="25dp"
+                android:src="@drawable/dropdown_s"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"/>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="10dp"
-                android:layout_below="@+id/allStatistics"
+                android:layout_below="@+id/allText"
                 android:background="@color/transPurple" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/clickDropdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/likepenText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:textSize="14sp"
+                android:textColor="@color/fontBlack"
+                android:lineSpacingExtra="1.5sp"
+                android:text="좋아하는 팬의 수 변동"/>
+
+            <TextView
+                android:id="@+id/takecoinText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/likepenText"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:textSize="14sp"
+                android:textColor="@color/fontBlack"
+                android:lineSpacingExtra="1.5sp"
+                android:text="후원받은 코인의 수 통계"/>
+
+            <TextView
+                android:id="@+id/rankchangeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/takecoinText"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:textSize="14sp"
+                android:textColor="@color/fontBlack"
+                android:lineSpacingExtra="1.5sp"
+                android:text="순위 변동"/>
+
 
         </RelativeLayout>
 

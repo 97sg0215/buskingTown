@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TeamPromote"
+    android:background="#fff">
+
+    <RelativeLayout
+        android:id="@+id/statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="46.1dp"
+        android:background="@color/mainPurple">
+
+        <ImageButton
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:background="#00000000"
+            android:src="@drawable/backbtn"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="팀 홍보하기"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fff"
+            android:fontFamily="@font/kopubbold"
+            android:textSize="17sp"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/publicTab"
+        android:layout_width="match_parent"
+        android:layout_height="48.5dp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/statusBar">
+
+        <RelativeLayout
+            android:id="@+id/mainbannerTab"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/mainbanner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="2sp"
+                android:text="메인배너 이미지"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/kopubmedium"
+                android:textColor="@color/mainYellow"
+                android:textSize="15sp"/>
+            <View
+                android:id="@+id/mainbannerBar"
+                android:layout_width="110dp"
+                android:layout_height="2.5dp"
+                android:layout_below="@+id/mainbanner"
+                android:layout_marginTop="13.3dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:background="@color/mainYellow" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/recommendTab"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/recommend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:lineSpacingExtra="2sp"
+                android:text="추천순위 노출"
+                android:fontFamily="@font/kopubmedium"
+                android:textColor="@color/fontBlack"
+                android:textSize="15sp"/>
+            <View
+                android:id="@+id/recommendBar"
+                android:layout_width="110dp"
+                android:layout_height="2.5dp"
+                android:layout_below="@+id/recommend"
+                android:layout_marginTop="13.3dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:background="@color/mainYellow"
+                android:visibility="gone"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/box"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_below="@+id/publicTab"
+        android:background="@color/mainGray">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"
+            android:textSize="12sp"
+            android:textColor="@color/subPink"
+            android:lineSpacingExtra="4sp"
+            android:text="1주일 동안 화면 상단에 위치하게 되며 버스커 채널로 연결됩니다.
+예약한 홍보 날짜에 업로드 되지만 해당 날짜에 자리가 마감되면 늦
+게 업로드 될 수 있음에 유의해 주시기바랍니다." />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/publicFragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/box"/>
+
+    <Button
+        android:id="@+id/paymentBtn"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_alignParentBottom="true"
+        android:text="결 제"
+        android:fontFamily="@font/kopubbold"
+        android:textSize="14sp"
+        android:textColor="#fff"
+        android:lineSpacingExtra="-3.5sp"
+        android:background="@color/mainPurple"
+        android:layout_centerHorizontal="true"
+        style="?android:attr/borderlessButtonStyle"/>
+
+</RelativeLayout>
