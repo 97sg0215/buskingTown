@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.pusher.pushnotifications.PushNotifications;
+
 public class TabBar extends AppCompatActivity implements View.OnClickListener {
 
     String user_token,user_name;
@@ -30,6 +32,9 @@ public class TabBar extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_tab_bar);
 
         getLocalData();
+
+        PushNotifications.start(getApplicationContext(),"3634159e-f404-4859-9fa0-44d749815dbc");
+        PushNotifications.subscribe("hello");
 
         //아이콘에 대한 참조 변수
         ranking = (ImageView) findViewById(R.id.ranking);

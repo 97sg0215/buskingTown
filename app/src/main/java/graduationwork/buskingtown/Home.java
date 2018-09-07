@@ -81,7 +81,9 @@ public class Home extends Fragment {
                             TextView top_team_name = (TextView) list.findViewById(R.id.buskerTeamName);
                             ImageView top_team_image = (ImageView) list.findViewById(R.id.buskerProfileImangeFirst);
                             top_team_name.setText(String.valueOf(busker.get(i).getTeam_name()));
-                            Picasso.with(getActivity()).load(busker.get(i).getBusker_image()).transform(new CircleTransForm()).into(top_team_image);
+                            if(busker.get(i).getBusker_image()!=null){
+                                Picasso.with(getActivity()).load(busker.get(i).getBusker_image()).transform(new CircleTransForm()).into(top_team_image);
+                            }
                             if(list.getParent()!= null)
                                 ((ViewGroup)list.getParent()).removeView(list);
                             top_busker_list.addView(list);

@@ -8,6 +8,7 @@ import graduationwork.buskingtown.model.Login;
 import graduationwork.buskingtown.model.Profile;
 import graduationwork.buskingtown.model.User;
 import graduationwork.buskingtown.model.SignUp;
+import kotlin.PublishedApi;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -24,7 +25,7 @@ import retrofit2.http.Path;
 
 public interface RestApiService {
 
-    public  static  final String API_URL="http://b1d68ff7.ngrok.io/";
+    public  static  final String API_URL="http://cf8b2e93.ngrok.io/";
 
     //회원가입을 위한 데이터 포스트
     @POST("accounts/sign_up/")
@@ -44,14 +45,14 @@ public interface RestApiService {
 
     //유저 프로필 업데이트
     @Multipart
-    @PUT("/accounts/update_profile/{user_id}/")
+    @PUT("accounts/update_profile/{user_id}/")
     Call<Profile> updateProfile (@Header("Authorization")String authToken,
                                  @Path("user_id")int id,
                                  @Part("user") RequestBody user,
                                  @Part MultipartBody.Part user_image);
 
     //유저 리스트 받아오기 (검색을 위함)
-    @GET("/user/")
+    @GET("user/")
     Call<List<User>> userList (@Header("Authorization")String autoToken);
 
     //버스커 생성
@@ -71,22 +72,30 @@ public interface RestApiService {
     Call<Busker> deleteBusker (@Header("Authorization")String autoToken, @Path("busker_id")int id);
 
     //버스커 리스트 불러오기
-    @GET("/busker/")
+    @GET("busker/")
     Call<List<Busker>> all_busker (@Header("Authorization")String autoToken);
 
     //각 버스커 불러오기
-    @GET("/busker/{busker_id}/")
+    @GET("busker/{busker_id}/")
     Call<Busker> buskerDetail (@Header("Authorization")String autoToken, @Path("busker_id")int id);
 
     //팔로잉API
-    @POST("/accounts/following/")
+    @POST("accounts/following/")
     Call<Connections> follow (@Header("Authorization")String autoToken, @Body Connections connection);
 
-    //팔로우하는 버스커 목록 불러오기 user = 일반 유저 , following = 버스커 유저
-    @GET("/followingList/")
-    Call<List<Connections>> get_followings (@Header("Authorization")String autoToken);
+    //팔로우하는 모든 버스커 목록 불러오기 user = 일반 유저 , following = 버스커 유저
+    @GET("accounts/allFollowList/")
+    Call<List<Connections>> get_all_followings (@Header("Authorization")String autoToken);
+
+    //버스커별 팔로워 목록
+    @GET("accounts/followerList/{busker_id}/")
+    Call<List<Connections>> get_followers(@Header("Authorization")String autoToken, @Path("busker_id")int id);
+
+    //일반 유저별 팔로잉 목록
+    @GET("accounts/followingList/{user_id}/")
+    Call<List<Connections>> get_followings(@Header("Authorization")String autoToken, @Path("user_id")int id);
 
     //언팔로우API
-    @DELETE("/accounts/unfollowing/{connection_id}/")
+    @DELETE("accounts/unfollowing/{connection_id}/")
     Call<Connections> unfollow (@Header("Authorization")String autoToken, @Path("connection_id")int connection_id);
 }

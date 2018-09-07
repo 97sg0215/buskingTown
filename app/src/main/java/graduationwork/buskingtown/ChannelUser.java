@@ -83,8 +83,8 @@ public class ChannelUser extends AppCompatActivity {
         }
     }
 
-    public void following_check(){
-        Call<List<Connections>> getConnections = apiService.get_followings(user_token);
+    public void following_check(int busker_id){
+        Call<List<Connections>> getConnections = apiService.get_followers(user_token, busker_id);
         getConnections.enqueue(new Callback<List<Connections>>() {
             @Override
             public void onResponse(Call<List<Connections>> call, Response<List<Connections>> response) {
@@ -93,11 +93,8 @@ public class ChannelUser extends AppCompatActivity {
                     if(connections.size()!=0){
                         for (int i = 0; i < connections.size(); i++) {
                             all_user_id.add(connections.get(i).getUser());
-                            all_busker_id.add(connections.get(i).getFollowing());
                             //팔로우 되어있을 경우
-                            if (user_id == all_user_id.get(i)&&busker_id==all_busker_id.get(i)) {
-                                get_follower_id.add(connections.get(i).getFollowing());
-                                Log.e("팔로우 목록", String.valueOf(get_follower_id));
+                            if (user_id == all_user_id.get(i)) {
                                 connection_id = connections.get(i).getConnection_id();
                                 following_btn.setBackground(getDrawable(R.drawable.fan_on_btn));
                                 following_btn.setTextColor(Color.parseColor("#000000"));
@@ -252,8 +249,6 @@ public class ChannelUser extends AppCompatActivity {
         user_token = pref.getString("auth_token",null);
         user_name = pref.getString("username",null);
         user_id = pref.getInt("user_id",0);
-
-        following_check();
     }
 
     //버스커 정보 화면에 세팅(이름 및 팔로워등 세팅, 메소드가 길어지면 게시글 같은 건 따로 메소드 정의하세요)
@@ -279,6 +274,7 @@ public class ChannelUser extends AppCompatActivity {
                     busker_tag = busker[0].getBusker_tag();
                     busker_image = busker[0].getBusker_image();
                     buskerSetting(busker_team_name,busker_tag,busker_image);
+                    following_check(busker[0].getBusker_id());
                 }
                 else {
                     //에러 상태 보려고 해둔 코드

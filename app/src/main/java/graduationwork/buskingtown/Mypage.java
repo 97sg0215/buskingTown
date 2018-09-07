@@ -286,11 +286,11 @@ public class Mypage extends Fragment {
         user_id = pref.getInt("user_id",0);
         user_image = pref.getString("user_image",null);
 
-        get_follow_count(user_token,user_id);
+       get_following_count(user_token,user_id);
     }
 
-    public void get_follow_count(String user_token,int user_id){
-        Call<List<Connections>> getConnections = apiService.get_followings(user_token);
+    public void get_following_count(String user_token,int user_id){
+        Call<List<Connections>> getConnections = apiService.get_followings(user_token,user_id);
         getConnections.enqueue(new Callback<List<Connections>>() {
             @Override
             public void onResponse(Call<List<Connections>> call, Response<List<Connections>> response) {
@@ -298,16 +298,7 @@ public class Mypage extends Fragment {
                     List<Connections> connections = response.body();
                     if(connections.size()!=0){
                         for (int i = 0; i < connections.size(); i++) {
-                            all_user_id.add(connections.get(i).getUser());
-                            all_busker_id.add(connections.get(i).getFollowing());
-                            //팔로우 되어있을 경우
-                            if (user_id == all_user_id.get(i)) {
-                                get_follower_id.add(connections.get(i).getFollowing());
-                                Log.e("팔로우 목록", String.valueOf(get_follower_id));
-                                followingAmount.setText(String.valueOf(get_follower_id.size()));
-                            } else {
-                                followingAmount.setText("0");
-                            }
+                            followingAmount.setText(String.valueOf(connections.size()));
                         }
                     }//커넥션 목록 없을때
                     else {
