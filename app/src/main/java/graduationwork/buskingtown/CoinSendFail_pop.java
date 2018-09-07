@@ -17,8 +17,13 @@ public class CoinSendFail_pop extends Activity implements View.OnClickListener{
 
         findViewById(R.id.delete).setOnClickListener(this);
 
-        Button coinChargeBtn = (Button)findViewById(R.id.coinChargeBtn);
-        coinChargeBtn.setOnClickListener(this);
+        findViewById(R.id.coinChargeBtn).setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent coinCharge = new Intent(getApplicationContext(), CoinCharge.class);
+                startActivity(coinCharge);
+            }
+        });
     }
     public void onClick(View v){
         switch (v.getId()){
@@ -26,7 +31,5 @@ public class CoinSendFail_pop extends Activity implements View.OnClickListener{
                 this.finish();
                 break;
         }
-        Intent intent = new Intent(this, CoinCharge.class);
-        startActivity(intent);
     }
 }
