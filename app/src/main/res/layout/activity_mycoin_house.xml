@@ -73,7 +73,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/concertStartDate"
+                android:id="@+id/coinStartDate"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:layout_weight="4"
@@ -98,7 +98,7 @@
                 android:lineSpacingExtra="-3sp"/>
 
             <Button
-                android:id="@+id/concertEndDate"
+                android:id="@+id/coinEndDate"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:layout_weight="4"

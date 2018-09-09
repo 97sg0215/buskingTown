@@ -3,13 +3,28 @@ package graduationwork.buskingtown;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-public class MycoinHouse extends AppCompatActivity implements View.OnClickListener {
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.concurrent.atomic.AtomicIntegerArray;
 
-    Button oneMonth, threeMonth, sixMonth, oneYearz;
+import com.tsongkha.spinnerdatepicker.DatePicker;
+import com.tsongkha.spinnerdatepicker.DatePickerDialog;
+import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder;
+
+public class MycoinHouse extends AppCompatActivity implements View.OnClickListener{
+
+    Button oneMonth, threeMonth, sixMonth, oneYearz, startDate, endDate;
+    int coinStartYear, coinStartMonth, coinStartDay , coinEndYear, coinEndMonth, coinEndDay;
+    SimpleDateFormat simpleDateFormat;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +48,71 @@ public class MycoinHouse extends AppCompatActivity implements View.OnClickListen
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { MycoinHouse.super.onBackPressed(); }
+        });
+
+
+        //달력 객체 불러옴
+        final GregorianCalendar startCalendar = new GregorianCalendar();
+
+        coinStartYear = startCalendar.get(Calendar.YEAR);
+        coinStartMonth = startCalendar.get(Calendar.MONTH);
+        coinStartDay = startCalendar.get(Calendar.DAY_OF_MONTH);
+
+        final GregorianCalendar endCalendar = new GregorianCalendar();
+        coinEndYear = endCalendar.get(Calendar.YEAR);
+        coinEndMonth = endCalendar.get(Calendar.MONTH);
+        coinEndDay = endCalendar.get(Calendar.DAY_OF_MONTH);
+
+        //날짜형태
+        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+
+        //데이트 피커
+        startDate = (Button) findViewById(R.id.coinStartDate);
+        endDate = (Button) findViewById(R.id.coinEndDate);
+
+        startDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                DatePickerDialog.OnDateSetListener dateStartPicker = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        startDate.setText(year + "년 " + (monthOfYear + 1) + "월 " + dayOfMonth + "일");
+                    }
+                };
+
+
+                new SpinnerDatePickerDialogBuilder()
+                        .callback(dateStartPicker)
+                        .context(MycoinHouse.this)
+                        .spinnerTheme(R.style.DatePickerSpinner)
+                        .showTitle(true)
+                        .defaultDate(coinStartYear,coinStartMonth,coinStartDay)
+                        .build()
+                        .show();
+            }
+        });
+
+        endDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                DatePickerDialog.OnDateSetListener dateEndPicker = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        endDate.setText(year + "년 " + (monthOfYear + 1) + "월 " + dayOfMonth + "일");
+                    }
+                };
+
+                new SpinnerDatePickerDialogBuilder()
+                        .callback(dateEndPicker)
+                        .context(MycoinHouse.this)
+                        .spinnerTheme(R.style.DatePickerSpinner)
+                        .showTitle(true)
+                        .defaultDate(coinEndYear,coinEndMonth,coinEndDay)
+                        .build()
+                        .show();
+            }
         });
     }
 
@@ -96,4 +176,5 @@ public class MycoinHouse extends AppCompatActivity implements View.OnClickListen
                 break;
         }
     }
+
 }
