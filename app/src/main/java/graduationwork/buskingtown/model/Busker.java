@@ -13,9 +13,9 @@ public class Busker {
     String busker_image;
     Boolean certification;
 
-    int coin;
-    int like_counts;
-    int follower_counts;
+    int received_coin;
+    int follower_count;
+    int score;
 
     public int getBusker_id() {
         return busker_id;
@@ -81,14 +81,6 @@ public class Busker {
         this.certification = certification;
     }
 
-    public int getCoin() {
-        return coin;
-    }
-
-    public void setCoin(int coin) {
-        this.coin = coin;
-    }
-
     public String getBusker_image() {
         return busker_image;
     }
@@ -97,19 +89,27 @@ public class Busker {
         this.busker_image = busker_image;
     }
 
-    public int getLike_counts() {
-        return like_counts;
+    public int getReceived_coin() {
+        return received_coin;
     }
 
-    public void setLike_counts(int like_counts) {
-        this.like_counts = like_counts;
+    public void setReceived_coin(int received_coin) {
+        this.received_coin = received_coin;
     }
 
-    public int getFollower_counts() {
-        return follower_counts;
+    public int getFollower_count() {
+        return follower_count;
     }
 
-    public void setFollower_counts(int follower_counts) {
-        this.follower_counts = follower_counts;
+    public void setFollower_count(int follower_count) {
+        this.follower_count = follower_count;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 }

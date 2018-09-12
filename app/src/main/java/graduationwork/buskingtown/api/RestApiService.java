@@ -25,7 +25,7 @@ import retrofit2.http.Path;
 
 public interface RestApiService {
 
-    public  static  final String API_URL="http://cf8b2e93.ngrok.io/";
+    public  static  final String API_URL="http://d94d930f.ngrok.io/";
 
     //회원가입을 위한 데이터 포스트
     @POST("accounts/sign_up/")
@@ -98,4 +98,8 @@ public interface RestApiService {
     //언팔로우API
     @DELETE("accounts/unfollowing/{connection_id}/")
     Call<Connections> unfollow (@Header("Authorization")String autoToken, @Path("connection_id")int connection_id);
+
+    //랭킹 API
+    @GET("accounts/buskerRank/")
+    Call<List<Busker>> get_ranker (@Header("Authorization")String autoToken);
 }

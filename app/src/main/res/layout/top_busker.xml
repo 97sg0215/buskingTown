@@ -3,7 +3,8 @@
     android:id="@+id/buskerChannelFirst"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="20dp">
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp">
 
         <ImageView
             android:id="@+id/buskerProfileImangeFirst"
@@ -18,14 +19,12 @@
             android:id="@+id/buskerTeamName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:text="-"
             android:textSize="10.5sp"
             android:textColor="@color/fontBlack"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
             android:lineSpacingExtra="1sp"
-            android:layout_marginLeft="10dp"
             android:fontFamily="@font/kopubmedium"
             android:layout_below="@id/buskerProfileImangeFirst"/>
 

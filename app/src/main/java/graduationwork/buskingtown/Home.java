@@ -60,16 +60,17 @@ public class Home extends Fragment {
         return v;
     }
 
-    public void getBuskerList(LayoutInflater inflater,String token){
-        retrofit2.Call<List<Busker>> busker_list = apiService.all_busker(token);
+    public void getTopBuskerList(LayoutInflater inflater,String token){
+        retrofit2.Call<List<Busker>> busker_list = apiService.get_ranker(token);
         busker_list.enqueue(new Callback<List<Busker>>() {
             @Override
             public void onResponse(retrofit2.Call<List<Busker>> call, Response<List<Busker>> response) {
                 if(response.isSuccessful()){
                     List<Busker> busker = response.body();
-                    for(int i=0; i< busker.size();i++) {
+                    for(int i=0; i<= 10 ;i++) {
                         //허용된 버스커만 각 개인 아이디 확인
                         if(busker.get(i).getCertification()!=null&&busker.get(i).getCertification()!=false&&busker.get(i).getBusker_type()==1){
+
                             busker_id.add(busker.get(i).getBusker_id());
                             busker_image.add(busker.get(i).getBusker_image());
                             Log.e("버스커 리스트", String.valueOf(busker_id));
@@ -169,7 +170,7 @@ public class Home extends Fragment {
         user_name = pref.getString("username",null);
         user_id = pref.getInt("user_id",0);
 
-        getBuskerList(getLayoutInflater(),user_token);
+        getTopBuskerList(getLayoutInflater(),user_token);
     }
 
     //api연결

@@ -34,7 +34,7 @@
             android:fontFamily="@font/kopubbold"
             android:lineSpacingExtra="1.5sp"
             android:layout_centerVertical="true"
-            android:text="1" />
+            android:text="0" />
 
 
         <RelativeLayout
@@ -51,7 +51,7 @@
                 android:textSize="14sp"
                 android:textColor="@color/fontBlack"
                 android:lineSpacingExtra="1.5sp"
-                android:text="-"/>
+                android:text="---"/>
 
             <TextView
                 android:id="@+id/buskerTag"
@@ -62,7 +62,7 @@
                 android:textSize="10.5sp"
                 android:textColor="@color/fontGray"
                 android:lineSpacingExtra="1sp"
-                android:text="-" />
+                android:text="---" />
 
         </RelativeLayout>
 
