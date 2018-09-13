@@ -5,6 +5,7 @@ import java.util.List;
 import graduationwork.buskingtown.model.Busker;
 import graduationwork.buskingtown.model.Connections;
 import graduationwork.buskingtown.model.Login;
+import graduationwork.buskingtown.model.Post;
 import graduationwork.buskingtown.model.Profile;
 import graduationwork.buskingtown.model.User;
 import graduationwork.buskingtown.model.SignUp;
@@ -78,6 +79,14 @@ public interface RestApiService {
     //각 버스커 불러오기
     @GET("busker/{busker_id}/")
     Call<Busker> buskerDetail (@Header("Authorization")String autoToken, @Path("busker_id")int id);
+
+    //게시물 작성
+    @Multipart
+    @POST("busking/postUpload/")
+    Call<Post> postUpload (@Header("Authorization")String authToken,
+                           @Part("busker") RequestBody busker,
+                           @Part MultipartBody.Part post_image,
+                           @Part("content") RequestBody content);
 
     //팔로잉API
     @POST("accounts/following/")
