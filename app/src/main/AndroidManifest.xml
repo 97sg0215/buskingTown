@@ -81,8 +81,9 @@
         <activity android:name=".MemberManagement" />
         <activity android:name=".MemberAdd" />
         <activity android:name=".TeamMember" />
-        <activity android:name=".Statistics"/>
-        <activity android:name=".TeamPromote"></activity>
+        <activity android:name=".Statistics" />
+        <activity android:name=".CoinManagement"/>
+        <activity android:name=".practiceRoomReservation"></activity>
     </application>
 
 </manifest>
