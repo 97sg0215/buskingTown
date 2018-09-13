@@ -32,6 +32,7 @@
             android:fontFamily="@font/kopubbold"
             android:textSize="17sp"/>
 
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,24 +48,38 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/writePost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/statusBar"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="21dp">
+        >
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="360dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:visibility="gone" />
 
         <EditText
+            android:id="@+id/writePost"
+            android:layout_below="@+id/image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:textSize="13sp"
             android:hint="글을 작성하세요."
             android:lineSpacingExtra="1.5sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/kopubmedium"
             android:textColorHint="@color/fontGray"
             android:textColor="@color/fontBlack"/>
+
+
+
+
         
     </RelativeLayout>
 
@@ -90,6 +105,7 @@
             android:layout_marginLeft="20dp"/>
 
         <TextView
+            android:id="@+id/imgChoice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
