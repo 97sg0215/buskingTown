@@ -8,16 +8,22 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TimePicker;
 
+import com.tsongkha.spinnerdatepicker.DatePicker;
+import com.tsongkha.spinnerdatepicker.DatePickerDialog;
+import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 public class LocationLend extends AppCompatActivity {
-    String concertDatePick;
 
     int mHour, mMinute;
 
-    Button timeSD;
-    Button timeED;
+    Button concertSD, concertED, timeSD, timeED;
+    int concertStartYear, concertStartMonth, concertStartDay , concertEndYear, concertEndMonth, concertEndDay;
+    SimpleDateFormat simpleDateFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +40,68 @@ public class LocationLend extends AppCompatActivity {
         Calendar cal = new GregorianCalendar();
         mHour = cal.get(Calendar.HOUR_OF_DAY);
         mMinute = cal.get(Calendar.MINUTE);
+
+        //달력개체 불러옴
+        final GregorianCalendar startCalendar = new GregorianCalendar();
+        concertStartYear = startCalendar.get(Calendar.YEAR);
+        concertStartMonth = startCalendar.get(Calendar.MONTH);
+        concertStartDay = startCalendar.get(Calendar.DAY_OF_MONTH);
+
+        final GregorianCalendar endCalendar = new GregorianCalendar();
+        concertEndYear = endCalendar.get(Calendar.YEAR);
+        concertEndMonth = endCalendar.get(Calendar.MONTH);
+        concertEndDay = endCalendar.get(Calendar.DAY_OF_MONTH);
+
+        //날짜형태
+        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+
+        //데이트 피커
+        concertSD = (Button) findViewById(R.id.concertSD);
+        concertSD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                DatePickerDialog.OnDateSetListener dateStartPicker = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        concertSD.setText(year + "년 " + (monthOfYear + 1) + "월 " + dayOfMonth + "일");
+                    }
+                };
+
+                new SpinnerDatePickerDialogBuilder()
+                        .callback(dateStartPicker)
+                        .context(LocationLend.this)
+                        .spinnerTheme(R.style.DatePickerSpinner)
+                        .showTitle(true)
+                        .defaultDate(concertStartYear,concertStartMonth,concertStartDay)
+                        .build()
+                        .show();
+            }
+        });
+
+
+        concertED = (Button) findViewById(R.id.concertED);
+        concertED.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                DatePickerDialog.OnDateSetListener dateEndPicker = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        concertED.setText(year + "년 " + (monthOfYear + 1) + "월 " + dayOfMonth + "일");
+                    }
+                };
+
+                new SpinnerDatePickerDialogBuilder()
+                        .callback(dateEndPicker)
+                        .context(LocationLend.this)
+                        .spinnerTheme(R.style.DatePickerSpinner)
+                        .showTitle(true)
+                        .defaultDate(concertEndYear,concertEndMonth,concertEndDay)
+                        .build()
+                        .show();
+            }
+        });
 
     }
 

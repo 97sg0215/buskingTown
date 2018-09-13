@@ -322,7 +322,8 @@
                     android:layout_marginTop="60dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="20dp"
-                    android:src="@drawable/message"/>
+                    android:src="@drawable/message"
+                    android:onClick="message"/>
 
             </RelativeLayout>
 

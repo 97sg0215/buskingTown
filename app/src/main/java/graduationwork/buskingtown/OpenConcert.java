@@ -15,8 +15,7 @@ public class OpenConcert extends AppCompatActivity {
 
     int mHour, mMinute;
 
-    Button timeStartDate;
-    Button timeEndDate;
+    Button timeStartDate, timeEndDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

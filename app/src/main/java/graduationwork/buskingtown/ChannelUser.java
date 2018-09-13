@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -299,6 +300,11 @@ public class ChannelUser extends AppCompatActivity {
         ApplicationController application = ApplicationController.getInstance();
         application.buildNetworkService();
         apiService = ApplicationController.getInstance().getRestApiService();
+    }
+
+    public void message(View view){
+        Intent message = new Intent(getApplication(),CoinSendBefore_pop.class);
+        startActivity(message);
     }
 
     public void previousActivity(View v){
