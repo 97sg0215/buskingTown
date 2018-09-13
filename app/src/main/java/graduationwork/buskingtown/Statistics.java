@@ -8,12 +8,100 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-public class Statistics extends AppCompatActivity  {
+import com.tsongkha.spinnerdatepicker.DatePicker;
+import com.tsongkha.spinnerdatepicker.DatePickerDialog;
+import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+
+public class Statistics extends AppCompatActivity implements View.OnClickListener{
+
+    Button oneMonth, threeMonth, sixMonth, oneYearz, coinSD, coinED;
+    int coinStartYear, coinStartMonth, coinStartDay , coinEndYear, coinEndMonth, coinEndDay;
+    SimpleDateFormat simpleDateFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
+
+        //버튼 참조변수
+        oneMonth = (Button) findViewById(R.id.oneMonth);
+        threeMonth = (Button) findViewById(R.id.threeMonth);
+        sixMonth = (Button) findViewById(R.id.sixMonth);
+        oneYearz = (Button) findViewById(R.id.oneYearz);
+
+        //클릭메소드 연결
+        oneMonth.setOnClickListener(this);
+        threeMonth.setOnClickListener(this);
+        sixMonth.setOnClickListener(this);
+        oneYearz.setOnClickListener(this);
+
+        //달력 객체 불러옴
+        final GregorianCalendar startCalendar = new GregorianCalendar();
+
+        coinStartYear = startCalendar.get(Calendar.YEAR);
+        coinStartMonth = startCalendar.get(Calendar.MONTH);
+        coinStartDay = startCalendar.get(Calendar.DAY_OF_MONTH);
+
+        final GregorianCalendar endCalendar = new GregorianCalendar();
+        coinEndYear = endCalendar.get(Calendar.YEAR);
+        coinEndMonth = endCalendar.get(Calendar.MONTH);
+        coinEndDay = endCalendar.get(Calendar.DAY_OF_MONTH);
+
+        //날짜형태
+        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+
+        //데이트 피커
+        coinSD = (Button) findViewById(R.id.coinSD);
+        coinSD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                DatePickerDialog.OnDateSetListener dateStartPicker = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        coinSD.setText(year + "년 " + (monthOfYear + 1) + "월 " + dayOfMonth + "일");
+                    }
+                };
+
+
+                new SpinnerDatePickerDialogBuilder()
+                        .callback(dateStartPicker)
+                        .context(Statistics.this)
+                        .spinnerTheme(R.style.DatePickerSpinner)
+                        .showTitle(true)
+                        .defaultDate(coinStartYear,coinStartMonth,coinStartDay)
+                        .build()
+                        .show();
+            }
+        });
+
+        coinED = (Button) findViewById(R.id.coinED);
+        coinED.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                DatePickerDialog.OnDateSetListener dateEndPicker = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        coinED.setText(year + "년 " + (monthOfYear + 1) + "월 " + dayOfMonth + "일");
+                    }
+                };
+
+                new SpinnerDatePickerDialogBuilder()
+                        .callback(dateEndPicker)
+                        .context(Statistics.this)
+                        .spinnerTheme(R.style.DatePickerSpinner)
+                        .showTitle(true)
+                        .defaultDate(coinEndYear,coinEndMonth,coinEndDay)
+                        .build()
+                        .show();
+            }
+        });
 
         //아래는 뒤로가기 버튼 클릭시 뒤로가는거임
         ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
@@ -27,4 +115,60 @@ public class Statistics extends AppCompatActivity  {
         onBackPressed();
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.oneMonth :
+                //1개월 버튼색 활성화
+                oneMonth.setBackground(getDrawable(R.drawable.able_btn));
+                oneMonth.setTextColor(Color.parseColor("#ffffff"));
+                //나머지 버튼색 비활성화
+                threeMonth.setBackground(getDrawable(R.drawable.date_rounded));
+                threeMonth.setTextColor(getResources().getColor(R.color.mainPurple));
+                sixMonth.setBackground(getDrawable(R.drawable.date_rounded));
+                sixMonth.setTextColor(getResources().getColor(R.color.mainPurple));
+                oneYearz.setBackground(getDrawable(R.drawable.date_rounded));
+                oneYearz.setTextColor(getResources().getColor(R.color.mainPurple));
+                break;
+
+            case R.id.threeMonth :
+                //3개월 버튼색 활성화
+                threeMonth.setBackground(getDrawable(R.drawable.able_btn));
+                threeMonth.setTextColor(Color.parseColor("#ffffff"));
+                //나머지 버튼색 비활성화
+                oneMonth.setBackground(getDrawable(R.drawable.date_rounded));
+                oneMonth.setTextColor(getResources().getColor(R.color.mainPurple));
+                sixMonth.setBackground(getDrawable(R.drawable.date_rounded));
+                sixMonth.setTextColor(getResources().getColor(R.color.mainPurple));
+                oneYearz.setBackground(getDrawable(R.drawable.date_rounded));
+                oneYearz.setTextColor(getResources().getColor(R.color.mainPurple));
+                break;
+
+            case R.id.sixMonth :
+                //6개월 버튼색 활성화
+                sixMonth.setBackground(getDrawable(R.drawable.able_btn));
+                sixMonth.setTextColor(Color.parseColor("#ffffff"));
+                //나머지 버튼색 비활성화
+                oneMonth.setBackground(getDrawable(R.drawable.date_rounded));
+                oneMonth.setTextColor(getResources().getColor(R.color.mainPurple));
+                threeMonth.setBackground(getDrawable(R.drawable.date_rounded));
+                threeMonth.setTextColor(getResources().getColor(R.color.mainPurple));
+                oneYearz.setBackground(getDrawable(R.drawable.date_rounded));
+                oneYearz.setTextColor(getResources().getColor(R.color.mainPurple));
+                break;
+
+            case R.id.oneYearz :
+                //1년 버튼색 활성화
+                oneYearz.setBackground(getDrawable(R.drawable.able_btn));
+                oneYearz.setTextColor(Color.parseColor("#ffffff"));
+                //나머지 버튼색 비활성화
+                oneMonth.setBackground(getDrawable(R.drawable.date_rounded));
+                oneMonth.setTextColor(getResources().getColor(R.color.mainPurple));
+                threeMonth.setBackground(getDrawable(R.drawable.date_rounded));
+                threeMonth.setTextColor(getResources().getColor(R.color.mainPurple));
+                sixMonth.setBackground(getDrawable(R.drawable.date_rounded));
+                sixMonth.setTextColor(getResources().getColor(R.color.mainPurple));
+                break;
+        }
+    }
 }

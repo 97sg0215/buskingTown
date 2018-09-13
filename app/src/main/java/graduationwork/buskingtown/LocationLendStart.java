@@ -26,6 +26,12 @@ public class LocationLendStart extends AppCompatActivity {
         });
 
     }
+
+    public void addLocation(View view){
+        Intent message = new Intent(getApplication(),LocationLend.class);
+        startActivity(message);
+        }
+
     public void previousActivity(View v){
         onBackPressed();
     }
