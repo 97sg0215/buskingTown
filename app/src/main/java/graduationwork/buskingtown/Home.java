@@ -67,39 +67,43 @@ public class Home extends Fragment {
             public void onResponse(retrofit2.Call<List<Busker>> call, Response<List<Busker>> response) {
                 if(response.isSuccessful()){
                     List<Busker> busker = response.body();
+                    //랭킹 view에 정렬이 되어있으므로 순서대로 객체10개만 불러오면 됨
                     for(int i=0; i<= 10 ;i++) {
-                        //허용된 버스커만 각 개인 아이디 확인
-                        if(busker.get(i).getCertification()!=null&&busker.get(i).getCertification()!=false&&busker.get(i).getBusker_type()==1){
+                            try{
+                                //허용된 버스커만 각 개인 아이디 확인
+                                if(busker.get(i).getCertification()!=null&&busker.get(i).getCertification()!=false) {
+                                    busker_id.add(busker.get(i).getBusker_id());
+                                    busker_image.add(busker.get(i).getBusker_image());
 
-                            busker_id.add(busker.get(i).getBusker_id());
-                            busker_image.add(busker.get(i).getBusker_image());
-                            Log.e("버스커 리스트", String.valueOf(busker_id));
+                                    //버스커 리스트 세팅
+                                    View list = inflater.inflate(R.layout.top_busker, top_busker_list, false);
 
-                            //버스커 리스트 세팅
-                            View list = inflater.inflate(R.layout.top_busker,top_busker_list,false);
+                                    Log.e("버스커", String.valueOf(busker.get(i).getTeam_name()));
+                                    TextView top_team_name = (TextView) list.findViewById(R.id.buskerTeamName);
+                                    ImageView top_team_image = (ImageView) list.findViewById(R.id.buskerProfileImangeFirst);
+                                    top_team_name.setText(String.valueOf(busker.get(i).getTeam_name()));
 
-                            Log.e("버스커", String.valueOf(busker.get(i).getTeam_name()));
-                            TextView top_team_name = (TextView) list.findViewById(R.id.buskerTeamName);
-                            ImageView top_team_image = (ImageView) list.findViewById(R.id.buskerProfileImangeFirst);
-                            top_team_name.setText(String.valueOf(busker.get(i).getTeam_name()));
-                            if(busker.get(i).getBusker_image()!=null){
-                                Picasso.with(getActivity()).load(busker.get(i).getBusker_image()).transform(new CircleTransForm()).into(top_team_image);
-                            }
-                            if(list.getParent()!= null)
-                                ((ViewGroup)list.getParent()).removeView(list);
-                            top_busker_list.addView(list);
+                                    if (busker_image.get(i) != null) {
+                                        Picasso.with(getActivity()).load(busker_image.get(i)).transform(new CircleTransForm()).into(top_team_image);
+                                    }
+                                    if (list.getParent() != null)
+                                        ((ViewGroup) list.getParent()).removeView(list);
+                                    top_busker_list.addView(list);
 
-                            //각 버스커 채널 들어가기
-                            String final_busker_team = busker.get(i).getTeam_name();
-                            int finalI = busker.get(i).getBusker_id();
-                            int final_id = busker.get(i).getUser();
-                            list.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    my_channel_check(final_busker_team,finalI,final_id);
+                                    //각 버스커 채널 들어가기
+                                    String final_busker_team = busker.get(i).getTeam_name();
+                                    int finalI = busker.get(i).getBusker_id();
+                                    int final_id = busker.get(i).getUser();
+                                    list.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            my_channel_check(final_busker_team, finalI, final_id);
+                                        }
+                                    });
                                 }
-                            });
-                        }
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
                     }
                 } else{
                     //에러 상태 보려고 해둔 코드

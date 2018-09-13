@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#fff"
-    tools:context=".RankingListView">
+    android:background="#fff">
 
     <RelativeLayout
         android:id="@+id/thumbBusker"
@@ -70,9 +67,9 @@
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/fan_on_btn"
-            android:text="팬이예요"
-            android:textColor="@color/mainPurple"
+            android:background="@drawable/able_btn"
+            android:text="팬 할래요"
+            android:textColor="#ffffff"
             android:fontFamily="@font/kopubbold"
             android:textSize="14sp"
             style="?android:attr/borderlessButtonStyle"/>
