@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".BuskerPosting">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/postingBusker"
+            android:layout_width="match_parent"
+            android:layout_height="70dp">
+
+            <ImageButton
+                android:id="@+id/profileSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:background="#00000000"
+                android:src="@drawable/profile_small"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="busker_id"
+                android:layout_toRightOf="@+id/profileSmall"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                android:textColor="@color/fontBlack"
+                android:textSize="14sp"
+                android:lineSpacingExtra="1.5sp"
+                android:fontFamily="@font/kopubbold" />
+
+            <ImageButton
+                android:id="@+id/moreBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:background="#00000000"
+                android:src="@drawable/more_black"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/posting"
+            android:layout_width="match_parent"
+            android:layout_height="360dp"
+            android:background="@color/sub2Gray"
+            android:layout_below="@+id/postingBusker">
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/postingInfor"
+            android:layout_width="match_parent"
+            android:layout_height="52.5dp"
+            android:layout_below="@+id/posting">
+
+            <ImageButton
+                android:id="@+id/like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="20dp"
+                android:background="#00000000"
+                android:src="@drawable/like"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_marginTop="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/fontBlack"
+                android:fontFamily="@font/kopubmedium"
+                android:lineSpacingExtra="1.5sp"
+                android:text="- likes" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/postingInfor"
+            android:layout_marginBottom="15dp">
+
+            <TextView
+                android:id="@+id/buskerId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:textSize="13sp"
+                android:textColor="@color/fontBlack"
+                android:fontFamily="@font/kopubbold"
+                android:lineSpacingExtra="-2sp"
+               android:text="busker_id"/>
+
+            <TextView
+                android:id="@+id/postWriting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/buskerId"
+                android:layout_marginLeft="10dp"
+                android:textSize="13sp"
+                android:fontFamily="@font/kopubmedium"
+                android:textColor="@color/fontBlack"
+                android:lineSpacingExtra="-2sp"
+               android:text="-"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/postWriting"
+                android:textSize="13sp"
+                android:textColor="@color/fontGray"
+                android:fontFamily="@font/kopubmedium"
+                android:lineSpacingExtra="-2sp"
+                android:text="...더보기"
+                android:visibility="gone"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@+id/buskerId"
+                android:layout_marginTop="10dp"
+                android:textSize="10sp"
+                android:fontFamily="@font/kopubmedium"
+                android:textColor="@color/fontGray"
+                android:lineSpacingExtra="-2sp"
+                android:text="-월 -일" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+
+
+
+</LinearLayout>

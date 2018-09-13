@@ -136,7 +136,8 @@
         <RelativeLayout
             android:id="@+id/buskerPost"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -158,6 +159,12 @@
                 android:src="@drawable/pen"/>
 
         </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </FrameLayout>
 
     </LinearLayout>
 </FrameLayout>
