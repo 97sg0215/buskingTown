@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -136,10 +136,10 @@
         <RelativeLayout
             android:id="@+id/buskerPost"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone">
+            android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/posttext"
                 android:layout_width="wrap_content"
                 android:layout_height="146.4dp"
                 android:gravity="center_vertical"
@@ -147,24 +147,20 @@
                 android:text="아직 올라온 게시물이 없습니다!"
                 android:fontFamily="@font/kopubdotummedium"
                 android:textSize="14sp"
-                android:lineSpacingExtra="-5sp" />
+                android:lineSpacingExtra="-5sp"/>
 
-            <ImageView
-                android:id="@+id/pen"
-                android:layout_width="wrap_content"
+
+            <LinearLayout
+                android:id="@+id/postingContainer"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/pen"/>
+                android:orientation="vertical">
+            </LinearLayout>
 
         </RelativeLayout>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </FrameLayout>
-
     </LinearLayout>
+
+
+
 </FrameLayout>

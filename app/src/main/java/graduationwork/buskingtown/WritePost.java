@@ -97,7 +97,7 @@ public class WritePost extends AppCompatActivity {
                 intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
 
-                }
+            }
         });
 
         ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
@@ -130,7 +130,7 @@ public class WritePost extends AppCompatActivity {
 
                 }catch (FileNotFoundException e) { e.printStackTrace(); }
                 catch (IOException e) { e.printStackTrace(); }
-                catch (Exception e) { e.printStackTrace();	}
+                catch (Exception e) { e.printStackTrace();   }
             }
         }
     }

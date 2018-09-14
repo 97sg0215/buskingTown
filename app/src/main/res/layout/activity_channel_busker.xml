@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ChannelBusker"
     android:background="#ffffff">
-
 
     <RelativeLayout
         android:id="@+id/statusBar"
@@ -237,5 +238,19 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:clickable="true"
+        android:scaleType="fitXY"
+        app:backgroundTint="@color/mainYellow"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/pen" />
 
 </RelativeLayout>

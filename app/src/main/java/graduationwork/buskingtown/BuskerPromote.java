@@ -1,6 +1,5 @@
 package graduationwork.buskingtown;
 
-import android.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,9 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-public class TeamPromote extends Fragment {
+public class BuskerPromote extends AppCompatActivity {
 
     //호출될프래그먼트 변수들
     private final int mainbannerFRAGMENT = 1;
@@ -20,18 +17,17 @@ public class TeamPromote extends Fragment {
     private TextView mainbanner,recommend;
     private View mainbannerBar,recommendBar;
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        final View v = inflater.inflate(R.layout.activity_team_promote, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_busker_promote);
 
         //아이콘에 대한 참조 변수
-        mainbanner = (TextView) v.findViewById(R.id.mainbanner);
-        recommend = (TextView) v.findViewById(R.id.recommend);
+        mainbanner = (TextView) findViewById(R.id.mainbanner);
+        recommend = (TextView) findViewById(R.id.recommend);
 
-        final View mainbannerBar = (View) v.findViewById(R.id.mainbannerBar);
-        final View recommendBar = (View) v.findViewById(R.id.recommendBar);
+        final View mainbannerBar = (View) findViewById(R.id.mainbannerBar);
+        final View recommendBar = (View) findViewById(R.id.recommendBar);
 
         //처음 childfragment 지정
         getFragmentManager().beginTransaction().add(R.id.publicFragmentContainer, new PromoteMainbanner()).commit();
@@ -68,6 +64,7 @@ public class TeamPromote extends Fragment {
 
         });
 
-        return v;
+
     }
+
 }

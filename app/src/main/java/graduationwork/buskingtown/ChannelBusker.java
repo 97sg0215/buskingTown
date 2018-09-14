@@ -56,7 +56,14 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
 
         getLocalData();
 
-
+        android.support.design.widget.FloatingActionButton fab = (android.support.design.widget.FloatingActionButton) findViewById(R.id.floatingActionButton);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent writePost = new Intent(getApplication(), WritePost.class);
+                startActivity(writePost);
+            }
+        });
         //채널설정
         ImageButton moreBtn = (ImageButton) findViewById(R.id.morebtn);
         moreBtn.setOnClickListener(new View.OnClickListener() {

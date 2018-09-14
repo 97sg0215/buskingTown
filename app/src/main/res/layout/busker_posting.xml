@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".BuskerPosting">
+    android:layout_height="wrap_content">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:id="@+id/postingBusker"
@@ -101,7 +101,7 @@
                 android:textColor="@color/fontBlack"
                 android:fontFamily="@font/kopubbold"
                 android:lineSpacingExtra="-2sp"
-               android:text="busker_id"/>
+                android:text="busker_id"/>
 
             <TextView
                 android:id="@+id/postWriting"
@@ -113,7 +113,7 @@
                 android:fontFamily="@font/kopubmedium"
                 android:textColor="@color/fontBlack"
                 android:lineSpacingExtra="-2sp"
-               android:text="-"/>
+                android:text="-"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -140,10 +140,6 @@
 
         </RelativeLayout>
 
-    </RelativeLayout>
-
-
-
-
+    </LinearLayout>
 
 </LinearLayout>
