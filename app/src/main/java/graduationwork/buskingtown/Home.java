@@ -1,5 +1,6 @@
 package graduationwork.buskingtown;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,9 +14,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Type;
@@ -28,6 +32,8 @@ import graduationwork.buskingtown.model.User;
 import okhttp3.ResponseBody;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import com.pusher.pushnotifications.PushNotifications;
 
 public class Home extends Fragment {
 
@@ -68,43 +74,16 @@ public class Home extends Fragment {
                 if(response.isSuccessful()){
                     List<Busker> busker = response.body();
                     //랭킹 view에 정렬이 되어있으므로 순서대로 객체10개만 불러오면 됨
-                    for(int i=0; i<= 10 ;i++) {
-                            try{
-                                //허용된 버스커만 각 개인 아이디 확인
-                                if(busker.get(i).getCertification()!=null&&busker.get(i).getCertification()!=false) {
-                                    busker_id.add(busker.get(i).getBusker_id());
-                                    busker_image.add(busker.get(i).getBusker_image());
-
-                                    //버스커 리스트 세팅
-                                    View list = inflater.inflate(R.layout.top_busker, top_busker_list, false);
-
-                                    Log.e("버스커", String.valueOf(busker.get(i).getTeam_name()));
-                                    TextView top_team_name = (TextView) list.findViewById(R.id.buskerTeamName);
-                                    ImageView top_team_image = (ImageView) list.findViewById(R.id.buskerProfileImangeFirst);
-                                    top_team_name.setText(String.valueOf(busker.get(i).getTeam_name()));
-
-                                    if (busker_image.get(i) != null) {
-                                        Picasso.with(getActivity()).load(busker_image.get(i)).transform(new CircleTransForm()).into(top_team_image);
-                                    }
-                                    if (list.getParent() != null)
-                                        ((ViewGroup) list.getParent()).removeView(list);
-                                    top_busker_list.addView(list);
-
-                                    //각 버스커 채널 들어가기
-                                    String final_busker_team = busker.get(i).getTeam_name();
-                                    int finalI = busker.get(i).getBusker_id();
-                                    int final_id = busker.get(i).getUser();
-                                    list.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            my_channel_check(final_busker_team, finalI, final_id);
-                                        }
-                                    });
-                                }
-                            }catch (Exception e){
-                                e.printStackTrace();
-                            }
+                    if(busker.size()>10){
+                        for(int i=0; i<= 10 ;i++) {
+                           getTopAllList(inflater,busker,i);
+                        }
+                    }else {
+                        for (int i=0; i< busker.size();i++){
+                            getTopAllList(inflater,busker,i);
+                        }
                     }
+
                 } else{
                     //에러 상태 보려고 해둔 코드
                     int StatusCode = response.code();
@@ -124,6 +103,44 @@ public class Home extends Fragment {
             }
         });
 
+    }
+
+    public void getTopAllList(LayoutInflater inflater,List<Busker>busker, int i){
+        try{
+            //허용된 버스커만 각 개인 아이디 확인
+            if(busker.get(i).getCertification()!=null&&busker.get(i).getCertification()!=false) {
+                busker_id.add(busker.get(i).getBusker_id());
+                busker_image.add(busker.get(i).getBusker_image());
+
+                //버스커 리스트 세팅
+                View list = inflater.inflate(R.layout.top_busker, top_busker_list, false);
+
+                Log.e("버스커", String.valueOf(busker.get(i).getTeam_name()));
+                TextView top_team_name = (TextView) list.findViewById(R.id.buskerTeamName);
+                ImageView top_team_image = (ImageView) list.findViewById(R.id.buskerProfileImangeFirst);
+                top_team_name.setText(String.valueOf(busker.get(i).getTeam_name()));
+
+                if (busker_image.get(i) != null) {
+                    Picasso.with(getActivity()).load(busker_image.get(i)).transform(new CircleTransForm()).into(top_team_image);
+                }
+                if (list.getParent() != null)
+                    ((ViewGroup) list.getParent()).removeView(list);
+                top_busker_list.addView(list);
+
+                //각 버스커 채널 들어가기
+                String final_busker_team = busker.get(i).getTeam_name();
+                int finalI = busker.get(i).getBusker_id();
+                int final_id = busker.get(i).getUser();
+                list.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        my_channel_check(final_busker_team, finalI, final_id);
+                    }
+                });
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void my_channel_check(String team_name,int final_busker_id, int final_user_id){

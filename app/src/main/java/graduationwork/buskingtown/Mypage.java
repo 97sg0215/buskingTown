@@ -47,6 +47,8 @@ import retrofit2.Response;
 
 public class Mypage extends Fragment {
 
+    SharedPreferences prefUser, prefBusker;
+
     private RestApiService apiService;
 
     private Uri mImageCaptureUri;
@@ -76,6 +78,9 @@ public class Mypage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.activity_my_page, container, false);
+
+        prefBusker = this.getActivity().getSharedPreferences("BuskerUser", Activity.MODE_PRIVATE);
+        prefUser = this.getActivity().getSharedPreferences("User", Activity.MODE_PRIVATE);
 
         restApiBuilder();
 
@@ -419,8 +424,7 @@ public class Mypage extends Fragment {
 
     //busker 정보를 저장하기 위함 key값 : BuskerUser
     public void saveBuskerInfo(int busker_id,int busker_type,String team_name){
-        SharedPreferences pref = this.getActivity().getSharedPreferences("BuskerUser", Activity.MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
+        SharedPreferences.Editor editor = prefBusker.edit();
         editor.putInt("busker_type",busker_type);
         editor.putInt("busker_id",busker_id);
         editor.putString("team_name",team_name);
@@ -429,8 +433,7 @@ public class Mypage extends Fragment {
 
     //유저 정보를 저장하여 다른 액티비티에서 불러오기 위함
     public void saveUserInfo(String token,int user,String username,String user_image){
-        SharedPreferences pref = this.getActivity().getSharedPreferences("User", Activity.MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
+        SharedPreferences.Editor editor = prefUser.edit();
         editor.putString("auth_token",token);
         editor.putInt("user_id",user);
         editor.putString("username",username);

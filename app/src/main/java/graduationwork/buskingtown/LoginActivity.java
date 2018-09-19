@@ -1,9 +1,13 @@
 package graduationwork.buskingtown;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -15,6 +19,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,6 +33,10 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
+import com.pusher.pushnotifications.PushNotifications;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -40,6 +51,45 @@ public class LoginActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        PushNotifications.start(getApplicationContext(), "4c4a8894-87b8-4006-8e7e-b2b57fa83b79");
+        PushNotifications.subscribe("hello");
+
+        //runtime permission
+        PermissionListener permissionListener= new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                Toast.makeText(LoginActivity.this,"위치 권한허가",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                Toast.makeText(LoginActivity.this,"위치 권한거부\n위치 접근이 거부될 경우 앱 사용에 제한이 있을 수 있어요."+ deniedPermissions.toString(),Toast.LENGTH_SHORT).show();
+
+            }
+
+        };
+        TedPermission.with(LoginActivity.this)
+                .setPermissionListener(permissionListener)
+                .setRationaleMessage("위치에 접근하기위해서는 위치 접근 권한이 필요해요\n위치 접근이 거부될 경우 앱 사용에 제한이 있을 수 있어요.")
+                .setDeniedMessage("접근을 거부 하셨군요 \n [설정]->[권한]에서 권한을 허용할 수 있어요.")
+                .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION)
+                .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION)
+                .check();
+
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo("graduationwork.buskingtown", PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.e("KeyHash:", android.util.Base64.encodeToString(md.digest(), android.util.Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
 
         //아이디 에디터 텍스트 입력 변수
         final EditText idEdit = (EditText) findViewById(R.id.idEdit);
