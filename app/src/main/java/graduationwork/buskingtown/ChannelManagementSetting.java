@@ -25,7 +25,7 @@ public class ChannelManagementSetting extends AppCompatActivity {
     String user_token,user_name,user_image,team_name;
     int user_id;
 
-    private RelativeLayout buskerTeamLayout,statsLayout,coinLayout;
+    private RelativeLayout buskerTeamLayout,roadReservation,concertReservation,statsLayout,coinLayout;
 
     RestApiService apiService;
 
@@ -95,10 +95,26 @@ public class ChannelManagementSetting extends AppCompatActivity {
         });
 
         //거리공연,연습실,콘서트
+        roadReservation = (RelativeLayout) findViewById(R.id.roadReservation);
+        roadReservation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent road = new Intent(getApplication(),BuskingOpen.class);
+                startActivity(road);
+            }
+        });
 
+        concertReservation = (RelativeLayout) findViewById(R.id.concertReservation);
+        concertReservation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent concert= new Intent(getApplication(),OpenConcert.class);
+                startActivity(concert);
+            }
+        });
 
         //통계보기
-        statsLayout = (RelativeLayout) findViewById(R.id.coinLayout);
+        statsLayout = (RelativeLayout) findViewById(R.id.statsLayout);
         statsLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,7 +122,6 @@ public class ChannelManagementSetting extends AppCompatActivity {
                 startActivity(Statistics);
             }
         });
-
 
         //코인관리
         coinLayout = (RelativeLayout) findViewById(R.id.coinLayout);

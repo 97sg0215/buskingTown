@@ -41,7 +41,7 @@
             android:layout_centerVertical="true"
             android:fontFamily="@font/kopubbold"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="30dp"
+            android:layout_marginRight="15dp"
             android:text="완료"
             android:textSize="17sp" />
 
@@ -51,9 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/statusBar"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="21dp"
+        android:layout_above="@+id/confirmBtn"
         android:overScrollMode="never"
         android:scrollbars="none">
 
@@ -430,8 +428,8 @@
                         android:background="@drawable/date_rounded"
                         android:fontFamily="@font/kopubmedium"
                         android:textColor="@color/fontBlack"
-                        android:hint="옵션명을 입력해주세요."
-                        android:textSize="14sp"
+                        android:hint="옵션명을 입력해주세요. 예) A Room"
+                        android:textSize="13sp"
                         android:textColorHint="@color/fontGray"
                         android:paddingLeft="15.1dp"/>
 
@@ -581,11 +579,13 @@
                 android:paddingRight="20dp"
                 android:paddingTop="20.2dp">
 
-                <TextView
+                <EditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/kopubmedium"
                     android:hint="- 작성해주세요. 예) 건물내에서 흡연 금지입니다."
+                    android:layout_centerVertical="true"
+                    android:background="#00000000"
                     android:textColor="@color/fontGray"
                     android:textColorHint="@color/fontGray"
                     android:textSize="14.5sp" />
@@ -637,11 +637,13 @@
                 android:paddingRight="20dp"
                 android:paddingTop="20.2dp">
 
-                <TextView
+                <EditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/kopubmedium"
                     android:hint="- 작성해주세요. 예) 대관일 7일전 취소시 전액 환불"
+                    android:layout_centerVertical="true"
+                    android:background="#00000000"
                     android:textColor="@color/fontGray"
                     android:textColorHint="@color/fontGray"
                     android:textSize="14.5sp" />

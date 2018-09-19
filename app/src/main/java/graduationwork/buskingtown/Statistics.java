@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.tsongkha.spinnerdatepicker.DatePicker;
 import com.tsongkha.spinnerdatepicker.DatePickerDialog;
@@ -27,6 +28,16 @@ public class Statistics extends AppCompatActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
+
+        LinearLayout clickDropdownBox = (LinearLayout) findViewById(R.id.clickDropdownBox);
+        ImageButton dropdown= (ImageButton)findViewById(R.id.dropdownImg);
+        dropdown.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                clickDropdownBox.setVisibility(View.VISIBLE);
+                dropdown.setVisibility(View.INVISIBLE);
+            }
+        });
 
         //버튼 참조변수
         oneMonth = (Button) findViewById(R.id.oneMonth);

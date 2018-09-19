@@ -200,7 +200,7 @@
         <RelativeLayout
             android:id="@+id/allStatistics"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
 
@@ -215,13 +215,14 @@
                 android:lineSpacingExtra="1.5sp"
                 android:text="전체 통계"/>
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/dropdownImg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="25dp"
                 android:src="@drawable/dropdown"
+                android:background="#00000000"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"/>
 
@@ -234,12 +235,14 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/clickDropdown"
+        <LinearLayout
+            android:id="@+id/clickDropdownBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="130dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
             android:visibility="gone">
 
             <TextView
@@ -247,7 +250,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:layout_marginTop="20dp"
                 android:textSize="14sp"
                 android:textColor="@color/fontBlack"
                 android:lineSpacingExtra="1.5sp"
@@ -278,7 +280,7 @@
                 android:text="순위 변동"/>
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </LinearLayout>
 

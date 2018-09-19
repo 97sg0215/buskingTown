@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/Box"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/dateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:textSize="13sp"
+                android:textColor="@color/fontBlack"
+                android:fontFamily="@font/kopubbold"
+                android:lineSpacingExtra="-7.5sp"
+                android:gravity="center_horizontal"
+                android:text="0000.00.00" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/dateText"
+                android:layout_marginLeft="20dp"
+                android:textSize="12sp"
+                android:textColor="@color/fontGray"
+                android:lineSpacingExtra="-6.5sp"
+                android:gravity="center_horizontal"
+               android:text="충전"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/transaction"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/transactionText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:textColor="@color/mainPurple"
+                android:lineSpacingExtra="-7.5sp"
+                android:text="-"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/balance"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/balanceText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:fontFamily="@font/kopubmedium"
+                android:textColor="@color/fontGray"
+                android:lineSpacingExtra="-7.5sp"
+                android:text="- 개" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/boxUnderLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/Box"
+        android:background="@color/sub2Gray" />
+
+</RelativeLayout>

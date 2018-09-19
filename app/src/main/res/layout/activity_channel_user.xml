@@ -315,20 +315,24 @@
                     android:textSize="14sp"
                     android:lineSpacingExtra="-5sp" />
 
-                <ImageView
-                    android:id="@+id/message"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="60dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="20dp"
-                    android:src="@drawable/message"
-                    android:onClick="message"/>
-
             </RelativeLayout>
 
         </LinearLayout>
 
     </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:clickable="true"
+        android:scaleType="fitXY"
+        app:backgroundTint="@color/mainYellow"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/message" />
 
 </RelativeLayout>

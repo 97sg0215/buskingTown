@@ -133,7 +133,7 @@
 
                 <HorizontalScrollView
                     android:layout_below="@+id/takeMessage"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
                     android:paddingBottom="25dp"
@@ -276,6 +276,15 @@
                             android:text="은행선택"
                             android:textColor="@color/fontGray"
                             android:layout_centerVertical="true"/>
+
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/dropdown_s"
+                            android:background="#00000000"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="15dp"/>
 
                     </RelativeLayout>
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,9 +9,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/addBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -20,16 +21,18 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:background="@drawable/add"
-                android:layout_marginTop="25.2dp"
+                android:layout_marginTop="25dp"
                 android:layout_centerHorizontal="true"/>
 
             <TextView
+                android:id="@+id/newreservation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/add"
                 android:layout_centerHorizontal="true"
                 android:text="새로운 거리공연 예약"
                 android:layout_marginTop="15dp"
+                android:layout_marginBottom="25dp"
                 android:fontFamily="@font/kopubdotummedium"
                 android:textColor="@color/fontGray"
                 android:textSize="14sp"
@@ -37,13 +40,32 @@
 
         </RelativeLayout>
 
-        <LinearLayout
-            android:id="@+id/reservation_list"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-        </LinearLayout>
+            android:layout_below="@+id/addBtn">
+
+            <TextView
+                android:id="@+id/gotext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="지금 바로 거리공연을 예약해보세요):"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="75dp"
+                android:fontFamily="@font/kopubdotummedium"
+                android:textColor="@color/fontGray"
+                android:textSize="14sp"
+                android:lineSpacingExtra="1.5sp"/>
+
+            <LinearLayout
+                android:id="@+id/roadContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </LinearLayout>
 
-</ScrollView>
+</FrameLayout>

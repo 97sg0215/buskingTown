@@ -22,12 +22,13 @@
             android:src="@drawable/backbtn"
             android:onClick="previousActivity"/>
 
-        <TextView
+        <EditText
             android:id="@+id/locationSearchText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="장소검색"
             android:layout_marginTop="13.8dp"
+            android:background="#00000000"
             android:textSize="15sp"
             android:lineSpacingExtra="2sp"
             android:fontFamily="@font/kopubbold"
@@ -58,58 +59,76 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/mapsearchimage"
-        android:layout_width="match_parent"
-        android:layout_height="443dp"
-        android:layout_below="@id/statusBar"
-        android:background="@color/subGray">
-
-        <TextView
-            android:id="@+id/maptext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="지도 \n(다른사람이 예약한 핀 보이게)"
-            android:fontFamily="@font/kopubmedium"
-            android:textColor="@color/mainPurple"
-            android:textSize="15sp"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:layout_marginTop="176dp"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/mapsearchimage"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="25dp"
-        android:background="#fff">
+        android:layout_below="@id/statusBar"
+        android:layout_above="@+id/choiceBtn"
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
-        <TextView
-            android:id="@+id/addressIn"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="-"
-            android:fontFamily="@font/kopubbold"
-            android:textColor="@color/mainPurple"
-            android:lineSpacingExtra="1.5sp"
-            android:textSize="14sp"/>
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/addressIn"
-            android:layout_marginTop="7.5dp"
-            android:text="-"
-            android:textColor="@color/fontBlack"
-            android:fontFamily="@font/kopubmedium"
-            android:textSize="12sp"
-            android:lineSpacingExtra="1sp"/>
+                <RelativeLayout
+                    android:id="@+id/mapsearchimage"
+                    android:layout_width="match_parent"
+                    android:layout_height="443dp"
+                    android:layout_below="@id/statusBar"
+                    android:background="@color/subGray">
 
-    </RelativeLayout>
+                    <TextView
+                        android:id="@+id/maptext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="지도 \n(다른사람이 예약한 핀 보이게)"
+                        android:fontFamily="@font/kopubmedium"
+                        android:textColor="@color/mainPurple"
+                        android:textSize="15sp"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+                        android:layout_marginTop="176dp"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="85dp"
+                    android:layout_below="@id/mapsearchimage"
+                    android:gravity="center_vertical"
+                    android:background="#fff">
+
+                    <TextView
+                        android:id="@+id/addressIn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="알아보기 쉽게 장소명을 지정해주세요 ex) 한양여자대학교"
+                        android:fontFamily="@font/kopubbold"
+                        android:textColor="@color/mainPurple"
+                        android:lineSpacingExtra="1.5sp"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/addressIn"
+                        android:layout_marginTop="7.5dp"
+                        android:layout_marginLeft="20dp"
+                        android:text="-"
+                        android:textColor="@color/fontBlack"
+                        android:fontFamily="@font/kopubmedium"
+                        android:textSize="12sp"
+                        android:lineSpacingExtra="1sp"/>
+
+                </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <Button
         android:id="@+id/choiceBtn"

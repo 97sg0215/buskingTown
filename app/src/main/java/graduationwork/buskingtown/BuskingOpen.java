@@ -4,12 +4,14 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TimePicker;
 
 import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder;
@@ -28,6 +30,8 @@ public class BuskingOpen extends AppCompatActivity implements DatePickerDialog.O
 
     SimpleDateFormat simpleDateFormat;
 
+    RelativeLayout placeLayout;
+
     Button concertDateButton;
     Button timeStartDate;
     Button timeEndDate;
@@ -41,6 +45,16 @@ public class BuskingOpen extends AppCompatActivity implements DatePickerDialog.O
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { BuskingOpen.super.onBackPressed(); }
+        });
+
+        //장소검색
+        placeLayout = (RelativeLayout) findViewById(R.id.placesLayout);
+        placeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent placeSearch = new Intent(getApplication(),LocationSearch.class);
+                startActivity(placeSearch);
+            }
         });
 
         //시간을 가져오기위한 Calendar 인스턴스 선언

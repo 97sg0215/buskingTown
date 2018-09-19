@@ -5,8 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.view.ViewGroup;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -14,6 +19,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicIntegerArray;
+import java.util.zip.Inflater;
 
 import com.tsongkha.spinnerdatepicker.DatePicker;
 import com.tsongkha.spinnerdatepicker.DatePickerDialog;
@@ -25,11 +31,28 @@ public class MycoinHouse extends AppCompatActivity implements View.OnClickListen
     int coinStartYear, coinStartMonth, coinStartDay , coinEndYear, coinEndMonth, coinEndDay;
     SimpleDateFormat simpleDateFormat;
 
+    int test__coin=3;
+    private FrameLayout coinContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mycoin_house);
+
+//       연결안됨 다시도전하겠숨
+//        for (int listCount=0; listCount<test__coinlist; listCount++) {
+//            LinearLayout coinBox = (LinearLayout)findViewById(R.id.coinContainer);
+
+//            TextView transactionText = (TextView)findViewById(R.id.transactionText);
+//            if (test__coinlist > 1 ){
+//                transactionText.setVisibility(View.GONE);
+//                View coinlist = Inflater.inflate(R.layout.transactionlist,coinBox,false);
+//                if(coinlist.getParent()!= null)
+//                    ((ViewGroup)coinlist.getParent()).removeView(coinlist);
+//                coinBox.addView(coinlist);
+//            }
+//        }
+
 
         //버튼 참조변수
         oneMonth = (Button) findViewById(R.id.oneMonth);

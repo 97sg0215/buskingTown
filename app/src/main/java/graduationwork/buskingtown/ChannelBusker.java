@@ -99,8 +99,8 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
         subTeamName = (TextView) findViewById(R.id.busker_sub_team_name);
         tag = (TextView) findViewById(R.id.tag);
         busker_main_img = (ImageView) findViewById(R.id.profilebig);
-
     }
+
     //버튼 클릭시 프레그먼트 호출하는 메소드
     @Override
     public void onClick(View v) {

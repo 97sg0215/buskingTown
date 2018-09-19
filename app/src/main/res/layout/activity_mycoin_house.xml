@@ -266,6 +266,7 @@
         android:background="@color/sub2Gray" />
 
     <TextView
+        android:id="@+id/transactionText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/dateBoxUnderLine"
@@ -275,5 +276,13 @@
         android:lineSpacingExtra="-5sp"
         android:layout_marginTop="75dp"
         android:layout_centerHorizontal="true"/>
+
+    <LinearLayout
+        android:id="@+id/coinContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dateBoxUnderLine"
+        android:orientation="vertical">
+    </LinearLayout>
 
 </RelativeLayout>

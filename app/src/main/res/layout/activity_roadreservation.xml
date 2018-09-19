@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".RoadReservation">
+
+    <RelativeLayout
+        android:id="@+id/statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="46.1dp"
+        android:background="@color/mainPurple">
+
+        <ImageButton
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:background="#00000000"
+            android:src="@drawable/backbtn"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="거리공연 예약확인"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fff"
+            android:fontFamily="@font/kopubbold"
+            android:textSize="17sp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_below="@id/statusBar"
+        android:background="@color/mainGray">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/subPink"
+            android:fontFamily="@font/kopubmedium"
+            android:layout_centerInParent="true"
+            android:lineSpacingExtra="4sp"
+            android:text="공연이 취소될 경우 다른 버스커를 위해 하루 전까지 취소해주세요!
+당일 예약 변경 및 취소는 불가합니다 :)" />
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

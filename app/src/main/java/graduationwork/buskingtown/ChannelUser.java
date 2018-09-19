@@ -71,7 +71,6 @@ public class ChannelUser extends AppCompatActivity {
         subTeamName = (TextView) findViewById(R.id.busker_sub_team_name);
         tag = (TextView) findViewById(R.id.tag);
         busker_main_image = (ImageView) findViewById(R.id.profilebig);
-
         following_btn = (Button) findViewById(R.id.fan_on);
 
 

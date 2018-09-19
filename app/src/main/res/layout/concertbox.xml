@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="320dp"
-    android:layout_height="252.5dp">
+    android:layout_height="252.5dp"
+    android:layout_gravity="center_horizontal">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,14 +19,14 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp">
+            android:background="@color/mainGray">
 
             <TextView
                 android:id="@+id/practiceroomName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
                 android:fontFamily="@font/kopubbold"
                 android:textSize="14sp"
                 android:textColor="@color/fontBlack"
@@ -38,6 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/practiceroomName"
                 android:layout_marginTop="7.5dp"
+                android:layout_marginLeft="15dp"
                 android:fontFamily="@font/kopubmedium"
                 android:textSize="10.5sp"
                 android:textColor="@color/fontBlack"
@@ -50,14 +52,25 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/practiceroomAddress"
                 android:layout_marginTop="7.5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="15dp"
                 android:fontFamily="@font/kopubmedium"
                 android:textSize="14sp"
                 android:textColor="@color/fontBlack"
                 android:lineSpacingExtra="-1sp"
                 android:text="-"/>
 
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_r"
+                android:background="#00000000"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:layout_centerVertical="true"/>
+
         </RelativeLayout>
 
     </LinearLayout>
 
-</FrameLayout>
+</LinearLayout>

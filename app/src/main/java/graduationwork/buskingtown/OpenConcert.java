@@ -1,11 +1,13 @@
 package graduationwork.buskingtown;
 
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TimePicker;
 
 import com.tsongkha.spinnerdatepicker.DatePicker;
@@ -18,6 +20,8 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class OpenConcert extends AppCompatActivity {
+
+    RelativeLayout placeLayout;
 
     int mHour, mMinute;
 
@@ -34,6 +38,16 @@ public class OpenConcert extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { OpenConcert.super.onBackPressed(); }
+        });
+
+        //장소검색
+        placeLayout = (RelativeLayout) findViewById(R.id.placesLayout);
+        placeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent placeSearch = new Intent(getApplication(),LocationSearch.class);
+                startActivity(placeSearch);
+            }
         });
 
         //시간과 날짜 가져오기위한 Calendar 인스턴스 선언

@@ -35,9 +35,7 @@ public class ChannelBuskerSchedule extends Fragment {
         // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.activity_channel_busker_schedule, container, false);
 
-
-
-        for (int postCount=0; postCount<test__schedule; postCount++) {
+        for (int postCount=0; postCount<test__post; postCount++) {
             LinearLayout postingBox = (LinearLayout) v.findViewById(R.id.postingContainer);
 
             TextView postText = (TextView)v.findViewById(R.id.posttext);
@@ -49,11 +47,6 @@ public class ChannelBuskerSchedule extends Fragment {
                 postingBox.addView(postlist);
             }
         }
-
-
-
-
-
 
         for (int scheduleCount=0; scheduleCount<test__schedule; scheduleCount++) {
             final ImageButton dropdownBtn = (ImageButton)v.findViewById(R.id.dropdown_sch);

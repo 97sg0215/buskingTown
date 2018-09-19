@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -46,6 +47,27 @@ public class TeamMember extends AppCompatActivity {
         restApiBuilder();
 
         getLocalData();
+
+        //내 프로필 보기
+        ImageView myprofileimg = (ImageView) findViewById(R.id.my_profileImg);
+        myprofileimg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent myimg = new Intent(getApplication(),MyProfileClick.class);
+                startActivity(myimg);
+            }
+        });
+
+//        //내 프로필 보기 (여기다 해도되나 싶어서 임시)
+//        ImageView memberfileimg = (ImageView) findViewById(R.id.member_profileImg);
+//        memberfileimg.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v){
+//                Intent memberimg = new Intent(getApplication(),MemberProfileClick.class);
+//                startActivity(memberimg);
+//            }
+//        });
+
 
         //멤버 추가
         RelativeLayout add_member_btn = (RelativeLayout) findViewById(R.id.plus_member);
