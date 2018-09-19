@@ -25,7 +25,7 @@ public class ChannelManagementSetting extends AppCompatActivity {
     String user_token,user_name,user_image,team_name;
     int user_id;
 
-    private RelativeLayout buskerTeamLayout,roadReservation,concertReservation,statsLayout,coinLayout;
+    private RelativeLayout buskerTeamLayout,roadReservation,practiceRoomReservation,concertReservation,statsLayout,coinLayout;
 
     RestApiService apiService;
 
@@ -103,6 +103,16 @@ public class ChannelManagementSetting extends AppCompatActivity {
                 startActivity(road);
             }
         });
+
+        practiceRoomReservation = (RelativeLayout) findViewById(R.id.practiceReservation);
+        practiceRoomReservation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent road = new Intent(getApplication(),PracticeRoomReservation.class);
+                startActivity(road);
+            }
+        });
+
 
         concertReservation = (RelativeLayout) findViewById(R.id.concertReservation);
         concertReservation.setOnClickListener(new View.OnClickListener() {
