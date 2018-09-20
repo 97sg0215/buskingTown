@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -80,6 +81,7 @@ public class Ranking extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup containter, Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.activity_ranking, containter, false);
@@ -164,42 +166,53 @@ public class Ranking extends Fragment {
         busker_image = new ArrayList<>();
         busker_image_bitmap = new ArrayList<>();
 
-        Call<List<Busker>> get_busker_rank = apiService.get_ranker(user_token);
-        get_busker_rank.enqueue(new Callback<List<Busker>>() {
-            @Override
-            public void onResponse(Call<List<Busker>> call, Response<List<Busker>> response) {
-                if(response.isSuccessful()){
-                    List<Busker> busker = response.body();
-                    for(int i=0; i<busker.size();i++){
-                        busker_id.add(busker.get(i).getBusker_id());
-                        busker_team_name.add(busker.get(i).getTeam_name());
-                        busker_tag.add(busker.get(i).getBusker_tag());
-                        busker_image.add(busker.get(i).getBusker_image());
-                        busker_image_bitmap.add(getBitmapFromURL(busker_image.get(i)));
-                        Log.e("메세지", String.valueOf(busker_id.get(i)));
-                        int rank = i+1;
-                        //리스트 아이템(정보, 아래에 class객체 선언 해둠)에 정보를 받아와 세팅함 , 수경이 할것(테스트할때 임시데이터를 넣어서 해주세요)
-                        listItems.add(new RankListItem(rank,busker_team_name.get(i),busker_tag.get(i), busker_image_bitmap.get(i), busker_id.get(i)));
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            //your codes here
+
+            Call<List<Busker>> get_busker_rank = apiService.get_ranker(user_token);
+            get_busker_rank.enqueue(new Callback<List<Busker>>() {
+                @Override
+                public void onResponse(Call<List<Busker>> call, Response<List<Busker>> response) {
+                    if(response.isSuccessful()){
+                        List<Busker> busker = response.body();
+                        for(int i=0; i<busker.size();i++){
+                            busker_id.add(busker.get(i).getBusker_id());
+                            busker_team_name.add(busker.get(i).getTeam_name());
+                            busker_tag.add(busker.get(i).getBusker_tag());
+                            busker_image.add(busker.get(i).getBusker_image());
+                            busker_image_bitmap.add(getBitmapFromURL(busker_image.get(i)));
+                            Log.e("메세지", String.valueOf(busker_id.get(i)));
+                            int rank = i+1;
+                            //리스트 아이템(정보, 아래에 class객체 선언 해둠)에 정보를 받아와 세팅함 , 수경이 할것(테스트할때 임시데이터를 넣어서 해주세요)
+                            listItems.add(new RankListItem(rank,busker_team_name.get(i),busker_tag.get(i), busker_image_bitmap.get(i), busker_id.get(i)));
+                        }
+                        //화면 리스트 뷰에 정보들이 들어가있는 어댑터를 연결함
+                        listView.setAdapter(mAdapter);
+                    }else {
+                        //에러 상태 보려고 해둔 코드
+                        int StatusCode = response.code();
+                        String s = response.message();
+                        ResponseBody d = response.errorBody();
+                        Log.i(ApplicationController.TAG, "홈 상태 Code : " + StatusCode);
+                        Log.e("메세지", s);
+                        Log.e("리스폰스에러바디", String.valueOf(d));
+                        Log.e("리스폰스바디", String.valueOf(response.body()));
                     }
-                    //화면 리스트 뷰에 정보들이 들어가있는 어댑터를 연결함
-                    listView.setAdapter(mAdapter);
-                }else {
-                    //에러 상태 보려고 해둔 코드
-                    int StatusCode = response.code();
-                    String s = response.message();
-                    ResponseBody d = response.errorBody();
-                    Log.i(ApplicationController.TAG, "홈 상태 Code : " + StatusCode);
-                    Log.e("메세지", s);
-                    Log.e("리스폰스에러바디", String.valueOf(d));
-                    Log.e("리스폰스바디", String.valueOf(response.body()));
                 }
-            }
 
-            @Override
-            public void onFailure(Call<List<Busker>> call, Throwable t) {
+                @Override
+                public void onFailure(Call<List<Busker>> call, Throwable t) {
 
-            }
-        });
+                }
+            });
+        }
+
+
 
         return v;
     }
