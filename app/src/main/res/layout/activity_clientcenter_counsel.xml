@@ -34,58 +34,19 @@
 
     </RelativeLayout>
 
-    <ScrollView
+    <ListView
+        android:id="@+id/counsel_list"
+        android:layout_below="@+id/statusBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/statusBar"
+        android:cacheColorHint="#00000000"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:divider="@android:color/transparent"
+        android:listSelector="#00000000"
         android:overScrollMode="never"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:transcriptMode="alwaysScroll"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:id="@+id/counselLayout"
-                android:layout_width="match_parent"
-                android:layout_height="55.5dp">
-
-                <TextView
-                    android:id="@+id/counselTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="[ - ]"
-                    android:layout_centerVertical="true"
-                    android:lineSpacingExtra="34sp"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/kopubmedium"
-                    android:textColor="@color/fontBlack"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:fontFamily="@font/kopubmedium"
-                    android:lineSpacingExtra="-8sp"
-                    android:layout_toRightOf="@+id/counselTitle"
-                    android:layout_marginLeft="10dp"
-                    android:text="-"
-                    android:textColor="@color/fontBlack"
-                    android:textSize="14sp" />
-
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="1dp"
-                    android:background="@color/sub2Gray"
-                    android:layout_alignParentBottom="true"/>
-
-            </RelativeLayout>
-
-        </LinearLayout>
-        
-    </ScrollView>
 
 </RelativeLayout>

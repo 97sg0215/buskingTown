@@ -5,7 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
+
+import java.util.ArrayList;
 
 public class ClientCenterCounsel extends AppCompatActivity {
 
@@ -30,6 +33,7 @@ public class ClientCenterCounsel extends AppCompatActivity {
                 startActivity(ClientCenterCounselDetail);
             }
         });
+
     }
 
     //백버튼 메소드

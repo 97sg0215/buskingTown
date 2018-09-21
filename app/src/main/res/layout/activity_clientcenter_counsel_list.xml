@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff">
+
+    <RelativeLayout
+        android:id="@+id/counselLayout"
+        android:layout_width="match_parent"
+        android:layout_height="55.5dp">
+
+        <TextView
+            android:id="@+id/counselTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="[ - ]"
+            android:lineSpacingExtra="34sp"
+            android:textSize="14sp"
+            android:fontFamily="@font/kopubmedium"
+            android:textColor="@color/fontBlack"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/kopubmedium"
+            android:layout_centerVertical="true"
+            android:lineSpacingExtra="-8sp"
+            android:layout_toRightOf="@+id/counselTitle"
+            android:layout_marginLeft="10dp"
+            android:text="-"
+            android:textColor="@color/fontBlack"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/sub2Gray"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

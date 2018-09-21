@@ -85,7 +85,9 @@
         <activity android:name=".CoinManagement" />
         <activity android:name=".RoadReservationList" />
         <activity android:name=".RoadReservation" />
-        <activity android:name=".PracticeRoomReservation"></activity>
+        <activity android:name=".PracticeRoomReservation" />
+        <activity android:name=".ClientcenterCounselList" />
+        <activity android:name=".ClientcenterCounselListview"></activity>
     </application>
 
 </manifest>
