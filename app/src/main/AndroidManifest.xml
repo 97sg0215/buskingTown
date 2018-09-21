@@ -87,7 +87,9 @@
         <activity android:name=".RoadReservation" />
         <activity android:name=".PracticeRoomReservation" />
         <activity android:name=".ClientcenterCounselList" />
-        <activity android:name=".ClientcenterCounselListview"></activity>
+        <activity android:name=".ClientcenterCounselListview" />
+        <activity android:name=".WithdrawalPop"
+            android:theme="@android:style/Theme.Dialog"></activity>
     </application>
 
 </manifest>

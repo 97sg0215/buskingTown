@@ -26,7 +26,7 @@ import retrofit2.http.Path;
 
 public interface RestApiService {
 
-    public  static  final String API_URL="http://14af99a0.ngrok.io/";
+    public  static  final String API_URL="http://7cf65c44.ngrok.io/";
 
     //회원가입을 위한 데이터 포스트
     @POST("accounts/sign_up/")
@@ -35,6 +35,10 @@ public interface RestApiService {
     //로그인을 위한 데이터 포스트
     @POST("accounts/login/")
     Call<User> login(@Body Login login);
+
+    //회원탈퇴
+    @DELETE("accounts/deleteUser/{user_id}/")
+    Call<User> withdrawal(@Header("Authorization")String authToken, @Path("user_id")int id);
 
     //유저 토큰 생성
     @GET("user/")

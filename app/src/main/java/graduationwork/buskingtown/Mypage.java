@@ -105,38 +105,6 @@ public class Mypage extends Fragment {
             Picasso.with(getActivity()).load(user_image).transform(new CircleTransForm()).into(profile);
         }
 
-        profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //runtime permission
-                PermissionListener permissionListener= new PermissionListener() {
-                    @Override
-                    public void onPermissionGranted() {
-                        Toast.makeText(getContext(),"권한허가",Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                        Toast.makeText(getContext(),"권한거부\n"+ deniedPermissions.toString(),Toast.LENGTH_SHORT).show();
-
-                    }
-
-                };
-                TedPermission.with(getContext())
-                        .setPermissionListener(permissionListener)
-                        .setRationaleMessage("사진에 접근하기위해서는 사진 접근 권한이 필요해요")
-                        .setDeniedMessage("접근을 거부 하셨군요 \n [설정]->[권한]에서 권한을 허용할 수 있어요.")
-                        .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        .check();
-
-                //갤러리 열기
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
-                intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
-            }
-        });
-
         followingAmount = (TextView) v.findViewById(R.id.followingAmount);
 
 
@@ -211,77 +179,6 @@ public class Mypage extends Fragment {
         return v;
     }
 
-    // 선택된 이미지 가져오기
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == REQ_CODE_SELECT_IMAGE){
-            if(resultCode== Activity.RESULT_OK) {
-                try {
-                    //이미지 데이터를 비트맵으로 받아온다.
-                    Bitmap image_bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
-
-                    mImageCaptureUri = data.getData();
-                    Log.e("SmartWheel", mImageCaptureUri.getPath().toString());
-                    real_album_path= getPath(mImageCaptureUri);
-                    Log.e("real_album_path",real_album_path);
-
-                    //이미지 변경 및 업데이트
-                    profile_update(real_album_path,data);
-                }catch (FileNotFoundException e) { e.printStackTrace(); }
-                catch (IOException e) { e.printStackTrace(); }
-                catch (Exception e) { e.printStackTrace();	}
-            }
-        }
-    }
-
-    public String getPath(Uri uri) {
-        String[] projection = {MediaStore.Images.Media.DATA};
-        Cursor cursor = getActivity().managedQuery(uri, projection, null, null, null);
-        getActivity().startManagingCursor(cursor);
-        int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        return cursor.getString(columnIndex);
-    }
-
-    public void profile_update(String path,Intent data){
-        //이미지 업로드
-        File file = new File(path);
-        Log.e("파일경로",String.valueOf(path));
-        Log.e("파일이름",String.valueOf(file.getName()));
-        RequestBody surveyBody = RequestBody.create(MediaType.parse("image/*"), file);
-        Log.e("이미지",String.valueOf(surveyBody.contentType()));
-        Log.e("사용자",String.valueOf(user_id));
-        RequestBody user = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(user_id));
-        MultipartBody.Part filePart = MultipartBody.Part.createFormData("user_image", file.getName(), surveyBody);
-
-        Call<Profile> update_profile = apiService.updateProfile(user_token,user_id,user,filePart);
-        update_profile.enqueue(new Callback<Profile>() {
-            @Override
-            public void onResponse(Call<Profile> call, Response<Profile> response) {
-                if(response.isSuccessful()){
-                    Log.e("프로필 업로드:", "Success");
-                    Log.e("프로필 이미지:", String .valueOf(response.body().getUser_image()));
-                    //배치해놓은 ImageView에 set
-                    Picasso.with(getActivity()).load(data.getData()).transform(new CircleTransForm()).into(profile);
-                    //다른 액티비티에서 받아올 수 있게
-                    user_image = response.body().getUser_image();
-                    saveUserInfo(user_token,user_id,user_name,user_image);
-                }else {
-                    Toast.makeText(getContext(), "이미지 업로드에 실패했습니다.\n다시 시도해주세요", Toast.LENGTH_SHORT).show();
-                    int StatusCode = response.code();
-                    Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
-                    Log.e("메세지", String.valueOf(response.message()));
-                    Log.e("리스폰스에러바디", String.valueOf(response.errorBody()));
-                    Log.e("리스폰스바디", String.valueOf(response.body()));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Profile> call, Throwable t) {
-                Log.i(ApplicationController.TAG, "프로필 업데이트 서버 연결 실패 Message : " + t.getMessage());
-                Toast.makeText(getContext(), "이미지 업로드에 실패했습니다.\n다시 시도해주세요", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
     //user 정보 불러오기
     public void getLocalData(){
@@ -385,12 +282,13 @@ public class Mypage extends Fragment {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 userDetail[0] = response.body();
-                if (userDetail[0].getBusker() != null) {
+                if (response.isSuccessful()) {
+                    if (userDetail[0].getBusker() != null) {
                     certification = userDetail[0].getBusker().getCertification();
                     busker_id = userDetail[0].getBusker().getBusker_id();
                     busker_type = userDetail[0].getBusker().getBusker_type();
                     team_name = userDetail[0].getBusker().getTeam_name();
-                    if (response.isSuccessful()) {
+
                         Log.e("유저 아이디", String.valueOf(id));
                         Log.e("버스커 아이디", String.valueOf(busker_id));
                         Log.e("인증상태", String.valueOf(certification));

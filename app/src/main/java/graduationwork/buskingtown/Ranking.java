@@ -278,6 +278,56 @@ public class Ranking extends Fragment {
             team_name.setText(getItem(position).team_name);
             busker_tag.setText(getItem(position).busker_tag);
 
+            int busker_id = getItem(position).busker_id;
+            String teamName = getItem(position).team_name;
+
+            result.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    // 터치 시 해당 아이템 채팅방 불러오기
+                    retrofit2.Call<User> userDetail = apiService.getUserDetail(user_token,user_id);
+                    userDetail.enqueue(new Callback<User>() {
+                        @Override
+                        public void onResponse(retrofit2.Call<User> call, Response<User> response) {
+                            if(response.isSuccessful()){
+                                User user = response.body();
+                                if(user.getBusker()!=null){ //유저가 버스커일 경우
+                                    //내 채널이 아닐 경우, 팀네임이 같지않은 경우
+                                    if(!user.getBusker().getTeam_name().equals(teamName)){
+                                        Intent buskerChannel = new Intent(getActivity(), ChannelUser.class);
+                                        //개인 아이디를 다음 액티비티에서 받아 세팅
+                                        buskerChannel.putExtra("busker_id",busker_id);
+                                        buskerChannel.putExtra("busker_user_id",user_id);
+                                        startActivity(buskerChannel);
+                                    } //내 채널일 경우, 팀네임이 같을 경우
+                                    else {
+                                        Intent buskerChannel = new Intent(getActivity(), ChannelBusker.class);
+                                        //개인 아이디를 다음 액티비티에서 받아 세팅
+                                        buskerChannel.putExtra("busker_id",busker_id);
+                                        buskerChannel.putExtra("team_name",teamName);
+                                        buskerChannel.putExtra("busker_user_id",user_id);
+                                        startActivity(buskerChannel);
+                                    }
+                                } //내 채널이 아닐 경우, 유저가 버스커가 아닐 경우 정상 진행
+                                else {
+                                    Intent buskerChannel = new Intent(getActivity(), ChannelUser.class);
+                                    //개인 아이디를 다음 액티비티에서 받아 세팅
+                                    buskerChannel.putExtra("busker_id",busker_id);
+                                    buskerChannel.putExtra("busker_user_id",user_id);
+                                    startActivity(buskerChannel);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(retrofit2.Call<User> call, Throwable t) {
+                            Log.i(ApplicationController.TAG, "유저 정보 서버 연결 실패 Message : " + t.getMessage());
+                        }
+                    });
+                }
+            });
+
             return result;
         }
     }

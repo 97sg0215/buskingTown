@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 public class Setting extends AppCompatActivity {
 
-    private View versionInformation,settingnoticeLayout, PassWdChangeLayout;
+    private RelativeLayout versionInformation,settingnoticeLayout, PassWdChangeLayout, withdrawal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +53,15 @@ public class Setting extends AppCompatActivity {
             }
         });
 
-        //탈퇴하기 부분 ???
-
+        //탈퇴하기 부분 - 수경이가 합니당.
+        withdrawal = (RelativeLayout) findViewById(R.id.withdrawal);
+        withdrawal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent withdrawalAct = new Intent(getApplication(),WithdrawalPop.class);
+                startActivity(withdrawalAct);
+            }
+        });
     }
 
     //백버튼 메소드
