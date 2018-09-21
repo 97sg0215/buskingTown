@@ -217,6 +217,16 @@
         android:layout_below="@+id/placesLayout"
         android:background="@color/sub2Gray"/>
 
+    <LinearLayout
+        android:id="@+id/buskingreservation"
+        android:layout_below="@id/placesUnderLine"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    </LinearLayout>
+
     <Button
         android:id="@+id/confirmBtn"
         android:layout_width="match_parent"

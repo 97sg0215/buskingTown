@@ -37,7 +37,6 @@ public class ChannelBuskerSchedule extends Fragment {
 
         for (int postCount=0; postCount<test__post; postCount++) {
             LinearLayout postingBox = (LinearLayout) v.findViewById(R.id.postingContainer);
-
             TextView postText = (TextView)v.findViewById(R.id.posttext);
             if (test__post > 1 ){
                 postText.setVisibility(View.GONE);

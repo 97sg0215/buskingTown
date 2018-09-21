@@ -204,7 +204,6 @@
         android:layout_below="@+id/rankingTab"
         android:background="@color/sub2Gray" />
 
-
     <ListView
         android:id="@+id/busker_list"
         android:layout_below="@+id/rankingTabunderline"
@@ -218,7 +217,6 @@
         android:overScrollMode="never"
         android:scrollbars="none"
         android:transcriptMode="alwaysScroll"/>
-
 
 </RelativeLayout>
 

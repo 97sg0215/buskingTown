@@ -39,19 +39,18 @@ public class MycoinHouse extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mycoin_house);
 
-//       연결안됨 다시도전하겠숨
-//        for (int listCount=0; listCount<test__coinlist; listCount++) {
-//            LinearLayout coinBox = (LinearLayout)findViewById(R.id.coinContainer);
+       for (int listCount=0; listCount<test__coin; listCount++) {
+           LinearLayout coinBox = (LinearLayout)findViewById(R.id.coinContainer);
 
-//            TextView transactionText = (TextView)findViewById(R.id.transactionText);
-//            if (test__coinlist > 1 ){
-//                transactionText.setVisibility(View.GONE);
-//                View coinlist = Inflater.inflate(R.layout.transactionlist,coinBox,false);
-//                if(coinlist.getParent()!= null)
-//                    ((ViewGroup)coinlist.getParent()).removeView(coinlist);
-//                coinBox.addView(coinlist);
-//            }
-//        }
+            TextView transactionText = (TextView)findViewById(R.id.transactionText);
+            if (test__coin > 1 ){
+                transactionText.setVisibility(View.GONE);
+                View coinlist = getLayoutInflater().inflate(R.layout.transactionlist,coinBox,false);
+               if(coinlist.getParent()!= null)
+                    ((ViewGroup)coinlist.getParent()).removeView(coinlist);
+                coinBox.addView(coinlist);
+            }
+       }
 
 
         //버튼 참조변수

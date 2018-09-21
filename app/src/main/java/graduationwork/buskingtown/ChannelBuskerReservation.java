@@ -41,19 +41,14 @@ public class ChannelBuskerReservation extends Fragment {
 
         for (int roadCount=0; roadCount<test__road; roadCount++) {
             LinearLayout roadBox = (LinearLayout) v.findViewById(R.id.roadContainer);
-
-            TextView goText = (TextView)v.findViewById(R.id.gotext);
             if (test__road > 1 ){
-                goText.setVisibility(View.GONE);
                 View roadlist = inflater.inflate(R.layout.roadconcert_reservation,roadBox,false);
                 if(roadlist.getParent()!= null)
                     ((ViewGroup)roadlist.getParent()).removeView(roadlist);
                 roadBox.addView(roadlist);
             }
         }
-
         return v;
-
     }
 
 }
