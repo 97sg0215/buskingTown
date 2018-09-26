@@ -166,13 +166,7 @@ public class Ranking extends Fragment {
         busker_image = new ArrayList<>();
         busker_image_bitmap = new ArrayList<>();
 
-        int SDK_INT = android.os.Build.VERSION.SDK_INT;
-        if (SDK_INT > 8)
-        {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                    .permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-            //your codes here
+
 
             Call<List<Busker>> get_busker_rank = apiService.get_ranker(user_token);
             get_busker_rank.enqueue(new Callback<List<Busker>>() {
@@ -185,7 +179,16 @@ public class Ranking extends Fragment {
                             busker_team_name.add(busker.get(i).getTeam_name());
                             busker_tag.add(busker.get(i).getBusker_tag());
                             busker_image.add(busker.get(i).getBusker_image());
-                            busker_image_bitmap.add(getBitmapFromURL(busker_image.get(i)));
+                            int SDK_INT = android.os.Build.VERSION.SDK_INT;
+                            if (SDK_INT > 8) {
+                                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                                        .permitAll().build();
+                                StrictMode.setThreadPolicy(policy);
+                                //your codes here
+                                busker_image_bitmap.add(getBitmapFromURL(busker_image.get(i)));
+
+                            }
+
                             Log.e("메세지", String.valueOf(busker_id.get(i)));
                             int rank = i+1;
                             //리스트 아이템(정보, 아래에 class객체 선언 해둠)에 정보를 받아와 세팅함 , 수경이 할것(테스트할때 임시데이터를 넣어서 해주세요)
@@ -210,7 +213,6 @@ public class Ranking extends Fragment {
 
                 }
             });
-        }
 
 
 
