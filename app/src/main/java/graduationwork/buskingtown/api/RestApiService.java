@@ -3,6 +3,7 @@ package graduationwork.buskingtown.api;
 import java.util.List;
 
 import graduationwork.buskingtown.model.Busker;
+import graduationwork.buskingtown.model.ChangePassword;
 import graduationwork.buskingtown.model.Connections;
 import graduationwork.buskingtown.model.Login;
 import graduationwork.buskingtown.model.Post;
@@ -26,7 +27,7 @@ import retrofit2.http.Path;
 
 public interface RestApiService {
 
-    public  static  final String API_URL="http://7cf65c44.ngrok.io/";
+    public  static  final String API_URL="http://695b6ee5.ngrok.io/";
 
     //회원가입을 위한 데이터 포스트
     @POST("accounts/sign_up/")
@@ -35,6 +36,10 @@ public interface RestApiService {
     //로그인을 위한 데이터 포스트
     @POST("accounts/login/")
     Call<User> login(@Body Login login);
+
+    //비밀번호 변경
+    @PUT("accounts/changePassword/{user_id}/")
+    Call<ResponseBody> changePassword(@Header("Authorization")String authToken, @Path("user_id")int id, @Body ChangePassword changePassword);
 
     //회원탈퇴
     @DELETE("accounts/deleteUser/{user_id}/")

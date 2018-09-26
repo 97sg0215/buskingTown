@@ -297,18 +297,19 @@ public class Mypage extends Fragment {
                         buskerCheck(certification, busker[0]);
                         saveBuskerInfo(busker_id,busker_type,team_name);
                     } else {
-                        //에러 상태 보려고 해둔 코드
-                        int StatusCode = response.code();
-                        String s = response.message();
-                        ResponseBody d = response.errorBody();
-                        Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
-                        Log.e("메세지", s);
-                        Log.e("리스폰스에러바디", String.valueOf(d));
-                        Log.e("리스폰스바디", String.valueOf(response.body()));
+                        buskerCheck(null, null);
+                        saveBuskerInfo(0,0,null);
                     }
-                } else {
-                    buskerCheck(null, null);
-                    saveBuskerInfo(0,0,null);
+                }
+                else {
+                    //에러 상태 보려고 해둔 코드
+                    int StatusCode = response.code();
+                    String s = response.message();
+                    ResponseBody d = response.errorBody();
+                    Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
+                    Log.e("메세지", s);
+                    Log.e("리스폰스에러바디", String.valueOf(d));
+                    Log.e("리스폰스바디", String.valueOf(response.body()));
                 }
             }
 

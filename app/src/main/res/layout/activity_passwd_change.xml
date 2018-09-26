@@ -31,7 +31,7 @@
             android:fontFamily="@font/kopubbold"
             android:textSize="17sp"/>
 
-        <TextView
+        <Button
             android:id="@+id/passwdOK"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,7 +41,9 @@
             android:fontFamily="@font/kopubbold"
             android:layout_alignParentRight="true"
             android:layout_marginRight="30dp"
+            android:textAlignment="textEnd"
             android:text="완료"
+            android:background="#00000000"
             android:textSize="17sp" />
 
     </RelativeLayout>
