@@ -23,10 +23,15 @@
 
         </RelativeLayout>
 
-        <ScrollView
+        <android.support.v4.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/statusBar"
+            android:id="@+id/swipe_layout">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:overScrollMode="never"
             android:scrollbars="none">
 
@@ -40,61 +45,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="175dp">
 
-                    <ImageView
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/slide_recyclerview"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/subGray"/>
-                    
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:gravity="center_horizontal">
+                        android:background="@color/subGray"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"/>
 
-                        <Button
-                            android:id="@+id/alignLeftButton"
-                            android:layout_width="3dp"
-                            android:layout_height="3dp"
-                            android:background="@drawable/able_circle"
-                            android:layout_marginTop="157dp" />
-
-                        <Button
-                            android:id="@+id/leftButton"
-                            android:layout_width="3dp"
-                            android:layout_height="3dp"
-                            android:background="@drawable/enable_circle"
-                            android:layout_marginTop="157dp"
-                            android:layout_alignLeft="@+id/alignLeftButton"
-                            android:layout_marginLeft="5dp"/>
-
-                        <Button
-                            android:id="@+id/centerButton"
-                            android:layout_width="3dp"
-                            android:layout_height="3dp"
-                            android:background="@drawable/enable_circle"
-                            android:layout_marginTop="157dp"
-                            android:layout_alignLeft="@+id/leftButton"
-                            android:layout_marginLeft="5dp"/>
-
-                        <Button
-                            android:id="@+id/rightButton"
-                            android:layout_width="3dp"
-                            android:layout_height="3dp"
-                            android:background="@drawable/enable_circle"
-                            android:layout_marginTop="157dp"
-                            android:layout_alignLeft="@+id/centerButton"
-                            android:layout_marginLeft="5dp"/>
-
-                        <Button
-                            android:id="@+id/alignRightButton"
-                            android:layout_width="3dp"
-                            android:layout_height="3dp"
-                            android:background="@drawable/enable_circle"
-                            android:layout_marginTop="157dp"
-                            android:layout_alignLeft="@+id/rightButton"
-                            android:layout_marginLeft="5dp"/>
-
-                    </LinearLayout>
 
                 </RelativeLayout>
 
@@ -260,6 +218,8 @@
             </LinearLayout>
 
         </ScrollView>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
 
     </RelativeLayout>
 

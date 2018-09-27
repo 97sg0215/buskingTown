@@ -13,6 +13,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +46,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class Ranking extends Fragment {
+public class Ranking extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private final int dayFRAGMENT = 1;
     private final int weekFRAGMENT = 2;
@@ -73,6 +74,8 @@ public class Ranking extends Fragment {
     //리스트에 들어갈 정보들
     ArrayList<RankListItem> listItems;
 
+    SwipeRefreshLayout mSwipeRefreshLayout;
+
     public Ranking() {
         // Required empty public constructor
     }
@@ -89,6 +92,9 @@ public class Ranking extends Fragment {
         restApiBuilder();
 
         getLocalData();
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_layout);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
 
         day = (TextView) v.findViewById(R.id.dayRanking);
         week = (TextView) v.findViewById(R.id.weekRanking);
@@ -217,6 +223,16 @@ public class Ranking extends Fragment {
 
 
         return v;
+    }
+
+    @Override
+    public void onRefresh() {
+        // 새로고침 코드
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.detach(this).attach(this).commit();
+
+        // 새로고침 완료
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
 

@@ -1,12 +1,12 @@
 package graduationwork.buskingtown;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.telecom.Call;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,15 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
 import com.squareup.picasso.Picasso;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,9 +26,20 @@ import okhttp3.ResponseBody;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import com.pusher.pushnotifications.PushNotifications;
+import android.os.Handler;
+import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PagerSnapHelper;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-public class Home extends Fragment {
+
+
+
+public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     RestApiService apiService;
 
@@ -46,6 +50,16 @@ public class Home extends Fragment {
 
     ArrayList<Integer> busker_id = new ArrayList<>();
     ArrayList<String> busker_image = new ArrayList<>();
+
+    SwipeRefreshLayout mSwipeRefreshLayout;
+
+    RecyclerView recyclerView;
+    PagerSnapHelper pagerSnapHelper;
+    LinearLayoutManager layoutManager;
+    Handler handler;
+    Runnable runnable;
+
+
 
     public Home(){
         // Required empty public constructor
@@ -61,7 +75,34 @@ public class Home extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.activity_home, container, false);
 
+        mSwipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_layout);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+
         top_busker_list = (LinearLayout)v.findViewById(R.id.busker_top_list);
+
+        recyclerView = (RecyclerView)v.findViewById(R.id.slide_recyclerview);
+        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        pagerSnapHelper = new PagerSnapHelper();
+        if(handler == null) {
+            handler = new Handler();
+            runnable = new Runnable() {
+                @Override
+                public void run() {
+                    if (layoutManager.findFirstVisibleItemPosition() != 4) {
+                        recyclerView.smoothScrollToPosition(layoutManager.findFirstVisibleItemPosition() + 1);
+                    } else {
+                        recyclerView.smoothScrollToPosition(0);
+                    }
+                    handler.postDelayed(this, 5000);
+                }
+            };
+        }
+        handler.postDelayed(runnable, 5000);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(new RecyclerViewAdapter(getContext()));
+        pagerSnapHelper.attachToRecyclerView(recyclerView);
+
+
 
         return v;
     }
@@ -199,5 +240,15 @@ public class Home extends Fragment {
         ApplicationController application = ApplicationController.getInstance();
         application.buildNetworkService();
         apiService = ApplicationController.getInstance().getRestApiService();
+    }
+
+    @Override
+    public void onRefresh() {
+        // 새로고침 코드
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.detach(this).attach(this).commit();
+
+        // 새로고침 완료
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 }

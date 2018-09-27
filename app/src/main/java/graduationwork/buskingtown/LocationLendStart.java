@@ -30,16 +30,16 @@ public class LocationLendStart extends AppCompatActivity {
             }
         });
 
-        for (int lendCount=0; lendCount<test__lend; lendCount++) {
-            LinearLayout lendBox = (LinearLayout) findViewById(R.id.lendContainer);
-
-            if (test__lend > 1 ){
-                View lendlist = getLayoutInflater().inflate(R.layout.lendbox,lendBox,false);
-                if(lendlist.getParent()!= null)
-                    ((ViewGroup)lendlist.getParent()).removeView(lendlist);
-                lendBox.addView(lendlist);
-            }
-        }
+//        for (int lendCount=0; lendCount<test__lend; lendCount++) {
+//            LinearLayout lendBox = (LinearLayout) findViewById(R.id.lendContainer);
+//
+//            if (test__lend > 1 ){
+//                View lendlist = getLayoutInflater().inflate(R.layout.lendbox,lendBox,false);
+//                if(lendlist.getParent()!= null)
+//                    ((ViewGroup)lendlist.getParent()).removeView(lendlist);
+//                lendBox.addView(lendlist);
+//            }
+//        }
     }
 
 
