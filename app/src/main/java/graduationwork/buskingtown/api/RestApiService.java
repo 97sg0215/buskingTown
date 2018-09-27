@@ -5,6 +5,7 @@ import java.util.List;
 import graduationwork.buskingtown.model.Busker;
 import graduationwork.buskingtown.model.ChangePassword;
 import graduationwork.buskingtown.model.Connections;
+import graduationwork.buskingtown.model.LendLocation;
 import graduationwork.buskingtown.model.Login;
 import graduationwork.buskingtown.model.Post;
 import graduationwork.buskingtown.model.Profile;
@@ -27,7 +28,7 @@ import retrofit2.http.Path;
 
 public interface RestApiService {
 
-    public  static  final String API_URL="http://695b6ee5.ngrok.io/";
+    public  static  final String API_URL="http://buskingtown.pythonanywhere.com/";
 
     //회원가입을 위한 데이터 포스트
     @POST("accounts/sign_up/")
@@ -120,4 +121,8 @@ public interface RestApiService {
     //랭킹 API
     @GET("accounts/buskerRank/")
     Call<List<Busker>> get_ranker (@Header("Authorization")String autoToken);
+
+    //장소 제공
+    @POST("rentLocation/postProvide/")
+    Call<LendLocation> rentLocation (@Header("Authorization")String autoToken);
 }
