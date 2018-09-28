@@ -27,7 +27,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(MyViewHolder holder, int position) {
         switch (position) {
             case 0:
-                holder.imageView.setImageResource(R.drawable.img);
+                holder.imageView.setImageResource(R.drawable.banner);
                 break;
             case 1:
                 holder.imageView.setImageResource(R.drawable.img2);

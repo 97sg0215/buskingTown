@@ -6,6 +6,7 @@ import graduationwork.buskingtown.model.Busker;
 import graduationwork.buskingtown.model.ChangePassword;
 import graduationwork.buskingtown.model.Connections;
 import graduationwork.buskingtown.model.LendLocation;
+import graduationwork.buskingtown.model.LendLocationOption;
 import graduationwork.buskingtown.model.Login;
 import graduationwork.buskingtown.model.Post;
 import graduationwork.buskingtown.model.Profile;
@@ -123,6 +124,30 @@ public interface RestApiService {
     Call<List<Busker>> get_ranker (@Header("Authorization")String autoToken);
 
     //장소 제공
+    @Multipart
     @POST("rentLocation/postProvide/")
-    Call<LendLocation> rentLocation (@Header("Authorization")String autoToken);
+    Call<LendLocation> rentLocation (@Header("Authorization")String autoToken,
+                                     @Part("user") RequestBody user,
+                                     @Part("provide_type") RequestBody provide_type,
+                                     @Part("provider_phone") RequestBody provider_phone,
+                                     @Part("provide_location_name") RequestBody provide_location_name,
+                                     @Part("provide_start_date") RequestBody provide_start_date,
+                                     @Part("provide_end_date") RequestBody provide_end_date,
+                                     @Part("provide_start_time") RequestBody provide_start_time,
+                                     @Part("provide_end_time") RequestBody provide_end_time,
+                                     @Part("provide_location") RequestBody provide_location,
+                                     @Part("provide_description") RequestBody provide_description,
+                                     @Part("provide_rule") RequestBody provide_rule,
+                                     @Part("provide_refund_rule") RequestBody provide_refund_rule,
+                                     @Part MultipartBody.Part provide_image
+                                     );
+
+    @POST("rentLocation/postProvideOption/")
+    Call<LendLocationOption> rentLocationOption (@Header("Authorization")String autoToken, @Body LendLocationOption lendOption);
+
+    @GET("rentLocation/provideUserList/{user_id}/")
+    Call<List<LendLocation>> provideList(@Header("Authorization")String autoToken, @Path("user_id")int user_id);
+
+    @GET("rentLocation/provideOptionList/{provide_id}/")
+    Call<List<LendLocationOption>> provideOptionList(@Header("Authorization")String autoToken, @Path("provide_id")int provide_id);
 }

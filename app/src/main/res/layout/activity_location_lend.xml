@@ -61,29 +61,19 @@
             android:orientation="vertical">
 
             <RelativeLayout
-                android:id="@+id/imageChoiceFive"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:background="@color/subGray">
 
                 <ImageView
-                    android:id="@+id/imageWhite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/imageChoice"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="93dp"
-                    android:background="@drawable/image_w" />
+                    android:layout_centerVertical="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/image_choice" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/imageWhite"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="15.2dp"
-                    android:fontFamily="@font/kopubmedium"
-                    android:text="장소 사진을 선택해주세요. (최대 5장)"
-                    android:textColor="@color/fontBlack"
-                    android:textSize="12sp" />
 
             </RelativeLayout>
 
@@ -91,45 +81,42 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:gravity="center_horizontal"
                 android:paddingBottom="18.8dp"
                 android:paddingLeft="73dp"
                 android:paddingRight="73dp"
                 android:paddingTop="18.8dp">
 
-                <CheckBox
-                    android:id="@+id/checkPracticeRoom"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:background="@drawable/next_btn"
-                    android:button="@android:color/transparent"
-                    android:checked="false" />
-
-                <TextView
+                <RadioGroup
+                    android:id="@+id/radioGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioPracticeRoom"
                     android:layout_weight="1"
-                    android:fontFamily="@font/kopubmedium"
-                    android:text="연습실"
-                    android:textColor="@color/fontBlack"
-                    android:textSize="14sp" />
-
-                <CheckBox
-                    android:id="@+id/checkConcert"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:background="@drawable/next_btn"
-                    android:button="@android:color/transparent"
-                    android:checked="false" />
-
-                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:checked="true"
                     android:fontFamily="@font/kopubmedium"
-                    android:text="콘서트장"
                     android:textColor="@color/fontBlack"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:text="연습실" />
+
+                    <RadioButton
+                        android:id="@+id/radioConcert"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="72.5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/kopubmedium"
+                        android:textColor="@color/fontBlack"
+                        android:textSize="14sp"
+                        android:text="콘서트장" />
+
+                </RadioGroup>
+
 
             </LinearLayout>
 
@@ -170,6 +157,7 @@
                     android:layout_marginTop="8.2dp">
 
                     <EditText
+                        android:id="@+id/provider_phone"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/date_rounded"
@@ -383,6 +371,7 @@
                 android:paddingTop="21.2dp">
 
                 <EditText
+                    android:id="@+id/locationInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
@@ -423,6 +412,7 @@
                     android:layout_marginTop="8.2dp">
 
                     <EditText
+                        android:id="@+id/provide_option"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/date_rounded"
@@ -466,6 +456,7 @@
                     android:layout_marginTop="8.2dp">
 
                     <EditText
+                        android:id="@+id/option_price"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/date_rounded"
@@ -502,6 +493,12 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/option_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"></LinearLayout>
+
             <View
                 android:id="@+id/priceUnderLine"
                 android:layout_width="match_parent"
@@ -509,6 +506,7 @@
                 android:background="@color/sub2Gray" />
 
             <LinearLayout
+                android:id="@+id/add_option"
                 android:layout_width="match_parent"
                 android:layout_height="55.1dp"
                 android:orientation="horizontal"
@@ -580,6 +578,7 @@
                 android:paddingTop="20.2dp">
 
                 <EditText
+                    android:id="@+id/privde_rule"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/kopubmedium"
@@ -638,6 +637,7 @@
                 android:paddingTop="20.2dp">
 
                 <EditText
+                    android:id="@+id/refund_rule"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/kopubmedium"
