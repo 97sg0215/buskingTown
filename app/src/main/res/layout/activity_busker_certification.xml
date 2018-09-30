@@ -285,9 +285,9 @@
                         android:layout_width="18dp"
                         android:layout_height="18dp"
                         android:layout_marginTop="40dp"
-                        android:checked="false"
+                        android:background="@drawable/check_on_off"
                         android:button="@android:color/transparent"
-                        android:background="@drawable/next_btn"/>
+                        android:checked="false" />
 
                     <TextView
                         android:id="@+id/useterms"

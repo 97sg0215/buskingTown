@@ -143,7 +143,7 @@
             android:checked="false"
             android:layout_marginTop="47dp"
             android:button="@android:color/transparent"
-            android:background="@drawable/next_btn"
+            android:background="@drawable/check_on_off"
             android:layout_width="18dp"
             android:layout_height="18dp" />
 

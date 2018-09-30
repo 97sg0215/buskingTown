@@ -93,27 +93,45 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/radioPracticeRoom"
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:fontFamily="@font/kopubmedium"
-                    android:textColor="@color/fontBlack"
-                    android:textSize="14sp"
-                    android:text="연습실" />
+                    <RadioButton
+                        android:id="@+id/radioPracticeRoom"
+                        android:layout_weight="1"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:checked="true"
+                        android:fontFamily="@font/kopubmedium"
+                        android:button="@drawable/check_on_off"
+                        android:textColor="@color/fontBlack"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/fontBlack"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/kopubdotummedium"
+                        android:text="연습실"/>
 
                     <RadioButton
                         android:id="@+id/radioConcert"
                         android:layout_weight="1"
                         android:layout_marginLeft="72.5dp"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:fontFamily="@font/kopubmedium"
+                        android:button="@drawable/check_on_off"
+                        android:textColor="@color/fontBlack"
+                        android:textSize="14sp" />
+
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/kopubmedium"
+                        android:layout_marginLeft="10dp"
                         android:textColor="@color/fontBlack"
                         android:textSize="14sp"
-                        android:text="콘서트장" />
+                        android:fontFamily="@font/kopubdotummedium"
+                        android:text="콘서트장"/>
 
                 </RadioGroup>
 

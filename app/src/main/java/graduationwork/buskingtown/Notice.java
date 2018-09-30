@@ -26,14 +26,14 @@ public class Notice extends AppCompatActivity {
         });
 
         //버전정보 화면전환
-        noticebox = (RelativeLayout) findViewById(R.id.noticeBox);
-        noticebox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent noticeDetail = new Intent(getApplication(), NoticeDetail.class);
-                startActivity(noticeDetail);
-            }
-        });
+        //noticebox = (RelativeLayout) findViewById(R.id.notice_list);
+        //noticebox.setOnClickListener(new View.OnClickListener() {
+            //@Override
+            //public void onClick(View view) {
+                //Intent noticeDetail = new Intent(getApplication(), NoticeDetail.class);
+                //startActivity(noticeDetail);
+            //}
+        //});
 
     }
 }

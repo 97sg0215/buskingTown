@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="74.5dp"
+    android:paddingRight="20dp"
+    android:paddingLeft="20dp">
+
+    <TextView
+        android:id="@+id/noticeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="[ - ]"
+        android:layout_centerVertical="true"
+        android:lineSpacingExtra="33sp"
+        android:textSize="15sp"
+        android:fontFamily="@font/kopubmedium"
+        android:textColor="@color/fontBlack"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:fontFamily="@font/kopubmedium"
+        android:lineSpacingExtra="3sp"
+        android:layout_toRightOf="@+id/noticeTitle"
+        android:layout_marginLeft="10dp"
+        android:text="-"
+        android:textColor="@color/fontBlack"
+        android:textSize="15sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:fontFamily="@font/kopubmedium"
+        android:lineSpacingExtra="2.5sp"
+        android:layout_below="@+id/noticeTitle"
+        android:layout_marginTop="5dp"
+        android:text="-"
+        android:textColor="@color/subGray"
+        android:textSize="12sp"/>
+
+    <View
+        android:id="@+id/noticeunderline"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@color/sub2Gray"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -197,6 +198,8 @@ public class LocationLend extends AppCompatActivity {
         provider_phone = (EditText) findViewById(R.id.provider_phone);
         option_name = (EditText) findViewById(R.id.provide_option);
         option_price = (EditText) findViewById(R.id.option_price);
+
+        provider_phone.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
         provider_phone.addTextChangedListener(new TextWatcher() {
             @Override
