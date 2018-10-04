@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.nio.channels.Channel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +62,23 @@ public class ChannelUser extends AppCompatActivity {
         restApiBuilder();
 
         getLocalData();
+
+        ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {ChannelUser.super.onBackPressed();
+            }
+        });
+
+        //코인보내기 창 가기
+        android.support.design.widget.FloatingActionButton fab = (android.support.design.widget.FloatingActionButton) findViewById(R.id.floatingActionButton);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent CoinSendBefore_pop = new Intent(getApplication(), CoinSendBefore_pop.class);
+                startActivity(CoinSendBefore_pop);
+            }
+        });
 
         busker_id = getIntent().getIntExtra("busker_id", busker_id);
 
