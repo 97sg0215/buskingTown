@@ -145,11 +145,6 @@ public class LocationLendStart extends AppCompatActivity {
 
     }
 
-    public void getOptionList(String user_token,int provide_id){
-
-    }
-
-
     public void addLocation(View view){
         Intent message = new Intent(getApplication(),LocationLend.class);
         startActivity(message);

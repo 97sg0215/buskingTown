@@ -90,6 +90,7 @@
             android:fontFamily="@font/kopubmedium"/>
 
         <ImageView
+            android:id="@+id/roomImage"
             android:layout_width="140dp"
             android:layout_height="97.2dp"
             android:layout_alignParentRight="true"

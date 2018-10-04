@@ -45,6 +45,8 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
     TextView mainTeamName,subTeamName,tag;
     ImageView busker_main_img;
 
+    android.support.design.widget.FloatingActionButton fab;
+
     ArrayList<String> teamList = new ArrayList<>();
 
     @Override
@@ -56,7 +58,7 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
 
         getLocalData();
 
-        android.support.design.widget.FloatingActionButton fab = (android.support.design.widget.FloatingActionButton) findViewById(R.id.floatingActionButton);
+        fab = (android.support.design.widget.FloatingActionButton) findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,6 +113,7 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
 
             case R.id.calendar:
                 callFragment(reservationTabFRAGMENT);
+                fab.setVisibility(View.GONE);
                 break;
         }
 

@@ -44,6 +44,7 @@
         <activity android:name=".FailPass" />
         <activity android:name=".ChannelBusker" />
         <activity android:name=".ChannelUser" />
+        <activity android:name=".ChannelBuskerPracticeroomDetail"/>
         <!-- 코인 보내기 성공했을때 팝업창 -->
         <activity
             android:name=".CoinSendSuccess_pop"

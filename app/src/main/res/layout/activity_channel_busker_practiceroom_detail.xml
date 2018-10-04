@@ -125,6 +125,7 @@
                     android:textColor="@color/mainPurple"/>
 
                 <TextView
+                    android:id="@+id/practiceRoomAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="10.5sp"
@@ -185,10 +186,19 @@
             
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="123.5dp"
+                android:layout_height="wrap_content"
                 android:paddingLeft="35dp"
                 android:paddingRight="35dp"
+                android:paddingBottom="20dp"
                 android:background="@color/mainGray">
+
+                <RadioGroup
+                    android:id="@+id/optionRadioGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </RadioGroup>
 
 
             </LinearLayout>
@@ -212,6 +222,7 @@
                     android:text="소개" />
 
                 <TextView
+                    android:id="@+id/description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
@@ -280,10 +291,13 @@
                     android:layout_marginRight="20dp"/>
 
                 <View
+                    android:id="@+id/dropdown_sch_underline"
                     android:layout_width="match_parent"
                     android:layout_height="0.9dp"
                     android:layout_alignParentBottom="true"
                     android:background="@color/sub2Gray" />
+
+
 
             </RelativeLayout>
 
@@ -291,7 +305,17 @@
                 android:id="@+id/addRule"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:visibility="gone"
+                android:background="@color/mainGray">
+
+                <TextView
+                    android:id="@+id/addRule_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/mainGray"/>
+
             </LinearLayout>
 
             <RelativeLayout
@@ -341,7 +365,16 @@
                 android:id="@+id/addRefund"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:background="@color/mainGray"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/addRule_text_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/mainGray"/>
             </LinearLayout>
             
         </LinearLayout>
@@ -362,6 +395,7 @@
             android:layout_weight="1">
 
             <TextView
+                android:id="@+id/sum_fee"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -380,9 +414,15 @@
             android:layout_height="match_parent">
 
             <Button
+                android:id="@+id/go_reservation"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
+                android:text="예약하기"
+                android:fontFamily="@font/kopubbold"
+                android:textSize="15sp"
+                android:textColor="#fff"
+                android:lineSpacingExtra="-4.5sp"
                 style="?android:attr/borderlessButtonStyle"/>
 
             <View
@@ -391,17 +431,6 @@
                 android:layout_centerVertical="true"
                 android:background="#FFFFFF" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="54.9dp"
-                android:layout_centerVertical="true"
-                android:text="예약하기"
-                android:fontFamily="@font/kopubbold"
-                android:textSize="15sp"
-                android:textColor="#fff"
-                android:lineSpacingExtra="-4.5sp"/>
 
         </RelativeLayout>
         

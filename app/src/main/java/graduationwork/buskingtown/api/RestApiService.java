@@ -150,4 +150,11 @@ public interface RestApiService {
 
     @GET("rentLocation/provideOptionList/{provide_id}/")
     Call<List<LendLocationOption>> provideOptionList(@Header("Authorization")String autoToken, @Path("provide_id")int provide_id);
+
+    //대여 화면
+    @GET("rentLocation/practiceRoomList/")
+    Call<List<LendLocation>> practiceRoomList(@Header("Authorization")String autoToken);
+
+    @GET("rentLocation/concertRoomList/")
+    Call<List<LendLocation>> concertRoomList(@Header("Authorization")String autoToken);
 }
