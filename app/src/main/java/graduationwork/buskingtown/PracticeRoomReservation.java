@@ -3,8 +3,10 @@ package graduationwork.buskingtown;
 import android.app.TimePickerDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TimePicker;
 
@@ -22,6 +24,8 @@ public class PracticeRoomReservation extends AppCompatActivity {
     Button practiceStartDate, practiceEndDate, timeStartDate, timeEndDate;
     int mHour, mMinute, practiceStartYear, practiceStartMonth, practiceStartDay , practiceEndYear, practiceEndMonth, practiceEndDay;
 
+    EditText busker_num;
+
     SimpleDateFormat simpleDateFormat;
 
     @Override
@@ -34,6 +38,9 @@ public class PracticeRoomReservation extends AppCompatActivity {
             @Override
             public void onClick(View v) { PracticeRoomReservation.super.onBackPressed(); }
         });
+
+        busker_num = (EditText) findViewById(R.id.busker_num);
+        busker_num.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
         //시간을 가져오기위한 Calendar 인스턴스 선언
         Calendar cal = new GregorianCalendar();
