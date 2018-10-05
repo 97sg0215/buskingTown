@@ -49,13 +49,13 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/posting"
+        <ImageView
+            android:id="@+id/postingImg"
             android:layout_width="match_parent"
             android:layout_height="360dp"
             android:background="@color/sub2Gray"
             android:layout_below="@+id/postingBusker">
-        </RelativeLayout>
+        </ImageView>
 
         <RelativeLayout
             android:id="@+id/postingInfor"

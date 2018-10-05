@@ -29,7 +29,7 @@ import retrofit2.http.Path;
 
 public interface RestApiService {
 
-    public  static  final String API_URL="http://buskingtown.pythonanywhere.com/";
+    public  static  final String API_URL="http://0efd6edc.ngrok.io/";
 
     //회원가입을 위한 데이터 포스트
     @POST("accounts/sign_up/")
@@ -98,6 +98,11 @@ public interface RestApiService {
                            @Part("busker") RequestBody busker,
                            @Part MultipartBody.Part post_image,
                            @Part("content") RequestBody content);
+
+    //게시물 리스트
+    @GET("busking/postList/")
+    Call<List<Post>> postList(@Header("Authorization")String authToken);
+
 
     //팔로잉API
     @POST("accounts/following/")
