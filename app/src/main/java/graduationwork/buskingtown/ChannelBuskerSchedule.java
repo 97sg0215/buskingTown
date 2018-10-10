@@ -210,7 +210,7 @@ public class ChannelBuskerSchedule extends Fragment {
                                 heart.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        post_unlike(user_token,user_id,likePosts.get(finalI).getLike_post_id(),heart);
+                                        post_unlike(user_token,user_id,post_id,likePosts.get(finalI).getLike_post_id(),heart);
                                     }
                                 });
 
@@ -261,6 +261,12 @@ public class ChannelBuskerSchedule extends Fragment {
             public void onResponse(Call<LikePost> call, Response<LikePost> response) {
                 if(response.isSuccessful()){
                     heart.setBackground(getActivity().getResources().getDrawable(R.drawable.like_f));
+                    heart.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            post_unlike(user_token,user_id,post_id,response.body().getLike_post_id(),heart);
+                        }
+                    });
                 }else {
                     int StatusCode = response.code();
                     String s = response.message();
@@ -283,13 +289,19 @@ public class ChannelBuskerSchedule extends Fragment {
         });
     }
 
-    public void post_unlike(String user_token, int user_id,int like_post_id, ImageButton heart){
+    public void post_unlike(String user_token, int user_id,int post_id,int like_post_id, ImageButton heart){
         Call<LikePost> likePostCall = apiService.unlikePost(user_token,like_post_id);
         likePostCall.enqueue(new Callback<LikePost>() {
             @Override
             public void onResponse(Call<LikePost> call, Response<LikePost> response) {
                 if(response.isSuccessful()){
                     heart.setBackground(getActivity().getResources().getDrawable(R.drawable.like));
+                    heart.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            post_like(user_token,user_id,post_id,heart);
+                        }
+                    });
                 }else {
                     int StatusCode = response.code();
                     String s = response.message();
