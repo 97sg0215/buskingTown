@@ -7,6 +7,7 @@ import graduationwork.buskingtown.model.ChangePassword;
 import graduationwork.buskingtown.model.Connections;
 import graduationwork.buskingtown.model.LendLocation;
 import graduationwork.buskingtown.model.LendLocationOption;
+import graduationwork.buskingtown.model.LikePost;
 import graduationwork.buskingtown.model.Login;
 import graduationwork.buskingtown.model.Post;
 import graduationwork.buskingtown.model.Profile;
@@ -29,7 +30,7 @@ import retrofit2.http.Path;
 
 public interface RestApiService {
 
-    public  static  final String API_URL="http://0efd6edc.ngrok.io/";
+    public  static  final String API_URL="http://buskingtown.pythonanywhere.com/";
 
     //회원가입을 위한 데이터 포스트
     @POST("accounts/sign_up/")
@@ -100,9 +101,20 @@ public interface RestApiService {
                            @Part("content") RequestBody content);
 
     //게시물 리스트
-    @GET("busking/postList/")
-    Call<List<Post>> postList(@Header("Authorization")String authToken);
+    @GET("busking/buskerPostList/{busker_id}/")
+    Call<List<Post>> postList(@Header("Authorization")String authToken,@Path("busker_id")int id);
 
+    //유저 좋아요 목록
+    @GET("accounts/likeCheck/{user_id}/")
+    Call<List<LikePost>> getLikePost(@Header("Authorization")String authToken, @Path("user_id")int user);
+
+    //게시물 좋아요
+    @POST("busking/likePost/")
+    Call<LikePost> likePost(@Header("Authorization")String authToken, @Body LikePost likePost);
+
+    //게시물 좋아요 취소
+    @DELETE("busking/unlikePost/{like_post_id}/")
+    Call<LikePost> unlikePost(@Header("Authorization")String authToken,@Path("like_post_id")int like_post_id);
 
     //팔로잉API
     @POST("accounts/following/")

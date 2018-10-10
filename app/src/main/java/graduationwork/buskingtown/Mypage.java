@@ -70,7 +70,7 @@ public class Mypage extends Fragment {
     }
 
     //유저 정보 변수들
-    String user_token,user_name,user_image, real_album_path,team_name;
+    String user_token,user_name,user_image, real_album_path,team_name, busker_image;
     int user_id,busker_id,busker_type;
     Boolean certification;
 
@@ -288,6 +288,7 @@ public class Mypage extends Fragment {
                     busker_id = userDetail[0].getBusker().getBusker_id();
                     busker_type = userDetail[0].getBusker().getBusker_type();
                     team_name = userDetail[0].getBusker().getTeam_name();
+                    busker_image = userDetail[0].getBusker().getBusker_image();
 
                         Log.e("유저 아이디", String.valueOf(id));
                         Log.e("버스커 아이디", String.valueOf(busker_id));
@@ -295,10 +296,10 @@ public class Mypage extends Fragment {
                         Log.e("버스커", String.valueOf(busker));
                         Log.e("버스커유저정보가져오기:", "성공");
                         buskerCheck(certification, busker[0]);
-                        saveBuskerInfo(busker_id,busker_type,team_name);
+                        saveBuskerInfo(busker_id,busker_type,team_name,busker_image);
                     } else {
                         buskerCheck(null, null);
-                        saveBuskerInfo(0,0,null);
+                        saveBuskerInfo(0,0,null,null);
                     }
                 }
                 else {
@@ -322,11 +323,12 @@ public class Mypage extends Fragment {
 
 
     //busker 정보를 저장하기 위함 key값 : BuskerUser
-    public void saveBuskerInfo(int busker_id,int busker_type,String team_name){
+    public void saveBuskerInfo(int busker_id,int busker_type,String team_name, String busker_image){
         SharedPreferences.Editor editor = prefBusker.edit();
         editor.putInt("busker_type",busker_type);
         editor.putInt("busker_id",busker_id);
         editor.putString("team_name",team_name);
+        editor.putString("busker_image",busker_image);
         editor.commit();
     }
 

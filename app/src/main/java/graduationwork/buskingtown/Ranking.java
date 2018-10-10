@@ -181,24 +181,16 @@ public class Ranking extends Fragment implements SwipeRefreshLayout.OnRefreshLis
                     if(response.isSuccessful()){
                         List<Busker> busker = response.body();
                         for(int i=0; i<busker.size();i++){
-                            busker_id.add(busker.get(i).getBusker_id());
-                            busker_team_name.add(busker.get(i).getTeam_name());
-                            busker_tag.add(busker.get(i).getBusker_tag());
-                            busker_image.add(busker.get(i).getBusker_image());
-                            int SDK_INT = android.os.Build.VERSION.SDK_INT;
-                            if (SDK_INT > 8) {
-                                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                                        .permitAll().build();
-                                StrictMode.setThreadPolicy(policy);
-                                //your codes here
+                                busker_id.add(busker.get(i).getBusker_id());
+                                busker_team_name.add(busker.get(i).getTeam_name());
+                                busker_tag.add(busker.get(i).getBusker_tag());
+                                busker_image.add(busker.get(i).getBusker_image());
                                 busker_image_bitmap.add(getBitmapFromURL(busker_image.get(i)));
 
-                            }
-
-                            Log.e("메세지", String.valueOf(busker_id.get(i)));
-                            int rank = i+1;
-                            //리스트 아이템(정보, 아래에 class객체 선언 해둠)에 정보를 받아와 세팅함 , 수경이 할것(테스트할때 임시데이터를 넣어서 해주세요)
-                            listItems.add(new RankListItem(rank,busker_team_name.get(i),busker_tag.get(i), busker_image_bitmap.get(i), busker_id.get(i)));
+                                Log.e("메세지", String.valueOf(busker_id.get(i)));
+                                int rank = i+1;
+                                //리스트 아이템(정보, 아래에 class객체 선언 해둠)에 정보를 받아와 세팅함 , 수경이 할것(테스트할때 임시데이터를 넣어서 해주세요)
+                                listItems.add(new RankListItem(rank,busker_team_name.get(i),busker_tag.get(i), busker_image_bitmap.get(i), busker_id.get(i)));
                         }
                         //화면 리스트 뷰에 정보들이 들어가있는 어댑터를 연결함
                         listView.setAdapter(mAdapter);
@@ -291,8 +283,14 @@ public class Ranking extends Fragment implements SwipeRefreshLayout.OnRefreshLis
             TextView busker_tag = (TextView) result.findViewById(R.id.buskerTag);
 
             ranking.setText(String.valueOf(getItem(position).ranking));
-            busker_image.setImageBitmap(getItem(position).busker_image);
-            busker_image.setScaleType(ImageView.ScaleType.FIT_XY);
+            int SDK_INT = android.os.Build.VERSION.SDK_INT;
+            if (SDK_INT > 8) {
+                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                        .permitAll().build();
+                StrictMode.setThreadPolicy(policy);
+                busker_image.setImageBitmap(getItem(position).busker_image);
+                busker_image.setScaleType(ImageView.ScaleType.FIT_XY);
+            }
             team_name.setText(getItem(position).team_name);
             busker_tag.setText(getItem(position).busker_tag);
 

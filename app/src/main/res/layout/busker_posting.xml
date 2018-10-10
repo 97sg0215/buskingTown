@@ -16,16 +16,17 @@
             android:layout_width="match_parent"
             android:layout_height="70dp">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/profileSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:background="#00000000"
                 android:src="@drawable/profile_small"/>
 
             <TextView
+                android:id="@+id/main_team_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="busker_id"
@@ -128,6 +129,7 @@
                 android:visibility="gone"/>
 
             <TextView
+                android:id="@+id/post_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"

@@ -62,26 +62,6 @@ public class WritePost extends AppCompatActivity {
         restApiBuilder();
         getLocalData();
 
-        //runtime permission
-        PermissionListener permissionListener= new PermissionListener() {
-            @Override
-            public void onPermissionGranted() {
-                Toast.makeText(WritePost.this,"권한허가",Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                Toast.makeText(WritePost.this,"권한거부\n"+ deniedPermissions.toString(),Toast.LENGTH_SHORT).show();
-
-            }
-
-        };
-        TedPermission.with(this)
-                .setPermissionListener(permissionListener)
-                .setRationaleMessage("사진에 접근하기위해서는 사진 접근 권한이 필요해요")
-                .setDeniedMessage("접근을 거부 하셨군요 \n [설정]->[권한]에서 권한을 허용할 수 있어요.")
-                .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .check();
 
         final EditText postEdit = (EditText) findViewById(R.id.writePost);
 
@@ -172,15 +152,19 @@ public class WritePost extends AppCompatActivity {
         Log.e("게시물내용",String.valueOf(contents));
         Log.e("유저토큰",String.valueOf(user_token));
 
+        MultipartBody.Part filePart;
 
-        //이미지 업로드
-        File file = new File(filePath);
-        Log.e("파일경로", String.valueOf(filePath));
-        Log.e("파일이름", String.valueOf(file.getName()));
-        RequestBody surveyBody = RequestBody.create(MediaType.parse("image/*"), file);
-        Log.e("이미지", String.valueOf(surveyBody.contentType()));
-        MultipartBody.Part filePart = MultipartBody.Part.createFormData("post_image", file.getName(), surveyBody);
-
+        if(filePath!=null) {
+            //이미지 업로드
+            File file = new File(filePath);
+            Log.e("파일경로", String.valueOf(filePath));
+            Log.e("파일이름", String.valueOf(file.getName()));
+            RequestBody surveyBody = RequestBody.create(MediaType.parse("image/*"), file);
+            Log.e("이미지", String.valueOf(surveyBody.contentType()));
+            filePart = MultipartBody.Part.createFormData("post_image", file.getName(), surveyBody);
+        }else {
+            filePart = null;
+        }
         Call<Post> postUpload = apiService.postUpload(user_token, busker, filePart, content);
         postUpload.enqueue(new Callback<Post>() {
 
@@ -189,7 +173,7 @@ public class WritePost extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Log.e("게시물세팅:", "성공");
                     Log.e("게시물이미지:", String .valueOf(response.body().getPost_image()));
-                    //completeApply();
+                    completeApply();
                 } else {
                     Toast.makeText(getApplicationContext(), "게시물 업로드를 실패했습니다.\n다시 시도해주세요", Toast.LENGTH_SHORT).show();
                     int StatusCode = response.code();
@@ -220,10 +204,10 @@ public class WritePost extends AppCompatActivity {
         team_name = busker_pref.getString("team_name",null);
     }
 
-//    public void completeApply() {
-//        Intent waitPassActivity = new Intent(getApplication(),WaitPass.class);
-//        startActivity(waitPassActivity);
-//    }
+    public void completeApply() {
+        Intent ChannelBusker = new Intent(getApplication(),ChannelBusker.class);
+        startActivity(ChannelBusker);
+    }
 
     public void restApiBuilder() {
         ApplicationController application = ApplicationController.getInstance();

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import graduationwork.buskingtown.api.RestApiService;
@@ -114,14 +115,15 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
             public void onResponse(retrofit2.Call<List<Busker>> call, Response<List<Busker>> response) {
                 if(response.isSuccessful()){
                     List<Busker> busker = response.body();
+                    List<Busker> buskers = null;
                     //랭킹 view에 정렬이 되어있으므로 순서대로 객체10개만 불러오면 됨
                     if(busker.size()>10){
                         for(int i=0; i<= 10 ;i++) {
-                           getTopAllList(inflater,busker,i);
+                                getTopAllList(inflater,busker,i);
                         }
                     }else {
                         for (int i=0; i< busker.size();i++){
-                            getTopAllList(inflater,busker,i);
+                                getTopAllList(inflater,busker,i);
                         }
                     }
 
@@ -149,7 +151,6 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
     public void getTopAllList(LayoutInflater inflater,List<Busker>busker, int i){
         try{
             //허용된 버스커만 각 개인 아이디 확인
-            if(busker.get(i).getCertification()!=null&&busker.get(i).getCertification()!=false) {
                 busker_id.add(busker.get(i).getBusker_id());
                 busker_image.add(busker.get(i).getBusker_image());
 
@@ -178,7 +179,6 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
                         my_channel_check(final_busker_team, finalI, final_id);
                     }
                 });
-            }
         }catch (Exception e){
             e.printStackTrace();
         }

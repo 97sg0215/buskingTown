@@ -109,6 +109,7 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.board:
                 callFragment(scheduleFRAGMENT);
+                fab.setVisibility(View.VISIBLE);
                 break;
 
             case R.id.calendar:

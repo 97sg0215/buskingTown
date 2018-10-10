@@ -1,21 +1,25 @@
 package graduationwork.buskingtown;
 
+import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.tsongkha.spinnerdatepicker.DatePicker;
-import com.tsongkha.spinnerdatepicker.DatePickerDialog;
-import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder;
+//import com.tsongkha.spinnerdatepicker.DatePicker;
+//import com.tsongkha.spinnerdatepicker.DatePickerDialog;
+//import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
@@ -27,6 +31,8 @@ public class PracticeRoomReservation extends AppCompatActivity {
     EditText busker_num;
 
     SimpleDateFormat simpleDateFormat;
+
+    TextView roomChoice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,45 +71,33 @@ public class PracticeRoomReservation extends AppCompatActivity {
         practiceStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                DatePickerDialog.OnDateSetListener dateStartPicker = new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog dialog = new DatePickerDialog(PracticeRoomReservation.this,R.style.MyDatePickerDialogTheme, new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        practiceStartDate.setText(year + "년 " + (monthOfYear + 1) + "월 " + dayOfMonth + "일");
+                    public void onDateSet(DatePicker datePicker, int year, int month, int date) {
+                        practiceStartDate.setText(year + "년 " + (month + 1) + "월 " + date + "일");
                     }
-                };
+                }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
 
-                new SpinnerDatePickerDialogBuilder()
-                        .callback(dateStartPicker)
-                        .context(PracticeRoomReservation.this)
-                        .spinnerTheme(R.style.DatePickerSpinner)
-                        .showTitle(true)
-                        .defaultDate(practiceStartYear,practiceStartMonth,practiceStartDay)
-                        .build()
-                        .show();
+                dialog.getDatePicker().setMinDate(new Date().getTime());    //입력한 날짜 이후로 클릭 안되게 옵션
+                dialog.show();
             }
         });
+
+
 
         practiceEndDate = (Button) findViewById(R.id.practiceEndDate);
         practiceEndDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                DatePickerDialog.OnDateSetListener dateEndPicker = new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog dialog = new DatePickerDialog(PracticeRoomReservation.this,R.style.MyDatePickerDialogTheme, new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        practiceEndDate.setText(year + "년 " + (monthOfYear + 1) + "월 " + dayOfMonth + "일");
+                    public void onDateSet(DatePicker datePicker, int year, int month, int date) {
+                        practiceEndDate.setText(year + "년 " + (month + 1) + "월 " + date + "일");
                     }
-                };
+                }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
 
-                new SpinnerDatePickerDialogBuilder()
-                        .callback(dateEndPicker)
-                        .context(PracticeRoomReservation.this)
-                        .spinnerTheme(R.style.DatePickerSpinner)
-                        .showTitle(true)
-                        .defaultDate(practiceEndYear,practiceEndMonth,practiceEndDay)
-                        .build()
-                        .show();
+                dialog.getDatePicker().setMinDate(new Date().getTime());    //입력한 날짜 이후로 클릭 안되게 옵션
+                dialog.show();
             }
         });
     }
@@ -142,6 +136,8 @@ public class PracticeRoomReservation extends AppCompatActivity {
                 }
             };
 
+
+
     TimePickerDialog.OnTimeSetListener endTimeSetListener =
 
             new TimePickerDialog.OnTimeSetListener() {
@@ -162,4 +158,5 @@ public class PracticeRoomReservation extends AppCompatActivity {
     public void previousActivity(View v){
         onBackPressed();
     }
+
 }

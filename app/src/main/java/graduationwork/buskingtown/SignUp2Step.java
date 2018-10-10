@@ -25,6 +25,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,6 +33,7 @@ import java.util.regex.Pattern;
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.Profile;
 import graduationwork.buskingtown.model.SignUp;
+import graduationwork.buskingtown.model.User;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -170,7 +172,6 @@ public class SignUp2Step extends AppCompatActivity {
             }
         });
 
-
     }
 
     //아이디 형식이 제대로 되어있나 체크 메소드
@@ -216,12 +217,16 @@ public class SignUp2Step extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "버스킹타운 회원이 되신걸 축하드립니다!!", Toast.LENGTH_SHORT).show();
                     startLogin();
                 } else {
-                    Toast.makeText(getApplicationContext(), "회원가입에 실패했습니다.\n다시 시도해주세요", Toast.LENGTH_SHORT).show();
                     int StatusCode = response.code();
                     Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
+                    if(StatusCode == 400){
+                        Toast.makeText(getApplicationContext(), "중복된 아이디가 존재 합니다.\n다른 아이디로 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(getApplicationContext(), "회원가입에 실패했습니다.\n다시 시도해주세요", Toast.LENGTH_SHORT).show();
+                    }
                     Log.e("메세지", String.valueOf(response.message()));
                     Log.e("리스폰스에러바디", String.valueOf(response.errorBody()));
-                    Log.e("리스폰스바디", String.valueOf(response.body()));
+                    Log.e("리스폰스바디", String.valueOf(response.raw().toString()));
                 }
             }
 
