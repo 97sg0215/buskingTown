@@ -1,13 +1,19 @@
 package graduationwork.buskingtown;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.ShapeDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import com.tsongkha.spinnerdatepicker.DatePicker;
 import com.tsongkha.spinnerdatepicker.DatePickerDialog;
@@ -24,20 +30,21 @@ public class Statistics extends AppCompatActivity implements View.OnClickListene
     int coinStartYear, coinStartMonth, coinStartDay , coinEndYear, coinEndMonth, coinEndDay;
     SimpleDateFormat simpleDateFormat;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
 
-        LinearLayout clickDropdownBox = (LinearLayout) findViewById(R.id.clickDropdownBox);
-        ImageButton dropdown= (ImageButton)findViewById(R.id.dropdownImg);
-        dropdown.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                clickDropdownBox.setVisibility(View.VISIBLE);
-                dropdown.setVisibility(View.INVISIBLE);
-            }
-        });
+//        LinearLayout clickDropdownBox = (LinearLayout) findViewById(R.id.clickDropdownBox);
+//        ImageButton dropdown= (ImageButton)findViewById(R.id.dropdownImg);
+//        dropdown.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View v){
+//                clickDropdownBox.setVisibility(View.VISIBLE);
+//                dropdown.setVisibility(View.INVISIBLE);
+//            }
+//        });
 
         //버튼 참조변수
         oneMonth = (Button) findViewById(R.id.oneMonth);
@@ -68,6 +75,7 @@ public class Statistics extends AppCompatActivity implements View.OnClickListene
 
         //데이트 피커
         coinSD = (Button) findViewById(R.id.coinSD);
+        coinSD.setText(String.format("%2d년 %02d월 %02d일",coinStartYear,coinStartMonth,coinStartDay));
         coinSD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,6 +100,7 @@ public class Statistics extends AppCompatActivity implements View.OnClickListene
         });
 
         coinED = (Button) findViewById(R.id.coinED);
+        coinED.setText(String.format("%2d년 %02d월 %02d일",coinEndYear,coinEndMonth+1,coinEndDay));
         coinED.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,6 +129,11 @@ public class Statistics extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onClick(View v) { Statistics.super.onBackPressed(); }
         });
+
+        Spinner spinner = (Spinner)findViewById(R.id.spinner_drop);
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.statistics_menu, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
     }
 
     public void previousActivity(View v){
@@ -133,6 +147,7 @@ public class Statistics extends AppCompatActivity implements View.OnClickListene
                 //1개월 버튼색 활성화
                 oneMonth.setBackground(getDrawable(R.drawable.able_btn));
                 oneMonth.setTextColor(Color.parseColor("#ffffff"));
+                coinSD.setText(String.format("%2d년 %02d월 %02d일",coinStartYear,coinStartMonth,coinStartDay));
                 //나머지 버튼색 비활성화
                 threeMonth.setBackground(getDrawable(R.drawable.date_rounded));
                 threeMonth.setTextColor(getResources().getColor(R.color.mainPurple));
@@ -146,6 +161,7 @@ public class Statistics extends AppCompatActivity implements View.OnClickListene
                 //3개월 버튼색 활성화
                 threeMonth.setBackground(getDrawable(R.drawable.able_btn));
                 threeMonth.setTextColor(Color.parseColor("#ffffff"));
+                coinSD.setText(String.format("%2d년 %02d월 %02d일",coinStartYear,coinStartMonth-2,coinStartDay));
                 //나머지 버튼색 비활성화
                 oneMonth.setBackground(getDrawable(R.drawable.date_rounded));
                 oneMonth.setTextColor(getResources().getColor(R.color.mainPurple));
@@ -159,6 +175,7 @@ public class Statistics extends AppCompatActivity implements View.OnClickListene
                 //6개월 버튼색 활성화
                 sixMonth.setBackground(getDrawable(R.drawable.able_btn));
                 sixMonth.setTextColor(Color.parseColor("#ffffff"));
+                coinSD.setText(String.format("%2d년 %02d월 %02d일",coinStartYear,coinStartMonth-5,coinStartDay));
                 //나머지 버튼색 비활성화
                 oneMonth.setBackground(getDrawable(R.drawable.date_rounded));
                 oneMonth.setTextColor(getResources().getColor(R.color.mainPurple));
@@ -172,6 +189,7 @@ public class Statistics extends AppCompatActivity implements View.OnClickListene
                 //1년 버튼색 활성화
                 oneYearz.setBackground(getDrawable(R.drawable.able_btn));
                 oneYearz.setTextColor(Color.parseColor("#ffffff"));
+                coinSD.setText(String.format("%2d년 %02d월 %02d일",coinStartYear-1,coinStartMonth+1,coinStartDay));
                 //나머지 버튼색 비활성화
                 oneMonth.setBackground(getDrawable(R.drawable.date_rounded));
                 oneMonth.setTextColor(getResources().getColor(R.color.mainPurple));
@@ -182,4 +200,7 @@ public class Statistics extends AppCompatActivity implements View.OnClickListene
                 break;
         }
     }
+
+
+
 }
