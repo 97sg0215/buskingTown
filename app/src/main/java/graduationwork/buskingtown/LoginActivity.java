@@ -51,9 +51,9 @@ public class LoginActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        PushNotifications.start(getApplicationContext(), "4c4a8894-87b8-4006-8e7e-b2b57fa83b79");
-        PushNotifications.subscribe("hello");
+//
+//        PushNotifications.start(getApplicationContext(), "4c4a8894-87b8-4006-8e7e-b2b57fa83b79");
+//        PushNotifications.subscribe("hello");
 
         //runtime permission
         PermissionListener permissionListener= new PermissionListener() {

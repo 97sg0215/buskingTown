@@ -42,6 +42,8 @@ import android.view.ViewGroup;
 
 public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
+    SharedPreferences prefUser, prefBusker;
+
     RestApiService apiService;
 
     String user_token, user_name;
@@ -68,6 +70,9 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        prefBusker = this.getActivity().getSharedPreferences("BuskerUser", Activity.MODE_PRIVATE);
+        prefUser = this.getActivity().getSharedPreferences("User", Activity.MODE_PRIVATE);
 
         restApiBuilder();
 
@@ -205,6 +210,7 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
                             //개인 아이디를 다음 액티비티에서 받아 세팅
                             buskerChannel.putExtra("busker_id",final_busker_id);
                             buskerChannel.putExtra("busker_user_id",final_user_id);
+                            saveBuskerInfo(final_busker_id,user.getBusker().getBusker_type(),team_name,user.getBusker().getBusker_image());
                             startActivity(buskerChannel);
                         }
                     } //내 채널이 아닐 경우, 유저가 버스커가 아닐 경우 정상 진행
@@ -227,10 +233,9 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
 
     //user데이터 얻어오기
     public void getLocalData(){
-        SharedPreferences pref = getActivity().getSharedPreferences("User", Activity.MODE_PRIVATE);
-        user_token = pref.getString("auth_token",null);
-        user_name = pref.getString("username",null);
-        user_id = pref.getInt("user_id",0);
+        user_token = prefUser.getString("auth_token",null);
+        user_name = prefUser.getString("username",null);
+        user_id = prefUser.getInt("user_id",0);
 
         getTopBuskerList(getLayoutInflater(),user_token);
     }
@@ -250,5 +255,14 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
 
         // 새로고침 완료
         mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    public void saveBuskerInfo(int busker_id,int busker_type,String team_name, String busker_image){
+        SharedPreferences.Editor editor = prefBusker.edit();
+        editor.putInt("busker_type",busker_type);
+        editor.putInt("busker_id",busker_id);
+        editor.putString("team_name",team_name);
+        editor.putString("busker_image",busker_image);
+        editor.commit();
     }
 }
