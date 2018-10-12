@@ -22,10 +22,6 @@ android {
     }
 }
 
-//통계 그래
-repositories {
-    maven { url "https://jitpack.io" }
-}
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -58,7 +54,7 @@ dependencies {
     //네이버 지도 api
     implementation 'com.naver.maps.open:naver-map-api:2.1.2@aar'
     //통계 그래프
-    compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -170,27 +170,28 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
             public void onResponse(retrofit2.Call<List<Busker>> call, Response<List<Busker>> response) {
                 if(response.isSuccessful()){
                     List<Busker> buskers = response.body();
-                    for (int i=0; i<buskers.size();i++){
-                        Log.e("팀이름",String.valueOf(team_name));
-                        //본인 일 경우에도 동일하게 검색이 되므로 이중 if문으로 처리
-                        if(team_name.equals(buskers.get(i).getTeam_name())){
-                            //팀 멤버가 몇명이 되나 확인
-                            String member = buskers.get(i).getTeam_name();
-                            teamList.add(member);
-                            //아이디와 타입값을 넘겨줌
-                            typelist.put(buskers.get(i).getBusker_id(),buskers.get(i).getBusker_type());
-                            Log.e("멤버 리스트", String.valueOf(typelist));
+                    if(buskers.size()!=1){
+                        for (int i=0; i<buskers.size();i++){
+                            Log.e("팀이름",String.valueOf(team_name));
+                            //본인 일 경우에도 동일하게 검색이 되므로 이중 if문으로 처리
+                            if(team_name.equals(buskers.get(i).getTeam_name())){
+                                //팀 멤버가 몇명이 되나 확인
+                                String member = buskers.get(i).getTeam_name();
+                                teamList.add(member);
+                                //아이디와 타입값을 넘겨줌
+                                typelist.put(buskers.get(i).getBusker_id(),buskers.get(i).getBusker_type());
+                                Log.e("멤버 리스트", String.valueOf(typelist));
 
-                            //멤버 타입 가져오기
-                            Integer wrapper_buskertype = (Integer)typelist.get(buskers.get(i).getBusker_id());
-                            int busker_type = wrapper_buskertype.intValue();
+                                //멤버 타입 가져오기
+                                Integer wrapper_buskertype = (Integer)typelist.get(buskers.get(i).getBusker_id());
+                                int busker_type = wrapper_buskertype.intValue();
 
-                            Integer wrapper_busker_leader = (Integer)typelist.get(getKey(typelist,1));
-                            int busker_leader_id = wrapper_busker_leader.intValue();
+                                Integer wrapper_busker_leader = (Integer)typelist.get(getKey(typelist,1));
+                                int busker_leader_id = wrapper_busker_leader.intValue();
 
-                            //버스커 멤버가 있을때
-                            if (teamList.size()>=2){
-                                //팀장일 경우 그대로 보여줌
+                                //버스커 멤버가 있을때
+
+                                    //팀장일 경우 그대로 보여줌
                                 if(busker_type==1){
                                     getBuskerData(user_token,busker_id);
                                 } //팀장이 아닐경우 팀장의 화면을 보여줌
@@ -198,12 +199,12 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
                                     getBuskerData(user_token,busker_leader_id);
                                     Log.e("리더 아이디",String.valueOf(busker_leader_id));
                                 }
-                            } //멤버가 없을때
-                            else {
-                                getBuskerData(user_token,busker_id);
                             }
                         }
+                    }else {
+                        getBuskerData(user_token,busker_id);
                     }
+
                 }else {
                     //에러 상태 보려고 해둔 코드
                     int StatusCode = response.code();
