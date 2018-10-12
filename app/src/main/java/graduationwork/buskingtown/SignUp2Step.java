@@ -101,10 +101,9 @@ public class SignUp2Step extends AppCompatActivity {
                     //색지정 할때 getApplicationContext().getResources().getColor(컬러이름)으로 해주세요.
                     confirmBtn.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.mainPurple));
                     //다음 로그인 버튼
-                    confirmBtn.setOnClickListener(new View.OnClickListener() {
-
+                    confirmBtn.setOnClickListener(new OnSingleClickListener() {
                         @Override
-                        public void onClick(View v) {
+                        public void onSingleClick(View v) {
                             String userID = inputIDEdit.getText().toString();
                             String userPhone = phoneNumEdit.getText().toString();
 
@@ -150,10 +149,9 @@ public class SignUp2Step extends AppCompatActivity {
                     //색지정 할때 getApplicationContext().getResources().getColor(컬러이름)으로 해주세요.
                     confirmBtn.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.mainPurple));
                     //다음 로그인 버튼
-                    confirmBtn.setOnClickListener(new View.OnClickListener() {
-
+                    confirmBtn.setOnClickListener(new OnSingleClickListener() {
                         @Override
-                        public void onClick(View v) {
+                        public void onSingleClick(View v) {
                             String userID = inputIDEdit.getText().toString();
                             String userPhone = phoneNumEdit.getText().toString();
 

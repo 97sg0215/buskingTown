@@ -135,14 +135,14 @@ public class LoginActivity extends AppCompatActivity {
                 if (idOk[0] && pwOk[0]) { //이메일과 패스워드 모두 형식에 맞으면 로그인
                     loginBtn.setBackground(getDrawable(R.drawable.able_btn));
                     //로그인 버튼 클릭시 메소드
-                    loginBtn.setOnClickListener(new Button.OnClickListener() {
-                                                    public void onClick(View v) {
-                                                        String userID = idEdit.getText().toString();
-                                                        String userPW = passWdEdit.getText().toString();
-                                                        login(userID, userPW);
-                                                    }
-                                                }
-                    );
+                    loginBtn.setOnClickListener(new OnSingleClickListener() {
+                        @Override
+                        public void onSingleClick(View v) {
+                            String userID = idEdit.getText().toString();
+                            String userPW = passWdEdit.getText().toString();
+                            login(userID, userPW);
+                        }
+                    });
                 } else { //아니면 로그인 비활성화
                     loginBtn.setBackground(getDrawable(R.drawable.disable_btn));
                     loginBtn.setOnClickListener(null);
@@ -177,14 +177,14 @@ public class LoginActivity extends AppCompatActivity {
                 if (idOk[0] && pwOk[0]) { //이메일과 패스워드 모두 형식에 맞으면 로그인
                     loginBtn.setBackground(getDrawable(R.drawable.able_btn));
                     //로그인 버튼 클릭시 메소드
-                    loginBtn.setOnClickListener(new Button.OnClickListener() {
-                                                    public void onClick(View v) {
-                                                        String userID = idEdit.getText().toString();
-                                                        String userPW = passWdEdit.getText().toString();
-                                                        login(userID, userPW);
-                                                    }
-                                                }
-                    );
+                    loginBtn.setOnClickListener(new OnSingleClickListener() {
+                        @Override
+                        public void onSingleClick(View v) {
+                            String userID = idEdit.getText().toString();
+                            String userPW = passWdEdit.getText().toString();
+                            login(userID, userPW);
+                        }
+                    });
                 } else { //아니면 로그인 비활성화
                     loginBtn.setBackground(getDrawable(R.drawable.disable_btn));
                     loginBtn.setOnClickListener(null);

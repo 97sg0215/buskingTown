@@ -34,6 +34,7 @@ import java.util.List;
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.Busker;
 import graduationwork.buskingtown.model.Connections;
+import graduationwork.buskingtown.model.LikePost;
 import graduationwork.buskingtown.model.Post;
 import graduationwork.buskingtown.model.Profile;
 import okhttp3.ResponseBody;
@@ -63,6 +64,7 @@ public class ChannelUser extends AppCompatActivity {
     ArrayList<Integer> all_user_id = new ArrayList<>();
     ArrayList<Integer> all_busker_id = new ArrayList<>();
     ArrayList<Integer> get_follower_id = new ArrayList<>();
+    ArrayList<Integer> all_post_id = new ArrayList<>();
 
     RestApiService apiService;
 
@@ -150,6 +152,7 @@ public class ChannelUser extends AppCompatActivity {
                             postMainTeamName.setText(team_name);
                             postDate.setText(date_words[1] +"월 "+date_words[2]+"일 ");
 
+                            like_check(user_token,user_id,posts.get(i).getPost_id(),like);
 
                             int SDK_INT = android.os.Build.VERSION.SDK_INT;
                             if (SDK_INT > 8) {
@@ -197,18 +200,18 @@ public class ChannelUser extends AppCompatActivity {
                                 following_btn.setBackground(getDrawable(R.drawable.fan_on_btn));
                                 following_btn.setTextColor(Color.parseColor("#000000"));
                                 following_btn.setText("팬이에요");
-                                following_btn.setOnClickListener(new View.OnClickListener() {
+                                following_btn.setOnClickListener(new OnSingleClickListener() {
                                     @Override
-                                    public void onClick(View v) {
+                                    public void onSingleClick(View v) {
                                         unfollowing(connection_id);
                                     }
                                 });
 
                             }//팔로우 안되어 있을 경우
                             else {
-                                following_btn.setOnClickListener(new View.OnClickListener() {
+                                following_btn.setOnClickListener(new OnSingleClickListener() {
                                     @Override
-                                    public void onClick(View v) {
+                                    public void onSingleClick(View v) {
                                         follow(user_id,busker_id);
                                     }
                                 });
@@ -216,9 +219,9 @@ public class ChannelUser extends AppCompatActivity {
                         }
                     }//커넥션 목록 없을때
                     else {
-                        following_btn.setOnClickListener(new View.OnClickListener() {
+                        following_btn.setOnClickListener(new OnSingleClickListener() {
                             @Override
-                            public void onClick(View v) {
+                            public void onSingleClick(View v) {
                                 follow(user_id,busker_id);
                             }
                         });
@@ -244,6 +247,10 @@ public class ChannelUser extends AppCompatActivity {
         Connections connections = new Connections();
         connections.setUser(user_id);
         connections.setFollowing(busker_id);
+        following_btn.setBackground(getDrawable(R.drawable.fan_on_btn));
+        following_btn.setTextColor(getResources().getColor(R.color.mainPurple));
+        following_btn.setText("팬이에요");
+
         Call<Connections> follow = apiService.follow(user_token,connections);
         follow.enqueue(new Callback<Connections>() {
             @Override
@@ -251,9 +258,7 @@ public class ChannelUser extends AppCompatActivity {
                 if(response.isSuccessful()){
                     Log.e("팔로워ok", String.valueOf(user_id));
                     Log.e("버스커ok", String.valueOf(busker_id));
-                    following_btn.setBackground(getDrawable(R.drawable.fan_on_btn));
-                    following_btn.setTextColor(getResources().getColor(R.color.mainPurple));
-                    following_btn.setText("팬이에요");
+
                     int connection_id = response.body().getConnection_id();
                     Log.e("커넥션 아이디",String.valueOf(connection_id));
                     unfollowing(connection_id);
@@ -277,6 +282,9 @@ public class ChannelUser extends AppCompatActivity {
     }
 
     public void unfollowing(int connection_id){
+        following_btn.setText("팬 할래요");
+        following_btn.setTextColor(Color.parseColor("#FFFFFF"));
+        following_btn.setBackground(getDrawable(R.drawable.able_btn));
         Call<Connections> unfollow = apiService.unfollow(user_token,connection_id);
         unfollow.enqueue(new Callback<Connections>() {
             @Override
@@ -284,12 +292,9 @@ public class ChannelUser extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Log.e("언팔로우:", "완료");
                     Log.e("언팔로우된 커넥션 아이디:", String.valueOf(connection_id));
-                    following_btn.setText("팬 할래요");
-                    following_btn.setTextColor(Color.parseColor("#FFFFFF"));
-                    following_btn.setBackground(getDrawable(R.drawable.able_btn));
-                    following_btn.setOnClickListener(new View.OnClickListener() {
+                    following_btn.setOnClickListener(new OnSingleClickListener() {
                         @Override
-                        public void onClick(View v) {
+                        public void onSingleClick(View v) {
                             follow(user_id,busker_id);
                         }
                     });
@@ -307,6 +312,131 @@ public class ChannelUser extends AppCompatActivity {
             public void onFailure(Call<Connections> call, Throwable t) {
                 Log.i(ApplicationController.TAG, "언팔로우 정보 서버 삭제 실패 Message : " + t.getMessage());
                 }
+        });
+    }
+
+    public void like_check(String user_token, int user_id, int post_id, ImageButton heart){
+        Call<List<LikePost>> getLikePostCall = apiService.getLikePost(user_token,user_id);
+        getLikePostCall.enqueue(new Callback<List<LikePost>>() {
+            @Override
+            public void onResponse(Call<List<LikePost>> call, Response<List<LikePost>> response) {
+                List<LikePost> likePosts = response.body();
+                if(response.isSuccessful()){
+                    if(likePosts.size()!=0){
+                        for(int i=0; i <likePosts.size(); i++){
+                            all_post_id.add(likePosts.get(i).getPost());
+                            //좋아요 되어 있을 경우
+                            if(post_id == all_post_id.get(i)){
+                                heart.setBackground(getDrawable(R.drawable.like_f));
+                                int finalI = i;
+                                heart.setOnClickListener(new OnSingleClickListener() {
+                                    @Override
+                                    public void onSingleClick(View v) {
+                                        post_unlike(user_token,user_id,post_id,likePosts.get(finalI).getLike_post_id(),heart);
+                                    }
+                                });
+                            }
+                            else {
+                                heart.setOnClickListener(new OnSingleClickListener() {
+                                    @Override
+                                    public void onSingleClick(View v) {
+                                        post_like(user_token,user_id,post_id,heart);
+                                    }
+                                });
+                            }
+                        }
+                    }else {
+                        heart.setOnClickListener(new OnSingleClickListener() {
+                            @Override
+                            public void onSingleClick(View v) {
+                                post_like(user_token,user_id,post_id,heart);
+                            }
+                        });
+                    }
+                }else {
+                    int StatusCode = response.code();
+                    String s = response.message();
+                    ResponseBody d = response.errorBody();
+                    Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
+                    Log.e("메세지", s);
+                    Log.e("리스폰스에러바디", String.valueOf(d));
+                    Log.e("리스폰스바디", String.valueOf(response.body()));
+                }
+            }
+            @Override
+            public void onFailure(Call<List<LikePost>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void post_like(String user_token, int user_id,int post_id, ImageButton heart){
+        LikePost likePost = new LikePost();
+        likePost.setLikes(user_id);
+        likePost.setPost(post_id);
+        likePost.setBusker(busker_id);
+        heart.setBackground(this.getResources().getDrawable(R.drawable.like_f));
+        Call<LikePost> likePostCall = apiService.likePost(user_token, likePost);
+        likePostCall.enqueue(new Callback<LikePost>() {
+            @Override
+            public void onResponse(Call<LikePost> call, Response<LikePost> response) {
+                if(response.isSuccessful()){
+                    heart.setOnClickListener(new OnSingleClickListener() {
+                        @Override
+                        public void onSingleClick(View v) {
+                            post_unlike(user_token,user_id,post_id,response.body().getLike_post_id(),heart);
+                        }
+                    });
+                }else {
+                    int StatusCode = response.code();
+                    String s = response.message();
+                    ResponseBody d = response.errorBody();
+                    Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
+                    Log.e("메세지", String.valueOf(user_id));
+                    Log.e("메세지", String.valueOf(post_id));
+                    Log.e("메세지", String.valueOf(busker_id));
+
+                    Log.e("메세지", s);
+                    Log.e("리스폰스에러바디", String.valueOf(d));
+                    Log.e("리스폰스바디", String.valueOf(response.body()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LikePost> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void post_unlike(String user_token, int user_id,int post_id,int like_post_id, ImageButton heart){
+        Call<LikePost> likePostCall = apiService.unlikePost(user_token,like_post_id);
+        heart.setBackground(getResources().getDrawable(R.drawable.like));
+        likePostCall.enqueue(new Callback<LikePost>() {
+            @Override
+            public void onResponse(Call<LikePost> call, Response<LikePost> response) {
+                if(response.isSuccessful()){
+                    heart.setOnClickListener(new OnSingleClickListener() {
+                        @Override
+                        public void onSingleClick(View v) {
+                            post_like(user_token,user_id,post_id,heart);
+                        }
+                    });
+                }else {
+                    int StatusCode = response.code();
+                    String s = response.message();
+                    ResponseBody d = response.errorBody();
+                    Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
+                    Log.e("메세지", s);
+                    Log.e("리스폰스에러바디", String.valueOf(d));
+                    Log.e("리스폰스바디", String.valueOf(response.body()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LikePost> call, Throwable t) {
+
+            }
         });
     }
 

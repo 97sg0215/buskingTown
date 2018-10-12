@@ -207,27 +207,26 @@ public class ChannelBuskerSchedule extends Fragment {
                             if(post_id == all_post_id.get(i)){
                                 heart.setBackground(getActivity().getResources().getDrawable(R.drawable.like_f));
                                 int finalI = i;
-                                heart.setOnClickListener(new View.OnClickListener() {
+                                heart.setOnClickListener(new OnSingleClickListener() {
                                     @Override
-                                    public void onClick(View v) {
+                                    public void onSingleClick(View v) {
                                         post_unlike(user_token,user_id,post_id,likePosts.get(finalI).getLike_post_id(),heart);
                                     }
                                 });
-
                             }
                             else {
-                                heart.setOnClickListener(new View.OnClickListener() {
+                                heart.setOnClickListener(new OnSingleClickListener() {
                                     @Override
-                                    public void onClick(View v) {
+                                    public void onSingleClick(View v) {
                                         post_like(user_token,user_id,post_id,heart);
                                     }
                                 });
                             }
                         }
                     }else {
-                        heart.setOnClickListener(new View.OnClickListener() {
+                        heart.setOnClickListener(new OnSingleClickListener() {
                             @Override
-                            public void onClick(View v) {
+                            public void onSingleClick(View v) {
                                 post_like(user_token,user_id,post_id,heart);
                             }
                         });
@@ -254,16 +253,15 @@ public class ChannelBuskerSchedule extends Fragment {
         likePost.setLikes(user_id);
         likePost.setPost(post_id);
         likePost.setBusker(busker_id);
-
+        heart.setBackground(getActivity().getResources().getDrawable(R.drawable.like_f));
         Call<LikePost> likePostCall = apiService.likePost(user_token, likePost);
         likePostCall.enqueue(new Callback<LikePost>() {
             @Override
             public void onResponse(Call<LikePost> call, Response<LikePost> response) {
                 if(response.isSuccessful()){
-                    heart.setBackground(getActivity().getResources().getDrawable(R.drawable.like_f));
-                    heart.setOnClickListener(new View.OnClickListener() {
+                    heart.setOnClickListener(new OnSingleClickListener() {
                         @Override
-                        public void onClick(View v) {
+                        public void onSingleClick(View v) {
                             post_unlike(user_token,user_id,post_id,response.body().getLike_post_id(),heart);
                         }
                     });
@@ -291,14 +289,14 @@ public class ChannelBuskerSchedule extends Fragment {
 
     public void post_unlike(String user_token, int user_id,int post_id,int like_post_id, ImageButton heart){
         Call<LikePost> likePostCall = apiService.unlikePost(user_token,like_post_id);
+        heart.setBackground(getActivity().getResources().getDrawable(R.drawable.like));
         likePostCall.enqueue(new Callback<LikePost>() {
             @Override
             public void onResponse(Call<LikePost> call, Response<LikePost> response) {
                 if(response.isSuccessful()){
-                    heart.setBackground(getActivity().getResources().getDrawable(R.drawable.like));
-                    heart.setOnClickListener(new View.OnClickListener() {
+                    heart.setOnClickListener(new OnSingleClickListener() {
                         @Override
-                        public void onClick(View v) {
+                        public void onSingleClick(View v) {
                             post_like(user_token,user_id,post_id,heart);
                         }
                     });
