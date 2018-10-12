@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.Image;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +23,10 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.channels.Channel;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,11 +34,14 @@ import java.util.List;
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.Busker;
 import graduationwork.buskingtown.model.Connections;
+import graduationwork.buskingtown.model.Post;
 import graduationwork.buskingtown.model.Profile;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static graduationwork.buskingtown.api.RestApiService.API_URL;
 
 public class ChannelUser extends AppCompatActivity {
 
@@ -39,13 +49,16 @@ public class ChannelUser extends AppCompatActivity {
     int test_concert=5;
 
     int busker_id, user_id, connection_id;
-    String user_token, user_name, busker_team_name, busker_tag, busker_image;
+    String user_token, user_name, busker_team_name, busker_tag, busker_image,team_name;
 
     //버스커 정보 세팅
     TextView mainTeamName, subTeamName, tag;
     ImageView busker_main_image;
 
     Button following_btn;
+
+    View postLists;
+    LinearLayout postingBox;
 
     ArrayList<Integer> all_user_id = new ArrayList<>();
     ArrayList<Integer> all_busker_id = new ArrayList<>();
@@ -81,6 +94,7 @@ public class ChannelUser extends AppCompatActivity {
         });
 
         busker_id = getIntent().getIntExtra("busker_id", busker_id);
+        team_name = getIntent().getStringExtra("team_name");
 
         getBuskerData(user_token,busker_id);
 
@@ -99,6 +113,72 @@ public class ChannelUser extends AppCompatActivity {
         for (int scheduleCount=0; scheduleCount<test_concert; scheduleCount++) {
             addConcert(inflater);
         }
+
+
+        //포스팅
+        postingBox = (LinearLayout) findViewById(R.id.postingContainer_view);
+        TextView postText = (TextView) findViewById(R.id.posttext_view);
+        Call<List<Post>> postList = apiService.postList(user_token,busker_id);
+        postList.enqueue(new Callback<List<Post>>() {
+            @Override
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                if (response.isSuccessful()){
+                    List<Post> posts = response.body();
+                    if(posts.size()!=0 ){
+                        for (int i=0; i<posts.size();i++){
+                            postText.setVisibility(View.GONE);
+                            postLists = inflater.inflate(R.layout.busker_posting,postingBox,false);
+
+                            ImageView postingImg = (ImageView)postLists.findViewById(R.id.postingImg);
+                            ImageView buskerImg = (ImageView) postLists.findViewById(R.id.profileSmall);
+                            TextView postContent = (TextView) postLists.findViewById(R.id.postWriting);
+                            TextView postTeamname = (TextView) postLists.findViewById(R.id.buskerId);
+                            TextView postMainTeamName = (TextView) postLists.findViewById(R.id.main_team_name);
+                            TextView postDate = (TextView) postLists.findViewById(R.id.post_date);
+                            ImageButton like = (ImageButton) postLists.findViewById(R.id.like);
+
+                            String post_image = API_URL + posts.get(i).getPost_image();
+                            String post_content = posts.get(i).getContent();
+
+                            String post_date = posts.get(i).getCreated_at();
+                            String[] date_words = post_date.split("-");
+
+                            Picasso.with(getApplicationContext()).load(busker_image).transform(new CircleTransForm()).into(buskerImg);
+
+                            postContent.setText(post_content);
+                            postTeamname.setText(team_name);
+                            postMainTeamName.setText(team_name);
+                            postDate.setText(date_words[1] +"월 "+date_words[2]+"일 ");
+
+
+                            int SDK_INT = android.os.Build.VERSION.SDK_INT;
+                            if (SDK_INT > 8) {
+                                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                                        .permitAll().build();
+                                StrictMode.setThreadPolicy(policy);
+
+                                postingImg.setImageBitmap(getBitmapFromURL(post_image));
+                                postingImg.setScaleType(ImageView.ScaleType.FIT_XY);
+                            }
+
+                            if(postLists.getParent()!= null)
+                                ((ViewGroup)postLists.getParent()).removeView(postLists);
+                            postingBox.addView(postLists);
+                        }
+                    }
+                }else {
+                    int StatusCode = response.code();
+                    Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
+                    Log.e("메세지", String.valueOf(response.message()));
+                    Log.e("리스폰스에러바디", String.valueOf(response.errorBody()));
+                    Log.e("리스폰스바디", String.valueOf(response.body()));
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Post>> call, Throwable t) {
+                Log.i(ApplicationController.TAG, "게시물 리스트 서버 연결 실패 Message : " + t.getMessage());
+            }
+        });
     }
 
     public void following_check(int busker_id){
@@ -320,6 +400,24 @@ public class ChannelUser extends AppCompatActivity {
                 Log.i(ApplicationController.TAG, "유저 정보 서버 연결 실패 Message : " + t.getMessage());
             }
         });
+    }
+
+    public Bitmap getBitmapFromURL(String src) {
+        HttpURLConnection connection = null;
+        try {
+            URL url = new URL(src);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            return myBitmap;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }finally{
+            if(connection!=null)connection.disconnect();
+        }
     }
 
     //api연결

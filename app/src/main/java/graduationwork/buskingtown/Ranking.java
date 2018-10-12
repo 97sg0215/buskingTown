@@ -192,12 +192,10 @@ public class Ranking extends Fragment implements SwipeRefreshLayout.OnRefreshLis
                                 StrictMode.setThreadPolicy(policy);
                                 busker_image_bitmap.add(getBitmapFromURL(busker_image.get(i)));
                             }
-
-
-                                Log.e("메세지", String.valueOf(busker_id.get(i)));
-                                int rank = i+1;
-                                //리스트 아이템(정보, 아래에 class객체 선언 해둠)에 정보를 받아와 세팅함 , 수경이 할것(테스트할때 임시데이터를 넣어서 해주세요)
-                                listItems.add(new RankListItem(rank,busker_team_name.get(i),busker_tag.get(i), busker_image_bitmap.get(i), busker_id.get(i)));
+                            Log.e("메세지", String.valueOf(busker_id.get(i)));
+                            int rank = i+1;
+                            //리스트 아이템(정보, 아래에 class객체 선언 해둠)에 정보를 받아와 세팅함 , 수경이 할것(테스트할때 임시데이터를 넣어서 해주세요)
+                            listItems.add(new RankListItem(rank,busker_team_name.get(i),busker_tag.get(i), busker_image_bitmap.get(i), busker_id.get(i)));
                         }
                         //화면 리스트 뷰에 정보들이 들어가있는 어댑터를 연결함
                         listView.setAdapter(mAdapter);
@@ -303,6 +301,7 @@ public class Ranking extends Fragment implements SwipeRefreshLayout.OnRefreshLis
 
             int busker_id = getItem(position).busker_id;
             String teamName = getItem(position).team_name;
+            Bitmap buskerImage = getItem(position).busker_image;
 
             result.setOnClickListener(new View.OnClickListener() {
 
@@ -321,6 +320,7 @@ public class Ranking extends Fragment implements SwipeRefreshLayout.OnRefreshLis
                                         Intent buskerChannel = new Intent(getActivity(), ChannelUser.class);
                                         //개인 아이디를 다음 액티비티에서 받아 세팅
                                         buskerChannel.putExtra("busker_id",busker_id);
+                                        buskerChannel.putExtra("team_name",teamName);
                                         buskerChannel.putExtra("busker_user_id",user_id);
                                         startActivity(buskerChannel);
                                     } //내 채널일 경우, 팀네임이 같을 경우
