@@ -249,6 +249,7 @@ public class SignUp2Step extends AppCompatActivity {
     public void startLogin() {
         Intent loginActivity = new Intent(getApplication(), LoginActivity.class);
         startActivity(loginActivity);
+        this.finish();
     }
 
     //백버튼 메소드

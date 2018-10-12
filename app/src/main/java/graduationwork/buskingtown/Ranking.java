@@ -185,7 +185,14 @@ public class Ranking extends Fragment implements SwipeRefreshLayout.OnRefreshLis
                                 busker_team_name.add(busker.get(i).getTeam_name());
                                 busker_tag.add(busker.get(i).getBusker_tag());
                                 busker_image.add(busker.get(i).getBusker_image());
+                            int SDK_INT = android.os.Build.VERSION.SDK_INT;
+                            if (SDK_INT > 8) {
+                                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                                        .permitAll().build();
+                                StrictMode.setThreadPolicy(policy);
                                 busker_image_bitmap.add(getBitmapFromURL(busker_image.get(i)));
+                            }
+
 
                                 Log.e("메세지", String.valueOf(busker_id.get(i)));
                                 int rank = i+1;
@@ -382,6 +389,5 @@ public class Ranking extends Fragment implements SwipeRefreshLayout.OnRefreshLis
         application.buildNetworkService();
         apiService = ApplicationController.getInstance().getRestApiService();
     }
-
 
 }
