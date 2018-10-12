@@ -1,13 +1,20 @@
 package graduationwork.buskingtown;
 
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.PathShape;
+import android.os.Build;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -30,11 +37,14 @@ public class Statistics extends AppCompatActivity implements View.OnClickListene
     int coinStartYear, coinStartMonth, coinStartDay , coinEndYear, coinEndMonth, coinEndDay;
     SimpleDateFormat simpleDateFormat;
 
+    private final int oneFRAGMENT = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
+
+        callFragment(oneFRAGMENT);
 
 //        LinearLayout clickDropdownBox = (LinearLayout) findViewById(R.id.clickDropdownBox);
 //        ImageButton dropdown= (ImageButton)findViewById(R.id.dropdownImg);
@@ -145,6 +155,7 @@ public class Statistics extends AppCompatActivity implements View.OnClickListene
         switch (view.getId()){
             case R.id.oneMonth :
                 //1개월 버튼색 활성화
+                callFragment(oneFRAGMENT);
                 oneMonth.setBackground(getDrawable(R.drawable.able_btn));
                 oneMonth.setTextColor(Color.parseColor("#ffffff"));
                 coinSD.setText(String.format("%2d년 %02d월 %02d일",coinStartYear,coinStartMonth,coinStartDay));
@@ -198,6 +209,22 @@ public class Statistics extends AppCompatActivity implements View.OnClickListene
                 sixMonth.setBackground(getDrawable(R.drawable.date_rounded));
                 sixMonth.setTextColor(getResources().getColor(R.color.mainPurple));
                 break;
+        }
+    }
+
+    private void callFragment(int frament_no) {
+        // 프래그먼트 사용을 위해
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        switch (frament_no) {
+            case 1:
+                // '그래프' 호출
+                Graph graphFragment = new Graph();
+                transaction.replace(R.id.fragmentContainer, graphFragment);
+                transaction.commit();
+
+                break;
+
         }
     }
 
