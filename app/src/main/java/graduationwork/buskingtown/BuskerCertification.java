@@ -258,7 +258,7 @@ public class BuskerCertification extends AppCompatActivity {
     //활동팀명 형식이 제대로 되어있나 체크 메소드
     public static boolean checkName(String buskerName){
 
-        String regex =  "^[a-zA-Z가-힣0-9_]{4,15}$";
+        String regex =  "^[a-zA-Z가-힣0-9_]{1,15}$";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(buskerName);
         boolean isNormal = m.matches();
