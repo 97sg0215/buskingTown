@@ -7,4 +7,41 @@
     android:background="#fff"
     tools:context=".Notification">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="46.1dp"
+        android:background="@color/mainPurple">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="알람"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fff"
+            android:fontFamily="@font/kopubbold"
+            android:textSize="17sp"/>
+
+    </RelativeLayout>
+
+    <com.baoyz.swipemenulistview.SwipeMenuListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/statusBar"
+        android:cacheColorHint="#00000000"
+        android:divider="@android:color/transparent"
+        android:listSelector="#00000000"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        android:transcriptMode="alwaysScroll"/>
+
+    </RelativeLayout>
+
+
 </FrameLayout>

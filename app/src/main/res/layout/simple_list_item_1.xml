@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="#00000000">
+
+    <ImageView
+        android:id="@+id/ic_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/ic_profile"/>
+
+    <TextView
+        android:id="@+id/ic_profile_inf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/ic_profile"
+        android:layout_marginLeft="15dp"
+        android:textSize="12sp"
+        android:fontFamily="@font/kopubdotummedium"
+        android:textColor="@color/fontBlack"
+        android:layout_marginTop="12dp"
+        android:text="-"/>
+
+</RelativeLayout>

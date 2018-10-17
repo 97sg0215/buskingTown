@@ -55,6 +55,9 @@ dependencies {
     implementation 'com.naver.maps.open:naver-map-api:2.1.2@aar'
     //통계 그래프
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.2'
+    //스와이프메뉴리스트뷰
+    implementation 'com.baoyz.swipemenulistview:library:1.3.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

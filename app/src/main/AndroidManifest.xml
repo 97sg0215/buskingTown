@@ -89,6 +89,7 @@
         <activity android:name=".PracticeRoomReservation" />
         <activity android:name=".ClientcenterCounselList" />
         <activity android:name=".ClientcenterCounselListview" />
+        <activity android:name=".Alarm"/>
         <activity android:name=".WithdrawalPop"
             android:theme="@android:style/Theme.Dialog"></activity>
     </application>
