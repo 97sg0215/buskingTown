@@ -12,15 +12,21 @@ import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -102,6 +108,10 @@ public class ChannelBuskerSchedule extends Fragment {
                             TextView postMainTeamName = (TextView) postLists.findViewById(R.id.main_team_name);
                             TextView postDate = (TextView) postLists.findViewById(R.id.post_date);
                             ImageButton like = (ImageButton) postLists.findViewById(R.id.like);
+                            ImageButton post_setting = (ImageButton) postLists.findViewById(R.id.spinner_drop);
+
+                            // 정우 여기!!post_setting 눌렀을때 삭제하기, 수정하기 뜨게
+
 
                             String post_image = API_URL + posts.get(i).getPost_image();
                             String post_content = posts.get(i).getContent();
@@ -192,6 +202,7 @@ public class ChannelBuskerSchedule extends Fragment {
         }
         return v;
     }
+
 
     public void like_check(String user_token, int user_id, int post_id, ImageButton heart){
         Call<List<LikePost>> getLikePostCall = apiService.getLikePost(user_token,user_id);
