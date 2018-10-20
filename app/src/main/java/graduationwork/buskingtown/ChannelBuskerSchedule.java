@@ -109,8 +109,23 @@ public class ChannelBuskerSchedule extends Fragment {
                             TextView postDate = (TextView) postLists.findViewById(R.id.post_date);
                             ImageButton like = (ImageButton) postLists.findViewById(R.id.like);
                             ImageButton post_setting = (ImageButton) postLists.findViewById(R.id.spinner_drop);
-
                             // 정우 여기!!post_setting 눌렀을때 삭제하기, 수정하기 뜨게
+                            post_setting.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    PopupMenu menu = new PopupMenu(getContext(), post_setting);
+                                    //메뉴xml인플레이터
+                                    menu.getMenuInflater().inflate(R.menu.menu, menu.getMenu());
+                                    menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                                        @Override
+                                        public boolean onMenuItemClick(MenuItem item) {
+                                            return true;
+                                        }
+                                    });
+                                    menu.show();//메뉴보이기
+                                }
+                            });
+
 
 
                             String post_image = API_URL + posts.get(i).getPost_image();
@@ -360,5 +375,4 @@ public class ChannelBuskerSchedule extends Fragment {
             if(connection!=null)connection.disconnect();
         }
     }
-
 }
