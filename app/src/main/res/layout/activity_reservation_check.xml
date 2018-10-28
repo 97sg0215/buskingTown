@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".ReservationCheck">
+
+    <RelativeLayout
+        android:id="@+id/statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="46.1dp"
+        android:background="@color/mainPurple">
+
+        <ImageButton
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:background="#00000000"
+            android:src="@drawable/backbtn"
+            android:onClick="previousActivity"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fff"
+            android:fontFamily="@font/kopubbold"
+            android:textSize="17sp"/>
+
+        <TextView
+            android:id="@+id/paymentBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="결제"
+            android:textColor="#fff"
+            android:fontFamily="@font/kopubbold"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="20dp"
+            android:textSize="17sp"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/statusBar"
+        android:layout_above="@+id/confirmBtn"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/practiceInf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/statusBar"
+                android:paddingTop="20.2dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:paddingBottom="19.9dp">
+
+                <TextView
+                    android:id="@+id/practiceName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:textColor="@color/mainPurple"
+                    android:fontFamily="@font/kopubbold"
+                    android:textSize="15sp"
+                    android:lineSpacingExtra="2sp"/>
+
+                <TextView
+                    android:id="@+id/practiceAdd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/practiceName"
+                    android:layout_marginTop="7.5dp"
+                    android:text="-"
+                    android:textColor="@color/fontBlack"
+                    android:textSize="10.5sp"
+                    android:fontFamily="@font/kopubmedium"/>
+
+                <ImageView
+                    android:layout_width="140dp"
+                    android:layout_height="97.2dp"
+                    android:layout_alignParentRight="true"
+                    android:paddingLeft="12.5dp"
+                    android:background="@color/fontGray"/>
+
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/practiceInfUnderLine"
+                android:layout_width="match_parent"
+                android:layout_height="0.9dp"
+                android:layout_below="@+id/practiceInf"
+                android:background="@color/sub2Gray"/>
+
+            <RelativeLayout
+                android:id="@+id/choiceCheck"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_below="@+id/practiceInfUnderLine">
+
+                <TextView
+                    android:id="@+id/reservationIn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="예약 정보"
+                    android:layout_marginTop="19.2dp"
+                    android:textColor="@color/mainYellow"
+                    android:fontFamily="@font/kopubdotumbold"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:id="@+id/putCheck"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="정확히 입력했는지 확인하세요 !"
+                    android:layout_marginTop="22.2dp"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/kopubdotummedium"
+                    android:textSize="10.5sp"
+                    android:textColor="@color/fontGray"
+                    android:layout_toRightOf="@+id/reservationIn"/>
+
+                <TextView
+                    android:id="@+id/choiceTex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/reservationIn"
+                    android:text="선 택"
+                    android:layout_marginTop="28dp"
+                    android:fontFamily="@font/kopubdotumbold"
+                    android:textColor="@color/fontBlack"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/choiceTextEx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:layout_toRightOf="@+id/choiceTex"
+                    android:layout_below="@id/putCheck"
+                    android:layout_marginLeft="22.8dp"
+                    android:layout_marginTop="30.4dp"
+                    android:textColor="@color/mainPurple"
+                    android:fontFamily="@font/kopubdotummedium"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/lentDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/choiceTex"
+                    android:text="대관일"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/kopubdotumbold"
+                    android:textColor="@color/fontBlack"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/lentDateTextEx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:layout_toRightOf="@+id/lentDate"
+                    android:layout_below="@id/choiceTex"
+                    android:layout_marginLeft="14.8dp"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/mainPurple"
+                    android:fontFamily="@font/kopubdotummedium"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/timeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lentDate"
+                    android:text="시 간"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/kopubdotumbold"
+                    android:textColor="@color/fontBlack"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/timeTextTextEx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:layout_toRightOf="@+id/timeText"
+                    android:layout_below="@id/lentDate"
+                    android:layout_marginLeft="22.8dp"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/mainPurple"
+                    android:fontFamily="@font/kopubdotummedium"
+                    android:textSize="14sp"/>
+
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/choiceCheckUnderLine"
+                android:layout_width="match_parent"
+                android:layout_height="0.9dp"
+                android:layout_below="@+id/practiceInf"
+                android:layout_marginTop="20dp"
+                android:background="@color/sub2Gray"/>
+
+            <RelativeLayout
+                android:id="@+id/UserCheck"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <TextView
+                    android:id="@+id/userIn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이용자 정보"
+                    android:layout_marginTop="19.2dp"
+                    android:textColor="@color/mainYellow"
+                    android:fontFamily="@font/kopubdotumbold"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:id="@+id/putCall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="정상적인 이용 및 긴급 연락을 위해 작성해주세요."
+                    android:layout_marginTop="22.2dp"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/kopubdotummedium"
+                    android:textSize="10.5sp"
+                    android:textColor="@color/fontGray"
+                    android:layout_toRightOf="@+id/userIn"/>
+
+                <TextView
+                    android:id="@+id/teamTex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/userIn"
+                    android:text="팀 명"
+                    android:layout_marginTop="28dp"
+                    android:fontFamily="@font/kopubdotumbold"
+                    android:textColor="@color/fontBlack"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/teamTextEx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:layout_toRightOf="@+id/teamTex"
+                    android:layout_below="@id/putCall"
+                    android:layout_marginLeft="22.8dp"
+                    android:layout_marginTop="30.4dp"
+                    android:textColor="@color/mainPurple"
+                    android:fontFamily="@font/kopubdotummedium"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/phoneNumberr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/teamTex"
+                    android:text="휴대폰"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/kopubdotumbold"
+                    android:textColor="@color/fontBlack"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/phoneNumberrTextEx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:layout_toRightOf="@+id/phoneNumberr"
+                    android:layout_below="@id/teamTex"
+                    android:layout_marginLeft="14.8dp"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/mainPurple"
+                    android:fontFamily="@font/kopubdotummedium"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/emailText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/phoneNumberr"
+                    android:text="이메일"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/kopubdotumbold"
+                    android:textColor="@color/fontBlack"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/emailTextEx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:layout_toRightOf="@+id/emailText"
+                    android:layout_below="@id/phoneNumberr"
+                    android:layout_marginLeft="14.8dp"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/mainPurple"
+                    android:fontFamily="@font/kopubdotummedium"
+                    android:textSize="14sp"/>
+
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/choiceLayoutUnderLine"
+                android:layout_width="match_parent"
+                android:layout_height="0.9dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/sub2Gray"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <TextView
+                    android:id="@+id/terms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_alignParentRight="true"
+                    android:text="* 이용규칙과 환불정책을 반드시 숙지하고 결제하세요."
+                    android:textSize="10.5sp"
+                    android:fontFamily="@font/kopubdotummedium"
+                    android:textColor="@color/subPink"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/terms"
+                    android:paddingBottom="26.4dp"
+                    android:layout_alignParentRight="true">
+
+                    <TextView
+                        android:id="@+id/total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="합 계"
+                        android:textColor="@color/fontBlack"
+                        android:fontFamily="@font/kopubdotumbold"
+                        android:textSize="15sp"
+                        android:layout_marginTop="16.5dp"/>
+
+                    <TextView
+                        android:id="@+id/price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/total"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="12dp"
+                        android:textSize="21sp"
+                        android:fontFamily="@font/kopubdotumbold"
+                        android:textColor="@color/fontBlack"
+                        android:text="-"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/price"
+                        android:layout_marginTop="19dp"
+                        android:layout_marginLeft="4.5dp"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/kopubdotummedium"
+                        android:text="원"
+                        android:textColor="@color/fontBlack"/>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/confirmBtn"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_alignParentBottom="true"
+        android:text="다 음"
+        android:fontFamily="@font/kopubbold"
+        android:textSize="14sp"
+        android:textColor="#fff"
+        android:lineSpacingExtra="-3.5sp"
+        android:background="@color/mainPurple"
+        android:layout_centerHorizontal="true"
+        style="?android:attr/borderlessButtonStyle"/>
+
+</RelativeLayout>
