@@ -80,10 +80,9 @@ public class Map extends Fragment {
 
                 break;
             case 2:
-
-                // '일정페이지' 호출 //임시로 변환되는거 보기위해
-                ChannelBuskerSchedule scheduleFragment = new  ChannelBuskerSchedule();
-                transaction.replace(R.id.realtimeFragmentContainer, scheduleFragment);
+                // '일정페이지' 호출
+                CalendarView calendarFragment = new CalendarView();
+                transaction.replace(R.id.realtimeFragmentContainer, calendarFragment);
                 transaction.commit();
 
                 break;
