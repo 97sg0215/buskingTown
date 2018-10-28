@@ -94,7 +94,11 @@
             android:name=".WithdrawalPop"
             android:theme="@android:style/Theme.Dialog" />
         <activity android:name=".InviteMember" />
-        <activity android:name=".ReservationCheck"></activity>
+        <activity android:name=".ReservationCheck" />
+        <activity android:name=".ConcertReservationList" />
+        <activity android:name=".PracticeroomReservationList" />
+        <activity android:name=".ConcertReservation" />
+        <activity android:name=".PracticeRoomReservationCheck"></activity>
     </application>
 
 </manifest>
