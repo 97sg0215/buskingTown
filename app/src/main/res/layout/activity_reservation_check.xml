@@ -24,6 +24,7 @@
             android:onClick="previousActivity"/>
 
         <TextView
+            android:id="@+id/rc_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="-"
@@ -93,6 +94,7 @@
                     android:fontFamily="@font/kopubmedium"/>
 
                 <ImageView
+                    android:id="@+id/room_image"
                     android:layout_width="140dp"
                     android:layout_height="97.2dp"
                     android:layout_alignParentRight="true"
@@ -153,14 +155,14 @@
                     android:id="@+id/choiceTextEx"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="-"
-                    android:layout_toRightOf="@+id/choiceTex"
                     android:layout_below="@id/putCheck"
-                    android:layout_marginLeft="22.8dp"
+                    android:layout_marginLeft="23dp"
                     android:layout_marginTop="30.4dp"
-                    android:textColor="@color/mainPurple"
+                    android:layout_toRightOf="@+id/choiceTex"
                     android:fontFamily="@font/kopubdotummedium"
-                    android:textSize="14sp"/>
+                    android:text="-"
+                    android:textColor="@color/mainPurple"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/lentDate"

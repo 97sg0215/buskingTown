@@ -191,6 +191,52 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <ImageView
+                    android:id="@+id/email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="21.2dp"
+                    android:background="@drawable/email" />
+
+                <TextView
+                    android:id="@+id/emailText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/kopubbold"
+                    android:text="이메일"
+                    android:layout_marginTop="19.2dp"
+                    android:textColor="@color/fontBlack" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="8.2dp">
+
+                    <EditText
+                        android:id="@+id/provider_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/date_rounded"
+                        android:fontFamily="@font/kopubmedium"
+                        android:textColor="@color/mainPurple"
+                        android:hint="예약 리스트를 받을 메일이니 정확히 입력해주세요"
+                        android:textSize="14sp"
+                        android:textColorHint="@color/fontGray"
+                        android:paddingLeft="15.1dp"/>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
             <View
                 android:id="@+id/phoneNumUnderLine"
                 android:layout_width="match_parent"

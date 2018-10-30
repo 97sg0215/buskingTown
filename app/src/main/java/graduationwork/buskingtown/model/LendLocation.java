@@ -2,7 +2,7 @@ package graduationwork.buskingtown.model;
 
 public class LendLocation {
     int provide_id,user;
-    String provide_image, provider_phone, provide_start_date, provide_end_date, provide_start_time, provide_end_time,provide_location, provide_description
+    String provide_image, provider_phone, provider_email, provide_start_date, provide_end_date, provide_start_time, provide_end_time,provide_location, provide_description
             ,provide_rule, provide_refund_rule,provide_location_name;
 
     public int getProvide_id() {
@@ -35,6 +35,14 @@ public class LendLocation {
 
     public void setProvider_phone(String provider_phone) {
         this.provider_phone = provider_phone;
+    }
+
+    public String getProvider_email() {
+        return provider_email;
+    }
+
+    public void setProvider_email(String provider_email) {
+        this.provider_email = provider_email;
     }
 
     public String getProvide_start_date() {

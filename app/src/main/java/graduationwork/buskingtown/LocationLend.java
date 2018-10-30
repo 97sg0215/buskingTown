@@ -78,7 +78,7 @@ public class LocationLend extends AppCompatActivity {
     //정보 입력
     ImageView location_image;
     RadioButton rb, practice_room, concert_room;
-    EditText provider_phone, option_name, option_price, location_info, provide_rule, refund_rule, provide_option,provide_option_price;
+    EditText provider_phone, option_name, option_price, location_info, provide_rule, refund_rule, provide_option,provide_option_price, provider_email;
     LinearLayout optionContainer;
     View optionList;
 
@@ -94,7 +94,8 @@ public class LocationLend extends AppCompatActivity {
 
     String option_names,option_prices;
 
-    String p_type, p_phone, o_name, o_price, p_info, p_rule, p_refund_rule, p_start_time, p_end_time, p_start_date, p_end_date;
+    int p_type;
+    String  p_phone,p_email, o_name, o_price, p_info, p_rule, p_refund_rule, p_start_time, p_end_time, p_start_date, p_end_date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,7 +165,7 @@ public class LocationLend extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         concertED.setText(year + "년 " + (monthOfYear + 1) + "월 " + dayOfMonth + "일");
-                        p_end_date = String.valueOf(simpleDateFormat.format(endCalendar.getTime()));
+                        p_end_date = String.valueOf(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
                     }
                 };
 
@@ -194,8 +195,9 @@ public class LocationLend extends AppCompatActivity {
 
 
 
-     //   provider_phone, option_name, option_price;
+     //   provider_phone, provider_email, option_name, option_price;
         provider_phone = (EditText) findViewById(R.id.provider_phone);
+        provider_email = (EditText) findViewById(R.id.provider_email);
         option_name = (EditText) findViewById(R.id.provide_option);
         option_price = (EditText) findViewById(R.id.option_price);
 
@@ -215,6 +217,23 @@ public class LocationLend extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 p_phone = provider_phone.getText().toString();
+            }
+        });
+
+        provider_email.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                p_email = provider_email.getText().toString();
             }
         });
 
@@ -337,9 +356,9 @@ public class LocationLend extends AppCompatActivity {
 
 
                 if (rb.equals(practice_room)) {
-                    p_type = "연습실";
+                    p_type = 1;
                 } else if (rb.equals(concert_room)) {
-                    p_type = "콘서트";
+                    p_type = 2;
                 }
 
                 if (optionContainer != null) {
@@ -359,9 +378,9 @@ public class LocationLend extends AppCompatActivity {
                 Log.e("가격", String.valueOf(option_price_list));
 
                 if(option_name_list.size()==0&&option_price_list.size()==0){
-                    rent(real_album_path,p_type,p_phone,p_start_date,p_end_date,p_start_time,p_end_time,null,p_info,p_rule,p_refund_rule,o_name,o_price,null,null);
+                    rent(real_album_path,p_type,p_phone,p_email,p_start_date,p_end_date,p_start_time,p_end_time,null,p_info,p_rule,p_refund_rule,o_name,o_price,null,null);
                 }else {
-                    rent(real_album_path,p_type,p_phone,p_start_date,p_end_date,p_start_time,p_end_time,null,p_info,p_rule,p_refund_rule,o_name,o_price,option_name_list,option_price_list);
+                    rent(real_album_path,p_type,p_phone,p_email,p_start_date,p_end_date,p_start_time,p_end_time,null,p_info,p_rule,p_refund_rule,o_name,o_price,option_name_list,option_price_list);
                 }
 
 
@@ -461,8 +480,9 @@ public class LocationLend extends AppCompatActivity {
     }
 
     public void rent(String provide_image,
-                     String provide_type,
+                     int provide_type,
                      String provider_phone,
+                     String provider_email,
                      String provide_start_date,
                      String provide_end_date,
                      String provide_start_time,
@@ -478,6 +498,7 @@ public class LocationLend extends AppCompatActivity {
         RequestBody user = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(user_id));
         RequestBody p_type = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provide_type));
         RequestBody p_phone = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provider_phone));
+        RequestBody p_email = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provider_email));
         RequestBody p_loc_name = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf("임시 장소 이름"));
         RequestBody p_start_date = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(provide_start_date));
         RequestBody p_end_date = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provide_end_date));
@@ -507,7 +528,7 @@ public class LocationLend extends AppCompatActivity {
         Log.e("이미지",String.valueOf(surveyBody.contentType()));
         MultipartBody.Part filePart = MultipartBody.Part.createFormData("provide_image", file.getName(), surveyBody);
 
-        Call<LendLocation> rentLoc = apiService.rentLocation(user_token,user,p_type,p_phone,p_loc_name,p_start_date,p_end_date,p_start_time,p_end_time,p_locaion,p_desciption,p_rule,p_refund_rule,filePart);
+        Call<LendLocation> rentLoc = apiService.rentLocation(user_token,user,p_type,p_phone,p_email,p_loc_name,p_start_date,p_end_date,p_start_time,p_end_time,p_locaion,p_desciption,p_rule,p_refund_rule,filePart);
         rentLoc.enqueue(new Callback<LendLocation>() {
             @Override
             public void onResponse(Call<LendLocation> call, Response<LendLocation> response) {

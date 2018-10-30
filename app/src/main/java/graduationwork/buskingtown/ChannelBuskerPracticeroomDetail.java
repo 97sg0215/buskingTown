@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,14 +38,27 @@ import retrofit2.Response;
 
 public class ChannelBuskerPracticeroomDetail extends AppCompatActivity {
 
-    String p_name, p_phone, p_info, p_rule, p_refund_rule, p_address, p_image, user_token;
+    String p_name;
+    String p_phone;
+    String p_info;
+    String p_rule;
+    String p_refund_rule;
+    String p_address;
+    String p_image;
+    String p_start_time;
+    String p_end_time;
+    String user_token;
+    String choice_option_price;
+    String choice_option_name;
+    Integer choice_option;
 
     int user_id, p_id;
 
     SharedPreferences prefUser;
 
-    ArrayList<String> o_name = new ArrayList<String>();
+    ArrayList<Integer> o_id = new ArrayList<Integer>();
     ArrayList<String> o_price = new ArrayList<String>();
+    ArrayList<String> o_name = new ArrayList<String>();
 
     List<LendLocationOption> lendLocationOptions ;
 
@@ -82,6 +96,8 @@ public class ChannelBuskerPracticeroomDetail extends AppCompatActivity {
         p_refund_rule = getIntent().getStringExtra("provide_refund_rule");
         p_rule = getIntent().getStringExtra("provide_rule");
         p_image = getIntent().getStringExtra("provide_image");
+        p_start_time = getIntent().getStringExtra("provide_start_time");
+        p_end_time = getIntent().getStringExtra("provide_end_time");
 
         location_image = (ImageView) findViewById(R.id.practiceRoomImage);
         optionRadioGroup = (RadioGroup) findViewById(R.id.optionRadioGroup);
@@ -123,6 +139,8 @@ public class ChannelBuskerPracticeroomDetail extends AppCompatActivity {
                         optionList.setText(lendLocationOptions.get(i).getProvide_option_name() +" : "+lendLocationOptions.get(i).getProvide_price() + " 원/시");
                         o_price.add(lendLocationOptions.get(i).getProvide_price());
                         optionList.setId(i);
+                        o_id.add(lendLocationOptions.get(i).getProvide_option_id());
+                        o_name.add((lendLocationOptions.get(i).getProvide_option_name()));
                         if(optionList.getParent()!= null)
                             ((ViewGroup)optionList.getParent()).removeView(optionList);
                         optionRadioGroup.addView(optionList);
@@ -143,6 +161,20 @@ public class ChannelBuskerPracticeroomDetail extends AppCompatActivity {
         });
 
         loc_info.setText(p_info);
+
+
+        String[] phone_words = p_phone.split("-");
+
+        String tel = "tel:"+phone_words[0]+phone_words[1]+phone_words[2];
+
+        ImageButton phone = (ImageButton) findViewById(R.id.phone);
+        phone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent("android.intent.action.DIAL", Uri.parse(tel)));
+            }
+        });
+
 
         dropdown_sch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,6 +198,10 @@ public class ChannelBuskerPracticeroomDetail extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 sum_fee.setText(o_price.get(checkedId) + " 원 / 시");
+                choice_option = o_id.get(checkedId);
+                choice_option_name = o_name.get(checkedId);
+                choice_option_price = o_price.get(checkedId);
+
             }
         });
 
@@ -173,7 +209,19 @@ public class ChannelBuskerPracticeroomDetail extends AppCompatActivity {
         go_reservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent goReservaion = new Intent(getApplication(), PracticeRoomReservation.class);
+                goReservaion.putExtra("provide_id",p_id);
+                goReservaion.putExtra("provide_image",p_image);
+                goReservaion.putExtra("provide_name",p_name);
+                goReservaion.putExtra("provide_address",p_address);
+                goReservaion.putExtra("provide_description",p_info);
+                goReservaion.putExtra("provide_option_id", choice_option);
+                goReservaion.putExtra("provide_option_price", choice_option_price);
+                goReservaion.putExtra("provide_option_name",choice_option_name);
+                goReservaion.putExtra("provide_start_time",p_start_time);
+                goReservaion.putExtra("provide_end_time",p_end_time);
+                Log.e("옵션아이디",String.valueOf(choice_option));
                 startActivity(goReservaion);
                 finish();
             }

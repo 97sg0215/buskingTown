@@ -2,6 +2,7 @@ package graduationwork.buskingtown.api;
 
 import java.util.List;
 
+import graduationwork.buskingtown.PracticeRoomReservation;
 import graduationwork.buskingtown.model.Busker;
 import graduationwork.buskingtown.model.ChangePassword;
 import graduationwork.buskingtown.model.Connections;
@@ -10,6 +11,7 @@ import graduationwork.buskingtown.model.LendLocationOption;
 import graduationwork.buskingtown.model.LikePost;
 import graduationwork.buskingtown.model.Login;
 import graduationwork.buskingtown.model.Post;
+import graduationwork.buskingtown.model.PracticeReservation;
 import graduationwork.buskingtown.model.Profile;
 import graduationwork.buskingtown.model.User;
 import graduationwork.buskingtown.model.SignUp;
@@ -100,6 +102,9 @@ public interface RestApiService {
                            @Part MultipartBody.Part post_image,
                            @Part("content") RequestBody content);
 
+    @DELETE("busking/postDelete/{post_id}/")
+    Call<Post> postDelete(@Header("Authorization")String authToken,@Path("post_id")int id);
+
     //게시물 리스트
     @GET("busking/buskerPostList/{busker_id}/")
     Call<List<Post>> postList(@Header("Authorization")String authToken,@Path("busker_id")int id);
@@ -147,6 +152,7 @@ public interface RestApiService {
                                      @Part("user") RequestBody user,
                                      @Part("provide_type") RequestBody provide_type,
                                      @Part("provider_phone") RequestBody provider_phone,
+                                     @Part("provider_email") RequestBody provider_email,
                                      @Part("provide_location_name") RequestBody provide_location_name,
                                      @Part("provide_start_date") RequestBody provide_start_date,
                                      @Part("provide_end_date") RequestBody provide_end_date,
@@ -174,4 +180,12 @@ public interface RestApiService {
 
     @GET("rentLocation/concertRoomList/")
     Call<List<LendLocation>> concertRoomList(@Header("Authorization")String autoToken);
+
+    //예약체크
+    @GET("rentLocation/reservationPracticeRoom/{provide}/{provide_option}/{practice_date}/")
+    Call<List<PracticeReservation>> reservationCheckPractice(@Header("Authorization")String autoToken, @Path("provide")int provide, @Path("provide_option")int provide_option, @Path("practice_date")String practice_date);
+
+    //예약하기
+    @POST("rentLocation/reservationPracticeRoom/")
+    Call<PracticeReservation> reservationPractice(@Header("Authorization")String autoToken, @Body PracticeReservation practiceReservation);
 }

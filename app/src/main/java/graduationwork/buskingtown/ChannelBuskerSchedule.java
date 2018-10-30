@@ -110,6 +110,7 @@ public class ChannelBuskerSchedule extends Fragment {
                             ImageButton like = (ImageButton) postLists.findViewById(R.id.like);
                             ImageButton post_setting = (ImageButton) postLists.findViewById(R.id.spinner_drop);
                             // 정우 여기!!post_setting 눌렀을때 삭제하기, 수정하기 뜨게
+                            int finalI = i;
                             post_setting.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -119,6 +120,21 @@ public class ChannelBuskerSchedule extends Fragment {
                                     menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                                         @Override
                                         public boolean onMenuItemClick(MenuItem item) {
+                                            Call<Post> delete = apiService.postDelete(user_token,posts.get(finalI).getPost_id());
+                                            delete.enqueue(new Callback<Post>() {
+                                                @Override
+                                                public void onResponse(Call<Post> call, Response<Post> response) {
+                                                    if(response.isSuccessful()){
+                                                        Log.e("삭제",String.valueOf(posts.get(finalI).getPost_id()));
+                                                        postingBox.removeView(postLists);
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onFailure(Call<Post> call, Throwable t) {
+
+                                                }
+                                            });
                                             return true;
                                         }
                                     });

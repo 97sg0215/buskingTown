@@ -1,8 +1,8 @@
 package graduationwork.buskingtown.model;
 
 public class LendLocationOption {
-    int user,provide;
-    String provide_option_id, provide_option_name, provide_price;
+    int user,provide, provide_option_id;
+    String provide_option_name, provide_price;
 
     public int getUser() {
         return user;
@@ -20,11 +20,11 @@ public class LendLocationOption {
         this.provide = provide;
     }
 
-    public String getProvide_option_id() {
+    public int getProvide_option_id() {
         return provide_option_id;
     }
 
-    public void setProvide_option_id(String provide_option_id) {
+    public void setProvide_option_id(int provide_option_id) {
         this.provide_option_id = provide_option_id;
     }
 

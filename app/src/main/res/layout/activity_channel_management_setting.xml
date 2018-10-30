@@ -113,7 +113,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="거리공연 예약"
+                    android:text="거리공연 예약확인"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
                     android:lineSpacingExtra="34sp"
@@ -138,7 +138,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="연습실 예약"
+                    android:text="연습실 예약확인"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
                     android:lineSpacingExtra="34sp"
@@ -163,7 +163,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="콘서트 예약"
+                    android:text="콘서트 예약확인"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
                     android:lineSpacingExtra="34sp"

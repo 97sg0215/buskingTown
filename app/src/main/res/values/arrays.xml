@@ -6,4 +6,9 @@
         <item >후원받은 코인의 수 통계</item>
         <item >순위 변동</item>
     </string-array>
+
+    <string-array name="post_menu">
+        <item >수정하기</item>
+        <item >삭제하기</item>
+    </string-array>
 </resources>

@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -138,6 +139,9 @@ public class ChannelUser extends AppCompatActivity {
                             TextView postMainTeamName = (TextView) postLists.findViewById(R.id.main_team_name);
                             TextView postDate = (TextView) postLists.findViewById(R.id.post_date);
                             ImageButton like = (ImageButton) postLists.findViewById(R.id.like);
+                            Spinner post_setting = (Spinner) postLists.findViewById(R.id.spinner_drop);
+
+                            post_setting.setVisibility(View.GONE);
 
                             String post_image = API_URL + posts.get(i).getPost_image();
                             String post_content = posts.get(i).getContent();
@@ -261,7 +265,12 @@ public class ChannelUser extends AppCompatActivity {
 
                     int connection_id = response.body().getConnection_id();
                     Log.e("커넥션 아이디",String.valueOf(connection_id));
-                    unfollowing(connection_id);
+                    following_btn.setOnClickListener(new OnSingleClickListener() {
+                        @Override
+                        public void onSingleClick(View v) {
+                            unfollowing(connection_id);
+                        }
+                    });
                 }else {
                     int StatusCode = response.code();
                     String s = response.message();

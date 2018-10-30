@@ -152,6 +152,9 @@ public class ChannelBuskerPracticeroom extends Fragment {
                                     detail.putExtra("provide_description",practiceList.get(finalI).getProvide_description());
                                     detail.putExtra("provide_rule",practiceList.get(finalI).getProvide_rule());
                                     detail.putExtra("provide_refund_rule",practiceList.get(finalI).getProvide_refund_rule());
+                                    detail.putExtra("provide_start_time",practiceList.get(finalI).getProvide_start_time());
+                                    detail.putExtra("provide_end_time",practiceList.get(finalI).getProvide_end_time());
+                                    detail.putExtra("provide_rule",practiceList.get(finalI).getProvide_rule());
                                     startActivity(detail);
                                 }
                             });
