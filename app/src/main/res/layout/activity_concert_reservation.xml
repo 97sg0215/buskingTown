@@ -35,8 +35,10 @@
     </RelativeLayout>
 
     <ScrollView
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/button_container"
         android:layout_below="@id/statusBar"
         android:overScrollMode="never"
         android:scrollbars="none">
@@ -164,7 +166,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="360dp"
                 android:background="@color/mainGray">
 
                 <TextView
@@ -172,7 +174,8 @@
                     android:layout_height="wrap_content"
                     android:text="지도가 들어갈 자리입니다"
                     android:layout_centerHorizontal="true"
-                    android:textSize="20sp"/>
+                    android:layout_centerVertical="true"
+                    android:textSize="15sp"/>
 
             </RelativeLayout>
 
@@ -181,6 +184,7 @@
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/button_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

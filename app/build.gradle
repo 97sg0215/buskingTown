@@ -62,9 +62,9 @@ dependencies {
     //bind
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    implementation files('/Users/mac/Desktop/졸업작품_버스킹타운/activation.jar')
-    implementation files('/Users/mac/Desktop/졸업작품_버스킹타운/additionnal.jar')
-    implementation files('/Users/mac/Desktop/졸업작품_버스킹타운/mail.jar')
+    implementation files('libs/activation.jar')
+    implementation files('libs/additionnal.jar')
+    implementation files('libs/mail.jar')
 }
 
 apply plugin: 'com.google.gms.google-services'

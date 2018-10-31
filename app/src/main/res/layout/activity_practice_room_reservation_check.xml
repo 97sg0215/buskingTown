@@ -37,6 +37,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/button_container"
         android:layout_below="@id/statusBar"
         android:overScrollMode="never"
         android:scrollbars="none">
@@ -50,6 +51,8 @@
                 android:id="@+id/redText"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
                 android:layout_below="@id/statusBar"
                 android:background="@color/mainGray">
 
@@ -78,7 +81,7 @@
                     android:id="@+id/showDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="연습실 날짜"
+                    android:text="대여 날짜"
                     android:textColor="@color/fontBlack"
                     android:fontFamily="@font/kopubdotumbold"
                     android:textSize="14sp"/>
@@ -99,7 +102,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/showDateIn"
-                    android:text="연습실 시간"
+                    android:text="대여 시간"
                     android:textColor="@color/fontBlack"
                     android:fontFamily="@font/kopubdotumbold"
                     android:layout_marginTop="20dp"
@@ -164,7 +167,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="360dp"
                 android:background="@color/mainGray">
 
                 <TextView
@@ -172,7 +175,8 @@
                     android:layout_height="wrap_content"
                     android:text="지도가 들어갈 자리입니다"
                     android:layout_centerHorizontal="true"
-                    android:textSize="20sp"/>
+                    android:layout_centerVertical="true"
+                    android:textSize="15sp"/>
 
             </RelativeLayout>
 
@@ -181,6 +185,7 @@
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/button_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -201,25 +206,6 @@
             android:background="@color/mainPurple"
             android:layout_weight="1"
             style="?android:attr/borderlessButtonStyle"/>
-
-        <View
-            android:layout_width="0.9dp"
-            android:layout_height="25dp"
-            android:background="#ffffff" />
-
-        <Button
-            android:id="@+id/change"
-            android:layout_width="wrap_content"
-            android:layout_height="46dp"
-            android:text="예약 변경"
-            android:fontFamily="@font/kopubbold"
-            android:layout_weight="1"
-            android:textSize="14sp"
-            android:textColor="#fff"
-            android:lineSpacingExtra="-3.5sp"
-            android:background="@color/mainPurple"
-            style="?android:attr/borderlessButtonStyle"/>
-
     </LinearLayout>
 
 </RelativeLayout>

@@ -108,11 +108,10 @@ public class ChannelManagementSetting extends AppCompatActivity {
         practiceRoomReservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent road = new Intent(getApplication(),PracticeRoomReservation.class);
+                Intent road = new Intent(getApplication(),PracticeroomReservationList.class);
                 startActivity(road);
             }
         });
-
 
         concertReservation = (RelativeLayout) findViewById(R.id.concertReservation);
         concertReservation.setOnClickListener(new View.OnClickListener() {

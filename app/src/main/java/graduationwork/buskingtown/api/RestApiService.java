@@ -182,6 +182,9 @@ public interface RestApiService {
     @GET("rentLocation/concertRoomList/")
     Call<List<LendLocation>> concertRoomList(@Header("Authorization")String autoToken);
 
+    @GET("rentLocation/provideList/{provide_id}/")
+    Call<LendLocation> roomInfo(@Header("Authorization")String autoToken, @Path("provide_id")int provide);
+
     //예약체크
     @GET("rentLocation/reservationPracticeRoom/{provide}/{provide_option}/{practice_date}/")
     Call<List<PracticeReservation>> reservationCheckPractice(@Header("Authorization")String autoToken, @Path("provide")int provide, @Path("provide_option")int provide_option, @Path("practice_date")String practice_date);
@@ -189,6 +192,14 @@ public interface RestApiService {
     //예약하기
     @POST("rentLocation/reservationPracticeRoom/")
     Call<PracticeReservation> reservationPractice(@Header("Authorization")String autoToken, @Body PracticeReservation practiceReservation);
+
+    //예약확인
+    @GET("accounts/reservationRoomCheck/{busker_id}/")
+    Call<List<PracticeReservation>> reservationBuskerCheck (@Header("Authorization")String autoToken, @Path("busker_id")int busker);
+
+    //예약취소
+    @DELETE("rentLocation/cancelReservationPracticeRoom/{reservation_id}/")
+    Call<PracticeReservation> cancelReservation (@Header("Authorization")String autoToken, @Path("reservation_id")int reservation_id);
 
     //supportCoin
     @POST("busking/supportCoin/")

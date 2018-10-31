@@ -22,6 +22,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import graduationwork.buskingtown.api.RestApiService;
+import graduationwork.buskingtown.model.LendLocation;
 import graduationwork.buskingtown.model.PracticeReservation;
 import okhttp3.ResponseBody;
 import retrofit2.Callback;
