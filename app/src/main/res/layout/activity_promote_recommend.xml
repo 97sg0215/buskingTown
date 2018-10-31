@@ -89,7 +89,7 @@
                         android:textColorHint="@color/subGray"
                         android:layout_marginTop="15dp"
                         android:paddingLeft="5dp"
-                        android:inputType="text"
+                        android:inputType="phone"
                         android:fontFamily="@font/kopubmedium"
                         android:background="#00000000"/>
 

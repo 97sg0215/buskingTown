@@ -25,7 +25,7 @@ public class ChannelManagementSetting extends AppCompatActivity {
     String user_token,user_name,user_image,team_name;
     int user_id;
 
-    private RelativeLayout buskerTeamLayout,roadReservation,practiceRoomReservation,concertReservation,statsLayout,coinLayout;
+    private RelativeLayout buskerTeamLayout,roadReservation,practiceRoomReservation,concertReservation,statsLayout,coinLayout, adLayout;
 
     RestApiService apiService;
 
@@ -140,6 +140,16 @@ public class ChannelManagementSetting extends AppCompatActivity {
             public void onClick(View view) {
                 Intent CoinManagement = new Intent(getApplication(),CoinManagement.class);
                 startActivity(CoinManagement);
+            }
+        });
+
+        //채널 홍보하기
+        adLayout = (RelativeLayout) findViewById(R.id.adLayout);
+        adLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent BuskerPromote = new Intent(getApplication(),BuskerPromote.class);
+                startActivity(BuskerPromote);
             }
         });
 

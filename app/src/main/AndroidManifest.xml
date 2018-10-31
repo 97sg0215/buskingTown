@@ -104,6 +104,7 @@
         <activity android:name=".ConcertReservationList" />
         <activity android:name=".PracticeroomReservationList" />
         <activity android:name=".ConcertReservation" />
+        <activity android:name=".BuskerPromote" />
         <activity android:name=".PracticeRoomReservationCheck"></activity>
     </application>
 

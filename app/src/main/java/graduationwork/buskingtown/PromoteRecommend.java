@@ -1,6 +1,6 @@
 package graduationwork.buskingtown;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,7 +15,7 @@ public class PromoteRecommend extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View v = inflater.inflate(R.layout.activity_promote_mainbanner, container, false);
+        final View v = inflater.inflate(R.layout.activity_promote_recommend, container, false);
 
         return v;
     }
