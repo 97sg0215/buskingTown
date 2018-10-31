@@ -147,18 +147,18 @@
     </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/paymentBtn"
-        android:layout_width="match_parent"
-        android:layout_height="46dp"
-        android:layout_alignParentBottom="true"
-        android:text="결 제"
-        android:fontFamily="@font/kopubbold"
-        android:textSize="14sp"
-        android:textColor="#fff"
-        android:lineSpacingExtra="-3.5sp"
-        android:background="@color/mainPurple"
-        android:layout_centerHorizontal="true"
-        style="?android:attr/borderlessButtonStyle"/>
+    <!--<Button-->
+        <!--android:id="@+id/paymentBtn"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="46dp"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:text="결 제"-->
+        <!--android:fontFamily="@font/kopubbold"-->
+        <!--android:textSize="14sp"-->
+        <!--android:textColor="#fff"-->
+        <!--android:lineSpacingExtra="-3.5sp"-->
+        <!--android:background="@color/mainPurple"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--style="?android:attr/borderlessButtonStyle"/>-->
 
 </RelativeLayout>
