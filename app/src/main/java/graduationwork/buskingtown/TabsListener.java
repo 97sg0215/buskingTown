@@ -10,7 +10,7 @@ import android.app.FragmentTransaction;
  * @author Srikanth G.R
  *
  */
-public class TabsListener implements ActionBar.TabListener {
+public class TabsListener implements ActionBar.TabListener, android.support.v7.app.ActionBar.TabListener {
     public Fragment fragment;
 
     public TabsListener(Fragment fragment) {
@@ -37,5 +37,20 @@ public class TabsListener implements ActionBar.TabListener {
                 // TODO: handle exception
             }
         }
+    }
+
+    @Override
+    public void onTabSelected(android.support.v7.app.ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
+
+    }
+
+    @Override
+    public void onTabUnselected(android.support.v7.app.ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
+
+    }
+
+    @Override
+    public void onTabReselected(android.support.v7.app.ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
+
     }
 }

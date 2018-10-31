@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 
 /**
  * @author Srikanth G.R
@@ -55,7 +57,7 @@ public class DataInterface {
         Date dateCCC = formatterr.parse(startDate + " 23:59:59");
         endOfDay.setTime(dateCCC);
 
-        long before = endOfDay.getTimeInMillis();
+     //   long before = endOfDay.getTimeInMillis();
 
         Cursor eventCursorr = cr.query(l_eventUri, new String[]{"title",
                         "dtstart", "dtend"}, "(" + dtstart + ">" + after + " and "

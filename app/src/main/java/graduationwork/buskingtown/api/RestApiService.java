@@ -13,6 +13,7 @@ import graduationwork.buskingtown.model.Login;
 import graduationwork.buskingtown.model.Post;
 import graduationwork.buskingtown.model.PracticeReservation;
 import graduationwork.buskingtown.model.Profile;
+import graduationwork.buskingtown.model.SupportCoin;
 import graduationwork.buskingtown.model.User;
 import graduationwork.buskingtown.model.SignUp;
 import kotlin.PublishedApi;
@@ -188,4 +189,8 @@ public interface RestApiService {
     //예약하기
     @POST("rentLocation/reservationPracticeRoom/")
     Call<PracticeReservation> reservationPractice(@Header("Authorization")String autoToken, @Body PracticeReservation practiceReservation);
+
+    //supportCoin
+    @POST("busking/supportCoin/")
+    Call<SupportCoin> supportCoin(@Header("Authorization")String autoToken, @Body SupportCoin supportCoin);
 }

@@ -568,6 +568,7 @@ public class ChannelUser extends AppCompatActivity {
 
     public void message(View view){
         Intent message = new Intent(getApplication(),CoinSendBefore_pop.class);
+        message.putExtra("busker_id",busker_id);
         startActivity(message);
     }
 

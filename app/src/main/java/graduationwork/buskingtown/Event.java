@@ -6,6 +6,9 @@ public class Event {
     private String dtend;
     private String _id;
 
+    public Event() {
+    }
+
     public String getTitle() {
         return title;
     }

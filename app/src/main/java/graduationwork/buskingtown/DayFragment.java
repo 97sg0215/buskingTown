@@ -38,7 +38,6 @@ public class DayFragment extends Fragment {
     private String startDate;
     private Context mContext;
 
-
     int margin = 0;
     RelativeLayout monRelative;
     Animation animFlipInForeward;
@@ -95,6 +94,7 @@ public class DayFragment extends Fragment {
             // startDate = yearSelected + "/" + (month + 1) + "/" + day;
             startDate = (month + 1) + "/" + day + "/" + yearSelected;
         }
+
         Date date = new Date(startDate);
         startDate = (String) dateformatter.format(dateformat, date);
         eventdate = (String) dateformatter.format("MM/dd/yyyy", date);
@@ -167,9 +167,7 @@ public class DayFragment extends Fragment {
 
                 }
             }
-
         }
-
     }
 
     /**
@@ -302,6 +300,5 @@ public class DayFragment extends Fragment {
         monRelative.removeAllViews();
 
     }
-
 
 }
