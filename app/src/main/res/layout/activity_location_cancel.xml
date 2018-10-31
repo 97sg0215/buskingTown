@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="250dp"
+    android:background="#fff"
+    tools:context=".LocationCancel">
+
+    <ImageButton
+        android:id="@+id/delete"
+        android:layout_width="17.5dp"
+        android:layout_height="17.5dp"
+        android:src="@drawable/delet"
+        android:background="#fff"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"/>
+
+    <ImageView
+        android:id="@+id/oops"
+        android:layout_width="93dp"
+        android:layout_height="36.5dp"
+        android:background="@drawable/oops"
+        android:layout_below="@id/delete"
+        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/cancelText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/kopubdotummedium"
+        android:text="예약을 정말로 \n취소하시겠습니까?"
+        android:textColor="@color/mainPurple"
+        android:textSize="14sp"
+        android:layout_marginTop="19.7dp"
+        android:gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/oops"
+        android:lineSpacingExtra="6sp"/>
+
+    <Button
+        android:id="@+id/cancelBtn"
+        android:layout_width="150dp"
+        android:layout_height="35dp"
+        android:background="@drawable/able_btn"
+        android:layout_below="@+id/cancelText"
+        android:layout_centerHorizontal="true"
+        android:text="취소하기"
+        android:textColor="#fff"
+        android:fontFamily="@font/kopubbold"
+        android:textSize="14sp"
+        android:layout_marginTop="40.7dp" />
+
+</RelativeLayout>

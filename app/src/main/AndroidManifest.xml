@@ -15,12 +15,12 @@
     <!-- 이미지 접근 허용 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!--전화와 메시지를 보내기 위한 퍼미션-->
+    <!-- 전화와 메시지를 보내기 위한 퍼미션 -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.DIAL_PHONE" />
     <!-- 달력 퍼미션 -->
     <uses-permission android:name="android.permission.READ_CALENDAR" />
-    <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
     <application
         android:name=".ApplicationController"
@@ -105,7 +105,8 @@
         <activity android:name=".PracticeroomReservationList" />
         <activity android:name=".ConcertReservation" />
         <activity android:name=".BuskerPromote" />
-        <activity android:name=".PracticeRoomReservationCheck"></activity>
+        <activity android:name=".PracticeRoomReservationCheck" />
+        <activity android:name=".LocationCancel"></activity>
     </application>
 
 </manifest>
