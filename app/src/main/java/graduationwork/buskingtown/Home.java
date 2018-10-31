@@ -1,8 +1,10 @@
 package graduationwork.buskingtown;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -74,6 +76,10 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
         prefBusker = this.getActivity().getSharedPreferences("BuskerUser", Activity.MODE_PRIVATE);
         prefUser = this.getActivity().getSharedPreferences("User", Activity.MODE_PRIVATE);
 
+        //로딩코드
+        CheckTypesTask task = new CheckTypesTask();
+        task.execute();
+
         restApiBuilder();
 
         getLocalData();
@@ -111,6 +117,42 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
 
 
         return v;
+    }
+
+    //로딩코드, fragment일때는 getContext()를 씀
+    private class CheckTypesTask extends AsyncTask<Void, Void, Void> {
+
+        ProgressDialog asyncDialog = new ProgressDialog(
+                getContext());
+
+        @Override
+        protected void onPreExecute() {
+            asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            asyncDialog.setMessage("로딩중입니다..");
+
+            // show dialog
+            asyncDialog.show();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            try {
+                for (int i = 0; i < 5; i++) {
+                    //asyncDialog.setProgress(i * 30);
+                    Thread.sleep(300);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            asyncDialog.dismiss();
+            super.onPostExecute(result);
+        }
     }
 
     public void getTopBuskerList(LayoutInflater inflater,String token){
