@@ -1,5 +1,7 @@
 package graduationwork.buskingtown;
 
+import android.Manifest;
+import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +13,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
+
+import java.util.ArrayList;
 
 import javax.mail.MessagingException;
 import javax.mail.SendFailedException;
@@ -42,24 +49,35 @@ public class PromoteRecommend extends Fragment {
         paymentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    GMailSender gMailSender = new GMailSender("buskingtown2018@gmail.com", "khphTown123");
-                    //GMailSender.sendMail(제목, 본문내용, 받는사람);
-                    gMailSender.sendMail("추천순위 노출 신청입니다.", message.getText().toString(), email);
-                    Log.e("메시지",String.valueOf(message));
-                    Log.e("이메일",String.valueOf(email));
-                    Toast.makeText(getActivity().getApplicationContext(), "이메일을 성공적으로 보냈습니다.", Toast.LENGTH_SHORT).show();
-                } catch (SendFailedException e) {
-                    Toast.makeText(getActivity().getApplicationContext(), "이메일 형식이 잘못되었습니다.", Toast.LENGTH_SHORT).show();
-                } catch (MessagingException e) {
-                    Toast.makeText(getActivity().getApplicationContext(), "인터넷 연결을 확인해주십시오", Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                new senmailAsync().execute();
             }
 
         });
 
         return v;
+    }
+
+    private class senmailAsync extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                GMailSender gMailSender = new GMailSender("buskingtown2018@gmail.com", "khphTown123");
+                //GMailSender.sendMail(제목, 본문내용, 받는사람);
+                gMailSender.sendMail("추천순위 노출 신청입니다.", message.getText().toString(), email);
+                Log.e("메시지",String.valueOf(message));
+                Log.e("이메일",String.valueOf(email));
+                Log.e("이메일","이메일을 성공적으로 보냈습니다.");
+              //  Toast.makeText(getActivity().getApplicationContext(), "이메일을 성공적으로 보냈습니다.", Toast.LENGTH_SHORT).show();
+            } catch (SendFailedException e) {
+                Log.e("이메일","이메일 형식이 잘못되었습니다.");
+             //   Toast.makeText(getActivity().getApplicationContext(), "이메일 형식이 잘못되었습니다.", Toast.LENGTH_SHORT).show();
+            } catch (MessagingException e) {
+                Log.e("이메일","인터넷 연결을 확인해주십시오");
+               // Toast.makeText(getActivity().getApplicationContext(), "인터넷 연결을 확인해주십시오", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
 }

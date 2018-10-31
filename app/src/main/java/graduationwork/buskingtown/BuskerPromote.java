@@ -9,6 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
+
+import java.util.ArrayList;
 
 public class BuskerPromote extends AppCompatActivity implements View.OnClickListener{
 
@@ -24,6 +30,27 @@ public class BuskerPromote extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_busker_promote);
+
+        //runtime permission
+        PermissionListener permissionListener= new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                Toast.makeText(getApplicationContext(),"인터넷 권한허가",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                Toast.makeText(getApplicationContext(),"인터넷 권한거부\n인터넷 권한이 거부될 경우 정상적으로 진행 할 수 없습니다."+ deniedPermissions.toString(),Toast.LENGTH_SHORT).show();
+
+            }
+
+        };
+        TedPermission.with(this)
+                .setPermissionListener(permissionListener)
+                .setRationaleMessage("팀 홍보를 접수를 위해서는 인터넷 권한이 필요해요\n인터넷이 거부될 경우 앱 사용에 제한이 있을 수 있어요.")
+                .setDeniedMessage("권한 허가를 거부 하셨군요 \n [설정]->[권한]에서 권한을 허용할 수 있어요.")
+                .setPermissions(android.Manifest.permission.INTERNET)
+                .check();
 
         //아이콘에 대한 참조 변수
         mainbanner = (TextView) findViewById(R.id.mainbanner);

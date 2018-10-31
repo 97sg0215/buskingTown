@@ -4,7 +4,7 @@ public class SupportCoin {
     int supportCoin_id;
     int busker;
     int user;
-    SupportCoin coin_amount;
+    int coin_amount;
     String supportDate;
 
     public int getSupportCoin_id() {
@@ -31,11 +31,11 @@ public class SupportCoin {
         this.user = user;
     }
 
-    public SupportCoin getCoin_amount() {
+    public int getCoin_amount() {
         return coin_amount;
     }
 
-    public void setCoin_amount(SupportCoin coin_amount) {
+    public void setCoin_amount(int coin_amount) {
         this.coin_amount = coin_amount;
     }
 

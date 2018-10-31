@@ -98,6 +98,7 @@ public class ChannelUser extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent CoinSendBefore_pop = new Intent(getApplication(), CoinSendBefore_pop.class);
+                CoinSendBefore_pop.putExtra("busker_id",busker_id);
                 startActivity(CoinSendBefore_pop);
             }
         });

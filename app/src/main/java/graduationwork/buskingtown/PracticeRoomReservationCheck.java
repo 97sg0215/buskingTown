@@ -45,7 +45,9 @@ public class PracticeRoomReservationCheck extends AppCompatActivity {
         reject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent cacel = new Intent(getApplication(),LocationCancel.class);
+                cacel.putExtra("reservation_id",reservation_id);
+                startActivity(cacel);
             }
         });
     }

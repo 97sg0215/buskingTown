@@ -203,6 +203,8 @@ public class PracticeRoomReservation extends AppCompatActivity {
 
         choiceTimeBtnContainer = (LinearLayout) findViewById(R.id.choiceTimeBtnContainer);
 
+        Calendar minDate = Calendar.getInstance();
+
         practiceStartDate = (Button) findViewById(R.id.practiceStartDate);
         practiceStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -218,7 +220,6 @@ public class PracticeRoomReservation extends AppCompatActivity {
                         getReservation(user_token,provide_id,choice_option,p_start_date,p_start_time,p_end_time);
                     }
                 }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
-
                 dialog.getDatePicker().setMinDate(new Date().getTime());    //입력한 날짜 이후로 클릭 안되게 옵션
                 dialog.show();
             }
