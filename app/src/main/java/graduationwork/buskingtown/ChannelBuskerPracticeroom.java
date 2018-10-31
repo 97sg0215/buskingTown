@@ -2,6 +2,7 @@ package graduationwork.buskingtown;
 
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -67,6 +68,10 @@ public class ChannelBuskerPracticeroom extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.activity_channel_busker_practiceroom, container, false);
+
+        //로딩코드
+        CheckTypesTask task = new CheckTypesTask();
+        task.execute();
 
         prefUser = this.getActivity().getSharedPreferences("User", Activity.MODE_PRIVATE);
 
@@ -210,4 +215,41 @@ public class ChannelBuskerPracticeroom extends Fragment {
             if(connection!=null)connection.disconnect();
         }
     }
+
+    //로딩코드, fragment일때는 getContext()를 씀
+    private class CheckTypesTask extends AsyncTask<Void, Void, Void> {
+
+        ProgressDialog asyncDialog = new ProgressDialog(
+                getContext());
+
+        @Override
+        protected void onPreExecute() {
+            asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            asyncDialog.setMessage("로딩중입니다..");
+
+            // show dialog
+            asyncDialog.show();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            try {
+                for (int i = 0; i < 5; i++) {
+                    //asyncDialog.setProgress(i * 30);
+                    Thread.sleep(300);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            asyncDialog.dismiss();
+            super.onPostExecute(result);
+        }
+    }
+
 }
