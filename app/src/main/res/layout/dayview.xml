@@ -2,11 +2,14 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#fff">
 
     <RelativeLayout
+        android:id="@+id/day"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/mainGray"
         android:orientation="vertical" >
 
         <ImageView
@@ -36,220 +39,48 @@
 
     </RelativeLayout>
 
-    <ViewFlipper
-        android:id="@+id/flipper"
+    <ScrollView
+        android:id="@+id/dayViewScroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
-        <RelativeLayout
+        android:layout_below="@+id/day"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:id="@+id/time"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="50dp"
+            android:layout_marginLeft="20dp"
             android:orientation="vertical" >
 
-            <ScrollView
-                android:id="@+id/dayViewScroll"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="0dp"
-                android:scrollbars="none" >
+                android:layout_marginTop="15dp">
 
-                <RelativeLayout
-                    android:id="@+id/relativeLayout242"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/time0"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="0dp" >
+                    android:textColor="@color/fontGray"
+                    android:lineSpacingExtra="1sp"
+                    android:text="00:00"/>
 
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="5dp"
-                        android:layout_marginTop="0dp"
-                        android:background="@drawable/am1" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/time0"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/sub2Gray" />
 
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="5dp"
-                        android:layout_marginTop="40dp"
-                        android:background="@drawable/one" />
-
-
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="5dp"
-                        android:layout_marginTop="80dp"
-                        android:background="@drawable/two" />
+            </RelativeLayout>
 
 
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="5dp"
-                        android:layout_marginTop="120dp"
-                        android:background="@drawable/three" />
 
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="5dp"
-                        android:layout_marginTop="160dp"
-                        android:background="@drawable/four" />
+        </LinearLayout>
 
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="5dp"
-                        android:layout_marginTop="200dp"
-                        android:background="@drawable/five" />
-
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="5dp"
-                        android:layout_marginTop="240dp"
-                        android:background="@drawable/six" />
-
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="5dp"
-                        android:layout_marginTop="280dp"
-                        android:background="@drawable/seven" />
-
-
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="5dp"
-                        android:layout_marginTop="320dp"
-                        android:background="@drawable/eight" />
-
-
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="5dp"
-                        android:layout_marginTop="360dp"
-                        android:background="@drawable/nine" />
-
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="5dp"
-                        android:layout_marginTop="400dp"
-                        android:background="@drawable/ten" />
-
-
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="5dp"
-                        android:layout_marginTop="440dp"
-                        android:background="@drawable/eleven" />
-
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="5dp"
-                        android:layout_marginTop="480dp"
-                        android:background="@drawable/twelve" />
-
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="5dp"
-                        android:layout_marginTop="520dp"
-                        android:background="@drawable/one_pm" />
-
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="5dp"
-                        android:layout_marginTop="560dp"
-                        android:background="@drawable/two_pm" />
-
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="5dp"
-                        android:layout_marginTop="600dp"
-                        android:background="@drawable/three_pm" />
-
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="5dp"
-                        android:layout_marginTop="640dp"
-                        android:background="@drawable/four_pm" />
-
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="5dp"
-                        android:layout_marginTop="680dp"
-                        android:background="@drawable/five_pm" />
-
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="5dp"
-                        android:layout_marginTop="720dp"
-                        android:background="@drawable/six_pm" />
-
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="5dp"
-                        android:layout_marginTop="760dp"
-                        android:background="@drawable/seven_pm" />
-
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="5dp"
-                        android:layout_marginTop="800dp"
-                        android:background="@drawable/eight_pm" />
-
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="5dp"
-                        android:layout_marginTop="840dp"
-                        android:background="@drawable/nine_pm" />
-
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="5dp"
-                        android:layout_marginTop="880dp"
-                        android:background="@drawable/ten_pm" />
-
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="5dp"
-                        android:layout_marginTop="920dp"
-                        android:background="@drawable/eleven_pm" />
-
-                    <LinearLayout
-                        android:id="@+id/linearLayout2"
-                        android:layout_width="match_parent"
-                        android:layout_height="fill_parent"
-                        android:padding="0dp" >
-
-                        <RelativeLayout
-                            android:id="@+id/relativeLayout3"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="14"
-                            android:padding="0dp" >
-
-                            <LinearLayout
-                                android:id="@+id/linearLayout3"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentLeft="true"
-                                android:layout_alignParentRight="true"
-                                android:layout_alignParentTop="true"
-                                android:layout_marginTop="1dp"
-                                android:padding="0dp" >
-
-                                <RelativeLayout
-                                    android:id="@+id/monRelative"
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1" >
-
-                                    <!--
-                                     <View android:background="#00f" android:layout_width="fill_parent"
-                                    android:layout_height="60dp" android:layout_marginTop="0dp" />
-                                    -->
-
-                                </RelativeLayout>
-                            </LinearLayout>
-                        </RelativeLayout>
-                    </LinearLayout>
-                </RelativeLayout>
-            </ScrollView>
-        </RelativeLayout>
-    </ViewFlipper>
+    </ScrollView>
 
 </RelativeLayout>
