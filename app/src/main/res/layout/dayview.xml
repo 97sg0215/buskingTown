@@ -77,6 +77,48 @@
 
             </RelativeLayout>
 
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:padding="0dp" >
+
+
+
+                <RelativeLayout
+                    android:id="@+id/relativeLayout3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="14"
+                    android:padding="0dp" >
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="1dp"
+                        android:padding="0dp" >
+
+                        <RelativeLayout
+                            android:id="@+id/monRelative"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" >
+
+                            <!--
+                             <View android:background="#00f" android:layout_width="fill_parent"
+                            android:layout_height="60dp" android:layout_marginTop="0dp" />
+                            -->
+
+
+                        </RelativeLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+
 
 
         </LinearLayout>
