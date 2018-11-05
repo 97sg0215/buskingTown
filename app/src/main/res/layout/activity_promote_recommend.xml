@@ -10,16 +10,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:overScrollMode="never"
-        android:scrollbars="none">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -145,7 +135,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="75dp">
+                    android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/publicDate"
@@ -189,9 +179,54 @@
                         android:background="@color/transPurple"/>
 
                 </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:paddingBottom="39dp">
+
+                    <TextView
+                        android:id="@+id/allprice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="100dp"
+                        android:text="합 계"
+                        android:textColor="@color/fontBlack"
+                        android:fontFamily="@font/kopubdotumbold"
+                        android:textSize="15sp"
+                        android:layout_marginTop="16.5dp"/>
+
+                    <TextView
+                        android:id="@+id/won"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_toLeftOf="@+id/allprice"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="12dp"
+                        android:textSize="21sp"
+                        android:fontFamily="@font/kopubdotumbold"
+                        android:textColor="@color/fontBlack"
+                        android:text="-"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_toLeftOf="@+id/won"
+                        android:layout_marginTop="19dp"
+                        android:layout_marginRight="4.5dp"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/kopubdotummedium"
+                        android:text="원"
+                        android:textColor="@color/fontBlack"/>
+
+                </RelativeLayout>
+
             </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+
     <Button
         android:id="@+id/paymentBtn"
         android:layout_width="match_parent"
