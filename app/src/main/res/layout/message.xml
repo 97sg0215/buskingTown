@@ -1,7 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="176dp"
+    android:layout_height="201.5dp"
+    android:orientation="vertical">
 
-</LinearLayout>
+    <FrameLayout
+        android:id="@+id/messageFrame"
+        android:layout_width="match_parent"
+        android:layout_height="176dp"
+        android:layout_marginTop="24.8dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/roundbox"/>
+
+    <RelativeLayout
+        android:id="@+id/messageRelative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/buskerId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:fontFamily="@font/kopubdotumbold"
+            android:layout_centerHorizontal="true"
+            android:textSize="13sp"
+            android:textColor="@color/mainPurple"
+            android:layout_marginTop="60dp"/>
+
+        <TextView
+            android:id="@+id/editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/buskerId"
+            android:text="-"
+            android:textColor="@color/fontBlack"
+            android:textSize="12sp"
+            android:fontFamily="@font/kopubdotummedium"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/buskerImg"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/profile_big"/>
+    
+    <RelativeLayout
+        android:id="@+id/countCointLayout"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="@color/subPink"
+        android:layout_marginTop="149.7dp">
+
+        <TextView
+            android:id="@+id/countCoin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="-"
+            android:fontFamily="@font/kopubdotumbold"
+            android:textColor="#fff"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:text="개"
+            android:layout_toRightOf="@+id/countCoin"
+            android:fontFamily="@font/kopubdotumbold"
+            android:textColor="#fff"
+            android:textSize="12sp"/>
+
+    </RelativeLayout>
+
+</FrameLayout>
