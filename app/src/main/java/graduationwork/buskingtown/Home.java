@@ -165,7 +165,7 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
                     List<Busker> buskers = null;
                     //랭킹 view에 정렬이 되어있으므로 순서대로 객체10개만 불러오면 됨
                     if(busker.size()>10){
-                        for(int i=0; i<= 10 ;i++) {
+                        for(int i=0; i< 10 ;i++) {
                                 getTopAllList(inflater,busker,i);
                         }
                     }else {

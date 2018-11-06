@@ -57,7 +57,7 @@ public class Mypage extends Fragment {
 
     RelativeLayout go_Busker,coinLayout,coinhouseLayout,locationLendLayout,noticeLayout,clientcenterLayout,logout;
 
-    TextView go_Busker_text, followingAmount;
+    TextView go_Busker_text, followingAmount, coinAmount;
 
     ImageView profile;
 
@@ -108,7 +108,7 @@ public class Mypage extends Fragment {
         followingAmount = (TextView) v.findViewById(R.id.followingAmount);
 
 
-
+        coinAmount = (TextView) v.findViewById(R.id.coinAmount);
         TextView userID = (TextView) v.findViewById(R.id.userId);
         userID.setText(user_name);
 
@@ -189,6 +189,7 @@ public class Mypage extends Fragment {
         user_image = pref.getString("user_image",null);
 
        get_following_count(user_token,user_id);
+       get_coin_count(user_token,user_id);
     }
 
     public void get_following_count(String user_token,int user_id){
@@ -219,6 +220,23 @@ public class Mypage extends Fragment {
             @Override
             public void onFailure(Call<List<Connections>> call, Throwable t) {
                 Log.i(ApplicationController.TAG, "커넥션 정보 서버 연결 실패 Message : " + t.getMessage());
+            }
+        });
+    }
+
+    public void get_coin_count(String user_token,int user_id){
+        Call<User> userCall = apiService.getUserDetail(user_token,user_id);
+        userCall.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if(response.isSuccessful()){
+                    coinAmount.setText(String.valueOf(response.body().getProfile().getPurchase_coin()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
             }
         });
     }

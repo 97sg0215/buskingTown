@@ -6,6 +6,7 @@ public class SupportCoin {
     int user;
     int coin_amount;
     String supportDate;
+    String support_message;
 
     public int getSupportCoin_id() {
         return supportCoin_id;
@@ -45,5 +46,13 @@ public class SupportCoin {
 
     public void setSupportDate(String supportDate) {
         this.supportDate = supportDate;
+    }
+
+    public String getSupport_message() {
+        return support_message;
+    }
+
+    public void setSupport_message(String support_message) {
+        this.support_message = support_message;
     }
 }

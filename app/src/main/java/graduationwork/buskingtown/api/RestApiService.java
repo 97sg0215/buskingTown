@@ -13,6 +13,7 @@ import graduationwork.buskingtown.model.Login;
 import graduationwork.buskingtown.model.Post;
 import graduationwork.buskingtown.model.PracticeReservation;
 import graduationwork.buskingtown.model.Profile;
+import graduationwork.buskingtown.model.PurchaseCoin;
 import graduationwork.buskingtown.model.SupportCoin;
 import graduationwork.buskingtown.model.User;
 import graduationwork.buskingtown.model.SignUp;
@@ -67,6 +68,13 @@ public interface RestApiService {
                                  @Part("user") RequestBody user,
                                  @Part MultipartBody.Part user_image);
 
+    @Multipart
+    @PUT("accounts/update_profile/{user_id}/")
+    Call<Profile> updateCoin (@Header("Authorization")String authToken,
+                                 @Path("user_id")int id,
+                                 @Part("user") RequestBody user,
+                                 @Part("purchase_coin") RequestBody purchase_coin);
+
     //유저 리스트 받아오기 (검색을 위함)
     @GET("user/")
     Call<List<User>> userList (@Header("Authorization")String autoToken);
@@ -82,6 +90,10 @@ public interface RestApiService {
                              @Part("busker_tag") RequestBody busker_tag,
                              @Part("busker_phone") RequestBody busker_phone,
                              @Part MultipartBody.Part busker_image);
+
+    //받은 코인
+    @GET("accounts/coin/{busker_id}/")
+    Call<SupportCoin> getCoin (@Header("Authorization")String authToken, @Path("busker_id")int busker);
 
     //버스커 객체 삭제 > 인증시 오류 해결을 위해
     @DELETE("accounts/delete/{busker_id}/")
@@ -204,4 +216,16 @@ public interface RestApiService {
     //supportCoin
     @POST("busking/supportCoin/")
     Call<SupportCoin> supportCoin(@Header("Authorization")String autoToken, @Body SupportCoin supportCoin);
+
+    //받은 코인 업데이트
+    @Multipart
+    @PUT("accounts/buskerDetail/{busker_id}/")
+    Call<Busker> updateReceivedCoin(@Header("Authorization")String autoToken,
+                                    @Path("busker_id")int busker_id,
+                                    @Part("busker_id") RequestBody busker,
+                                    @Part("received_coin") RequestBody purchase_coin);
+
+    //코인 구매
+    @POST("accounts/purchaseCoin/")
+    Call<PurchaseCoin> purchaseCoin(@Header("Authorization")String autoToken, @Body PurchaseCoin purchaseCoin);
 }

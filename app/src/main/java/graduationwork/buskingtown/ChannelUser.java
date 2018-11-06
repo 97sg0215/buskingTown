@@ -52,7 +52,7 @@ public class ChannelUser extends AppCompatActivity {
     int test_schedule=5;
     int test_concert=5;
 
-    int busker_id, user_id, connection_id;
+    int busker_id, user_id, connection_id, busker_coin;
     String user_token, user_name, busker_team_name, busker_tag, busker_image,team_name;
 
     //버스커 정보 세팅
@@ -92,6 +92,42 @@ public class ChannelUser extends AppCompatActivity {
             }
         });
 
+
+
+        busker_id = getIntent().getIntExtra("busker_id", busker_id);
+        team_name = getIntent().getStringExtra("team_name");
+
+        final Busker[] busker = {new Busker()};
+        retrofit2.Call<Busker> buskerDetail = apiService.buskerDetail(user_token,busker_id);
+        buskerDetail.enqueue(new Callback<Busker>() {
+            @Override
+            public void onResponse(retrofit2.Call<Busker> call, Response<Busker> response) {
+                if(response.isSuccessful()){
+                    busker[0] = response.body();
+                    busker_team_name = busker[0].getTeam_name();
+                    busker_tag = busker[0].getBusker_tag();
+                    busker_image = busker[0].getBusker_image();
+                    busker_coin = busker[0].getReceived_coin();
+                    buskerSetting(busker_team_name,busker_tag,busker_image);
+                    following_check(busker[0].getBusker_id());
+                }
+                else {
+                    //에러 상태 보려고 해둔 코드
+                    int StatusCode = response.code();
+                    String s = response.message();
+                    ResponseBody d = response.errorBody();
+                    Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
+                    Log.e("메세지", s);
+                    Log.e("리스폰스에러바디", String.valueOf(d));
+                    Log.e("리스폰스바디 : ", String.valueOf(response.body()));
+                }
+            }
+            @Override
+            public void onFailure(retrofit2.Call<Busker> call, Throwable t) {
+                Log.i(ApplicationController.TAG, "유저 정보 서버 연결 실패 Message : " + t.getMessage());
+            }
+        });
+
         //코인보내기 창 가기
         android.support.design.widget.FloatingActionButton fab = (android.support.design.widget.FloatingActionButton) findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -99,14 +135,10 @@ public class ChannelUser extends AppCompatActivity {
             public void onClick(View v) {
                 Intent CoinSendBefore_pop = new Intent(getApplication(), CoinSendBefore_pop.class);
                 CoinSendBefore_pop.putExtra("busker_id",busker_id);
+                CoinSendBefore_pop.putExtra("busker_coin",busker_coin);
                 startActivity(CoinSendBefore_pop);
             }
         });
-
-        busker_id = getIntent().getIntExtra("busker_id", busker_id);
-        team_name = getIntent().getStringExtra("team_name");
-
-        getBuskerData(user_token,busker_id);
 
         //버스커 정보 세팅
         mainTeamName = (TextView) findViewById(R.id.busker_main_team_name);
@@ -146,9 +178,6 @@ public class ChannelUser extends AppCompatActivity {
                             TextView postMainTeamName = (TextView) postLists.findViewById(R.id.main_team_name);
                             TextView postDate = (TextView) postLists.findViewById(R.id.post_date);
                             ImageButton like = (ImageButton) postLists.findViewById(R.id.like);
-                            Spinner post_setting = (Spinner) postLists.findViewById(R.id.spinner_drop);
-
-                            post_setting.setVisibility(View.GONE);
 
                             String post_image = API_URL + posts.get(i).getPost_image();
                             String post_content = posts.get(i).getContent();
@@ -515,38 +544,6 @@ public class ChannelUser extends AppCompatActivity {
         Picasso.with(getApplication()).load(busker_image).transform(new CircleTransForm()).into(busker_main_image);
     }
 
-    //busker데이터 얻어오기
-    public void getBuskerData(String token, int busker_id){
-        final Busker[] busker = {new Busker()};
-        retrofit2.Call<Busker> buskerDetail = apiService.buskerDetail(token,busker_id);
-        buskerDetail.enqueue(new Callback<Busker>() {
-            @Override
-            public void onResponse(retrofit2.Call<Busker> call, Response<Busker> response) {
-                if(response.isSuccessful()){
-                    busker[0] = response.body();
-                    busker_team_name = busker[0].getTeam_name();
-                    busker_tag = busker[0].getBusker_tag();
-                    busker_image = busker[0].getBusker_image();
-                    buskerSetting(busker_team_name,busker_tag,busker_image);
-                    following_check(busker[0].getBusker_id());
-                }
-                else {
-                    //에러 상태 보려고 해둔 코드
-                    int StatusCode = response.code();
-                    String s = response.message();
-                    ResponseBody d = response.errorBody();
-                    Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
-                    Log.e("메세지", s);
-                    Log.e("리스폰스에러바디", String.valueOf(d));
-                    Log.e("리스폰스바디 : ", String.valueOf(response.body()));
-                }
-            }
-            @Override
-            public void onFailure(retrofit2.Call<Busker> call, Throwable t) {
-                Log.i(ApplicationController.TAG, "유저 정보 서버 연결 실패 Message : " + t.getMessage());
-            }
-        });
-    }
 
     public Bitmap getBitmapFromURL(String src) {
         HttpURLConnection connection = null;
@@ -573,11 +570,6 @@ public class ChannelUser extends AppCompatActivity {
         apiService = ApplicationController.getInstance().getRestApiService();
     }
 
-    public void message(View view){
-        Intent message = new Intent(getApplication(),CoinSendBefore_pop.class);
-        message.putExtra("busker_id",busker_id);
-        startActivity(message);
-    }
 
     public void previousActivity(View v){
         onBackPressed();

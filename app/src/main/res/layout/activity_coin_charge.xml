@@ -308,7 +308,7 @@
                     android:id="@+id/threehundredCoin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="코인 100개"
+                    android:text="코인 300개"
                     android:fontFamily="@font/kopubbold"
                     android:textColor="@color/fontGray"
                     android:layout_toRightOf="@+id/threehundredDollarImage"
@@ -319,7 +319,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="11000원"
+                    android:text="33000원"
                     android:lineSpacingExtra="1.5sp"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="17.5dp"

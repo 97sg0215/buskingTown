@@ -56,17 +56,6 @@
             android:textSize="15sp"
             android:fontFamily="@font/kopubdotummedium" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="내 코인 50개"
-            android:layout_below="@id/coinCount"
-            android:layout_centerHorizontal="true"
-            android:fontFamily="@font/kopubdotumbold"
-            android:textSize="12sp"
-            android:textColor="@color/subGray"
-            android:layout_marginTop="9dp"/>
-
 
     </RelativeLayout>
 

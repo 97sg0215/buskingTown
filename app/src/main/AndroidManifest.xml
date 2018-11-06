@@ -106,7 +106,8 @@
         <activity android:name=".ConcertReservation" />
         <activity android:name=".BuskerPromote" />
         <activity android:name=".PracticeRoomReservationCheck" />
-        <activity android:name=".LocationCancel"></activity>
+        <activity android:name=".LocationCancel"
+            android:theme="@android:style/Theme.Dialog" />
     </application>
 
 </manifest>
