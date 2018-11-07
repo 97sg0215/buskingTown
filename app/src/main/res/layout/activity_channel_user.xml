@@ -33,16 +33,6 @@
             android:fontFamily="@font/kopubbold"
             android:textSize="17sp"/>
 
-        <ImageButton
-            android:id="@+id/morebtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
-            android:background="#00000000"
-            android:src="@drawable/more"/>
-
     </RelativeLayout>
 
     <ScrollView
