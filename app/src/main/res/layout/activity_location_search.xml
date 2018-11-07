@@ -73,24 +73,12 @@
             android:orientation="vertical">
 
                 <RelativeLayout
-                    android:id="@+id/mapsearchimage"
+                    android:id="@+id/MapContainer"
                     android:layout_width="match_parent"
                     android:layout_height="443dp"
                     android:layout_below="@id/statusBar"
                     android:background="@color/subGray">
 
-                    <TextView
-                        android:id="@+id/maptext"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="지도 \n(다른사람이 예약한 핀 보이게)"
-                        android:fontFamily="@font/kopubmedium"
-                        android:textColor="@color/mainPurple"
-                        android:textSize="15sp"
-                        android:layout_centerVertical="true"
-                        android:layout_centerHorizontal="true"
-                        android:gravity="center"
-                        android:layout_marginTop="176dp"/>
 
                 </RelativeLayout>
 
@@ -113,6 +101,7 @@
                         android:textSize="14sp"/>
 
                     <TextView
+                        android:id="@+id/detailAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/addressIn"

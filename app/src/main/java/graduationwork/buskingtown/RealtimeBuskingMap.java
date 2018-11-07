@@ -239,13 +239,13 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
 
                 Log.e("myLog", "Failed to findPlacemarkAtLocation: error=" + errInfo.toString());
 
-                Toast.makeText(getActivity(), errInfo.toString(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(), errInfo.toString(), Toast.LENGTH_LONG).show();
 
                 return;
 
             }else{
 
-                Toast.makeText(getActivity(), address, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(), address, Toast.LENGTH_LONG).show();
 
             }
 

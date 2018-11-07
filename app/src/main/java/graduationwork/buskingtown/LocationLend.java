@@ -79,7 +79,7 @@ public class LocationLend extends AppCompatActivity {
     ImageView location_image;
     RadioButton rb, practice_room, concert_room;
     EditText provider_phone, option_name, option_price, location_info, provide_rule, refund_rule, provide_option,provide_option_price, provider_email;
-    LinearLayout optionContainer;
+    LinearLayout optionContainer, locationChoice;
     View optionList;
 
     ArrayList<String> option_name_list = new ArrayList<>();
@@ -190,6 +190,16 @@ public class LocationLend extends AppCompatActivity {
                 intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
                 intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
+            }
+        });
+
+        locationChoice = (LinearLayout) findViewById(R.id.locationChoice);
+        locationChoice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent locationSearch = new Intent(getApplicationContext(), LocationSearch.class);
+                startActivity(locationSearch);
+
             }
         });
 
