@@ -26,13 +26,14 @@
             android:id="@+id/locationSearchText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="장소검색"
+            android:hint="장소검색"
+            android:textColorHint="@color/mainGray"
             android:layout_marginTop="13.8dp"
             android:background="#00000000"
             android:textSize="15sp"
             android:lineSpacingExtra="2sp"
             android:fontFamily="@font/kopubbold"
-            android:textColor="@color/fontGray"
+            android:textColor="@color/mainGray"
             android:layout_toRightOf="@+id/backBtn"
             android:layout_marginLeft="10dp"/>
 
@@ -42,7 +43,7 @@
             android:layout_height="12.5dp"
             android:layout_centerVertical="true"
             android:background="#00000000"
-            android:src="@drawable/delet"
+            android:src="@drawable/search"
             android:layout_marginRight="20dp"
             android:layout_alignParentRight="true"/>
 
@@ -72,15 +73,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-                <RelativeLayout
-                    android:id="@+id/MapContainer"
-                    android:layout_width="match_parent"
-                    android:layout_height="443dp"
-                    android:layout_below="@id/statusBar"
-                    android:background="@color/subGray">
+            <RelativeLayout
+                android:id="@+id/MapContainer"
+                android:layout_width="match_parent"
+                android:layout_height="443dp"
+                android:layout_below="@id/statusBar"
+                android:background="@color/subGray">
 
 
-                </RelativeLayout>
+            </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -89,12 +90,13 @@
                     android:gravity="center_vertical"
                     android:background="#fff">
 
-                    <TextView
+                    <EditText
                         android:id="@+id/addressIn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:text="알아보기 쉽게 장소명을 지정해주세요 ex) 한양여자대학교"
+                        android:hint="알아보기 쉽게 장소명을 지정해주세요 ex) 한양여자대학교"
+                        android:background="@null"
                         android:fontFamily="@font/kopubbold"
                         android:textColor="@color/mainPurple"
                         android:lineSpacingExtra="1.5sp"

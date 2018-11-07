@@ -1,11 +1,15 @@
 package graduationwork.buskingtown;
 
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nhn.android.maps.NMapActivity;
@@ -45,6 +49,14 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
 
     private NMapPOIitem mFloatingPOIitem;
     private NMapPOIdataOverlay mFloatingPOIdataOverlay;
+
+    private TextView detailAddress;
+
+    private EditText locationSearch, addressIn;
+
+    Button choiceBtn;
+    String stringData;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +105,14 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
 
         super.setMapDataProviderListener(onDataProviderListener);
         testFloatingPOIdataOverlay();
+
+        locationSearch = (EditText) findViewById(R.id.locationSearchText);
+
+        Intent intent = getIntent();
+        stringData = intent.getStringExtra("key");
+
+        choiceBtn();
+
 
     }
     public void previousActivity(View v){
@@ -300,6 +320,8 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
 
                 if (placeMark != null) {
                     mFloatingPOIitem.setTitle(placeMark.toString());
+                    detailAddress = (TextView)findViewById(R.id.detailAddress);
+                    detailAddress.setText(placeMark.toString());
                 }
                 mFloatingPOIdataOverlay.selectPOIitemBy(mFloatingPOIitem.getId(), false);
             }
@@ -307,7 +329,23 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
 
     };
 
+    public void choiceBtn() {
+        //확인 버튼 변수
+        final Button choiceBtn = (Button) findViewById(R.id.choiceBtn);
 
+        choiceBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                addressIn =(EditText)findViewById(R.id.addressIn);
+
+                Intent intent = new Intent(getBaseContext(), LocationLend.class);
+                startActivity(intent);
+            }
+
+        });
+
+    }
 
 
 

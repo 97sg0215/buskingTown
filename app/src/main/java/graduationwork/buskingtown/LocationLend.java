@@ -81,6 +81,8 @@ public class LocationLend extends AppCompatActivity {
     EditText provider_phone, option_name, option_price, location_info, provide_rule, refund_rule, provide_option,provide_option_price, provider_email;
     LinearLayout optionContainer, locationChoice;
     View optionList;
+    TextView addressChoice;
+    String stringData;
 
     ArrayList<String> option_name_list = new ArrayList<>();
     ArrayList<String> option_price_list = new ArrayList<>();
@@ -96,7 +98,6 @@ public class LocationLend extends AppCompatActivity {
 
     int p_type;
     String  p_phone,p_email, o_name, o_price, p_info, p_rule, p_refund_rule, p_start_time, p_end_time, p_start_date, p_end_date;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -398,7 +399,6 @@ public class LocationLend extends AppCompatActivity {
             }
         });
     }
-
     public void sOnClick(View v){
         switch (v.getId()){
             //시간 대화상자 버튼이 눌리면 대화상자를 보여줌
