@@ -238,7 +238,7 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/kopubmedium"
                         android:paddingLeft="15dp"
-                        android:text="보낸 코인함"
+                        android:text="나의 코인함"
                         android:textColor="@color/fontBlack" />
 
                     <View

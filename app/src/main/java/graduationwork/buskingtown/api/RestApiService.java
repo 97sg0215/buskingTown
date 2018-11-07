@@ -5,6 +5,7 @@ import java.util.List;
 import graduationwork.buskingtown.PracticeRoomReservation;
 import graduationwork.buskingtown.model.Busker;
 import graduationwork.buskingtown.model.ChangePassword;
+import graduationwork.buskingtown.model.CoinManagement;
 import graduationwork.buskingtown.model.Connections;
 import graduationwork.buskingtown.model.LendLocation;
 import graduationwork.buskingtown.model.LendLocationOption;
@@ -228,4 +229,8 @@ public interface RestApiService {
     //코인 구매
     @POST("accounts/purchaseCoin/")
     Call<PurchaseCoin> purchaseCoin(@Header("Authorization")String autoToken, @Body PurchaseCoin purchaseCoin);
+
+    //사용자 코인 통계
+    @GET("accounts/userCoinManagement/{user_id}/{start_date}/{end_date}/")
+    Call<List<CoinManagement>> coinView(@Header("Authorization")String autoToken, @Path("user_id")int user, @Path("start_date")String start_date, @Path("end_date")String end_date);
 }

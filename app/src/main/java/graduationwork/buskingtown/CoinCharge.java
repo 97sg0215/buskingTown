@@ -115,23 +115,23 @@ public class CoinCharge extends AppCompatActivity {
 
         switch (coin){
             case 1:
-                purchaseCoin = new PurchaseCoin(user_id,10);
+                purchaseCoin = new PurchaseCoin(user_id,10,origin_coin+10);
                 coin_set = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(origin_coin+10));
                 break;
             case 2:
-                purchaseCoin = new PurchaseCoin(user_id,30);
+                purchaseCoin = new PurchaseCoin(user_id,30,origin_coin+30);
                 coin_set = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(origin_coin+30));
                 break;
             case 3:
-                purchaseCoin = new PurchaseCoin(user_id,50);
+                purchaseCoin = new PurchaseCoin(user_id,50,origin_coin+50);
                 coin_set = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(origin_coin+50));
                 break;
             case 4:
-                purchaseCoin = new PurchaseCoin(user_id,100);
+                purchaseCoin = new PurchaseCoin(user_id,100,origin_coin+100);
                 coin_set = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(origin_coin+100));
                 break;
             case 5:
-                purchaseCoin = new PurchaseCoin(user_id,300);
+                purchaseCoin = new PurchaseCoin(user_id,300,origin_coin+300);
                 coin_set = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(origin_coin+300));
                 break;
         }
@@ -142,7 +142,7 @@ public class CoinCharge extends AppCompatActivity {
             @Override
             public void onResponse(retrofit2.Call<PurchaseCoin> call, Response<PurchaseCoin> response) {
                 if(response.isSuccessful()){
-                    retrofit2.Call<Profile> userCall = apiService.updateCoin(user_token,user_id,user, finalCoin_set);
+                    retrofit2.Call<Profile> userCall = apiService.updateCoin(user_token,user_id, user, finalCoin_set);
                     userCall.enqueue(new Callback<Profile>() {
                         @Override
                         public void onResponse(retrofit2.Call<Profile> call, Response<Profile> response) {

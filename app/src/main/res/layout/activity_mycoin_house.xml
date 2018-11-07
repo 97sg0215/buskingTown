@@ -277,12 +277,17 @@
         android:layout_marginTop="75dp"
         android:layout_centerHorizontal="true"/>
 
-    <LinearLayout
+    <ListView
         android:id="@+id/coinContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/dateBoxUnderLine"
-        android:orientation="vertical">
-    </LinearLayout>
+        android:cacheColorHint="#00000000"
+        android:divider="@android:color/transparent"
+        android:listSelector="#00000000"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        android:transcriptMode="alwaysScroll"/>
+
 
 </RelativeLayout>

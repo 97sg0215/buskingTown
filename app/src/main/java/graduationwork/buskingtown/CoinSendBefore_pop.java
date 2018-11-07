@@ -124,6 +124,7 @@ public class CoinSendBefore_pop extends Activity implements View.OnClickListener
                                     coin.setSupport_message(c_message);
                                     coin.setBusker(busker_id);
                                     coin.setUser(user_id);
+                                    coin.setCoin_balance(coin_amount-Integer.parseInt(c_Count));
                                     retrofit2.Call<SupportCoin> c_coin = apiService.supportCoin(user_token,coin);
                                     c_coin.enqueue(new Callback<SupportCoin>() {
                                         @Override
