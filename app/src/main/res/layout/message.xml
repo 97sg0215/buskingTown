@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="176dp"
     android:layout_height="201.5dp"
+    android:background="@drawable/roundbox"
     android:orientation="vertical">
 
     <FrameLayout
@@ -11,7 +12,7 @@
         android:layout_height="176dp"
         android:layout_marginTop="24.8dp"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/roundbox"/>
+        android:background="@drawable/shadowlayout"/>
 
     <RelativeLayout
         android:id="@+id/messageRelative"
