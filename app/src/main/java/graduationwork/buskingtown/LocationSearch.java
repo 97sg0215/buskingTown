@@ -16,6 +16,7 @@ import com.nhn.android.maps.NMapView;
 import com.nhn.android.maps.NMapView.OnMapStateChangeListener;
 import com.nhn.android.maps.maplib.NGeoPoint;
 import com.nhn.android.maps.nmapmodel.NMapError;
+import com.nhn.android.maps.nmapmodel.NMapPlacemark;
 import com.nhn.android.maps.overlay.NMapPOIdata;
 import com.nhn.android.maps.overlay.NMapPOIitem;
 import com.nhn.android.mapviewer.overlay.NMapCalloutCustomOverlay;
@@ -90,7 +91,7 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
         // register callout overlay view listener to customize it.
         mOverlayManager.setOnCalloutOverlayViewListener(onCalloutOverlayViewListener);
 
-
+        super.setMapDataProviderListener(onDataProviderListener);
         testFloatingPOIdataOverlay();
 
     }
@@ -273,6 +274,35 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
 
             // null을 반환하면 말풍선 오버레이를 표시하지 않음
             return null;
+        }
+
+    };
+
+    /* NMapDataProvider Listener */
+    private final OnDataProviderListener onDataProviderListener = new OnDataProviderListener() {
+
+        @Override
+        public void onReverseGeocoderResponse(NMapPlacemark placeMark, NMapError errInfo) {
+
+            if (DEBUG) {
+                Log.i(LOG_TAG, "onReverseGeocoderResponse: placeMark="
+                        + ((placeMark != null) ? placeMark.toString() : null));
+            }
+
+            if (errInfo != null) {
+                Log.e(LOG_TAG, "Failed to findPlacemarkAtLocation: error=" + errInfo.toString());
+
+                return;
+            }
+
+            if (mFloatingPOIitem != null && mFloatingPOIdataOverlay != null) {
+                mFloatingPOIdataOverlay.deselectFocusedPOIitem();
+
+                if (placeMark != null) {
+                    mFloatingPOIitem.setTitle(placeMark.toString());
+                }
+                mFloatingPOIdataOverlay.selectPOIitemBy(mFloatingPOIitem.getId(), false);
+            }
         }
 
     };
