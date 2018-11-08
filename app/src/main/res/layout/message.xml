@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="176dp"
     android:layout_height="201.5dp"
+    android:layout_marginRight="20dp"
     android:background="@drawable/roundbox"
     android:orientation="vertical">
 
@@ -35,6 +36,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/buskerId"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:text="-"
             android:textColor="@color/fontBlack"
             android:textSize="12sp"
@@ -73,7 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:text="개"
+            android:text="  개"
             android:layout_toRightOf="@+id/countCoin"
             android:fontFamily="@font/kopubdotumbold"
             android:textColor="#fff"

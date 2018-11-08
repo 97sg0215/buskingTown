@@ -62,6 +62,7 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/username_after"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="From. -"
@@ -86,7 +87,6 @@
                 android:id="@+id/contentsOne"
                 android:layout_width="244dp"
                 android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
                 android:lines="4"
                 android:maxLength="100"
                 android:layout_centerHorizontal="true"
@@ -94,8 +94,8 @@
                 android:background="#00000000"
                 android:text="-"
                 android:gravity="top"
+                android:textColor="@color/fontBlack"
                 android:lineSpacingExtra="24sp"
-                android:textColorHint="@color/fontGray"
                 android:textSize="14sp" />
 
             <View
