@@ -8,6 +8,7 @@ public class SupportCoin {
     int coin_balance;
     String support_message;
     String date_created;
+    boolean view_check;
 
     public int getSupportCoin_id() {
         return supportCoin_id;
@@ -63,5 +64,13 @@ public class SupportCoin {
 
     public void setCoin_balance(int coin_balance) {
         this.coin_balance = coin_balance;
+    }
+
+    public boolean isView_check() {
+        return view_check;
+    }
+
+    public void setView_check(boolean view_check) {
+        this.view_check = view_check;
     }
 }

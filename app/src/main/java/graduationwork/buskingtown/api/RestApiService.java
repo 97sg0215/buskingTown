@@ -94,7 +94,7 @@ public interface RestApiService {
 
     //받은 코인
     @GET("accounts/coin/{busker_id}/")
-    Call<SupportCoin> getCoin (@Header("Authorization")String authToken, @Path("busker_id")int busker);
+    Call<List<SupportCoin>> getCoin (@Header("Authorization")String authToken, @Path("busker_id")int busker);
 
     //버스커 객체 삭제 > 인증시 오류 해결을 위해
     @DELETE("accounts/delete/{busker_id}/")
@@ -225,6 +225,9 @@ public interface RestApiService {
                                     @Path("busker_id")int busker_id,
                                     @Part("busker_id") RequestBody busker,
                                     @Part("received_coin") RequestBody purchase_coin);
+
+    @PUT("busking/supportCoin/{support_id}/")
+    Call<SupportCoin> supportCoinCheck(@Header("Authorization")String autoToken,@Path("support_id")int id,@Body SupportCoin supportCoin);
 
     //코인 구매
     @POST("accounts/purchaseCoin/")
