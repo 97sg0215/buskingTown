@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.net.Uri;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
@@ -50,6 +51,15 @@ public class LocationLendStart extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_lend_start);
+
+        RelativeLayout pluslayout = (RelativeLayout) findViewById(R.id.pluslayout);
+        pluslayout.setOnClickListener(new RelativeLayout.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), LocationLend.class);
+                startActivity(intent);
+            }
+        });
 
         restApiBuilder();
 

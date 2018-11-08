@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -55,6 +56,15 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_channel_busker);
+
+        RelativeLayout dotLayout = (RelativeLayout) findViewById(R.id.dotLayout);
+        dotLayout.setOnClickListener(new RelativeLayout.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ChannelManagementSetting.class);
+                startActivity(intent);
+            }
+        });
 
         //로딩코드
         CheckTypesTask task = new CheckTypesTask();
