@@ -156,29 +156,6 @@ public class CoinSendBefore_pop extends Activity implements View.OnClickListener
 
                                                     }
                                                 });
-                                                //코인 받기 확인하면 할것,
-//                                                RequestBody busker = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(busker_id));
-//                                                RequestBody busker_coin_set = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(busker_coin_amount+Integer.parseInt(c_Count)));
-//                                                Call<Busker> buskerCall = apiService.updateReceivedCoin(user_token,busker_id,busker,busker_coin_set);
-//                                                buskerCall.enqueue(new Callback<Busker>() {
-//                                                    @Override
-//                                                    public void onResponse(Call<Busker> call, Response<Busker> response) {
-//                                                        if(response.isSuccessful()){
-//
-//                                                        } else {
-//                                                            int StatusCode = response.code();
-//                                                            Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
-//                                                            Log.e("메세지", String.valueOf(response.message()));
-//                                                            Log.e("리스폰스에러바디", String.valueOf(response.errorBody()));
-//                                                            Log.e("리스폰스바디", String.valueOf(response.body()));
-//                                                        }
-//                                                    }
-//
-//                                                    @Override
-//                                                    public void onFailure(Call<Busker> call, Throwable t) {
-//
-//                                                    }
-//                                                });
                                             }else{
                                                 int StatusCode = response.code();
                                                 String s = response.message();
