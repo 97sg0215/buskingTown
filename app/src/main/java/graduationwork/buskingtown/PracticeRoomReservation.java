@@ -72,6 +72,7 @@ public class PracticeRoomReservation extends AppCompatActivity {
 
     String p_name, team_name;
     String p_info;
+    String p_email;
     String p_address;
     String p_image;
     String user_token;
@@ -122,6 +123,7 @@ public class PracticeRoomReservation extends AppCompatActivity {
         team = (TextView) findViewById(R.id.team);
 
         p_name = getIntent().getStringExtra("provide_name");
+        p_email = getIntent().getStringExtra("provide_email");
         p_address = getIntent().getStringExtra("provide_address");
         p_image = getIntent().getStringExtra("provide_image");
         choice_option_name = getIntent().getStringExtra("provide_option_name");
@@ -490,6 +492,7 @@ public class PracticeRoomReservation extends AppCompatActivity {
                      String p_image, String provide_name, String provide_address, String option_name, String team_name, String phone, String email){
         Intent checkReservation = new Intent(this, ReservationCheck.class);
         checkReservation.putExtra("rc_id",provide_id);
+        checkReservation.putExtra("p_email",p_email);
         checkReservation.putExtra("rc_image",p_image);
         checkReservation.putExtra("rc_name",provide_name);
         checkReservation.putExtra("rc_address",provide_address);

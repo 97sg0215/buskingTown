@@ -6,6 +6,9 @@ import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,9 +27,11 @@ import javax.mail.SendFailedException;
 
 public class PromoteRecommend extends Fragment {
 
-    private String email = "buskingtown123@gmail.com";
-    private EditText message = null;
+    private String email = "buskingtown2018@gmail.com";
+    private EditText message , phone_hint, email_hint, date_hint;
     private Button paymentBtn = null;
+
+    String team_name, phone, user_email, date, total_message;
 
     public PromoteRecommend(){
         // Required empty public constructor
@@ -44,6 +49,67 @@ public class PromoteRecommend extends Fragment {
 
         //email = (EditText) v.findViewById(R.id.emailHint); //받는 사람의 이메일
         message = (EditText) v.findViewById(R.id.teamNameHint); //본문 내용
+        phone_hint = (EditText) v.findViewById(R.id.phoneNumberHint);
+        email_hint = (EditText) v.findViewById(R.id.emailHint);
+
+        message.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                team_name = message.getText().toString();
+            }
+        });
+
+        phone_hint.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+
+        phone_hint.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                phone = phone_hint.getText().toString();
+            }
+        });
+
+        email_hint.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                user_email = email_hint.getText().toString();
+            }
+        });
+
+
+        total_message = "팀 이름: "+ team_name+"\n"
+        +"신청인 휴대폰: " + phone+"\n"
+        +"신청인 이메일: " + user_email+"\n"
+        +"신청 날짜: " ;
 
         paymentBtn = (Button) v.findViewById(R.id.paymentBtn);
         paymentBtn.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +129,7 @@ public class PromoteRecommend extends Fragment {
             try {
                 GMailSender gMailSender = new GMailSender("buskingtown2018@gmail.com", "khphTown123");
                 //GMailSender.sendMail(제목, 본문내용, 받는사람);
-                gMailSender.sendMail("추천순위 노출 신청입니다.", message.getText().toString(), email);
+                gMailSender.sendMail("추천순위 노출 신청입니다.", total_message, email);
                 Log.e("메시지",String.valueOf(message));
                 Log.e("이메일",String.valueOf(email));
                 Log.e("이메일","이메일을 성공적으로 보냈습니다.");

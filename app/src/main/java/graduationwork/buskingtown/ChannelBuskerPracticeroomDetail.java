@@ -39,6 +39,7 @@ import retrofit2.Response;
 public class ChannelBuskerPracticeroomDetail extends AppCompatActivity {
 
     String p_name;
+    String p_email;
     String p_phone;
     String p_info;
     String p_rule;
@@ -98,6 +99,7 @@ public class ChannelBuskerPracticeroomDetail extends AppCompatActivity {
         p_image = getIntent().getStringExtra("provide_image");
         p_start_time = getIntent().getStringExtra("provide_start_time");
         p_end_time = getIntent().getStringExtra("provide_end_time");
+        p_email = getIntent().getStringExtra("provide_email");
 
         location_image = (ImageView) findViewById(R.id.practiceRoomImage);
         optionRadioGroup = (RadioGroup) findViewById(R.id.optionRadioGroup);
@@ -214,6 +216,7 @@ public class ChannelBuskerPracticeroomDetail extends AppCompatActivity {
                 goReservaion.putExtra("provide_id",p_id);
                 goReservaion.putExtra("provide_image",p_image);
                 goReservaion.putExtra("provide_name",p_name);
+                goReservaion.putExtra("provide_email",p_email);
                 goReservaion.putExtra("provide_address",p_address);
                 goReservaion.putExtra("provide_description",p_info);
                 goReservaion.putExtra("provide_option_id", choice_option);

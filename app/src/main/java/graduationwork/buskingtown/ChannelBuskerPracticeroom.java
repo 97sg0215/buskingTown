@@ -152,6 +152,7 @@ public class ChannelBuskerPracticeroom extends Fragment {
                                     detail.putExtra("provide_id",practiceList.get(finalI).getProvide_id());
                                     detail.putExtra("provide_image",practiceList.get(finalI).getProvide_image());
                                     detail.putExtra("provide_name",practiceList.get(finalI).getProvide_location_name());
+                                    detail.putExtra("provide_email",practiceList.get(finalI).getProvider_email());
                                     detail.putExtra("provide_address",practiceList.get(finalI).getProvide_location());
                                     detail.putExtra("provider_phone",practiceList.get(finalI).getProvider_phone());
                                     detail.putExtra("provide_description",practiceList.get(finalI).getProvide_description());

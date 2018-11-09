@@ -100,6 +100,7 @@ public class CoinSendAfter_pop extends Activity implements View.OnClickListener 
                                 }
                             });
                             Intent newCoin = new Intent(getApplicationContext(),CoinManagement.class);
+                            newCoin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(newCoin);
                         }else {
                             int StatusCode = response.code();

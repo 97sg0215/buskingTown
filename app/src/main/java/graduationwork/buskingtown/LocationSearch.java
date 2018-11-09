@@ -3,6 +3,8 @@ package graduationwork.buskingtown;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -55,7 +57,7 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
     private EditText locationSearch, addressIn;
 
     Button choiceBtn;
-    String stringData;
+    String location_name, location_detail;
 
 
     @Override
@@ -108,11 +110,25 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
 
         locationSearch = (EditText) findViewById(R.id.locationSearchText);
 
-        Intent intent = getIntent();
-        stringData = intent.getStringExtra("key");
+        addressIn =(EditText)findViewById(R.id.addressIn);
 
-        choiceBtn();
+        addressIn.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                location_name = addressIn.getText().toString();
+                choiceBtn(location_name,location_detail);
+            }
+        });
 
     }
     public void previousActivity(View v){
@@ -321,7 +337,10 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
                 if (placeMark != null) {
                     mFloatingPOIitem.setTitle(placeMark.toString());
                     detailAddress = (TextView)findViewById(R.id.detailAddress);
+                    location_detail = placeMark.toString();
+                    choiceBtn(location_name,location_detail);
                     detailAddress.setText(placeMark.toString());
+
                 }
                 mFloatingPOIdataOverlay.selectPOIitemBy(mFloatingPOIitem.getId(), false);
             }
@@ -329,17 +348,18 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
 
     };
 
-    public void choiceBtn() {
+    public void choiceBtn(String l_name,String l_detail) {
         //확인 버튼 변수
         final Button choiceBtn = (Button) findViewById(R.id.choiceBtn);
-
         choiceBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                addressIn =(EditText)findViewById(R.id.addressIn);
-
                 Intent intent = new Intent(getBaseContext(), LocationLend.class);
+                intent.putExtra("location_name", l_name);
+                intent.putExtra("location_detail", l_detail);
+                Log.e("장소이름", String.valueOf(l_name));
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
 

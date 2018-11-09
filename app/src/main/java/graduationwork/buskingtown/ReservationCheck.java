@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +22,9 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javax.mail.MessagingException;
+import javax.mail.SendFailedException;
+
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.LendLocation;
 import graduationwork.buskingtown.model.PracticeReservation;
@@ -33,7 +37,7 @@ public class ReservationCheck extends AppCompatActivity {
     RestApiService apiService;
 
     int busker_id, provide_id, option_id, fee;
-    String user_token, practice_date, start_time, end_time, provide_image, provide_name, provide_address, option_name, team_name, phone, email;
+    String user_token, practice_date, start_time, end_time, provide_image, provide_name, provide_address, option_name, team_name, phone, email,p_email,total_message;
 
     TextView practice_name,practice_add, rc_name, option_txt, date_txt, time_txt, team_txt, num_txt, email_txt, price_txt;
 
@@ -57,6 +61,7 @@ public class ReservationCheck extends AppCompatActivity {
 
 
         provide_id = getIntent().getIntExtra("rc_id",0);
+        p_email = getIntent().getStringExtra("p_email");
         option_id = getIntent().getIntExtra("rc_option_id",0);
         fee = getIntent().getIntExtra("rc_option_price",0);
         provide_image = getIntent().getStringExtra("rc_image");
@@ -134,6 +139,15 @@ public class ReservationCheck extends AppCompatActivity {
         practiceReservation.setPractice_end_time(end_time);
         practiceReservation.setPractice_fee(fee);
 
+        total_message = "연습실명: " + provide_name + "\n"
+                +"옵션명: " + option_name + "\n"
+                +"예약날짜: " + date + "\n"
+                +"예약시간: " + start_time +" ~ "+end_time + "\n\n"
+                +"예약자 정보" + "\n"
+                +"예약자명: " + team_name +"\n"
+                +"예약자번호: " +  phone + "\n"
+                +"예약자이메일: " + email +"\n";
+
         retrofit2.Call<PracticeReservation> reservationCall = apiService.reservationPractice(user_token, practiceReservation);
         reservationCall.enqueue(new Callback<PracticeReservation>() {
             @Override
@@ -144,6 +158,7 @@ public class ReservationCheck extends AppCompatActivity {
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     Toast.makeText(ReservationCheck.this,"예약이 완료 되었습니다!",Toast.LENGTH_SHORT).show();
+                    new senmailAsync().execute();
                 }else {
                     int StatusCode = response.code();
                     String s = response.message();
@@ -194,5 +209,28 @@ public class ReservationCheck extends AppCompatActivity {
 
     public void previousActivity(View v){
         onBackPressed();
+    }
+
+    private class senmailAsync extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                GMailSender gMailSender = new GMailSender("buskingtown2018@gmail.com", "khphTown123");
+                //GMailSender.sendMail(제목, 본문내용, 받는사람);
+                gMailSender.sendMail("[버스킹타운] 연습실 예약 신청입니다.", total_message, p_email);
+                Log.e("이메일",String.valueOf(email));
+                Log.e("이메일","이메일을 성공적으로 보냈습니다.");
+                //  Toast.makeText(getActivity().getApplicationContext(), "이메일을 성공적으로 보냈습니다.", Toast.LENGTH_SHORT).show();
+            } catch (SendFailedException e) {
+                Log.e("이메일","이메일 형식이 잘못되었습니다.");
+                //   Toast.makeText(getActivity().getApplicationContext(), "이메일 형식이 잘못되었습니다.", Toast.LENGTH_SHORT).show();
+            } catch (MessagingException e) {
+                Log.e("이메일","인터넷 연결을 확인해주십시오");
+                // Toast.makeText(getActivity().getApplicationContext(), "인터넷 연결을 확인해주십시오", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
 }

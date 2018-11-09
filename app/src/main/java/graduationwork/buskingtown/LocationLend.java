@@ -67,6 +67,8 @@ public class LocationLend extends AppCompatActivity {
 
     String user_token;
     String real_album_path;
+    String location_name;
+    String location_detail;
     int user_id;
 
     int mHour, mMinute;
@@ -200,11 +202,17 @@ public class LocationLend extends AppCompatActivity {
             public void onClick(View v) {
                 Intent locationSearch = new Intent(getApplicationContext(), LocationSearch.class);
                 startActivity(locationSearch);
-
             }
         });
 
+        addressChoice = (TextView) findViewById(R.id.addressChoice);
 
+        location_name = getIntent().getStringExtra("location_name");
+        location_detail = getIntent().getStringExtra("location_detail");
+        if(location_name!=null){
+            Log.e("장소이름", String.valueOf(location_name));
+            addressChoice.setText(location_name+ " " +location_detail);
+        }
 
      //   provider_phone, provider_email, option_name, option_price;
         provider_phone = (EditText) findViewById(R.id.provider_phone);
@@ -389,9 +397,9 @@ public class LocationLend extends AppCompatActivity {
                 Log.e("가격", String.valueOf(option_price_list));
 
                 if(option_name_list.size()==0&&option_price_list.size()==0){
-                    rent(real_album_path,p_type,p_phone,p_email,p_start_date,p_end_date,p_start_time,p_end_time,null,p_info,p_rule,p_refund_rule,o_name,o_price,null,null);
+                    rent(real_album_path,p_type,p_phone,p_email,p_start_date,p_end_date,p_start_time,p_end_time,location_name,location_detail,p_info,p_rule,p_refund_rule,o_name,o_price,null,null);
                 }else {
-                    rent(real_album_path,p_type,p_phone,p_email,p_start_date,p_end_date,p_start_time,p_end_time,null,p_info,p_rule,p_refund_rule,o_name,o_price,option_name_list,option_price_list);
+                    rent(real_album_path,p_type,p_phone,p_email,p_start_date,p_end_date,p_start_time,p_end_time,location_name,location_detail,p_info,p_rule,p_refund_rule,o_name,o_price,option_name_list,option_price_list);
                 }
 
 
@@ -498,6 +506,7 @@ public class LocationLend extends AppCompatActivity {
                      String provide_start_time,
                      String provide_end_time,
                      String provide_location,
+                     String provide_detail,
                      String provide_description,
                      String provide_rule,
                      String provide_refund_rule,
@@ -509,12 +518,12 @@ public class LocationLend extends AppCompatActivity {
         RequestBody p_type = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provide_type));
         RequestBody p_phone = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provider_phone));
         RequestBody p_email = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provider_email));
-        RequestBody p_loc_name = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf("임시 장소 이름"));
+        RequestBody p_loc_name = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provide_location));
         RequestBody p_start_date = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(provide_start_date));
         RequestBody p_end_date = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provide_end_date));
         RequestBody p_start_time = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(provide_start_time));
         RequestBody p_end_time = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provide_end_time));
-        RequestBody p_locaion = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf("서울"));
+        RequestBody p_locaion = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provide_detail));
         RequestBody p_desciption = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provide_description));
         RequestBody p_rule = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provide_rule));
         RequestBody p_refund_rule = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provide_refund_rule));
