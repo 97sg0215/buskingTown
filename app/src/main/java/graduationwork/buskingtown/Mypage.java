@@ -55,7 +55,7 @@ public class Mypage extends Fragment {
 
     final int REQ_CODE_SELECT_IMAGE=100;
 
-    RelativeLayout go_Busker,coinLayout,coinhouseLayout,locationLendLayout,noticeLayout,clientcenterLayout,logout;
+    RelativeLayout go_Busker,coinLayout,coinhouseLayout,locationLendLayout,noticeLayout,clientcenterLayout,logout, settingLayout;
 
     TextView go_Busker_text, followingAmount, coinAmount;
 
@@ -84,16 +84,6 @@ public class Mypage extends Fragment {
 
         restApiBuilder();
 
-        //설정버튼
-        ImageButton settingBtn = (ImageButton) v.findViewById(R.id.settingBtn);
-        settingBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent setting = new Intent(getActivity(),Setting.class);
-                startActivity(setting);
-            }
-        });
-
         getLocalData();
 
         getBusker(user_token,user_id);
@@ -121,6 +111,16 @@ public class Mypage extends Fragment {
         noticeLayout = (RelativeLayout) v.findViewById(R.id.noticeLayout);
         clientcenterLayout = (RelativeLayout) v.findViewById(R.id.clientcenterLayout);
         logout = (RelativeLayout)v.findViewById(R.id.logOut);
+        settingLayout = (RelativeLayout)v.findViewById(R.id.settingLayout);
+
+        //환경설정
+        settingLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent setting = new Intent(getActivity(),Setting.class);
+                startActivity(setting);
+            }
+        });
 
 
         //코인충전소
@@ -188,8 +188,8 @@ public class Mypage extends Fragment {
         user_id = pref.getInt("user_id",0);
         user_image = pref.getString("user_image",null);
 
-       get_following_count(user_token,user_id);
-       get_coin_count(user_token,user_id);
+        get_following_count(user_token,user_id);
+        get_coin_count(user_token,user_id);
     }
 
     public void get_following_count(String user_token,int user_id){
@@ -302,11 +302,11 @@ public class Mypage extends Fragment {
                 userDetail[0] = response.body();
                 if (response.isSuccessful()) {
                     if (userDetail[0].getBusker() != null) {
-                    certification = userDetail[0].getBusker().getCertification();
-                    busker_id = userDetail[0].getBusker().getBusker_id();
-                    busker_type = userDetail[0].getBusker().getBusker_type();
-                    team_name = userDetail[0].getBusker().getTeam_name();
-                    busker_image = userDetail[0].getBusker().getBusker_image();
+                        certification = userDetail[0].getBusker().getCertification();
+                        busker_id = userDetail[0].getBusker().getBusker_id();
+                        busker_type = userDetail[0].getBusker().getBusker_type();
+                        team_name = userDetail[0].getBusker().getTeam_name();
+                        busker_image = userDetail[0].getBusker().getBusker_image();
 
                         Log.e("유저 아이디", String.valueOf(id));
                         Log.e("버스커 아이디", String.valueOf(busker_id));
