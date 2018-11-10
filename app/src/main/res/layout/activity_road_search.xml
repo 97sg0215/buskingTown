@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RoadSearch">
+
+    <RelativeLayout
+        android:id="@+id/statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="46.1dp"
+        android:background="@color/mainPurple">
+
+        <ImageButton
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:background="#00000000"
+            android:src="@drawable/backbtn"
+            android:onClick="previousActivity"/>
+
+        <EditText
+            android:id="@+id/locationSearchText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="장소검색"
+            android:textColorHint="@color/mainGray"
+            android:layout_marginTop="13.8dp"
+            android:background="#00000000"
+            android:textSize="15sp"
+            android:lineSpacingExtra="2sp"
+            android:fontFamily="@font/kopubbold"
+            android:textColor="@color/mainGray"
+            android:layout_toRightOf="@+id/backBtn"
+            android:layout_marginLeft="10dp"/>
+
+        <ImageButton
+            android:id="@+id/deleteBtn"
+            android:layout_width="12.5dp"
+            android:layout_height="12.5dp"
+            android:layout_centerVertical="true"
+            android:background="#00000000"
+            android:src="@drawable/search"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"/>
+
+        <View
+            android:id="@+id/locationUnderLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.9dp"
+            android:layout_below="@+id/name"
+            android:layout_marginTop="36.4dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="45.5dp"
+            android:background="@color/sub2Gray"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/statusBar"
+        android:layout_above="@+id/choiceBtn"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/MapContainer"
+                android:layout_width="match_parent"
+                android:layout_height="443dp"
+                android:layout_below="@id/statusBar"
+                android:background="@color/subGray">
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="85dp"
+                android:layout_below="@id/mapsearchimage"
+                android:gravity="center_vertical"
+                android:background="#fff">
+
+                <EditText
+                    android:id="@+id/addressIn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:hint="알아보기 쉽게 장소명을 지정해주세요 ex) 한양여자대학교"
+                    android:background="@null"
+                    android:fontFamily="@font/kopubbold"
+                    android:textColor="@color/mainPurple"
+                    android:lineSpacingExtra="1.5sp"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/detailAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/addressIn"
+                    android:layout_marginTop="7.5dp"
+                    android:layout_marginLeft="20dp"
+                    android:text="-"
+                    android:textColor="@color/fontBlack"
+                    android:fontFamily="@font/kopubmedium"
+                    android:textSize="12sp"
+                    android:lineSpacingExtra="1sp"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/choiceBtn"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_alignParentBottom="true"
+        android:text="선 택"
+        android:fontFamily="@font/kopubbold"
+        android:textSize="14sp"
+        android:textColor="#fff"
+        android:lineSpacingExtra="-3.5sp"
+        android:background="@color/mainPurple"
+        android:layout_centerHorizontal="true"
+        style="?android:attr/borderlessButtonStyle"/>
+
+</RelativeLayout>

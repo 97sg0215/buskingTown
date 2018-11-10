@@ -81,6 +81,7 @@
         <activity android:name=".LocationLend" />
         <activity android:name=".UserProfileEdit" />
         <activity android:name=".BuskingOpen" />
+        <activity android:name=".RoadSearch" />
         <activity android:name=".LocationSearch" />
         <activity android:name=".BuskingOpen_map" />
         <activity android:name=".LocationLendStart" />

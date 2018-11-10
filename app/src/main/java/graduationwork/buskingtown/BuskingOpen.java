@@ -7,11 +7,13 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder;
@@ -36,6 +38,10 @@ public class BuskingOpen extends AppCompatActivity implements DatePickerDialog.O
     Button timeStartDate;
     Button timeEndDate;
 
+    TextView addressChoice;
+    String location_name;
+    String location_detail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,10 +58,19 @@ public class BuskingOpen extends AppCompatActivity implements DatePickerDialog.O
         placeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent placeSearch = new Intent(getApplication(),LocationSearch.class);
+                Intent placeSearch = new Intent(getApplication(),RoadSearch.class);
                 startActivity(placeSearch);
             }
         });
+
+        addressChoice = (TextView) findViewById(R.id.addressChoice);
+
+        location_name = getIntent().getStringExtra("location_name");
+        location_detail = getIntent().getStringExtra("location_detail");
+        if(location_name!=null){
+            Log.e("장소이름", String.valueOf(location_name));
+            addressChoice.setText(location_name+ " " +location_detail);
+        }
 
         //시간을 가져오기위한 Calendar 인스턴스 선언
         Calendar cal = new GregorianCalendar();
