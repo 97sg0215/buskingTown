@@ -1,6 +1,7 @@
 package graduationwork.buskingtown;
 
 import android.Manifest;
+import android.app.DatePickerDialog;
 import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
@@ -14,13 +15,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import javax.mail.MessagingException;
 import javax.mail.SendFailedException;
@@ -31,6 +41,12 @@ public class PromoteRecommend extends Fragment {
     private EditText message , phone_hint, email_hint, date_hint;
     private Button paymentBtn = null;
 
+    TextView publicDateHint;
+    SimpleDateFormat simpleDateFormat;
+    int promoteYear, promoteMonth, promoteDay, mHour, mMinute;
+    RelativeLayout dateImgLayout;
+    String p_date;
+
     String team_name, phone, user_email, date, total_message;
 
     public PromoteRecommend(){
@@ -40,6 +56,39 @@ public class PromoteRecommend extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.activity_promote_recommend, container, false);
+
+        //달력개체 불러옴
+        final GregorianCalendar startCalendar = new GregorianCalendar();
+         promoteYear = startCalendar.get(Calendar.YEAR);
+         promoteMonth = startCalendar.get(Calendar.MONTH);
+         promoteDay = startCalendar.get(Calendar.DAY_OF_MONTH);
+
+        //시간을 가져오기위한 Calendar 인스턴스 선언
+        Calendar cal = new GregorianCalendar();
+        mHour = cal.get(Calendar.HOUR_OF_DAY);
+        mMinute = cal.get(Calendar.MINUTE);
+
+        //날짜형태
+        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+
+        Calendar minDate = Calendar.getInstance();
+
+        dateImgLayout = (RelativeLayout) v.findViewById(R.id.dateImgLayout);
+        publicDateHint = (TextView) v.findViewById(R.id.publicDateHint);
+        dateImgLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog dialog = new DatePickerDialog(getContext(),R.style.MyDatePickerDialogTheme, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int date) {
+                        publicDateHint.setText(year + "년 " + (month + 1) + "월 " + date + "일");
+                        String p_start_date = String.valueOf(year+"-"+(month+1)+"-"+date);
+                    }
+                }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
+                dialog.getDatePicker().setMinDate(new Date().getTime());    //입력한 날짜 이후로 클릭 안되게 옵션
+                dialog.show();
+            }
+        });
 
         //이메일 인터넷 사용 권한 허용
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
