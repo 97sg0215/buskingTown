@@ -87,7 +87,9 @@ public class PracticeRoomReservation extends AppCompatActivity {
 
     ArrayList<Integer> selectCheck = new ArrayList<>();
     ArrayList<Integer> selectNoneCheck = new ArrayList<>();
+    ArrayList<Integer> ableCheck = new ArrayList<>();
     ArrayList<String> selectCheckTime = new ArrayList<>();
+    int checkIndex;
     String checkTime;
 
 
@@ -245,24 +247,33 @@ public class PracticeRoomReservation extends AppCompatActivity {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onResponse(retrofit2.Call<List<PracticeReservation>> call, Response<List<PracticeReservation>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     List<PracticeReservation> practiceReservations = response.body();
-                    if(practiceReservations.size()==0){
-                        //예약 목록이 하나도 없을때는 그냥 예약
-                        //대여 시간
-                        String[] start_time_words = p_start_time.split(":");
-                        String[] end_time_words = p_end_time.split(":");
-                        int start_time = Integer.parseInt(start_time_words[0]);
-                        int end_time = Integer.parseInt(end_time_words[0]);
-                        for (int start = start_time; start <= end_time-2 ; start +=2){
+                    //대여 시간
+                    String[] start_time_words = p_start_time.split(":");
+                    String[] end_time_words = p_end_time.split(":");
+                    int start_time = Integer.parseInt(start_time_words[0]);
+                    int end_time = Integer.parseInt(end_time_words[0]);
+
+                    //현재시간
+                    long now = System.currentTimeMillis();
+                    Date date = new Date(now);
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    SimpleDateFormat stf = new SimpleDateFormat("HH");
+                    String getDate = sdf.format(date);
+                    int getTime = Integer.parseInt(stf.format(date));
+
+                    if (practiceReservations.size() == 0 && !practice_date.equals(getDate)) {
+                        //오늘 날짜도 아니고 예약 목록이 하나도 없을때는 그냥 예약
+                        //버튼 그리기
+                        for (int start = start_time; start <= end_time - 2; start += 2) {
                             Button choiceTimeList = (Button) getLayoutInflater().inflate(R.layout.choice_time_btn, choiceTimeBtnContainer, false);
-                           // final Button btn = choiceTimeList.findViewById(R.id.choice_time);
                             choiceTimeList.setText(start + ":00");
                             if (choiceTimeList.getParent() != null)
                                 ((ViewGroup) choiceTimeList.getParent()).removeView(choiceTimeList);
                             choiceTimeBtnContainer.addView(choiceTimeList);
                         }
-                        for(int j=0; j < choiceTimeBtnContainer.getChildCount(); j++){
+                        for (int j = 0; j < choiceTimeBtnContainer.getChildCount(); j++) {
                             View v = choiceTimeBtnContainer.getChildAt(j);
                             int finalJ = j;
                             v.setOnClickListener(new View.OnClickListener() {
@@ -271,52 +282,54 @@ public class PracticeRoomReservation extends AppCompatActivity {
                                     v.setSelected(!button.isSelected());
                                     if (button.isSelected()) {//선택하고 난 후
                                         v.setBackground(getDrawable(R.drawable.able_btn));
-                                        if(v instanceof Button) ((Button)v).setTextColor(Color.WHITE);
+                                        if (v instanceof Button)
+                                            ((Button) v).setTextColor(Color.WHITE);
                                         selectCheck.add(finalJ);
-                                        if(selectCheck.size()==2&&selectCheck.get(0)<finalJ){
+                                        if (selectCheck.size() == 2 && selectCheck.get(0) < finalJ) {
                                             selectCheckTime.clear();
-                                            for (int x=selectCheck.get(0); x<finalJ; x++){
+                                            for (int x = selectCheck.get(0); x < finalJ; x++) {
                                                 choiceTimeBtnContainer.getChildAt(x).setBackground(getDrawable(R.drawable.able_btn));
-                                                if(choiceTimeBtnContainer.getChildAt(x) instanceof Button){
-                                                    ((Button)choiceTimeBtnContainer.getChildAt(x)).setTextColor(Color.WHITE);
-                                                    checkTime = String.valueOf(((Button)choiceTimeBtnContainer.getChildAt(x)).getText());
+                                                if (choiceTimeBtnContainer.getChildAt(x) instanceof Button) {
+                                                    ((Button) choiceTimeBtnContainer.getChildAt(x)).setTextColor(Color.WHITE);
+                                                    checkTime = String.valueOf(((Button) choiceTimeBtnContainer.getChildAt(x)).getText());
                                                 }
                                                 selectCheckTime.add(checkTime);
                                             }
-                                            selectCheckTime.add(String.valueOf(((Button)choiceTimeBtnContainer.getChildAt(finalJ)).getText()));
-                                            Log.e("두번 체크",String.valueOf(selectCheckTime));
+                                            selectCheckTime.add(String.valueOf(((Button) choiceTimeBtnContainer.getChildAt(finalJ)).getText()));
+                                            Log.e("두번 체크", String.valueOf(selectCheckTime));
                                             int sum_price = (Integer.parseInt(choice_option_price) * 2) * selectCheckTime.size();
                                             price.setText(String.valueOf(sum_price));
                                             selectCheck.clear();
 
                                             //끝나는 시간
-                                            String[] p_end_time_words = String.valueOf(((Button)choiceTimeBtnContainer.getChildAt(finalJ)).getText()).split(":");
+                                            String[] p_end_time_words = String.valueOf(((Button) choiceTimeBtnContainer.getChildAt(finalJ)).getText()).split(":");
                                             int end_time = Integer.parseInt(p_end_time_words[0]) + 2;
                                             String real_end_time = String.valueOf(end_time) + ":00";
 
                                             confirmBtn.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
-                                                    next(provide_id,provide_option_id,practice_date,selectCheckTime.get(0),real_end_time,sum_price,
-                                                            p_image,p_name,p_address,choice_option_name,team_name,num,email);
+                                                    next(provide_id, provide_option_id, practice_date, selectCheckTime.get(0), real_end_time, sum_price,
+                                                            p_image, p_name, p_address, choice_option_name, team_name, num, email);
                                                 }
                                             });
 
-                                        }else if(selectCheck.get(0)>finalJ||selectCheck.size()==1){
+                                        } else if (selectCheck.get(0) > finalJ || selectCheck.size() == 1) {
                                             selectCheckTime.clear();
                                             v.setBackground(getDrawable(R.drawable.able_btn));
-                                            if(v instanceof Button){
-                                                ((Button)v).setTextColor(Color.WHITE);
-                                                checkTime = String.valueOf(((Button)v).getText());
+                                            if (v instanceof Button) {
+                                                ((Button) v).setTextColor(Color.WHITE);
+                                                checkTime = String.valueOf(((Button) v).getText());
                                             }
                                             selectCheckTime.add(checkTime);
-                                            Log.e("한번 체크",String.valueOf(selectCheckTime));
-                                            int sum_price = Integer.parseInt(choice_option_price) * 2 ;
+                                            Log.e("한번 체크", String.valueOf(selectCheckTime));
+                                            int sum_price = Integer.parseInt(choice_option_price) * 2;
                                             price.setText(String.valueOf(sum_price));
-                                            for (int x=0; x <choiceTimeBtnContainer.getChildCount(); x++){
-                                                if(x!=finalJ){
+                                            for (int x = 0; x < choiceTimeBtnContainer.getChildCount(); x++) {
+                                                if (x != finalJ) {
                                                     choiceTimeBtnContainer.getChildAt(x).setBackground(getDrawable(R.drawable.date_rounded));
-                                                    if(choiceTimeBtnContainer.getChildAt(x) instanceof Button) ((Button)choiceTimeBtnContainer.getChildAt(x)).setTextColor(R.color.mainPurple);
+                                                    if (choiceTimeBtnContainer.getChildAt(x) instanceof Button)
+                                                        ((Button) choiceTimeBtnContainer.getChildAt(x)).setTextColor(R.color.mainPurple);
                                                     selectCheck.clear();
                                                     selectCheck.add(finalJ);
                                                 }
@@ -329,55 +342,56 @@ public class PracticeRoomReservation extends AppCompatActivity {
                                             confirmBtn.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
-                                                    next(provide_id,provide_option_id,practice_date,selectCheckTime.get(0),real_end_time,sum_price,
-                                                            p_image,p_name,p_address,choice_option_name,team_name,num,email);
+                                                    next(provide_id, provide_option_id, practice_date, selectCheckTime.get(0), real_end_time, sum_price,
+                                                            p_image, p_name, p_address, choice_option_name, team_name, num, email);
                                                 }
                                             });
                                         }
-                                    }else {// 이미 한번 셀렉한거
+                                    } else {// 이미 한번 셀렉한거
                                         v.setBackground(getDrawable(R.drawable.able_btn));
-                                        if(v instanceof Button) ((Button)v).setTextColor(Color.WHITE);
+                                        if (v instanceof Button)
+                                            ((Button) v).setTextColor(Color.WHITE);
                                         selectCheck.add(finalJ);
-                                        if(selectCheck.size()==2&&selectCheck.get(0)<finalJ){
+                                        if (selectCheck.size() == 2 && selectCheck.get(0) < finalJ) {
                                             selectCheckTime.clear();
-                                            for (int x=selectCheck.get(0); x<finalJ; x++){
+                                            for (int x = selectCheck.get(0); x < finalJ; x++) {
                                                 choiceTimeBtnContainer.getChildAt(x).setBackground(getDrawable(R.drawable.able_btn));
-                                                if(choiceTimeBtnContainer.getChildAt(x) instanceof Button){
-                                                    ((Button)choiceTimeBtnContainer.getChildAt(x)).setTextColor(Color.WHITE);
-                                                    checkTime = String.valueOf(((Button)choiceTimeBtnContainer.getChildAt(x)).getText());
+                                                if (choiceTimeBtnContainer.getChildAt(x) instanceof Button) {
+                                                    ((Button) choiceTimeBtnContainer.getChildAt(x)).setTextColor(Color.WHITE);
+                                                    checkTime = String.valueOf(((Button) choiceTimeBtnContainer.getChildAt(x)).getText());
                                                 }
                                                 selectCheckTime.add(checkTime);
                                             }
-                                            selectCheckTime.add(String.valueOf(((Button)choiceTimeBtnContainer.getChildAt(finalJ)).getText()));
-                                            Log.e("두번 체크",String.valueOf(selectCheckTime));
+                                            selectCheckTime.add(String.valueOf(((Button) choiceTimeBtnContainer.getChildAt(finalJ)).getText()));
+                                            Log.e("두번 체크", String.valueOf(selectCheckTime));
                                             int sum_price = (Integer.parseInt(choice_option_price) * 2) * selectCheckTime.size();
                                             price.setText(String.valueOf(sum_price));
                                             selectCheck.clear();
 
                                             //끝나는 시간
-                                            String[] p_end_time_words = String.valueOf(((Button)choiceTimeBtnContainer.getChildAt(finalJ)).getText()).split(":");
+                                            String[] p_end_time_words = String.valueOf(((Button) choiceTimeBtnContainer.getChildAt(finalJ)).getText()).split(":");
                                             int end_time = Integer.parseInt(p_end_time_words[0]) + 2;
                                             String real_end_time = String.valueOf(end_time) + ":00";
 
                                             confirmBtn.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
-                                                    next(provide_id,provide_option_id,practice_date,selectCheckTime.get(0),real_end_time,sum_price,
-                                                            p_image,p_name,p_address,choice_option_name,team_name,num,email);
+                                                    next(provide_id, provide_option_id, practice_date, selectCheckTime.get(0), real_end_time, sum_price,
+                                                            p_image, p_name, p_address, choice_option_name, team_name, num, email);
                                                 }
                                             });
 
-                                        }else if(selectCheck.get(0)>finalJ||selectCheck.size()==1){
+                                        } else if (selectCheck.get(0) > finalJ || selectCheck.size() == 1) {
                                             selectCheckTime.clear();
                                             v.setBackground(getDrawable(R.drawable.able_btn));
-                                            if(v instanceof Button){
-                                                ((Button)v).setTextColor(Color.WHITE);
-                                                checkTime = String.valueOf(((Button)v).getText());
+                                            if (v instanceof Button) {
+                                                ((Button) v).setTextColor(Color.WHITE);
+                                                checkTime = String.valueOf(((Button) v).getText());
                                             }
                                             selectCheckTime.add(checkTime);
-                                            int sum_price = Integer.parseInt(choice_option_price) * 2 ;
+                                            int sum_price = Integer.parseInt(choice_option_price) * 2;
                                             price.setText(String.valueOf(sum_price));
-                                            Log.e("한번 체크",String.valueOf(selectCheckTime));
+                                            Log.e("한번 체크", String.valueOf(selectCheckTime));
 
                                             //끝나는 시간
                                             String[] p_end_time_words = selectCheckTime.get(0).split(":");
@@ -387,16 +401,17 @@ public class PracticeRoomReservation extends AppCompatActivity {
                                             confirmBtn.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
-                                                    next(provide_id,provide_option_id,practice_date,selectCheckTime.get(0),real_end_time,sum_price,
-                                                            p_image,p_name,p_address,choice_option_name,team_name,num,email);
+                                                    next(provide_id, provide_option_id, practice_date, selectCheckTime.get(0), real_end_time, sum_price,
+                                                            p_image, p_name, p_address, choice_option_name, team_name, num, email);
                                                 }
                                             });
 
 
-                                            for (int x=0; x <choiceTimeBtnContainer.getChildCount(); x++){
-                                                if(x!=finalJ){
+                                            for (int x = 0; x < choiceTimeBtnContainer.getChildCount(); x++) {
+                                                if (x != finalJ) {
                                                     choiceTimeBtnContainer.getChildAt(x).setBackground(getDrawable(R.drawable.date_rounded));
-                                                    if(choiceTimeBtnContainer.getChildAt(x) instanceof Button) ((Button)choiceTimeBtnContainer.getChildAt(x)).setTextColor(R.color.mainPurple);
+                                                    if (choiceTimeBtnContainer.getChildAt(x) instanceof Button)
+                                                        ((Button) choiceTimeBtnContainer.getChildAt(x)).setTextColor(R.color.mainPurple);
                                                     selectCheck.clear();
                                                     selectCheck.add(finalJ);
                                                 }
@@ -406,67 +421,626 @@ public class PracticeRoomReservation extends AppCompatActivity {
                                 }
                             });
                         }
-                    }else {
-                        for (int i=0; i < practiceReservations.size(); i ++){
-                            //예약 된 시간
-                            String reservation_start_time = practiceReservations.get(i).getPractice_start_time();
-                            String reservation_end_time = practiceReservations.get(i).getPractice_end_time();
-                            String[] start_reservation_words = reservation_start_time.split(":");
-                            String[] end_reservation_words = reservation_end_time.split(":");
-
-                            start_reservation_time.add(Integer.parseInt(start_reservation_words[0]));
-                            end_reservation_time.add(Integer.parseInt(end_reservation_words[0]));
-
-                            //원래 시간
-                            String[] start_time_words = p_start_time.split(":");
-                            String[] end_time_words = p_end_time.split(":");
-                            int start_time = Integer.parseInt(start_time_words[0]);
-                            int end_time = Integer.parseInt(end_time_words[0]);
-
-                            for (int start = start_time; start <= end_time-2 ; start +=2){
-                                Button choiceTimeList = (Button) getLayoutInflater().inflate(R.layout.choice_time_btn, choiceTimeBtnContainer, false);
-                                // final Button btn = choiceTimeList.findViewById(R.id.choice_time);
-                                choiceTimeList.setText(start + ":00");
-                                if (choiceTimeList.getParent() != null)
-                                    ((ViewGroup) choiceTimeList.getParent()).removeView(choiceTimeList);
-                                choiceTimeBtnContainer.addView(choiceTimeList);
+                    } else if (practiceReservations.size() == 0 && practice_date.equals(getDate)) {
+                        selectNoneCheck.clear();
+                        //예약 된 것 없으나 오늘 날짜 일때
+                        //버튼 그리기
+                        for (int start = start_time; start <= end_time - 2; start += 2) {
+                            Button choiceTimeList = (Button) getLayoutInflater().inflate(R.layout.choice_time_btn, choiceTimeBtnContainer, false);
+                            choiceTimeList.setText(start + ":00");
+                            if (choiceTimeList.getParent() != null)
+                                ((ViewGroup) choiceTimeList.getParent()).removeView(choiceTimeList);
+                            choiceTimeBtnContainer.addView(choiceTimeList);
+                        }
+                        for (int j = 0; j < choiceTimeBtnContainer.getChildCount(); j++) {
+                            View v = choiceTimeBtnContainer.getChildAt(j);
+                            String[] c_time = new String[0];
+                            if (v instanceof Button) {
+                                c_time = String.valueOf(((Button) v).getText()).split(":");
                             }
-
-                            for(int j=0; j < choiceTimeBtnContainer.getChildCount(); j++) {
-                                View v = choiceTimeBtnContainer.getChildAt(j);
-                                String[] c_time = new String[0];
-                                if(v instanceof Button){
-                                    c_time = String.valueOf(((Button) v).getText()).split(":");
-                                }
-                                //end는 가져온 시간
-                                for(int end = end_reservation_time.get(i)-2; end >= start_reservation_time.get(i); end-=2){
-                                    if(Integer.parseInt(c_time[0])==end){
-                                        v.setOnClickListener(null);
-                                        v.setBackground(getDrawable(R.drawable.disable_btn));
-                                        if(v instanceof Button)  ((Button) v).setTextColor(Color.WHITE);
+                            for (int end = getTime; end >= start_time; end--) {
+                                if (Integer.parseInt(c_time[0]) == end) {
+                                    if (!selectNoneCheck.contains(j)) {
                                         selectNoneCheck.add(j);
-                                    }else {
-                                        int finalJ = j;
-                                        Log.e("아닌시간", String.valueOf(selectNoneCheck));
-                                        for (int x=0; x<selectNoneCheck.size(); x++){
-                                            if(finalJ!=selectNoneCheck.get(x)){
-                                                v.setOnClickListener(new View.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(View button) {
-                                                        v.setSelected(!button.isSelected());
-                                                        if(button.isSelected()){
-                                                            v.setBackground(getDrawable(R.drawable.able_btn));
-                                                            if(v instanceof Button) ((Button)v).setTextColor(Color.WHITE);
+                                    }
+                                }
+                            }
+                            for(int none:selectNoneCheck){
+                                if(j!=none){
+                                    int finalJ = j;
+                                    v.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View button) {
+                                            v.setSelected(!button.isSelected());
+                                            if (button.isSelected()) {//선택하고 난 후
+                                                v.setBackground(getDrawable(R.drawable.able_btn));
+                                                if (v instanceof Button)
+                                                    ((Button) v).setTextColor(Color.WHITE);
+                                                selectCheck.add(finalJ);
+
+                                                //두개 연속 체크
+                                                if (selectCheck.size() == 2 && selectCheck.get(0) < finalJ && !selectNoneCheck.contains(finalJ-1)) {
+                                                    selectCheckTime.clear();
+                                                    for (int x = selectCheck.get(0); x < finalJ; x++) {
+                                                        if(x!=none){
+                                                            choiceTimeBtnContainer.getChildAt(x).setBackground(getDrawable(R.drawable.able_btn));
+                                                            if (choiceTimeBtnContainer.getChildAt(x) instanceof Button) {
+                                                                ((Button) choiceTimeBtnContainer.getChildAt(x)).setTextColor(Color.WHITE);
+                                                                checkTime = String.valueOf(((Button) choiceTimeBtnContainer.getChildAt(x)).getText());
+                                                            }
+                                                            selectCheckTime.add(checkTime);
+                                                        }
+                                                    }
+                                                    selectCheckTime.add(String.valueOf(((Button) choiceTimeBtnContainer.getChildAt(finalJ)).getText()));
+                                                    Log.e("두번 체크", String.valueOf(selectCheckTime));
+                                                    int sum_price = (Integer.parseInt(choice_option_price) * 2) * selectCheckTime.size();
+                                                    price.setText(String.valueOf(sum_price));
+                                                    selectCheck.clear();
+
+                                                    //끝나는 시간
+                                                    String[] p_end_time_words = String.valueOf(((Button) choiceTimeBtnContainer.getChildAt(finalJ)).getText()).split(":");
+                                                    int end_time = Integer.parseInt(p_end_time_words[0]) + 2;
+                                                    String real_end_time = String.valueOf(end_time) + ":00";
+
+                                                    confirmBtn.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            next(provide_id, provide_option_id, practice_date, selectCheckTime.get(0), real_end_time, sum_price,
+                                                                    p_image, p_name, p_address, choice_option_name, team_name, num, email);
+                                                        }
+                                                    });
+
+                                                } else if (selectCheck.get(0) > finalJ || selectCheck.size() == 1) {
+                                                    selectCheckTime.clear();
+                                                    v.setBackground(getDrawable(R.drawable.able_btn));
+                                                    if (v instanceof Button) {
+                                                        ((Button) v).setTextColor(Color.WHITE);
+                                                        checkTime = String.valueOf(((Button) v).getText());
+                                                    }
+                                                    selectCheckTime.add(checkTime);
+                                                    int sum_price = Integer.parseInt(choice_option_price) * 2;
+                                                    price.setText(String.valueOf(sum_price));
+                                                    Log.e("한번 체크", String.valueOf(selectCheckTime));
+
+                                                    //끝나는 시간
+                                                    String[] p_end_time_words = selectCheckTime.get(0).split(":");
+                                                    int end_time = Integer.parseInt(p_end_time_words[0]) + 2;
+                                                    String real_end_time = String.valueOf(end_time) + ":00";
+
+                                                    confirmBtn.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            next(provide_id, provide_option_id, practice_date, selectCheckTime.get(0), real_end_time, sum_price,
+                                                                    p_image, p_name, p_address, choice_option_name, team_name, num, email);
+                                                        }
+                                                    });
+
+                                                    for (int x = none+1; x < choiceTimeBtnContainer.getChildCount(); x++) {
+                                                        if (x != finalJ) {
+                                                            choiceTimeBtnContainer.getChildAt(x).setBackground(getDrawable(R.drawable.date_rounded));
+                                                            if (choiceTimeBtnContainer.getChildAt(x) instanceof Button)
+                                                                ((Button) choiceTimeBtnContainer.getChildAt(x)).setTextColor(R.color.mainPurple);
+                                                            selectCheck.clear();
                                                             selectCheck.add(finalJ);
                                                         }
                                                     }
-                                                });
+                                                }
+
+                                            } else {// 이미 한번 셀렉한거
+                                                v.setBackground(getDrawable(R.drawable.able_btn));
+                                                if (v instanceof Button)
+                                                    ((Button) v).setTextColor(Color.WHITE);
+                                                selectCheck.add(finalJ);
+                                                if (selectCheck.size() == 2 && selectCheck.get(0) < finalJ) {
+                                                    selectCheckTime.clear();
+                                                    for (int x = selectCheck.get(0); x < finalJ; x++) {
+                                                        if(x!=none) {
+                                                            choiceTimeBtnContainer.getChildAt(x).setBackground(getDrawable(R.drawable.able_btn));
+                                                            if (choiceTimeBtnContainer.getChildAt(x) instanceof Button) {
+                                                                ((Button) choiceTimeBtnContainer.getChildAt(x)).setTextColor(Color.WHITE);
+                                                                checkTime = String.valueOf(((Button) choiceTimeBtnContainer.getChildAt(x)).getText());
+                                                            }
+                                                            selectCheckTime.add(checkTime);
+                                                        }
+                                                    }
+                                                    selectCheckTime.add(String.valueOf(((Button) choiceTimeBtnContainer.getChildAt(finalJ)).getText()));
+                                                    Log.e("두번 체크", String.valueOf(selectCheckTime));
+                                                    int sum_price = (Integer.parseInt(choice_option_price) * 2) * selectCheckTime.size();
+                                                    price.setText(String.valueOf(sum_price));
+                                                    selectCheck.clear();
+
+                                                    //끝나는 시간
+                                                    String[] p_end_time_words = String.valueOf(((Button) choiceTimeBtnContainer.getChildAt(finalJ)).getText()).split(":");
+                                                    int end_time = Integer.parseInt(p_end_time_words[0]) + 2;
+                                                    String real_end_time = String.valueOf(end_time) + ":00";
+
+                                                    confirmBtn.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            next(provide_id, provide_option_id, practice_date, selectCheckTime.get(0), real_end_time, sum_price,
+                                                                    p_image, p_name, p_address, choice_option_name, team_name, num, email);
+                                                        }
+                                                    });
+
+                                                } else if (selectCheck.get(0) > finalJ || selectCheck.size() == 1) {
+                                                    selectCheckTime.clear();
+                                                    v.setBackground(getDrawable(R.drawable.able_btn));
+                                                    if (v instanceof Button) {
+                                                        ((Button) v).setTextColor(Color.WHITE);
+                                                        checkTime = String.valueOf(((Button) v).getText());
+                                                    }
+                                                    selectCheckTime.add(checkTime);
+                                                    int sum_price = Integer.parseInt(choice_option_price) * 2;
+                                                    price.setText(String.valueOf(sum_price));
+                                                    Log.e("한번 체크", String.valueOf(selectCheckTime));
+
+                                                    //끝나는 시간
+                                                    String[] p_end_time_words = selectCheckTime.get(0).split(":");
+                                                    int end_time = Integer.parseInt(p_end_time_words[0]) + 2;
+                                                    String real_end_time = String.valueOf(end_time) + ":00";
+
+                                                    confirmBtn.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            next(provide_id, provide_option_id, practice_date, selectCheckTime.get(0), real_end_time, sum_price,
+                                                                    p_image, p_name, p_address, choice_option_name, team_name, num, email);
+                                                        }
+                                                    });
+
+
+                                                    for (int x = none+1; x < choiceTimeBtnContainer.getChildCount(); x++) {
+                                                        if (x != finalJ) {
+                                                            choiceTimeBtnContainer.getChildAt(x).setBackground(getDrawable(R.drawable.date_rounded));
+                                                            if (choiceTimeBtnContainer.getChildAt(x) instanceof Button)
+                                                                ((Button) choiceTimeBtnContainer.getChildAt(x)).setTextColor(R.color.mainPurple);
+                                                            selectCheck.clear();
+                                                            selectCheck.add(finalJ);
+                                                        }
+                                                    }
+                                                }
                                             }
                                         }
-
+                                    });
+                                }else {
+                                    v.setOnClickListener(null);
+                                    v.setBackground(getDrawable(R.drawable.disable_btn));
+                                    if (v instanceof Button) ((Button) v).setTextColor(Color.WHITE);
+                                }
+                            }
+                        }
+                    } else if(practice_date.equals(getDate)&&practiceReservations.size()!=0){
+                        selectNoneCheck.clear();
+                        //오늘 날짜이고 예약 목록이 있을 때
+                        //버튼 그리기
+                        for (int start = start_time; start <= end_time - 2; start += 2) {
+                            Button choiceTimeList = (Button) getLayoutInflater().inflate(R.layout.choice_time_btn, choiceTimeBtnContainer, false);
+                            choiceTimeList.setText(start + ":00");
+                            if (choiceTimeList.getParent() != null)
+                                ((ViewGroup) choiceTimeList.getParent()).removeView(choiceTimeList);
+                            choiceTimeBtnContainer.addView(choiceTimeList);
+                        }
+                        for (int j = 0; j < choiceTimeBtnContainer.getChildCount(); j++) {
+                            View v = choiceTimeBtnContainer.getChildAt(j);
+                            if(!ableCheck.contains(j)){
+                                ableCheck.add(j);
+                            }
+                            String[] c_time = new String[0];
+                            if (v instanceof Button) {
+                                c_time = String.valueOf(((Button) v).getText()).split(":");
+                            }
+                            for (int end = getTime; end >= start_time; end--) {
+                                if (Integer.parseInt(c_time[0]) == end) {
+                                    if (!selectNoneCheck.contains(j)) {
+                                        selectNoneCheck.add(j);
                                     }
                                 }
+                            }
+                            for (int i=0; i < practiceReservations.size(); i ++){
+                                //end는 가져온 시간
+                                String reservation_start_time = practiceReservations.get(i).getPractice_start_time();
+                                String reservation_end_time = practiceReservations.get(i).getPractice_end_time();
+                                String[] start_reservation_words = reservation_start_time.split(":");
+                                String[] end_reservation_words = reservation_end_time.split(":");
 
+                                start_reservation_time.add(Integer.parseInt(start_reservation_words[0]));
+                                end_reservation_time.add(Integer.parseInt(end_reservation_words[0]));
+
+
+                                for (int end = end_reservation_time.get(i) - 2; end >= start_reservation_time.get(i); end -= 2) {
+                                    if (Integer.parseInt(c_time[0]) == end) {
+                                        if (!selectNoneCheck.contains(j)) {
+                                            selectNoneCheck.add(j);
+                                        }
+                                    }
+                                }
+                            }
+                            ableCheck.removeAll(selectNoneCheck);
+                            Log.e("선택 안되는 시간", String.valueOf(selectNoneCheck));
+                            Log.e("선택 되는 시간", String.valueOf(ableCheck));
+                            for(int none:selectNoneCheck){
+                                if(j!=none) {
+                                    int finalJ = j;
+                                    v.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View button) {
+                                            v.setSelected(!button.isSelected());
+                                            if (button.isSelected()) {//선택하고 난 후
+                                                v.setBackground(getDrawable(R.drawable.able_btn));
+                                                if (v instanceof Button)
+                                                    ((Button) v).setTextColor(Color.WHITE);
+                                                selectCheck.add(finalJ);
+                                                //두개 연속 체크
+                                                for (int listcheck=finalJ; listcheck > selectCheck.get(0); listcheck--){
+                                                    if(selectNoneCheck.contains(listcheck)){
+                                                        checkIndex = listcheck;
+                                                    }
+                                                }
+                                                if (selectCheck.size() == 2 && selectCheck.get(0) < finalJ && !(selectCheck.get(0) < checkIndex && checkIndex < finalJ)) {
+                                                    selectCheckTime.clear();
+                                                    for (int x = selectCheck.get(0); x < finalJ; x++) {
+                                                        if(x!=none){
+                                                            choiceTimeBtnContainer.getChildAt(x).setBackground(getDrawable(R.drawable.able_btn));
+                                                            if (choiceTimeBtnContainer.getChildAt(x) instanceof Button) {
+                                                                ((Button) choiceTimeBtnContainer.getChildAt(x)).setTextColor(Color.WHITE);
+                                                                checkTime = String.valueOf(((Button) choiceTimeBtnContainer.getChildAt(x)).getText());
+                                                            }
+                                                            selectCheckTime.add(checkTime);
+                                                        }
+                                                    }
+                                                    selectCheckTime.add(String.valueOf(((Button) choiceTimeBtnContainer.getChildAt(finalJ)).getText()));
+                                                    Log.e("두번 체크", String.valueOf(selectCheckTime));
+                                                    int sum_price = (Integer.parseInt(choice_option_price) * 2) * selectCheckTime.size();
+                                                    price.setText(String.valueOf(sum_price));
+                                                    selectCheck.clear();
+
+                                                    //끝나는 시간
+                                                    String[] p_end_time_words = String.valueOf(((Button) choiceTimeBtnContainer.getChildAt(finalJ)).getText()).split(":");
+                                                    int end_time = Integer.parseInt(p_end_time_words[0]) + 2;
+                                                    String real_end_time = String.valueOf(end_time) + ":00";
+
+                                                    confirmBtn.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            next(provide_id, provide_option_id, practice_date, selectCheckTime.get(0), real_end_time, sum_price,
+                                                                    p_image, p_name, p_address, choice_option_name, team_name, num, email);
+                                                        }
+                                                    });
+
+                                                } else if (selectCheck.get(0) > finalJ || selectCheck.size() == 1 || (selectCheck.get(0) < checkIndex && checkIndex < finalJ)) {
+                                                    selectCheckTime.clear();
+                                                    v.setBackground(getDrawable(R.drawable.able_btn));
+                                                    if (v instanceof Button) {
+                                                        ((Button) v).setTextColor(Color.WHITE);
+                                                        checkTime = String.valueOf(((Button) v).getText());
+                                                    }
+                                                    selectCheckTime.add(checkTime);
+                                                    int sum_price = Integer.parseInt(choice_option_price) * 2;
+                                                    price.setText(String.valueOf(sum_price));
+                                                    Log.e("한번 체크", String.valueOf(selectCheckTime));
+
+                                                    //끝나는 시간
+                                                    String[] p_end_time_words = selectCheckTime.get(0).split(":");
+                                                    int end_time = Integer.parseInt(p_end_time_words[0]) + 2;
+                                                    String real_end_time = String.valueOf(end_time) + ":00";
+
+                                                    confirmBtn.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            next(provide_id, provide_option_id, practice_date, selectCheckTime.get(0), real_end_time, sum_price,
+                                                                    p_image, p_name, p_address, choice_option_name, team_name, num, email);
+                                                        }
+                                                    });
+
+                                                    for (int x = 0; x < ableCheck.size(); x++) {
+                                                        if (ableCheck.get(x) != finalJ) {
+                                                            choiceTimeBtnContainer.getChildAt(ableCheck.get(x)).setBackground(getDrawable(R.drawable.date_rounded));
+                                                            if (choiceTimeBtnContainer.getChildAt(ableCheck.get(x)) instanceof Button)
+                                                                ((Button) choiceTimeBtnContainer.getChildAt(ableCheck.get(x))).setTextColor(R.color.mainPurple);
+                                                            selectCheck.clear();
+                                                            selectCheck.add(finalJ);
+                                                        }
+                                                    }
+                                                }
+
+                                            } else {// 이미 한번 셀렉한거
+                                                v.setBackground(getDrawable(R.drawable.able_btn));
+                                                if (v instanceof Button)
+                                                    ((Button) v).setTextColor(Color.WHITE);
+                                                selectCheck.add(finalJ);
+                                                for (int listcheck=finalJ; listcheck > selectCheck.get(0); listcheck--){
+                                                    if(selectNoneCheck.contains(listcheck)){
+                                                        checkIndex = listcheck;
+                                                    }
+                                                }
+                                                if (selectCheck.size() == 2 && selectCheck.get(0) < finalJ && !(selectCheck.get(0) < checkIndex && checkIndex < finalJ)) {
+                                                    selectCheckTime.clear();
+                                                    for (int x = selectCheck.get(0); x < finalJ; x++) {
+                                                        if(x!=none) {
+                                                            choiceTimeBtnContainer.getChildAt(x).setBackground(getDrawable(R.drawable.able_btn));
+                                                            if (choiceTimeBtnContainer.getChildAt(x) instanceof Button) {
+                                                                ((Button) choiceTimeBtnContainer.getChildAt(x)).setTextColor(Color.WHITE);
+                                                                checkTime = String.valueOf(((Button) choiceTimeBtnContainer.getChildAt(x)).getText());
+                                                            }
+                                                        }
+                                                        selectCheckTime.add(checkTime);
+                                                    }
+                                                    selectCheckTime.add(String.valueOf(((Button) choiceTimeBtnContainer.getChildAt(finalJ)).getText()));
+                                                    Log.e("두번 체크", String.valueOf(selectCheckTime));
+                                                    int sum_price = (Integer.parseInt(choice_option_price) * 2) * selectCheckTime.size();
+                                                    price.setText(String.valueOf(sum_price));
+                                                    selectCheck.clear();
+
+                                                    //끝나는 시간
+                                                    String[] p_end_time_words = String.valueOf(((Button) choiceTimeBtnContainer.getChildAt(finalJ)).getText()).split(":");
+                                                    int end_time = Integer.parseInt(p_end_time_words[0]) + 2;
+                                                    String real_end_time = String.valueOf(end_time) + ":00";
+
+                                                    confirmBtn.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            next(provide_id, provide_option_id, practice_date, selectCheckTime.get(0), real_end_time, sum_price,
+                                                                    p_image, p_name, p_address, choice_option_name, team_name, num, email);
+                                                        }
+                                                    });
+
+                                                } else if (selectCheck.get(0) > finalJ || selectCheck.size() == 1 || (selectCheck.get(0) < checkIndex && checkIndex < finalJ) ) {
+                                                    selectCheckTime.clear();
+                                                    v.setBackground(getDrawable(R.drawable.able_btn));
+                                                    if (v instanceof Button) {
+                                                        ((Button) v).setTextColor(Color.WHITE);
+                                                        checkTime = String.valueOf(((Button) v).getText());
+                                                    }
+                                                    selectCheckTime.add(checkTime);
+                                                    int sum_price = Integer.parseInt(choice_option_price) * 2;
+                                                    price.setText(String.valueOf(sum_price));
+                                                    Log.e("한번 체크", String.valueOf(selectCheckTime));
+
+                                                    //끝나는 시간
+                                                    String[] p_end_time_words = selectCheckTime.get(0).split(":");
+                                                    int end_time = Integer.parseInt(p_end_time_words[0]) + 2;
+                                                    String real_end_time = String.valueOf(end_time) + ":00";
+
+                                                    confirmBtn.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            next(provide_id, provide_option_id, practice_date, selectCheckTime.get(0), real_end_time, sum_price,
+                                                                    p_image, p_name, p_address, choice_option_name, team_name, num, email);
+                                                        }
+                                                    });
+
+
+                                                    for (int x = 0; x < ableCheck.size(); x++) {
+                                                        if (ableCheck.get(x) != finalJ) {
+                                                            choiceTimeBtnContainer.getChildAt(ableCheck.get(x)).setBackground(getDrawable(R.drawable.date_rounded));
+                                                            if (choiceTimeBtnContainer.getChildAt(ableCheck.get(x)) instanceof Button)
+                                                                ((Button) choiceTimeBtnContainer.getChildAt(ableCheck.get(x))).setTextColor(R.color.mainPurple);
+                                                            selectCheck.clear();
+                                                            selectCheck.add(finalJ);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    });
+                                } else {
+                                    v.setOnClickListener(null);
+                                    v.setBackground(getDrawable(R.drawable.disable_btn));
+                                    if (v instanceof Button) ((Button) v).setTextColor(Color.WHITE);
+                                }
+                            }
+                        }
+
+                    } else if(!practice_date.equals(getDate)&&practiceReservations.size()!=0){
+                        selectNoneCheck.clear();
+                        //오늘 날짜는 아니나 예약 목록이 있을 때
+                        //버튼 그리기
+                        for (int start = start_time; start <= end_time - 2; start += 2) {
+                            Button choiceTimeList = (Button) getLayoutInflater().inflate(R.layout.choice_time_btn, choiceTimeBtnContainer, false);
+                            choiceTimeList.setText(start + ":00");
+                            if (choiceTimeList.getParent() != null)
+                                ((ViewGroup) choiceTimeList.getParent()).removeView(choiceTimeList);
+                            choiceTimeBtnContainer.addView(choiceTimeList);
+                        }
+                        for (int j = 0; j < choiceTimeBtnContainer.getChildCount(); j++) {
+                            View v = choiceTimeBtnContainer.getChildAt(j);
+                            if(!ableCheck.contains(j)){
+                                ableCheck.add(j);
+                            }
+                            String[] c_time = new String[0];
+                            if (v instanceof Button) {
+                                c_time = String.valueOf(((Button) v).getText()).split(":");
+                            }
+                            for (int i=0; i < practiceReservations.size(); i ++){
+                                //end는 가져온 시간
+                                String reservation_start_time = practiceReservations.get(i).getPractice_start_time();
+                                String reservation_end_time = practiceReservations.get(i).getPractice_end_time();
+                                String[] start_reservation_words = reservation_start_time.split(":");
+                                String[] end_reservation_words = reservation_end_time.split(":");
+
+                                start_reservation_time.add(Integer.parseInt(start_reservation_words[0]));
+                                end_reservation_time.add(Integer.parseInt(end_reservation_words[0]));
+
+                                for (int end = end_reservation_time.get(i) - 2; end >= start_reservation_time.get(i); end -= 2) {
+                                    if (Integer.parseInt(c_time[0]) == end) {
+                                        if (!selectNoneCheck.contains(j)) {
+                                            selectNoneCheck.add(j);
+                                        }
+                                    }
+                                }
+                            }
+                            ableCheck.removeAll(selectNoneCheck);
+                            Log.e("선택 안되는 시간", String.valueOf(selectNoneCheck));
+                            Log.e("선택 되는 시간", String.valueOf(ableCheck));
+                            for(int none:selectNoneCheck){
+                                if(j!=none) {
+                                    int finalJ = j;
+                                    v.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View button) {
+                                            v.setSelected(!button.isSelected());
+                                            if (button.isSelected()) {//선택하고 난 후
+                                                v.setBackground(getDrawable(R.drawable.able_btn));
+                                                if (v instanceof Button)
+                                                    ((Button) v).setTextColor(Color.WHITE);
+                                                selectCheck.add(finalJ);
+                                                //두개 연속 체크
+                                                for (int listcheck=finalJ; listcheck > selectCheck.get(0); listcheck--){
+                                                    if(selectNoneCheck.contains(listcheck)){
+                                                        checkIndex = listcheck;
+                                                    }
+                                                }
+                                                if (selectCheck.size() == 2 && selectCheck.get(0) < finalJ && !(selectCheck.get(0) < checkIndex && checkIndex < finalJ)) {
+                                                    selectCheckTime.clear();
+                                                    for (int x = selectCheck.get(0); x < finalJ; x++) {
+                                                        if(x!=none){
+                                                            choiceTimeBtnContainer.getChildAt(x).setBackground(getDrawable(R.drawable.able_btn));
+                                                            if (choiceTimeBtnContainer.getChildAt(x) instanceof Button) {
+                                                                ((Button) choiceTimeBtnContainer.getChildAt(x)).setTextColor(Color.WHITE);
+                                                                checkTime = String.valueOf(((Button) choiceTimeBtnContainer.getChildAt(x)).getText());
+                                                            }
+                                                            selectCheckTime.add(checkTime);
+                                                        }
+                                                    }
+                                                    selectCheckTime.add(String.valueOf(((Button) choiceTimeBtnContainer.getChildAt(finalJ)).getText()));
+                                                    Log.e("두번 체크", String.valueOf(selectCheckTime));
+                                                    int sum_price = (Integer.parseInt(choice_option_price) * 2) * selectCheckTime.size();
+                                                    price.setText(String.valueOf(sum_price));
+                                                    selectCheck.clear();
+
+                                                    //끝나는 시간
+                                                    String[] p_end_time_words = String.valueOf(((Button) choiceTimeBtnContainer.getChildAt(finalJ)).getText()).split(":");
+                                                    int end_time = Integer.parseInt(p_end_time_words[0]) + 2;
+                                                    String real_end_time = String.valueOf(end_time) + ":00";
+
+                                                    confirmBtn.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            next(provide_id, provide_option_id, practice_date, selectCheckTime.get(0), real_end_time, sum_price,
+                                                                    p_image, p_name, p_address, choice_option_name, team_name, num, email);
+                                                        }
+                                                    });
+
+                                                } else if (selectCheck.get(0) > finalJ || selectCheck.size() == 1 || (selectCheck.get(0) < checkIndex && checkIndex < finalJ)) {
+                                                    selectCheckTime.clear();
+                                                    v.setBackground(getDrawable(R.drawable.able_btn));
+                                                    if (v instanceof Button) {
+                                                        ((Button) v).setTextColor(Color.WHITE);
+                                                        checkTime = String.valueOf(((Button) v).getText());
+                                                    }
+                                                    selectCheckTime.add(checkTime);
+                                                    int sum_price = Integer.parseInt(choice_option_price) * 2;
+                                                    price.setText(String.valueOf(sum_price));
+                                                    Log.e("한번 체크", String.valueOf(selectCheckTime));
+
+                                                    //끝나는 시간
+                                                    String[] p_end_time_words = selectCheckTime.get(0).split(":");
+                                                    int end_time = Integer.parseInt(p_end_time_words[0]) + 2;
+                                                    String real_end_time = String.valueOf(end_time) + ":00";
+
+                                                    confirmBtn.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            next(provide_id, provide_option_id, practice_date, selectCheckTime.get(0), real_end_time, sum_price,
+                                                                    p_image, p_name, p_address, choice_option_name, team_name, num, email);
+                                                        }
+                                                    });
+
+                                                    for (int x = 0; x < ableCheck.size(); x++) {
+                                                        if (ableCheck.get(x) != finalJ) {
+                                                            choiceTimeBtnContainer.getChildAt(ableCheck.get(x)).setBackground(getDrawable(R.drawable.date_rounded));
+                                                            if (choiceTimeBtnContainer.getChildAt(ableCheck.get(x)) instanceof Button)
+                                                                ((Button) choiceTimeBtnContainer.getChildAt(ableCheck.get(x))).setTextColor(R.color.mainPurple);
+                                                            selectCheck.clear();
+                                                            selectCheck.add(finalJ);
+                                                        }
+                                                    }
+                                                }
+
+                                            } else {// 이미 한번 셀렉한거
+                                                v.setBackground(getDrawable(R.drawable.able_btn));
+                                                if (v instanceof Button)
+                                                    ((Button) v).setTextColor(Color.WHITE);
+                                                selectCheck.add(finalJ);
+                                                for (int listcheck=finalJ; listcheck > selectCheck.get(0); listcheck--){
+                                                    if(selectNoneCheck.contains(listcheck)){
+                                                        checkIndex = listcheck;
+                                                    }
+                                                }
+                                                if (selectCheck.size() == 2 && selectCheck.get(0) < finalJ && !(selectCheck.get(0) < checkIndex && checkIndex < finalJ)) {
+                                                    selectCheckTime.clear();
+                                                    for (int x = selectCheck.get(0); x < finalJ; x++) {
+                                                        if(x!=none) {
+                                                            choiceTimeBtnContainer.getChildAt(x).setBackground(getDrawable(R.drawable.able_btn));
+                                                            if (choiceTimeBtnContainer.getChildAt(x) instanceof Button) {
+                                                                ((Button) choiceTimeBtnContainer.getChildAt(x)).setTextColor(Color.WHITE);
+                                                                checkTime = String.valueOf(((Button) choiceTimeBtnContainer.getChildAt(x)).getText());
+                                                            }
+                                                        }
+                                                        selectCheckTime.add(checkTime);
+                                                    }
+                                                    selectCheckTime.add(String.valueOf(((Button) choiceTimeBtnContainer.getChildAt(finalJ)).getText()));
+                                                    Log.e("두번 체크", String.valueOf(selectCheckTime));
+                                                    int sum_price = (Integer.parseInt(choice_option_price) * 2) * selectCheckTime.size();
+                                                    price.setText(String.valueOf(sum_price));
+                                                    selectCheck.clear();
+
+                                                    //끝나는 시간
+                                                    String[] p_end_time_words = String.valueOf(((Button) choiceTimeBtnContainer.getChildAt(finalJ)).getText()).split(":");
+                                                    int end_time = Integer.parseInt(p_end_time_words[0]) + 2;
+                                                    String real_end_time = String.valueOf(end_time) + ":00";
+
+                                                    confirmBtn.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            next(provide_id, provide_option_id, practice_date, selectCheckTime.get(0), real_end_time, sum_price,
+                                                                    p_image, p_name, p_address, choice_option_name, team_name, num, email);
+                                                        }
+                                                    });
+
+                                                } else if (selectCheck.get(0) > finalJ || selectCheck.size() == 1 || (selectCheck.get(0) < checkIndex && checkIndex < finalJ) ) {
+                                                    selectCheckTime.clear();
+                                                    v.setBackground(getDrawable(R.drawable.able_btn));
+                                                    if (v instanceof Button) {
+                                                        ((Button) v).setTextColor(Color.WHITE);
+                                                        checkTime = String.valueOf(((Button) v).getText());
+                                                    }
+                                                    selectCheckTime.add(checkTime);
+                                                    int sum_price = Integer.parseInt(choice_option_price) * 2;
+                                                    price.setText(String.valueOf(sum_price));
+                                                    Log.e("한번 체크", String.valueOf(selectCheckTime));
+
+                                                    //끝나는 시간
+                                                    String[] p_end_time_words = selectCheckTime.get(0).split(":");
+                                                    int end_time = Integer.parseInt(p_end_time_words[0]) + 2;
+                                                    String real_end_time = String.valueOf(end_time) + ":00";
+
+                                                    confirmBtn.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            next(provide_id, provide_option_id, practice_date, selectCheckTime.get(0), real_end_time, sum_price,
+                                                                    p_image, p_name, p_address, choice_option_name, team_name, num, email);
+                                                        }
+                                                    });
+
+
+                                                    for (int x = 0; x < ableCheck.size(); x++) {
+                                                        if (ableCheck.get(x) != finalJ) {
+                                                            choiceTimeBtnContainer.getChildAt(ableCheck.get(x)).setBackground(getDrawable(R.drawable.date_rounded));
+                                                            if (choiceTimeBtnContainer.getChildAt(ableCheck.get(x)) instanceof Button)
+                                                                ((Button) choiceTimeBtnContainer.getChildAt(ableCheck.get(x))).setTextColor(R.color.mainPurple);
+                                                            selectCheck.clear();
+                                                            selectCheck.add(finalJ);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    });
+                                } else {
+                                    v.setOnClickListener(null);
+                                    v.setBackground(getDrawable(R.drawable.disable_btn));
+                                    if (v instanceof Button) ((Button) v).setTextColor(Color.WHITE);
+                                }
                             }
                         }
                     }

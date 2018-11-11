@@ -99,7 +99,7 @@ public class CoinSendBefore_pop extends Activity implements View.OnClickListener
         });
 
 
-
+        send_coin(coin_Count,support_message);
 
     }
 

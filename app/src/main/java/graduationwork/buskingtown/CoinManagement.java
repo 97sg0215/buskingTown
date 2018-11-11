@@ -42,9 +42,8 @@ public class CoinManagement extends AppCompatActivity {
     LinearLayout message_container;
     View message_list;
 
-    ArrayList<Integer> user_id = new ArrayList<>();
-    ArrayList<String> user_name = new ArrayList<>();
-    ArrayList<String> user_profile = new ArrayList<>();
+    int user_id;
+    String user_name,user_profile ;
 
 
     @Override
@@ -98,15 +97,12 @@ public class CoinManagement extends AppCompatActivity {
                                 public void onResponse(Call<User> call, Response<User> response) {
                                     if(response.isSuccessful()){
                                         User user = response.body();
-                                        user_profile.add(user.getProfile().getUser_image());
-                                        user_name.add(user.getUsername());
-                                        user_id.add(user.getId());
+                                        user_id = user.getId();
+                                        user_name = user.getUsername();
+                                        user_profile = user.getProfile().getUser_image();
+                                        Picasso.with(getApplicationContext()).load(String.valueOf(user.getProfile().getUser_image())).transform(new CircleTransForm()).into(user_profile_v);
+                                        user_id_t.setText(user.getUsername());
 
-                                        if(user_profile.get(finalI)!=null){
-                                            Picasso.with(getApplicationContext()).load(String.valueOf(user_profile.get(finalI))).transform(new CircleTransForm()).into(user_profile_v);
-                                        }
-
-                                        user_id_t.setText(user_name.get(finalI));
                                     }
                                 }
 
@@ -137,8 +133,8 @@ public class CoinManagement extends AppCompatActivity {
                                     pop.putExtra("busker_id",busker_id);
                                     pop.putExtra("coin_amount",supportCoins.get(finalI).getCoin_amount());
                                     pop.putExtra("message",supportCoins.get(finalI).getSupport_message());
-                                    pop.putExtra("username",user_name.get(finalI));
-                                    pop.putExtra("user_id",user_id.get(finalI));
+                                    pop.putExtra("username",user_name);
+                                    pop.putExtra("user_id",user_id);
                                     pop.putExtra("support_id",supportCoins.get(finalI).getSupportCoin_id());
                                     pop.putExtra("origin_coin",origin_coin);
                                     startActivity(pop);

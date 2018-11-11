@@ -315,14 +315,6 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
 
             // runnable.run();
 
-
-
-            Toast.makeText(getActivity(),
-
-                    "Your current location is temporarily unavailable.",
-
-                    Toast.LENGTH_LONG).show();
-
         }
 
 

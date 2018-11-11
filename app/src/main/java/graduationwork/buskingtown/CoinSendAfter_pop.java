@@ -23,7 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CoinSendAfter_pop extends Activity implements View.OnClickListener {
+public class CoinSendAfter_pop extends Activity {
 
     RestApiService apiService;
 
@@ -61,7 +61,12 @@ public class CoinSendAfter_pop extends Activity implements View.OnClickListener 
         message_after.setText(message);
         coinCount_after.setText(String.valueOf(coin_amount));
 
-        findViewById(R.id.delete_after).setOnClickListener(this);
+        findViewById(R.id.delete_after).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         ReceiveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,14 +128,6 @@ public class CoinSendAfter_pop extends Activity implements View.OnClickListener 
 
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.delete:
-                this.finish();
-                break;
-        }
-    }
 
     private void getLocalData(){
         SharedPreferences pref = this.getSharedPreferences("User", Activity.MODE_PRIVATE);
