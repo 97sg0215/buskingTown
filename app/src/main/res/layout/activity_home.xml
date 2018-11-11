@@ -29,32 +29,11 @@
             android:layout_below="@id/statusBar"
             android:id="@+id/swipe_layout">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:overScrollMode="never"
-            android:scrollbars="none">
-
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:id="@+id/banner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="175dp">
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/slide_recyclerview"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/subGray"
-                        android:layout_centerVertical="true"
-                        android:layout_centerHorizontal="true"/>
-
-
-                </RelativeLayout>
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+                android:scrollbars="none">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -62,55 +41,72 @@
                     android:orientation="vertical">
 
                     <RelativeLayout
-                        android:id="@+id/dayStandard"
+                        android:id="@+id/banner"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="175dp">
 
-                        <TextView
-                            android:id="@+id/topTen"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Top 10"
-                            android:textSize="15sp"
-                            android:textColor="@color/fontBlack"
-                            android:fontFamily="@font/kopubbold"
-                            android:lineSpacingExtra="2sp"
-                            android:layout_marginTop="25dp"
-                            android:layout_marginLeft="20dp"/>
-
-                        <TextView
-                            android:id="@+id/day"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_toRightOf="@+id/topTen"
-                            android:layout_marginTop="28dp"
-                            android:layout_marginLeft="7.5dp"
-                            android:lineSpacingExtra="1sp"
-                            android:fontFamily="@font/kopubmedium"
-                            android:text="일간 기준"
-                            android:textColor="@color/mainYellow"
-                            android:textSize="10.5sp"/>
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/slide_recyclerview"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/subGray"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"/>
 
                     </RelativeLayout>
 
-                </LinearLayout>
-
-                <HorizontalScrollView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:overScrollMode="never"
-                    android:scrollbars="none">
-
                     <LinearLayout
-                        android:id="@+id/busker_top_list"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:id="@+id/dayStandard"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/topTen"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Top 10"
+                                android:textSize="15sp"
+                                android:textColor="@color/fontBlack"
+                                android:fontFamily="@font/kopubbold"
+                                android:lineSpacingExtra="2sp"
+                                android:layout_marginTop="25dp"
+                                android:layout_marginLeft="20dp"/>
+
+                            <TextView
+                                android:id="@+id/day"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toRightOf="@+id/topTen"
+                                android:layout_marginTop="28dp"
+                                android:layout_marginLeft="7.5dp"
+                                android:lineSpacingExtra="1sp"
+                                android:fontFamily="@font/kopubmedium"
+                                android:text="일간 기준"
+                                android:textColor="@color/mainYellow"
+                                android:textSize="10.5sp"/>
+
+                        </RelativeLayout>
 
                     </LinearLayout>
 
-                </HorizontalScrollView>
-                    
+                    <HorizontalScrollView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:overScrollMode="never"
+                        android:scrollbars="none">
+                        <LinearLayout
+                            android:id="@+id/busker_top_list"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
                     <RelativeLayout
                         android:id="@+id/liveBusker"
                         android:layout_width="match_parent"
@@ -130,10 +126,13 @@
 
                     </RelativeLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    <LinearLayout
+                        android:id="@+id/livebusking"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:orientation="vertical">
+                    </LinearLayout>
 
                     <RelativeLayout
                         android:id="@+id/goingConcert"
@@ -141,6 +140,7 @@
                         android:layout_height="wrap_content">
 
                         <TextView
+                            android:id="@+id/concert"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="다가오는 콘서트"
@@ -150,7 +150,23 @@
                             android:textSize="15sp"
                             android:lineSpacingExtra="-8.5sp"
                             android:layout_marginTop="27.5dp"/>
-                        
+
+                        <HorizontalScrollView
+                            android:id="@+id/concertbox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:layout_below="@+id/concert"
+                            android:overScrollMode="never"
+                            android:scrollbars="none">
+                            <LinearLayout
+                                android:id="@+id/goingConcert_list"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                            </LinearLayout>
+                        </HorizontalScrollView>
+
                         <TextView
                             android:id="@+id/readyConcert"
                             android:layout_width="wrap_content"
@@ -159,65 +175,81 @@
                             android:textColor="@color/fontGray"
                             android:textSize="14sp"
                             android:layout_marginTop="112.9dp"
-                            android:layout_centerHorizontal="true"/>
-
+                            android:layout_centerHorizontal="true" />
                     </RelativeLayout>
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <RelativeLayout
-                        android:id="@+id/buskerStory"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="390dp"
-                        android:layout_marginTop="87.1dp"
-                        android:background="@color/mainGray">
+                        android:layout_height="wrap_content">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <RelativeLayout
+                            android:id="@+id/buskerStory"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
                             android:layout_marginTop="25dp"
-                            android:fontFamily="@font/kopubbold"
-                            android:text="나의 버스커 스토리"
-                            android:textColor="@color/fontBlack"
-                            android:textSize="15sp" />
+                            android:paddingBottom="25dp"
+                            android:background="@color/mainGray">
 
-                        <TextView
-                            android:id="@+id/buskerStoryNone"
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginTop="25dp"
+                                android:fontFamily="@font/kopubbold"
+                                android:text="나의 버스커 스토리"
+                                android:textColor="@color/fontBlack"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/buskerStoryNone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="147dp"
+                                android:fontFamily="@font/kopubmedium"
+                                android:lineSpacingExtra="7sp"
+                                android:gravity="center"
+                                android:text="아직 버스커의 팬이 되지 않았나요?\n 같이 찾아봐요 :)"
+                                android:textColor="@color/fontGray"
+                                android:textSize="14sp"
+                                android:visibility="gone"/>
+
+                            <Button
+                                android:layout_width="190dp"
+                                android:layout_height="35dp"
+                                android:layout_below="@+id/buskerStoryNone"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="25.1dp"
+                                android:background="@drawable/fail_btn"
+                                android:fontFamily="@font/kopubbold"
+                                android:text="좋아하는 버스커 찾기"
+                                android:textColor="#fff"
+                                android:textSize="14sp"
+                                android:visibility="gone"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <HorizontalScrollView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:overScrollMode="never"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:id="@+id/buskerStorylist"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="147dp"
-                            android:fontFamily="@font/kopubmedium"
-                            android:lineSpacingExtra="7sp"
-                            android:gravity="center"
-                            android:text="아직 버스커의 팬이 되지 않았나요?\n 같이 찾아봐요 :)"
-                            android:textColor="@color/fontGray"
-                            android:textSize="14sp" />
+                            android:orientation="horizontal">
 
-                        <Button
-                            android:layout_width="190dp"
-                            android:layout_height="35dp"
-                            android:layout_below="@+id/buskerStoryNone"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="25.1dp"
-                            android:background="@drawable/fail_btn"
-                            android:fontFamily="@font/kopubbold"
-                            android:text="좋아하는 버스커 찾기"
-                            android:textColor="#fff"
-                            android:textSize="14sp" />
+                        </LinearLayout>
 
-                    </RelativeLayout>
+                    </HorizontalScrollView>
 
                 </LinearLayout>
 
-            </LinearLayout>
-
-        </ScrollView>
+            </ScrollView>
 
         </android.support.v4.widget.SwipeRefreshLayout>
 

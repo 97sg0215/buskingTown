@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:background="@color/mainGray">
+
+    <ImageView
+        android:id="@+id/liveimage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="35dp"
+        android:background="#00000000"
+        android:src="@drawable/live" />
+
+    <TextView
+        android:id="@+id/buskerId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-"
+        android:textSize="14sp"
+        android:textColor="@color/fontBlack"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:lineSpacingExtra="-8sp"
+        android:fontFamily="@font/kopubbold"
+        android:layout_below="@id/liveimage"/>
+
+    <TextView
+        android:id="@+id/buskertag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-"
+        android:textSize="12sp"
+        android:textColor="@color/fontGray"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:lineSpacingExtra="-6sp"
+        android:fontFamily="@font/kopubmedium"
+        android:layout_below="@id/buskerId"/>
+
+    <TextView
+        android:id="@+id/liveInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-"
+        android:textSize="10.5sp"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/fontGray"
+        android:layout_marginTop="15dp"
+        android:lineSpacingExtra="1sp"
+        android:fontFamily="@font/kopubmedium"
+        android:layout_below="@id/buskertag"/>
+
+    <ImageView
+        android:id="@+id/buskerImg"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_centerVertical="true"
+        android:background="#00000000"
+        android:src="@drawable/profile_big" />
+
+</RelativeLayout>

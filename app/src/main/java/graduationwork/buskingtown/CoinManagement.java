@@ -102,7 +102,6 @@ public class CoinManagement extends AppCompatActivity {
                                         user_profile = user.getProfile().getUser_image();
                                         Picasso.with(getApplicationContext()).load(String.valueOf(user.getProfile().getUser_image())).transform(new CircleTransForm()).into(user_profile_v);
                                         user_id_t.setText(user.getUsername());
-
                                     }
                                 }
 
@@ -145,10 +144,8 @@ public class CoinManagement extends AppCompatActivity {
                     }
                 }
             }
-
             @Override
             public void onFailure(Call<List<SupportCoin>> call, Throwable t) {
-
             }
         });
     }
@@ -168,6 +165,5 @@ public class CoinManagement extends AppCompatActivity {
         application.buildNetworkService();
         apiService = ApplicationController.getInstance().getRestApiService();
     }
-
 
 }

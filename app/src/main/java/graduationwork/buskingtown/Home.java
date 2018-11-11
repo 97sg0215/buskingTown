@@ -1,7 +1,9 @@
 package graduationwork.buskingtown;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -13,13 +15,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import graduationwork.buskingtown.api.RestApiService;
@@ -30,31 +33,34 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-
+import static android.support.v7.widget.LinearLayoutManager.*;
+import static graduationwork.buskingtown.R.id.goingConcert_list;
 
 
 public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
-
     SharedPreferences prefUser, prefBusker;
+
+    private static final String TAG = "Home";
 
     RestApiService apiService;
 
     String user_token, user_name;
     int user_id;
 
-    LinearLayout top_busker_list;
+    LinearLayout top_busker_list,livebusking,goingConcert_list;
+
+    ImageView goingconcertImge;
+
+    // 다가오는 버스커
+    TextView buskerId,concertInfo;
 
     ArrayList<Integer> busker_id = new ArrayList<>();
     ArrayList<String> busker_image = new ArrayList<>();
+
 
     SwipeRefreshLayout mSwipeRefreshLayout;
 
@@ -64,12 +70,13 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
     Handler handler;
     Runnable runnable;
 
-
+    int test_livebusking=3;
 
     public Home(){
         // Required empty public constructor
     }
 
+    @SuppressLint("WrongViewCast")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -91,9 +98,16 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
         top_busker_list = (LinearLayout)v.findViewById(R.id.busker_top_list);
+        livebusking = (LinearLayout)v.findViewById(R.id.livebusking);
+        goingConcert_list = (LinearLayout)v.findViewById(R.id.goingConcert_list);
+
+        goingconcertImge = (ImageView)v.findViewById(R.id.goingconcertImge);
+        //다가오는버스커
+        buskerId = (TextView)v.findViewById(R.id.buskerId);
+        concertInfo = (TextView)v.findViewById(R.id.concertInfo);
 
         recyclerView = (RecyclerView)v.findViewById(R.id.slide_recyclerview);
-        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        layoutManager = new LinearLayoutManager(getContext(), HORIZONTAL, false);
         pagerSnapHelper = new PagerSnapHelper();
         if(handler == null) {
             handler = new Handler();
@@ -114,10 +128,33 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
         recyclerView.setAdapter(new RecyclerViewAdapter(getContext()));
         pagerSnapHelper.attachToRecyclerView(recyclerView);
 
+        //라이브버스킹
+        for (int liveconcertCount=0; liveconcertCount<test_livebusking; liveconcertCount++) {
+            final LinearLayout livebuskingBox = (LinearLayout) v.findViewById(R.id.livebusking);
+
+            RelativeLayout liveBusker = (RelativeLayout) v.findViewById(R.id.liveBusker);
+            if (test_livebusking > 1 ){
+                liveBusker.setVisibility(View.GONE);
+                View livelist = inflater.inflate(R.layout.livebusking,livebuskingBox,false);
+                if(livelist.getParent()!= null)
+                    ((ViewGroup)livelist.getParent()).removeView(livelist);
+                livebuskingBox.addView(livelist);
+            }
+        }
 
 
-        return v;
+        HorizontalScrollView concertView = (HorizontalScrollView) v.findViewById(R.id.concertbox);
+        LinearLayout goingConcert_list = (LinearLayout)v.findViewById(R.id.goingConcert_list);
+
+        //다가오는 콘서트
+//        View concertlist = inflater.inflate(R.layout.goingconcert, goingConcert_list, false);
+//        if(concertlist.getParent()!= null)
+//            ((ViewGroup)concertlist.getParent()).removeView(concertlist);
+//        goingConcert_list.addView(concertlist);
+//
+       return v;
     }
+
 
     //로딩코드, fragment일때는 getContext()를 씀
     private class CheckTypesTask extends AsyncTask<Void, Void, Void> {
@@ -194,6 +231,7 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
         });
 
     }
+
 
     public void getTopAllList(LayoutInflater inflater,List<Busker>busker, int i){
         try{
@@ -274,12 +312,14 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
         });
     }
 
+
+
+
     //user데이터 얻어오기
     public void getLocalData(){
         user_token = prefUser.getString("auth_token",null);
         user_name = prefUser.getString("username",null);
         user_id = prefUser.getInt("user_id",0);
-
         getTopBuskerList(getLayoutInflater(),user_token);
     }
 
@@ -308,4 +348,5 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
         editor.putString("busker_image",busker_image);
         editor.commit();
     }
+
 }

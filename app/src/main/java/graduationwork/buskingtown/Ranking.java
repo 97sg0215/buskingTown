@@ -62,6 +62,7 @@ public class Ranking extends Fragment implements SwipeRefreshLayout.OnRefreshLis
 
     RestApiService apiService;
 
+
     //리스트로 정보를 받아옴
     ArrayList<Integer> busker_id ;
     ArrayList<String> busker_image ;

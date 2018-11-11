@@ -6,123 +6,88 @@
     android:background="#fff">
 
     <RelativeLayout
-        android:id="@+id/day"
+        android:id="@+id/dayDate"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/mainGray"
-        android:orientation="vertical" >
+        android:layout_height="50dp"
+        android:orientation="vertical"
+        android:background="@color/mainGray">
 
         <ImageView
             android:id="@+id/prevDay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
             android:src="@drawable/navigation_back" />
 
         <TextView
             android:id="@+id/currentDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:textColor="#7d8082"
-            android:textSize="35px" />
+            android:layout_centerInParent="true"
+            android:textColor="@color/fontBlack"
+            android:textSize="14sp" />
 
         <ImageView
             android:id="@+id/nextDay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
             android:src="@drawable/navigation_forward" />
 
     </RelativeLayout>
 
-    <ScrollView
-        android:id="@+id/dayViewScroll"
+    <ListView
+        android:id="@+id/calendarList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/day"
-        android:scrollbars="none" >
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:cacheColorHint="#00000000"
+        android:divider="@android:color/transparent"
+        android:layout_below="@+id/dayDate"
+        android:listSelector="#00000000"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        android:transcriptMode="alwaysScroll"/>
 
         <LinearLayout
-            android:id="@+id/time"
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:orientation="vertical" >
+            android:layout_height="fill_parent"
+            android:padding="0dp" >
 
             <RelativeLayout
-                android:layout_width="match_parent"
+                android:id="@+id/relativeLayout3"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginTop="15dp">
-
-                <TextView
-                    android:id="@+id/time0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/fontGray"
-                    android:lineSpacingExtra="1sp"
-                    android:text="00:00"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@+id/time0"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"
-                    android:background="@color/sub2Gray" />
-
-            </RelativeLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayout2"
-                android:layout_width="match_parent"
-                android:layout_height="fill_parent"
+                android:layout_weight="14"
                 android:padding="0dp" >
 
-
-
-                <RelativeLayout
-                    android:id="@+id/relativeLayout3"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="14"
+                <LinearLayout
+                    android:id="@+id/linearLayout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="1dp"
                     android:padding="0dp" >
 
-                    <LinearLayout
-                        android:id="@+id/linearLayout3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginTop="1dp"
-                        android:padding="0dp" >
+                    <RelativeLayout
+                        android:id="@+id/monRelative"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" >
 
-                        <RelativeLayout
-                            android:id="@+id/monRelative"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1" >
+                        <!--
+                         <View android:background="#00f" android:layout_width="fill_parent"
+                        android:layout_height="60dp" android:layout_marginTop="0dp" />
+                        -->
 
-                            <!--
-                             <View android:background="#00f" android:layout_width="fill_parent"
-                            android:layout_height="60dp" android:layout_marginTop="0dp" />
-                            -->
-
-
-                        </RelativeLayout>
-                    </LinearLayout>
-                </RelativeLayout>
-            </LinearLayout>
-
-
-
+                    </RelativeLayout>
+                </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
-
-    </ScrollView>
-
 </RelativeLayout>

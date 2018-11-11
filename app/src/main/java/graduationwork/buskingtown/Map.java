@@ -80,8 +80,8 @@ public class Map extends Fragment {
         switch (frament_no) {
             case 1:
                 // '지도' 호출
-                RealtimeBuskingMap mapFragment = new RealtimeBuskingMap();
-                transaction.replace(R.id.realtimeFragmentContainer, mapFragment);
+                CalendarView calendarFragment_2 = new CalendarView();
+                transaction.replace(R.id.realtimeFragmentContainer, calendarFragment_2);
                 transaction.commit();
 
                 break;

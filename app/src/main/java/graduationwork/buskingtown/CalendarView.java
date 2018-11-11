@@ -3,45 +3,40 @@ package graduationwork.buskingtown;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-
-import android.os.Handler;
-import android.support.v4.app.ActivityCompat;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
-import android.util.Log;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.text.format.DateFormat;
 import android.widget.Toast;
-
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
+
+import org.w3c.dom.Text;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 
-public class CalendarView extends Fragment  {
+import static graduationwork.buskingtown.R.layout.calendarlistview;
+import static graduationwork.buskingtown.R.layout.dayview;
+
+public class CalendarView extends Fragment {
 
     private ImageView prevMonth;
     private ImageView nextMonth;
@@ -55,21 +50,32 @@ public class CalendarView extends Fragment  {
     private Context mContext;
     int margin = 0;
     RelativeLayout monRelative;
-    Animation animFlipInForeward;
-    Animation animFlipOutForeward;
-    Animation animFlipInBackward;
-    Animation animFlipOutBackward;
-    private String[] timevalues = new String[]{"00:00 AM", "00:30 AM", "01:00 AM", "01:30 AM", "02:00 AM", "02:30 AM", "03:00 AM", "03:30 AM", "04:00 AM", "04:30 AM", "05:00 AM", "05:30 AM", "06:00 AM", "06:30 AM", "07:00 AM", "07:30 AM", "08:00 AM", "08:30 AM", "09:00 AM", "09:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "13:00 PM", "13:30 PM", "14:00 PM", "14:30 PM", "15:00 PM", "15:30 PM", "16:00 PM", "16:30 PM", "17:00 PM", "17:30 PM", "18:00 PM", "18:30 PM", "19:00 PM", "19:30 PM", "20:00 PM", "20:30 PM", "21:00 PM", "21:30 PM", "22:00 PM", "22:30 PM", "23:00 PM", "23:30 PM"};
+    String[] times = {"00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00"};
     private final DateFormat dateformatter = new DateFormat();
     private static final String dateformat = "yyyy/MM/dd";
     private String[] months = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     private String[] monthsNumbers = new String[]{"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
     String eventdate;
     String title;
+    ListView listView;
+
+
+    // private final String[] time = new String[]{"00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00" };
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View containerView = inflater.inflate(R.layout.dayview, container, false);
+        View containerView = inflater.inflate(dayview, container, false);
+
+        List<Contact> contacts = new ArrayList<Contact>();
+        contacts.add(new Contact("00:00"));
+        contacts.add(new Contact("01:00"));
+
+        listView = (ListView) containerView.findViewById(R.id.calendarList);
+        ContactsAdapter adapter = new ContactsAdapter(this, R.layout.calendarlistview, contacts);
+        //listView.setAdapter(adapter);
+
 
 //        int permissionCheck = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CALENDAR);
 //
@@ -90,7 +96,6 @@ public class CalendarView extends Fragment  {
             public void onPermissionDenied(ArrayList<String> deniedPermissions) {
                 Toast.makeText(getActivity(), "권한 거부\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
             }
-
 
         };
 
@@ -170,7 +175,6 @@ public class CalendarView extends Fragment  {
         });
 
 
-
         return containerView;
     }
 
@@ -180,14 +184,14 @@ public class CalendarView extends Fragment  {
         ArrayList<Event> appointments = DataInterface.getCurrentDayEvents(this.eventdate);
         Iterator var4 = appointments.iterator();
 
-        while(var4.hasNext()) {
-            Event appointment = (Event)var4.next();
+        while (var4.hasNext()) {
+            Event appointment = (Event) var4.next();
             String startTime = appointment.getDtstart();
             String endTime = appointment.getDtend();
             this.title = appointment.getTitle();
 
-            for(int i = 0; i < this.timevalues.length; ++i) {
-                if (startTime.contains(this.timevalues[i])) {
+            for (int i = 0; i < this.times.length; ++i) {
+                if (startTime.contains(this.times[i])) {
                     this.createViewForAppointment(startTime, endTime);
                 }
             }
@@ -198,7 +202,7 @@ public class CalendarView extends Fragment  {
     @SuppressLint("ResourceType")
     private void createViewForAppointment(String startTime, String endTime) {
         int marginTop = this.calculateMargin(startTime);
-        int height = (int)this.calculateDiffInTime(startTime, endTime);
+        int height = (int) this.calculateDiffInTime(startTime, endTime);
         ViewGroup.LayoutParams lprams = new ViewGroup.LayoutParams(-1, height);
         int marginLeft = 30;
 
@@ -236,7 +240,7 @@ public class CalendarView extends Fragment  {
             d2 = format.parse(endTimeAppointment);
             long diff = d2.getTime() - d1.getTime();
             diffMinutes = diff / 60000L;
-            float var12 = (float)(diffMinutes / 60L);
+            float var12 = (float) (diffMinutes / 60L);
         } catch (ParseException var13) {
             var13.printStackTrace();
         }
@@ -247,7 +251,7 @@ public class CalendarView extends Fragment  {
     private int calculateMargin(String startTime) {
         this.margin = 3;
 
-        for(int i = 0; startTime.compareToIgnoreCase(this.timevalues[i]) != 0; ++i) {
+        for (int i = 0; startTime.compareToIgnoreCase(this.times[i]) != 0; ++i) {
             this.margin += 30;
         }
 
@@ -294,4 +298,20 @@ public class CalendarView extends Fragment  {
     private void removeViews() {
         this.monRelative.removeAllViews();
     }
+
+
+    //테스트
+    public class Contact{
+        private  String items;
+
+        public Contact(String items){
+            this.items = items;
+        }
+    }
+
+    private class ContactsAdapter {
+        public ContactsAdapter(CalendarView calendarView, int calendarlistview, List<Contact> contacts) {
+        }
+    }
 }
+
