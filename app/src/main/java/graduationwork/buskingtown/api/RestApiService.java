@@ -15,6 +15,7 @@ import graduationwork.buskingtown.model.Post;
 import graduationwork.buskingtown.model.PracticeReservation;
 import graduationwork.buskingtown.model.Profile;
 import graduationwork.buskingtown.model.PurchaseCoin;
+import graduationwork.buskingtown.model.RoadConcert;
 import graduationwork.buskingtown.model.SupportCoin;
 import graduationwork.buskingtown.model.User;
 import graduationwork.buskingtown.model.SignUp;
@@ -236,4 +237,24 @@ public interface RestApiService {
     //사용자 코인 통계
     @GET("accounts/userCoinManagement/{user_id}/{start_date}/{end_date}/")
     Call<List<CoinManagement>> coinView(@Header("Authorization")String autoToken, @Path("user_id")int user, @Path("start_date")String start_date, @Path("end_date")String end_date);
+
+    //길거리 공연 예약
+    @POST("busking/reservationRoadConcert/")
+    Call<RoadConcert> reservationRoadConcert(@Header("Authorization")String autoToken,@Body RoadConcert roadConcert);
+
+    //길거리 공연 예약 리스트
+    @GET("busking/reservationCheckRoadConcert/{road_address}/{road_concert_date}/")
+    Call<List<RoadConcert>> getReservationRoadConcert(@Header("Authorization")String autoToken,@Path("road_address")String road_address,@Path("road_concert_date")String road_concert_date);
+
+    //길거리 공연 지난 예약 리스트
+    @GET("accounts/previousRoadConcertList/{busker_id}/")
+    Call<List<RoadConcert>> getPreviousReservationRoadConcert(@Header("Authorization")String autoToken,@Path("busker_id")int busker_id);
+
+    //길거리 공연 앞으로 예약 리스트
+    @GET("accounts/nextRoadConcertList/{busker_id}/")
+    Call<List<RoadConcert>> getNextReservationRoadConcert(@Header("Authorization")String autoToken,@Path("busker_id")int busker_id);
+
+    //라이브 공연
+    @GET("busking/liveBusking/{road_concert_date}/{current_time}/")
+    Call<List<RoadConcert>> getLiveBuking(@Header("Authorization")String autoToken,@Path("road_concert_date")String road_concert_date,@Path("current_time")String current_time);
 }

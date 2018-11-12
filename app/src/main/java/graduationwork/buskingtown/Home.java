@@ -22,13 +22,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.Busker;
+import graduationwork.buskingtown.model.RoadConcert;
 import graduationwork.buskingtown.model.User;
 import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
@@ -70,7 +74,7 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
     Handler handler;
     Runnable runnable;
 
-    int test_livebusking=3;
+    String live_team_name, live_tag, live_profile;
 
     public Home(){
         // Required empty public constructor
@@ -128,19 +132,74 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
         recyclerView.setAdapter(new RecyclerViewAdapter(getContext()));
         pagerSnapHelper.attachToRecyclerView(recyclerView);
 
-        //라이브버스킹
-        for (int liveconcertCount=0; liveconcertCount<test_livebusking; liveconcertCount++) {
-            final LinearLayout livebuskingBox = (LinearLayout) v.findViewById(R.id.livebusking);
+        //라이브 버스킹
+        //현재시간
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat stf = new SimpleDateFormat("HH:MM");
+        String getDate = sdf.format(date);
+        String getTime = stf.format(date);
 
-            RelativeLayout liveBusker = (RelativeLayout) v.findViewById(R.id.liveBusker);
-            if (test_livebusking > 1 ){
-                liveBusker.setVisibility(View.GONE);
-                View livelist = inflater.inflate(R.layout.livebusking,livebuskingBox,false);
-                if(livelist.getParent()!= null)
-                    ((ViewGroup)livelist.getParent()).removeView(livelist);
-                livebuskingBox.addView(livelist);
+        final LinearLayout livebuskingBox = (LinearLayout) v.findViewById(R.id.livebusking);
+        final RelativeLayout liveBusker = (RelativeLayout) v.findViewById(R.id.liveBusker);
+        Call<List<RoadConcert>> listCall = apiService.getLiveBuking(user_token,getDate,getTime);
+        listCall.enqueue(new Callback<List<RoadConcert>>() {
+            @Override
+            public void onResponse(Call<List<RoadConcert>> call, Response<List<RoadConcert>> response) {
+                if(response.isSuccessful()){
+                    List<RoadConcert> liveConcert = response.body();
+                    if(liveConcert.size()!=0){
+                        liveBusker.setVisibility(View.GONE);
+                        for(int i=0;i<liveConcert.size();i++){
+                            View livelist = inflater.inflate(R.layout.livebusking,livebuskingBox,false);
+                            TextView teamname = (TextView) livelist.findViewById(R.id.buskerId);
+                            TextView tag = (TextView) livelist.findViewById(R.id.buskertag);
+                            TextView loc = (TextView) livelist.findViewById(R.id.liveInfo);
+                            ImageView profile = (ImageView) livelist.findViewById(R.id.buskerImg);
+
+                            Call<Busker> buskerCall = apiService.buskerDetail(user_token,liveConcert.get(i).getBusker());
+                            buskerCall.enqueue(new Callback<Busker>() {
+                                @Override
+                                public void onResponse(Call<Busker> call, Response<Busker> response) {
+                                    if(response.isSuccessful()){
+                                        Busker busker = response.body();
+                                        live_team_name = busker.getTeam_name();
+                                        live_tag = busker.getBusker_tag();
+                                        live_profile = busker.getBusker_image();
+                                        Picasso.with(getContext()).load(live_profile).transform(new CircleTransForm()).into(profile);
+                                        teamname.setText(live_team_name);
+                                        tag.setText(live_tag);
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<Busker> call, Throwable t) {
+
+                                }
+                            });
+
+                            String[] start_time_words = liveConcert.get(i).getRoad_concert_start_time().split(":");
+                            String[] end_time_words = liveConcert.get(i).getRoad_concert_end_time().split(":");
+                            String start_time = start_time_words[0] + ":" +start_time_words[1];
+                            String end_time = end_time_words[0] + ":" +end_time_words[1];
+
+                            String loc_info = liveConcert.get(i).getRoad_name() + " | " + start_time + "~" + end_time;
+                            loc.setText(loc_info);
+
+                            if(livelist.getParent()!= null)
+                                ((ViewGroup)livelist.getParent()).removeView(livelist);
+                            livebuskingBox.addView(livelist);
+                        }
+                    }
+                }
             }
-        }
+
+            @Override
+            public void onFailure(Call<List<RoadConcert>> call, Throwable t) {
+
+            }
+        });
 
 
         HorizontalScrollView concertView = (HorizontalScrollView) v.findViewById(R.id.concertbox);

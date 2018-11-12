@@ -44,6 +44,7 @@ import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.LendLocation;
 import graduationwork.buskingtown.model.LikePost;
 import graduationwork.buskingtown.model.Post;
+import graduationwork.buskingtown.model.RoadConcert;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -189,27 +190,77 @@ public class ChannelBuskerSchedule extends Fragment {
         });
 
 
+        final ImageButton dropdownBtn = (ImageButton)v.findViewById(R.id.dropdown_sch);
+        final LinearLayout scheduleBox = (LinearLayout)v.findViewById(R.id.addSchedule_sch);
+        Call<List<RoadConcert>> listCall = apiService.getNextReservationRoadConcert(user_token,busker_id);
+        listCall.enqueue(new Callback<List<RoadConcert>>() {
+            @Override
+            public void onResponse(Call<List<RoadConcert>> call, Response<List<RoadConcert>> response) {
+                if(response.isSuccessful()){
+                    List<RoadConcert> roadConcerts = response.body();
+                    if(roadConcerts.size()!=0){
 
-        for (int scheduleCount=0; scheduleCount<test__schedule; scheduleCount++) {
-            final ImageButton dropdownBtn = (ImageButton)v.findViewById(R.id.dropdown_sch);
-            final LinearLayout scheduleBox = (LinearLayout)v.findViewById(R.id.addSchedule_sch);
+                        TextView scheduleList = (TextView)v.findViewById(R.id.scheduleList);
 
-            if (test__schedule > 1 ){
-                dropdownBtn.setVisibility(View.VISIBLE);
-                View list = inflater.inflate(R.layout.schedule_list,scheduleBox,false);
-                if(list.getParent()!= null)
-                    ((ViewGroup)list.getParent()).removeView(list);
-                scheduleBox.addView(list);
-                scheduleBox.setVisibility(View.GONE);
-                dropdownBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v){
-                        scheduleBox.setVisibility(View.VISIBLE);
-                        dropdownBtn.setVisibility(View.INVISIBLE);
+                        String[] first_date_words = roadConcerts.get(0).getRoad_concert_date().split("-");
+                        String first_date = first_date_words[1] + "." +first_date_words[2];
+
+                        String[] first_start_time_words = roadConcerts.get(0).getRoad_concert_start_time().split(":");
+                        String[] first_end_time_words = roadConcerts.get(0).getRoad_concert_end_time().split(":");
+                        String first_start_time = first_start_time_words[0] + ":" +first_start_time_words[1];
+                        String first_end_time = first_end_time_words[0] + ":" +first_end_time_words[1];
+
+                        String setting_txt = first_date +" "+roadConcerts.get(0).getRoad_name() +" "+ first_start_time + "~"+ first_end_time;
+
+                        if(setting_txt.length()>50){
+                            scheduleList.setText(setting_txt.substring(0,24)+"...");
+                        }else {
+                            scheduleList.setText(setting_txt);
+                        }
+
+                        if(roadConcerts.size()>1){
+                            dropdownBtn.setVisibility(View.VISIBLE);
+
+                            dropdownBtn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v){
+                                    dropdownBtn.setVisibility(View.GONE);
+                                    for(int i=1;i<roadConcerts.size();i++){
+                                        View list = inflater.inflate(R.layout.schedule_list,scheduleBox,false);
+
+                                        String[] date_words = roadConcerts.get(i).getRoad_concert_date().split("-");
+                                        String date = date_words [1] + "." +date_words [2];
+
+                                        String[] start_time_words = roadConcerts.get(i).getRoad_concert_start_time().split(":");
+                                        String[] end_time_words = roadConcerts.get(i).getRoad_concert_end_time().split(":");
+                                        String start_time = start_time_words[0] + ":" +start_time_words[1];
+                                        String end_time = end_time_words[0] + ":" +end_time_words[1];
+
+                                        String setting_txt = roadConcerts.get(i).getRoad_name() +" "+ start_time + "~"+ end_time;
+
+                                        TextView dateSe = (TextView) list.findViewById(R.id.dateSe);
+                                        TextView scheduleListtxt = (TextView) list.findViewById(R.id.scheduleList);
+
+                                        dateSe.setText(date);
+                                        scheduleListtxt.setText(setting_txt);
+
+                                        if(list.getParent()!= null)
+                                            ((ViewGroup)list.getParent()).removeView(list);
+                                        scheduleBox.addView(list);
+
+                                    }
+                                }
+                            });
+                        }
                     }
-                });
+                }
             }
-        }
+
+            @Override
+            public void onFailure(Call<List<RoadConcert>> call, Throwable t) {
+
+            }
+        });
 
         for (int concertCount=0; concertCount<test__concert; concertCount++){
             final ImageButton concertdropdownBtn = (ImageButton)v.findViewById(R.id.dropdown_con);

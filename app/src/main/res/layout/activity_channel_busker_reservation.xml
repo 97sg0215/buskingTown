@@ -45,22 +45,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/addBtn">
 
-            <TextView
-                android:id="@+id/gotext"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="지금 바로 거리공연을 예약해보세요):"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="75dp"
-                android:fontFamily="@font/kopubdotummedium"
-                android:textColor="@color/fontGray"
-                android:textSize="14sp"
-                android:lineSpacingExtra="1.5sp"/>
-
             <LinearLayout
                 android:id="@+id/roadContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
                 android:orientation="vertical">
             </LinearLayout>
 

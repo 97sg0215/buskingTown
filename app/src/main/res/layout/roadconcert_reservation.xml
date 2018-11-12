@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="320dp"
+    android:layout_width="match_parent"
     android:layout_height="166.5dp"
     android:background="@color/mainGray"
     android:layout_gravity="center_horizontal"
@@ -32,7 +32,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginLeft="10dp"
                 android:lineSpacingExtra="1.5sp"
-                android:text="0000-00-00(금)  00:00~00:00"/>
+                android:text="0000-00-00(-)  00:00~00:00"/>
 
         </RelativeLayout>
 
@@ -99,13 +99,14 @@
         </RelativeLayout>
 
         <Button
-            android:layout_width="110.2dp"
+            android:id="@+id/next_location"
+            android:layout_width="140dp"
             android:layout_height="35dp"
             android:layout_below="@id/datailAddressName"
             android:background="@drawable/fail_btn"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:text="공연취소"
+            android:text="같은 장소로 예약하기"
             android:textColor="#fff"
             android:fontFamily="@font/kopubbold"
             android:textSize="14sp"
