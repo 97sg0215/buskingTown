@@ -42,6 +42,7 @@ import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 
 import static android.support.v7.widget.LinearLayoutManager.*;
+import static graduationwork.buskingtown.R.id.buskerStory_list;
 import static graduationwork.buskingtown.R.id.goingConcert_list;
 
 
@@ -55,7 +56,7 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
     String user_token, user_name;
     int user_id;
 
-    LinearLayout top_busker_list,livebusking,goingConcert_list;
+    LinearLayout top_busker_list,livebusking,goingConcert_list,buskerStory_list;
 
     ImageView goingconcertImge;
 
@@ -104,11 +105,7 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
         top_busker_list = (LinearLayout)v.findViewById(R.id.busker_top_list);
         livebusking = (LinearLayout)v.findViewById(R.id.livebusking);
         goingConcert_list = (LinearLayout)v.findViewById(R.id.goingConcert_list);
-
-        goingconcertImge = (ImageView)v.findViewById(R.id.goingconcertImge);
-        //다가오는버스커
-        buskerId = (TextView)v.findViewById(R.id.buskerId);
-        concertInfo = (TextView)v.findViewById(R.id.concertInfo);
+        buskerStory_list = (LinearLayout)v.findViewById(R.id.buskerStory_list);
 
         recyclerView = (RecyclerView)v.findViewById(R.id.slide_recyclerview);
         layoutManager = new LinearLayoutManager(getContext(), HORIZONTAL, false);
@@ -201,17 +198,21 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
             }
         });
 
-
-        HorizontalScrollView concertView = (HorizontalScrollView) v.findViewById(R.id.concertbox);
-        LinearLayout goingConcert_list = (LinearLayout)v.findViewById(R.id.goingConcert_list);
-
         //다가오는 콘서트
-//        View concertlist = inflater.inflate(R.layout.goingconcert, goingConcert_list, false);
-//        if(concertlist.getParent()!= null)
-//            ((ViewGroup)concertlist.getParent()).removeView(concertlist);
-//        goingConcert_list.addView(concertlist);
-//
-       return v;
+        View concertlist = inflater.inflate(R.layout.goingconcert, goingConcert_list, false);
+        if(concertlist.getParent()!= null)
+            ((ViewGroup)concertlist.getParent()).removeView(concertlist);
+        goingConcert_list.addView(concertlist);
+
+        //좋아하는 버스커 스토리
+        View storylist = inflater.inflate(R.layout.buskerstory, buskerStory_list, false);
+        if(storylist.getParent()!= null)
+            ((ViewGroup)storylist.getParent()).removeView(storylist);
+        buskerStory_list.addView(storylist);
+
+
+
+        return v;
     }
 
 
