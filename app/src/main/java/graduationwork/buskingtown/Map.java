@@ -42,18 +42,18 @@ public class Map extends Fragment {
         map_bar = (View) v.findViewById(R.id.mapsearchBar);
         date_bar = (View) v.findViewById(R.id.datesearchBar);
 
-//        map.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                callFragment(locationFRAGMENT);
-//
-//                map.setTextColor(getResources().getColor(R.color.mainYellow));
-//                map_bar.setVisibility(View.VISIBLE);
-//
-//                date.setTextColor(getResources().getColor(R.color.fontBlack));
-//                date_bar.setVisibility(View.GONE);
-//            }
-//        });
+        map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callFragment(locationFRAGMENT);
+
+                map.setTextColor(getResources().getColor(R.color.mainYellow));
+                map_bar.setVisibility(View.VISIBLE);
+
+                date.setTextColor(getResources().getColor(R.color.fontBlack));
+                date_bar.setVisibility(View.GONE);
+            }
+        });
 
         date.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,8 +80,8 @@ public class Map extends Fragment {
         switch (frament_no) {
             case 1:
                 // '지도' 호출
-                CalendarView calendarFragment_2 = new CalendarView();
-                transaction.replace(R.id.realtimeFragmentContainer, calendarFragment_2);
+                RealtimeBuskingMap realtimeBuskingMap = new RealtimeBuskingMap();
+                transaction.replace(R.id.realtimeFragmentContainer, realtimeBuskingMap);
                 transaction.commit();
 
                 break;

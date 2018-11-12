@@ -31,11 +31,17 @@ import com.nhn.android.maps.NMapView;
 import com.nhn.android.maps.maplib.NGeoPoint;
 import com.nhn.android.maps.nmapmodel.NMapError;
 import com.nhn.android.maps.nmapmodel.NMapPlacemark;
+import com.nhn.android.maps.overlay.NMapPOIdata;
+import com.nhn.android.maps.overlay.NMapPOIitem;
 import com.nhn.android.mapviewer.overlay.NMapCalloutOverlay;
 import com.nhn.android.mapviewer.overlay.NMapMyLocationOverlay;
 import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
+import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
+import com.nhn.android.mapviewer.overlay.NMapResourceProvider;
 
 import java.util.ArrayList;
+
+import static com.github.mikephil.charting.charts.Chart.LOG_TAG;
 
 public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateChangeListener, NMapOverlayManager.OnCalloutOverlayListener {
 
@@ -63,12 +69,28 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
 
     private NMapCompassManager mMapCompassManager;
 
+    private final String  TAG = "MainActivity";
+
+    private ViewGroup mapLayout;
+
+    private NMapResourceProvider nMapResourceProvider;
+    private NMapOverlayManager mapOverlayManager;
+
+    private NMapOverlayManager mOverlayManager;
+
+    private static final String LOG_TAG = "NMapViewer";
+    private static final boolean DEBUG = false;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_realtime_busking_map, container, false);
 
         MapContainer = (RelativeLayout) v.findViewById(R.id.map_container);
+
+
+
+
 
         return v;
     }
@@ -78,6 +100,11 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
         super.onCreate(savedInstanceState);
         mMapContext =  new NMapContext(super.getActivity());
         mMapContext.onCreate();
+
+
+
+
+
     }
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -108,6 +135,12 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
         // 지도에 대한 상태 변경 이벤트 연결
         mMapView.setOnMapStateChangeListener(this);
 
+        mMapViewerResourceProvider = new NMapViewerResourceProvider(getContext());
+        // create overlay manager
+        mOverlayManager = new NMapOverlayManager(getContext(), mMapView, mMapViewerResourceProvider);
+
+        testPOIdataOverlay();
+
     }
 
     @Override
@@ -116,7 +149,7 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
 
         if (errorInfo == null) { // success
 
-            startMyLocation();//현재위치로 이동
+            //startMyLocation();//현재위치로 이동
 
             // mMapController.setMapCenter(new NGeoPoint(126.978371,
 
@@ -379,4 +412,56 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
     public NMapCalloutOverlay onCreateCalloutOverlay(NMapOverlay nMapOverlay, NMapOverlayItem nMapOverlayItem, Rect rect) {
         return null;
     }
+
+    private void testPOIdataOverlay() {
+
+        // Markers for POI item
+        int markerId = NMapPOIflagType.PIN;
+
+        // set POI data
+        NMapPOIdata poiData = new NMapPOIdata(2, mMapViewerResourceProvider);
+        poiData.beginPOIdata(2);
+        NMapPOIitem item = poiData.addPOIitem(127.0630205, 37.5091300, "Pizza 777-111", markerId, 0);
+        item.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
+        poiData.addPOIitem(127.061, 37.51, "Pizza 123-456", markerId, 0);
+        poiData.endPOIdata();
+
+        // create POI data overlay
+        NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
+
+        // set event listener to the overlay
+        poiDataOverlay.setOnStateChangeListener(onPOIdataStateChangeListener);
+
+        // select an item
+        poiDataOverlay.selectPOIitem(0, true);
+
+        // show all POI data
+        poiDataOverlay.showAllPOIdata(0);
+    }
+
+    /* POI data State Change Listener*/
+    private final NMapPOIdataOverlay.OnStateChangeListener onPOIdataStateChangeListener = new NMapPOIdataOverlay.OnStateChangeListener() {
+
+        @Override
+        public void onCalloutClick(NMapPOIdataOverlay poiDataOverlay, NMapPOIitem item) {
+            if (DEBUG) {
+                Log.i(LOG_TAG, "onCalloutClick: title=" + item.getTitle());
+            }
+
+            // [[TEMP]] handle a click event of the callout
+            //Toast.makeText(v.RealtimeBuskingMap.this, "onCalloutClick: " + item.getTitle(), Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onFocusChanged(NMapPOIdataOverlay poiDataOverlay, NMapPOIitem item) {
+            if (DEBUG) {
+                if (item != null) {
+                    Log.i(LOG_TAG, "onFocusChanged: " + item.toString());
+                } else {
+                    Log.i(LOG_TAG, "onFocusChanged: ");
+                }
+            }
+        }
+    };
+
 }
