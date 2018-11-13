@@ -15,12 +15,14 @@ import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.tsongkha.spinnerdatepicker.DatePicker;
 import com.tsongkha.spinnerdatepicker.DatePickerDialog;
@@ -144,6 +146,33 @@ public class Statistics extends AppCompatActivity implements View.OnClickListene
         ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.statistics_menu, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                switch (position) {
+                    case 0:
+                        Toast.makeText(parent.getContext(), "Spinner item 1!", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1:
+                        Toast.makeText(parent.getContext(), "Spinner item 2!", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2:
+                        Toast.makeText(parent.getContext(), "Spinner item 3!", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 3:
+                        Toast.makeText(parent.getContext(), "Spinner item 4!", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+                // sometimes you need nothing here
+            }
+        });
     }
 
     public void previousActivity(View v){
@@ -212,6 +241,8 @@ public class Statistics extends AppCompatActivity implements View.OnClickListene
         }
     }
 
+
+
     private void callFragment(int frament_no) {
         // 프래그먼트 사용을 위해
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -227,6 +258,7 @@ public class Statistics extends AppCompatActivity implements View.OnClickListene
 
         }
     }
+
 
 
 
