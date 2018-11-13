@@ -1,7 +1,10 @@
 package graduationwork.buskingtown;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -30,13 +33,17 @@ import com.nhn.android.mapviewer.overlay.NMapCalloutOverlay;
 import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
 import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 
 public class RoadSearch extends NMapActivity implements OnMapStateChangeListener {
     private static final String LOG_TAG = "NMapViewer";
     private static final boolean DEBUG = false;
 
-    // API-KEY
-    public static final String API_KEY = "9a4pn7RAiPbnwnpUUS6k";
+    // CLIENT_ID
+    public static final String CLIENT_ID = "9a4pn7RAiPbnwnpUUS6k";
     // 네이버 맵 객체
     NMapView mMapView = null;
     // 맵 컨트롤러
@@ -58,6 +65,7 @@ public class RoadSearch extends NMapActivity implements OnMapStateChangeListener
 
     Button choiceBtn;
     String location_name, location_detail;
+    double lon, lat;
 
 
     @Override
@@ -81,7 +89,7 @@ public class RoadSearch extends NMapActivity implements OnMapStateChangeListener
         mMapController = mMapView.getMapController();
 
         // 네이버 지도 객체에 APIKEY 지정
-        mMapView.setApiKey(API_KEY);
+        mMapView.setClientId(CLIENT_ID);
 
         // 생성된 네이버 지도 객체를 LinearLayout에 추가시킨다.
         MapContainer.addView(mMapView);
@@ -126,7 +134,7 @@ public class RoadSearch extends NMapActivity implements OnMapStateChangeListener
             @Override
             public void afterTextChanged(Editable s) {
                 location_name = addressIn.getText().toString();
-                choiceBtn(location_name,location_detail);
+                choiceBtn(location_name,location_detail,lon,lat);
             }
         });
 
@@ -210,6 +218,11 @@ public class RoadSearch extends NMapActivity implements OnMapStateChangeListener
 
             findPlacemarkAtLocation(point.longitude, point.latitude);
 
+            lon = point.longitude;
+            lat = point.latitude;
+
+            //getAddress(getApplicationContext(),point.longitude,point.latitude);
+
             item.setTitle(null);
 
         }
@@ -225,7 +238,7 @@ public class RoadSearch extends NMapActivity implements OnMapStateChangeListener
             }
 
             // [[TEMP]] handle a click event of the callout
-            Toast.makeText(RoadSearch.this, "onCalloutClick: " + item.getTitle(), Toast.LENGTH_LONG).show();
+            //Toast.makeText(RoadSearch.this, "onCalloutClick: " + item.getTitle(), Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -338,7 +351,7 @@ public class RoadSearch extends NMapActivity implements OnMapStateChangeListener
                     mFloatingPOIitem.setTitle(placeMark.toString());
                     detailAddress = (TextView)findViewById(R.id.detailAddress);
                     location_detail = placeMark.toString();
-                    choiceBtn(location_name,location_detail);
+                    choiceBtn(location_name,location_detail,lat,lon);
                     detailAddress.setText(placeMark.toString());
 
                 }
@@ -348,7 +361,7 @@ public class RoadSearch extends NMapActivity implements OnMapStateChangeListener
 
     };
 
-    public void choiceBtn(String l_name,String l_detail) {
+    public void choiceBtn(String l_name,String l_detail, double lon, double lat) {
         //확인 버튼 변수
         final Button choiceBtn = (Button) findViewById(R.id.choiceBtn);
         choiceBtn.setOnClickListener(new View.OnClickListener() {
@@ -358,13 +371,43 @@ public class RoadSearch extends NMapActivity implements OnMapStateChangeListener
                 Intent intent = new Intent(getBaseContext(), BuskingOpen.class);
                 intent.putExtra("location_name", l_name);
                 intent.putExtra("location_detail", l_detail);
+                intent.putExtra("lon", lon);
+                intent.putExtra("lat", lat);
+
                 Log.e("장소이름", String.valueOf(l_name));
+                Log.e("lon", String.valueOf(lon));
+                Log.e("lat", String.valueOf(lat));
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
 
         });
 
+    }
+
+    public static String getAddress(Context mContext, double lat, double lng) {
+        String nowAddress ="현재 위치를 확인 할 수 없습니다.";
+        Geocoder geocoder = new Geocoder(mContext, Locale.KOREA);
+        List<Address> address;
+        try {
+            if (geocoder != null) {
+                //세번째 파라미터는 좌표에 대해 주소를 리턴 받는 갯수로
+                //한좌표에 대해 두개이상의 이름이 존재할수있기에 주소배열을 리턴받기 위해 최대갯수 설정
+                address = geocoder.getFromLocation(lat, lng, 1);
+
+                if (address != null && address.size() > 0) {
+                    // 주소 받아오기
+                    String currentLocationAddress = address.get(0).getAddressLine(0).toString();
+                    nowAddress  = currentLocationAddress;
+
+                }
+            }
+
+        } catch (IOException e) {
+            //Toast.makeText(baseContext, "주소를 가져 올 수 없습니다.", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+        return nowAddress;
     }
 
 

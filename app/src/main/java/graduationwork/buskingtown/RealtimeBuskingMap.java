@@ -87,7 +87,7 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
     private static final String LOG_TAG = "NMapViewer";
     private static final boolean DEBUG = false;
 
-    String addr = "사근동 208-2";
+    String addr = "사근동";
 
 
     @Override

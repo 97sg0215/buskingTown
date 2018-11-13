@@ -63,6 +63,8 @@ public class BuskingOpen extends AppCompatActivity  {
     String location_detail;
     String address_data;
 
+    double lon, lat; //위도,경도 받아오기
+
     ArrayList<Integer> selectCheck = new ArrayList<>();
     ArrayList<Integer> selectNoneCheck = new ArrayList<>();
     ArrayList<Integer> ableCheck = new ArrayList<>();
@@ -105,6 +107,10 @@ public class BuskingOpen extends AppCompatActivity  {
 
         location_name = getIntent().getStringExtra("location_name");
         location_detail = getIntent().getStringExtra("location_detail");
+        lon = getIntent().getDoubleExtra("lon",lon);
+        lat = getIntent().getDoubleExtra("lat",lat);
+
+
         if(location_name!=null){
             Log.e("장소이름", String.valueOf(location_name));
             addressChoice.setText(location_name+ " " +location_detail);
@@ -227,7 +233,7 @@ public class BuskingOpen extends AppCompatActivity  {
                                             confirmBtn.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
-                                                    confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address);
+                                                    confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address,lon,lat);
                                                 }
                                             });
 
@@ -257,7 +263,7 @@ public class BuskingOpen extends AppCompatActivity  {
                                             confirmBtn.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
-                                                    confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address);
+                                                    confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address,lon,lat);
                                                 }
                                             });
                                         }
@@ -288,7 +294,7 @@ public class BuskingOpen extends AppCompatActivity  {
                                             confirmBtn.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
-                                                    confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address);
+                                                    confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address,lon,lat);
                                                 }
                                             });
 
@@ -310,7 +316,7 @@ public class BuskingOpen extends AppCompatActivity  {
                                             confirmBtn.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
-                                                    confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address);
+                                                    confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address,lon,lat);
                                                 }
                                             });
 
@@ -391,7 +397,7 @@ public class BuskingOpen extends AppCompatActivity  {
                                                     confirmBtn.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
-                                                            confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address);
+                                                            confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address,lon,lat);
                                                         }
                                                     });
 
@@ -413,7 +419,7 @@ public class BuskingOpen extends AppCompatActivity  {
                                                     confirmBtn.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
-                                                            confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address);
+                                                            confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address,lon,lat);
                                                         }
                                                     });
 
@@ -457,7 +463,7 @@ public class BuskingOpen extends AppCompatActivity  {
                                                     confirmBtn.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
-                                                            confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address);
+                                                            confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address,lon,lat);
                                                         }
                                                     });
 
@@ -479,7 +485,7 @@ public class BuskingOpen extends AppCompatActivity  {
                                                     confirmBtn.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
-                                                            confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address);
+                                                            confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address,lon,lat);
                                                         }
                                                     });
 
@@ -595,7 +601,7 @@ public class BuskingOpen extends AppCompatActivity  {
                                                     confirmBtn.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
-                                                            confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address);
+                                                            confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address,lon,lat);
                                                         }
                                                     });
 
@@ -617,7 +623,7 @@ public class BuskingOpen extends AppCompatActivity  {
                                                     confirmBtn.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
-                                                            confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address);
+                                                            confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address,lon,lat);
                                                         }
                                                     });
 
@@ -666,7 +672,7 @@ public class BuskingOpen extends AppCompatActivity  {
                                                     confirmBtn.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
-                                                            confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address);
+                                                            confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address,lon,lat);
                                                         }
                                                     });
 
@@ -688,7 +694,7 @@ public class BuskingOpen extends AppCompatActivity  {
                                                     confirmBtn.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
-                                                            confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address);
+                                                            confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address,lon,lat);
                                                         }
                                                     });
 
@@ -796,7 +802,7 @@ public class BuskingOpen extends AppCompatActivity  {
                                                     confirmBtn.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
-                                                            confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address);
+                                                            confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address,lon,lat);
                                                         }
                                                     });
 
@@ -818,7 +824,7 @@ public class BuskingOpen extends AppCompatActivity  {
                                                     confirmBtn.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
-                                                            confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address);
+                                                            confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address,lon,lat);
                                                         }
                                                     });
 
@@ -867,7 +873,7 @@ public class BuskingOpen extends AppCompatActivity  {
                                                     confirmBtn.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
-                                                            confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address);
+                                                            confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address,lon,lat);
                                                         }
                                                     });
 
@@ -889,7 +895,7 @@ public class BuskingOpen extends AppCompatActivity  {
                                                     confirmBtn.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
-                                                            confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address);
+                                                            confirm(user_token,concert_date,selectCheckTime.get(0),real_end_time,location_name,address,lon,lat);
                                                         }
                                                     });
 
@@ -933,7 +939,7 @@ public class BuskingOpen extends AppCompatActivity  {
         });
     }
 
-    public void confirm(String user_token,String concert_date, String start_time, String end_time, String location_name ,String location_address){
+    public void confirm(String user_token,String concert_date, String start_time, String end_time, String location_name ,String location_address,double lon, double lat){
         Log.e("버스커 아이디 제대로 받아오는지",String.valueOf(busker_id));
         RoadConcert roadConcert = new RoadConcert();
         roadConcert.setBusker(busker_id);
@@ -942,6 +948,8 @@ public class BuskingOpen extends AppCompatActivity  {
         roadConcert.setRoad_concert_end_time(end_time);
         roadConcert.setRoad_name(location_name);
         roadConcert.setRoad_address(location_address);
+        roadConcert.setRoad_lon(lon);
+        roadConcert.setRoad_lat(lat);
         retrofit2.Call<RoadConcert> roadConcertCall = apiService.reservationRoadConcert(user_token,roadConcert);
         roadConcertCall.enqueue(new Callback<RoadConcert>() {
             @Override
