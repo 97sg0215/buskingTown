@@ -237,22 +237,11 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/mapimage"
+                android:id="@+id/MapContainer"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:background="@color/sub2Gray">
+                android:background="@color/subGray">
 
-                <TextView
-                    android:id="@+id/maptext"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="지도 \n(위치에 핀)"
-                    android:fontFamily="@font/kopubmedium"
-                    android:textColor="@color/mainPurple"
-                    android:textSize="15sp"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"
-                    android:gravity="center"/>
 
             </RelativeLayout>
 

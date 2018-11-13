@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class Map extends Fragment {
@@ -18,7 +19,8 @@ public class Map extends Fragment {
     private final int dateFRAGMENT = 2;
 
     //탭바 아이콘 변수들
-    private TextView map, date;
+    private RelativeLayout map, date;
+    private TextView map_text, date_text;
     private View map_bar, date_bar;
 
     public Map(){
@@ -36,21 +38,24 @@ public class Map extends Fragment {
 
         callFragment(locationFRAGMENT);
 
-        map = (TextView) v.findViewById(R.id.mapsearch);
-        date = (TextView) v.findViewById(R.id.datesearch);
+        map_text = (TextView) v.findViewById(R.id.mapsearch);
+        date_text = (TextView) v.findViewById(R.id.datesearch);
 
         map_bar = (View) v.findViewById(R.id.mapsearchBar);
         date_bar = (View) v.findViewById(R.id.datesearchBar);
+
+        map = (RelativeLayout) v.findViewById(R.id.mapsearchTab);
+        date = (RelativeLayout) v.findViewById(R.id.datesearchTab);
 
         map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 callFragment(locationFRAGMENT);
 
-                map.setTextColor(getResources().getColor(R.color.mainYellow));
+                map_text.setTextColor(getResources().getColor(R.color.mainYellow));
                 map_bar.setVisibility(View.VISIBLE);
 
-                date.setTextColor(getResources().getColor(R.color.fontBlack));
+                date_text.setTextColor(getResources().getColor(R.color.fontBlack));
                 date_bar.setVisibility(View.GONE);
             }
         });
@@ -59,10 +64,10 @@ public class Map extends Fragment {
             @Override
             public void onClick(View v) {
                 callFragment(dateFRAGMENT);
-                map.setTextColor(getResources().getColor(R.color.fontBlack));
+                map_text.setTextColor(getResources().getColor(R.color.fontBlack));
                 map_bar.setVisibility(View.GONE);
 
-                date.setTextColor(getResources().getColor(R.color.mainYellow));
+                date_text.setTextColor(getResources().getColor(R.color.mainYellow));
                 date_bar.setVisibility(View.VISIBLE);
             }
         });

@@ -55,7 +55,7 @@ public class Mypage extends Fragment {
 
     final int REQ_CODE_SELECT_IMAGE=100;
 
-    RelativeLayout go_Busker,coinLayout,coinhouseLayout,locationLendLayout,noticeLayout,clientcenterLayout,logout, settingLayout;
+    RelativeLayout go_Busker,coinLayout,coinhouseLayout,locationLendLayout,noticeLayout,clientcenterLayout,logout, settingLayout, likeBuskerGo;
 
     TextView go_Busker_text, followingAmount, coinAmount;
 
@@ -112,6 +112,16 @@ public class Mypage extends Fragment {
         clientcenterLayout = (RelativeLayout) v.findViewById(R.id.clientcenterLayout);
         logout = (RelativeLayout)v.findViewById(R.id.logOut);
         settingLayout = (RelativeLayout)v.findViewById(R.id.settingLayout);
+        likeBuskerGo = (RelativeLayout)v.findViewById(R.id.likeBuskerGo);
+
+        //좋아하는 버스커
+        likeBuskerGo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent likeBuskerGo = new Intent(getActivity(),LikeBusker.class);
+                startActivity(likeBuskerGo);
+            }
+        });
 
         //환경설정
         settingLayout.setOnClickListener(new View.OnClickListener() {

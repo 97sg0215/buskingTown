@@ -459,6 +459,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="55.6dp"
                 android:orientation="horizontal"
+                android:background="@color/mainGray"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp">
 
@@ -503,6 +504,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="55.6dp"
                 android:orientation="horizontal"
+                android:background="@color/mainGray"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp">
 
@@ -638,10 +640,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="53.4dp"
-                android:background="@color/mainGray"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="20.2dp">
+                android:background="@color/mainGray">
 
                 <EditText
                     android:id="@+id/privde_rule"
@@ -652,6 +651,8 @@
                     android:layout_centerVertical="true"
                     android:background="#00000000"
                     android:textColor="@color/fontGray"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:textColorHint="@color/fontGray"
                     android:textSize="14.5sp" />
 
@@ -697,10 +698,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="53.4dp"
-                android:background="@color/mainGray"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="20.2dp">
+                android:background="@color/mainGray">
 
                 <EditText
                     android:id="@+id/refund_rule"
@@ -711,6 +709,8 @@
                     android:layout_centerVertical="true"
                     android:background="#00000000"
                     android:textColor="@color/fontGray"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:textColorHint="@color/fontGray"
                     android:textSize="14.5sp" />
 

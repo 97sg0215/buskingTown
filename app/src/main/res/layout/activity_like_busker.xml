@@ -35,47 +35,14 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/searh_blank"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_below="@+id/statusBar"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="19.9dp"
-        android:layout_marginBottom="25dp"
-        android:background="@drawable/search_touch">
-
-            <ImageView
-                android:id="@+id/search_Icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/searh"
-                android:layout_centerInParent="true"
-                android:layout_toLeftOf="@+id/search_blank"
-                android:layout_marginTop="9.5dp" />
-
-            <TextView
-                android:id="@+id/search_blank"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginLeft="5dp"
-                android:lineSpacingExtra="1.5sp"
-                android:textSize="13sp"
-                android:layout_centerInParent="true"
-                android:fontFamily="@font/kopubmedium"
-                android:textColor="@color/fontGray"
-                android:text="검색" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
+        android:id="@+id/likeBuskerText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/searh_blank">
+        android:layout_below="@+id/statusBar">
 
         <TextView
             android:layout_width="wrap_content"
@@ -86,32 +53,34 @@
             android:textSize="15sp"
             android:fontFamily="@font/kopubbold"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="아직 버스커의 팬이 되지 않았나요? \n같이 찾아봐요 :)"
-            android:layout_above="@+id/buskerSearch_btn"
-            android:lineSpacingExtra="7sp"
-            android:textSize="14sp"
-            android:textColor="@color/fontGray"
-            android:fontFamily="@font/kopubmedium"
-            android:layout_centerHorizontal="true" />
-        
-        <Button
-            android:id="@+id/buskerSearch_btn"
-            android:layout_width="190dp"
-            android:layout_height="35dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="25.1dp"
-            android:background="@drawable/fail_btn"
-            android:text="좋아하는 버스커 찾기"
-            android:textColor="#fff"
-            android:fontFamily="@font/kopubbold"
-            android:textSize="14sp"
-            style="?android:attr/borderlessButtonStyle"/>
-
     </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/statusBar"
+        android:layout_above="@+id/likeBuskerText"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/busker_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:cacheColorHint="#00000000"
+                android:divider="@android:color/transparent"
+                android:listSelector="#00000000"
+                android:overScrollMode="never"
+                android:scrollbars="none"
+                android:transcriptMode="alwaysScroll"/>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

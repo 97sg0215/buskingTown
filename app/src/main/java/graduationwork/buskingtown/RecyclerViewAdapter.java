@@ -30,23 +30,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 holder.imageView.setImageResource(R.drawable.banner);
                 break;
             case 1:
-                holder.imageView.setImageResource(R.drawable.img2);
+                holder.imageView.setImageResource(R.drawable.banner_a);
                 break;
             case 2:
-                holder.imageView.setImageResource(R.drawable.img3);
-                break;
-            case 3:
-                holder.imageView.setImageResource(R.drawable.img);
-                break;
-            case 4:
-                holder.imageView.setImageResource(R.drawable.img2);
+                holder.imageView.setImageResource(R.drawable.banner_b);
                 break;
         }
     }
 
     @Override
     public int getItemCount() {
-        return 5;
+        return 3;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

@@ -4,6 +4,12 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <View
+        android:id="@+id/addOptionUnder"
+        android:layout_width="match_parent"
+        android:layout_height="0.9dp"
+        android:background="@color/sub2Gray" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="35.1dp"
@@ -31,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="55.6dp"
         android:orientation="horizontal"
+        android:background="@color/mainGray"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
 
@@ -75,6 +82,7 @@
         android:layout_width="match_parent"
         android:layout_height="55.6dp"
         android:orientation="horizontal"
+        android:background="@color/mainGray"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
 

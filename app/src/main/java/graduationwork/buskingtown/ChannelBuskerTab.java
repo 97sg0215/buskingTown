@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class ChannelBuskerTab extends Fragment {
@@ -17,6 +18,7 @@ public class ChannelBuskerTab extends Fragment {
 
     //탭바 아이콘 변수들
     private TextView roadConcert, practiceRoom, concert;
+    private RelativeLayout roadTab, practiceTab, concertTab;
 
     public ChannelBuskerTab(){
         // Required empty public constructor
@@ -34,6 +36,10 @@ public class ChannelBuskerTab extends Fragment {
         practiceRoom = (TextView) v.findViewById(R.id.practiceRoom);
         concert = (TextView) v.findViewById(R.id.concert);
 
+        roadTab = (RelativeLayout) v.findViewById(R.id.roadTab);
+        practiceTab = (RelativeLayout) v.findViewById(R.id.practiceTab);
+        concertTab = (RelativeLayout) v. findViewById(R.id.concertTab);
+
         final View roadConcertBar = (View) v.findViewById(R.id.roadConcertBar);
         final View practiceRoomBar = (View) v.findViewById(R.id.practiceRoomBar);
         final View concertBar = (View) v.findViewById(R.id.concertBar);
@@ -42,7 +48,7 @@ public class ChannelBuskerTab extends Fragment {
         getFragmentManager().beginTransaction().add(R.id.buskerFragmentContainer, new ChannelBuskerReservation()).commit();
 
         //클릭메소드 연결
-        roadConcert.setOnClickListener(new View.OnClickListener(){
+        roadTab.setOnClickListener(new View.OnClickListener(){
 
             @Override
 
@@ -60,7 +66,7 @@ public class ChannelBuskerTab extends Fragment {
 
 
         });
-        practiceRoom.setOnClickListener(new View.OnClickListener(){
+        practiceTab.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
@@ -77,7 +83,7 @@ public class ChannelBuskerTab extends Fragment {
 
             }
         });
-        concert.setOnClickListener(new View.OnClickListener(){
+        concertTab.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {

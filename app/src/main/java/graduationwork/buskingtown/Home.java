@@ -114,7 +114,7 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
             runnable = new Runnable() {
                 @Override
                 public void run() {
-                    if (layoutManager.findFirstVisibleItemPosition() != 4) {
+                    if (layoutManager.findFirstVisibleItemPosition() != 2) {
                         recyclerView.smoothScrollToPosition(layoutManager.findFirstVisibleItemPosition() + 1);
                     } else {
                         recyclerView.smoothScrollToPosition(0);
