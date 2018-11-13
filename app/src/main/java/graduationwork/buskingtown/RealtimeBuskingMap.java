@@ -2,10 +2,14 @@ package graduationwork.buskingtown;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -39,7 +43,9 @@ import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
 import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
 import com.nhn.android.mapviewer.overlay.NMapResourceProvider;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.github.mikephil.charting.charts.Chart.LOG_TAG;
 
@@ -81,16 +87,13 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
     private static final String LOG_TAG = "NMapViewer";
     private static final boolean DEBUG = false;
 
+    String addr = "사근동 208-2";
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_realtime_busking_map, container, false);
-
         MapContainer = (RelativeLayout) v.findViewById(R.id.map_container);
-
-
-
-
 
         return v;
     }
@@ -100,15 +103,12 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
         super.onCreate(savedInstanceState);
         mMapContext =  new NMapContext(super.getActivity());
         mMapContext.onCreate();
-
-
-
-
-
     }
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        final Geocoder geocoder = new Geocoder(getContext());
 
         mMapView = (NMapView)getView().findViewById(R.id.map_view);
         mMapView.setClientId(CLIENT_ID);// 클라이언트 아이디 설정
@@ -126,11 +126,8 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
         mMapController = mMapView.getMapController();
 
         // 확대/축소를 위한 줌 컨트롤러 표시 옵션 활성화
-
         mMapView.setBuiltInZoomControls(true, null);
         mMapContext.setMapDataProviderListener(onDataProviderListener);
-
-
 
         // 지도에 대한 상태 변경 이벤트 연결
         mMapView.setOnMapStateChangeListener(this);
@@ -140,7 +137,6 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
         mOverlayManager = new NMapOverlayManager(getContext(), mMapView, mMapViewerResourceProvider);
 
         testPOIdataOverlay();
-
     }
 
     @Override
@@ -162,7 +158,6 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
             android.util.Log.e("NMAP",
 
                     "onMapInitHandler: error=" + errorInfo.toString());
-
         }
 
     }
@@ -300,40 +295,24 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
 
                                          NGeoPoint myLocation) {
 
-
-
 			if (mMapController != null) {
-
 				mMapController.animateTo(myLocation);
-
 			}
 
             Log.d("myLog", "myLocation  lat " + myLocation.getLatitude());
-
             Log.d("myLog", "myLocation  lng " + myLocation.getLongitude());
-
-
-
 
 
             mMapContext.findPlacemarkAtLocation(myLocation.getLongitude(), myLocation.getLatitude());
 
             //위도경도를 주소로 변환
 
-
-
             return true;
 
         }
 
-
-
         @Override
-
         public void onLocationUpdateTimeout(NMapLocationManager locationManager) {
-
-
-
             // stop location updating
 
             // Runnable runnable = new Runnable() {
@@ -351,28 +330,19 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
         }
 
 
-
         @Override
-
         public void onLocationUnavailableArea(
 
                 NMapLocationManager locationManager, NGeoPoint myLocation) {
-
-
 
             Toast.makeText(getActivity(),
 
                     "Your current location is unavailable area.",
 
                     Toast.LENGTH_LONG).show();
-
-
-
             stopMyLocation();
 
         }
-
-
 
     };
 
@@ -421,10 +391,19 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
         // set POI data
         NMapPOIdata poiData = new NMapPOIdata(2, mMapViewerResourceProvider);
         poiData.beginPOIdata(2);
-        NMapPOIitem item = poiData.addPOIitem(127.0630205, 37.5091300, "Pizza 777-111", markerId, 0);
+        NMapPOIitem item = poiData.addPOIitem(127.0630205, 37.5091300, "버스커버스커", markerId, 0);
         item.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
-        poiData.addPOIitem(127.061, 37.51, "Pizza 123-456", markerId, 0);
-        poiData.endPOIdata();
+        NMapPOIitem item2 = poiData.addPOIitem(127.061, 37.51, "MC민지", markerId, 0);
+        item2.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
+        double lat = findGeoPoint(getContext(),addr).getLatitude();
+        double lon = findGeoPoint(getContext(),addr).getLongitude();
+        NMapPOIitem item3 = poiData.addPOIitem(lon,lat, "민지의 러브하우스", markerId, 0);
+        item3.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
+
+//        NMapPOIitem item4 = poiData.addPOIitem(127.061, 37.51, "MC민지", markerId, 0);
+//        item4.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
+//        poiData.addPOIitem(127.061, 37.51, "Pizza 123-456", markerId, 0);
+//        poiData.endPOIdata();
 
         // create POI data overlay
         NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
@@ -450,6 +429,8 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
 
             // [[TEMP]] handle a click event of the callout
             //Toast.makeText(v.RealtimeBuskingMap.this, "onCalloutClick: " + item.getTitle(), Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(getActivity(),Setting.class);
+            startActivity(intent);
         }
 
         @Override
@@ -463,5 +444,31 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
             }
         }
     };
+    private void testGeocoder(){
+
+    }
+
+    public static Location findGeoPoint(Context mcontext, String address) {
+        Location loc = new Location("");
+        Geocoder coder = new Geocoder(mcontext);
+        List<Address> addr = null;// 한좌표에 대해 두개이상의 이름이 존재할수있기에 주소배열을 리턴받기 위해 설정
+
+        try {
+            addr = coder.getFromLocationName(address, 5);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }// 몇개 까지의 주소를 원하는지 지정 1~5개 정도가 적당
+        if (addr != null) {
+            for (int i = 0; i < addr.size(); i++) {
+                Address lating = addr.get(i);
+                double lat = lating.getLatitude(); // 위도가져오기
+                double lon = lating.getLongitude(); // 경도가져오기
+                loc.setLatitude(lat);
+                loc.setLongitude(lon);
+            }
+        }
+        return loc;
+    }
 
 }
