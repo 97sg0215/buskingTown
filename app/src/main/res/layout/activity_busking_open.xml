@@ -50,7 +50,7 @@
     <RelativeLayout
         android:id="@+id/placesLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_below="@id/statusBar"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
@@ -79,7 +79,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/arrow_r"
+            android:background="@drawable/ic_arrow_right"
             android:layout_alignParentRight="true"/>
 
     </RelativeLayout>
@@ -94,7 +94,7 @@
     <RelativeLayout
         android:id="@+id/dateLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_below="@id/placesLayout"
         android:paddingTop="9.6dp"
         android:paddingBottom="10.9dp"
@@ -142,7 +142,7 @@
     <RelativeLayout
         android:id="@+id/timeLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_below="@+id/dateUnderLine"
         android:paddingTop="11.2dp"
         android:paddingBottom="10.9dp"
@@ -193,6 +193,16 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/MapContainer"
+        android:layout_width="match_parent"
+        android:layout_height="443dp"
+        android:layout_below="@id/timeUnderLine"
+        android:background="@color/subGray">
+
+
+    </RelativeLayout>
 
     <Button
         android:id="@+id/confirmBtn"

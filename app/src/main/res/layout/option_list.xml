@@ -4,6 +4,23 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="35.1dp"
+        android:background="#fff">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="추가 옵션"
+            android:textSize="12sp"
+            android:layout_marginTop="14.2dp"
+            android:paddingLeft="20dp"
+            android:fontFamily="@font/kopubdotummedium"
+            android:textColor="@color/mainYellow"/>
+
+    </RelativeLayout>
+
     <View
         android:id="@+id/optionNameUnder"
         android:layout_width="match_parent"
