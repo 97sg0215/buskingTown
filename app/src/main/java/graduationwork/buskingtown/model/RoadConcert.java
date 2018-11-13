@@ -3,6 +3,7 @@ package graduationwork.buskingtown.model;
 public class RoadConcert {
     int road_concert_id, busker;
     String road_address, road_name, road_concert_date, road_concert_start_time, road_concert_end_time;
+    double road_lon, road_lat;
 
     public int getRoad_concert_id() {
         return road_concert_id;
@@ -59,4 +60,12 @@ public class RoadConcert {
     public void setRoad_concert_end_time(String road_concert_end_time) {
         this.road_concert_end_time = road_concert_end_time;
     }
+
+    public double getRoad_lon() { return road_lon; }
+
+    public void setRoad_lon(double lon) { this.road_lon = lon; }
+
+    public double getRoad_lat() { return road_lat; }
+
+    public void setRoad_lat(double lat) { this.road_lat = lat; }
 }
