@@ -45,7 +45,6 @@ import static android.support.v7.widget.LinearLayoutManager.*;
 import static graduationwork.buskingtown.R.id.buskerStory_list;
 import static graduationwork.buskingtown.R.id.goingConcert_list;
 
-
 public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     SharedPreferences prefUser, prefBusker;
 

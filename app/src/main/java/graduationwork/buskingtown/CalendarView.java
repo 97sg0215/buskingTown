@@ -72,8 +72,12 @@ public class CalendarView extends Fragment {
         contacts.add(new Contact("00:00"));
         contacts.add(new Contact("01:00"));
 
+
+        //리스트뷰 정의
         listView = (ListView) containerView.findViewById(R.id.calendarList);
+
         ContactsAdapter adapter = new ContactsAdapter(this, R.layout.calendarlistview, contacts);
+
         //listView.setAdapter(adapter);
 
 
