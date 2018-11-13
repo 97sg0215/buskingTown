@@ -143,7 +143,7 @@ public class ChannelBuskerPracticeroom extends Fragment {
                             practiceroomBox.addView(practiceroomlist);
 
 
-                            ImageButton detailBtn = (ImageButton)practiceroomlist.findViewById(R.id.practiceRoomDetail);
+                            LinearLayout detailBtn = (LinearLayout) practiceroomlist.findViewById(R.id.practiceroom_box);
                             int finalI = i;
                             detailBtn.setOnClickListener(new View.OnClickListener() {
                                 @Override

@@ -639,9 +639,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="53.4dp"
                 android:background="@color/mainGray"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingTop="20.2dp">
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20.2dp">
 
                 <EditText
                     android:id="@+id/privde_rule"
@@ -698,9 +698,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="53.4dp"
                 android:background="@color/mainGray"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingTop="20.2dp">
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20.2dp">
 
                 <EditText
                     android:id="@+id/refund_rule"

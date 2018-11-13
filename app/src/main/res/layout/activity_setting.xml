@@ -151,6 +151,7 @@
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:text="탈퇴 하기"
+            android:fontFamily="@font/kopubdotummedium"
             android:layout_marginLeft="20dp"
             android:textColor="@color/fontBlack"
             android:layout_marginTop="19.5dp"/>
