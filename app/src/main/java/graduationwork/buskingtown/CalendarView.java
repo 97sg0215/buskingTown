@@ -5,24 +5,24 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
-
-import org.w3c.dom.Text;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,11 +30,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 
-import static graduationwork.buskingtown.R.layout.calendarlistview;
 import static graduationwork.buskingtown.R.layout.dayview;
+
+//import static com.gun0912.tedpermission.TedPermissionActivity.listener;
 
 public class CalendarView extends Fragment {
 
@@ -50,35 +50,40 @@ public class CalendarView extends Fragment {
     private Context mContext;
     int margin = 0;
     RelativeLayout monRelative;
-    String[] times = {"00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00"};
+    String[] strTime = {"00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00"};
     private final DateFormat dateformatter = new DateFormat();
     private static final String dateformat = "yyyy/MM/dd";
-    private String[] months = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+    private String[] months = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
+    //private String[] months = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     private String[] monthsNumbers = new String[]{"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
     String eventdate;
     String title;
     ListView listView;
 
 
-    // private final String[] time = new String[]{"00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00" };
+    //String[] itemtime = {"00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00" };
 
+    ListView time_ListView = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View containerView = inflater.inflate(dayview, container, false);
 
-        List<Contact> contacts = new ArrayList<Contact>();
-        contacts.add(new Contact("00:00"));
-        contacts.add(new Contact("01:00"));
+        //리스트연결
+        int nTimCnt=0;
+        ArrayList<ItemData> tData = new ArrayList<>();
+        for (int i=0;i<1000; ++i){
+            ItemData tItem = new ItemData();
+            tItem.strTime = strTime[nTimCnt++];
+            tData.add(tItem);
+            if(nTimCnt >= strTime.length) nTimCnt = 0;
+        }
 
+        time_ListView = containerView.findViewById(R.id.time_ListView);
+        ListAdapter Adapter = new ListAdapter(tData);
+        time_ListView.setAdapter(Adapter);
 
-        //리스트뷰 정의
-        listView = (ListView) containerView.findViewById(R.id.calendarList);
-
-        ContactsAdapter adapter = new ContactsAdapter(this, R.layout.calendarlistview, contacts);
-
-        //listView.setAdapter(adapter);
 
 
 //        int permissionCheck = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CALENDAR);
@@ -126,8 +131,8 @@ public class CalendarView extends Fragment {
         yearSelected = _calendar.get(Calendar.YEAR);
         day = _calendar.get(Calendar.DAY_OF_MONTH);
         if (startDate == null) {
-            // startDate = yearSelected + "/" + (month + 1) + "/" + day;
-            startDate = (month + 1) + "/" + day + "/" + yearSelected;
+            startDate = yearSelected + "/" + (month + 1) + "/" + day;
+            //startDate = (month + 1) + "/" + day + "/" + yearSelected;
         }
 
         Date date = new Date(startDate);
@@ -137,12 +142,13 @@ public class CalendarView extends Fragment {
         date = new Date(startDate);
         cal.setTime(date);
 
-        String month = months[cal.get(Calendar.MONTH)];
-        String date1 = " " + cal.get(Calendar.DATE) + " ";
+        String month = months[cal.get(Calendar.MONTH)]+ "월";
+        String date1 = " " + cal.get(Calendar.DATE) + "일";
 
-        String year = "" + cal.get(Calendar.YEAR);
+        String year = "" + cal.get(Calendar.YEAR)+ "년";
 
-        String currentDate1 = date1 + month + "," + year;
+        String currentDate1 = year + month + date1;
+        //String currentDate1 = date1 + month + "," + year;
         currentDate.setText(currentDate1);
         try {
             loadDataForDay();
@@ -194,8 +200,8 @@ public class CalendarView extends Fragment {
             String endTime = appointment.getDtend();
             this.title = appointment.getTitle();
 
-            for (int i = 0; i < this.times.length; ++i) {
-                if (startTime.contains(this.times[i])) {
+            for (int i = 0; i < this.strTime.length; ++i) {
+                if (startTime.contains(this.strTime[i])) {
                     this.createViewForAppointment(startTime, endTime);
                 }
             }
@@ -255,7 +261,7 @@ public class CalendarView extends Fragment {
     private int calculateMargin(String startTime) {
         this.margin = 3;
 
-        for (int i = 0; startTime.compareToIgnoreCase(this.times[i]) != 0; ++i) {
+        for (int i = 0; startTime.compareToIgnoreCase(this.strTime[i]) != 0; ++i) {
             this.margin += 30;
         }
 
@@ -277,7 +283,8 @@ public class CalendarView extends Fragment {
         this.eventdate = changedNewDate;
 
         this.loadDataForDay();
-        String changedDate = newdate + monthTemp + "," + yearTemp;
+        String changedDate =  yearTemp +"년" + monthTemp +"월" + newdate +"일";
+        //String changedDate = newdate + monthTemp + "," + yearTemp;
         this.currentDate.setText(changedDate);
     }
 
@@ -304,18 +311,58 @@ public class CalendarView extends Fragment {
     }
 
 
-    //테스트
-    public class Contact{
-        private  String items;
+    //리스트 아이템
+    public class ItemData{
+        public String strTime;
+    }
 
-        public Contact(String items){
-            this.items = items;
+    //리스트 Adapter
+    public class ListAdapter extends BaseAdapter{
+
+        LayoutInflater inflater = null;
+        private ArrayList<ItemData> time_Data = null;
+        private int timeListCnt = 0;
+
+        public ListAdapter(ArrayList<ItemData> t_Data){
+            time_Data = t_Data;
+            timeListCnt = time_Data.size();
+        }
+
+        @Override
+        public int getCount() {
+            Log.i("TAG", "getCount");
+            return timeListCnt;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            if(convertView == null){
+                final Context context = parent.getContext();
+                if(inflater == null){
+                    inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                }
+                assert inflater != null;
+                convertView = inflater.inflate(R.layout.calendarlistview,parent,false);
+            }
+
+            TextView timeText = (TextView) convertView.findViewById(R.id.timeText);
+
+            timeText.setText(time_Data.get(position).strTime);
+
+            return convertView;
         }
     }
 
-    private class ContactsAdapter {
-        public ContactsAdapter(CalendarView calendarView, int calendarlistview, List<Contact> contacts) {
-        }
-    }
 }
 
