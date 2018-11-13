@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="285dp"
+    android:layout_height="33dp"
+    android:background="#fff">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/buskerId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:lineSpacingExtra="-1sp"
+            android:text="-"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/kopubmedium"
+            android:textColor="@color/fontGray"/>
+
+        <TextView
+            android:id="@+id/sub"
+            android:layout_toRightOf="@+id/buskerId"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="|"/>
+
+        <TextView
+            android:id="@+id/place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/sub"
+            android:textSize="12sp"
+            android:lineSpacingExtra="-1sp"
+            android:fontFamily="@font/kopubmedium"
+            android:text="-"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/fontGray"/>
+
+        <ImageView
+            android:id="@+id/watchImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/time"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/watch">
+        </ImageView>
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/fontGray"
+            android:layout_centerVertical="true"
+            android:lineSpacingExtra="1sp"
+            android:text="-" />
+
+
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="45dp"
+    android:layout_height="50dp"
     android:orientation="horizontal">
 
     <LinearLayout
@@ -15,13 +15,13 @@
             android:layout_height="wrap_content"
             android:text="시간"
             android:textSize="10.5sp"
-            android:textColor="@color/fontGray"
+            android:textColor="@color/fontBlack"
             android:lineSpacingExtra="1sp"
             android:fontFamily="@font/kopubdotummedium"/>
 
         <View
             android:id="@+id/timeView"
-            android:layout_width="305dp"
+            android:layout_width="match_parent"
             android:layout_height="0.9dp"
             android:layout_alignParentRight="true"
             android:background="@color/mainGray"
