@@ -6,6 +6,7 @@ public class Connections {
     private int following;
     private int user;
     private int connection_id;
+    private String connection_date;
 
     public int getFollowing() {
         return following;
@@ -29,5 +30,13 @@ public class Connections {
 
     public void setConnection_id(int connection_id) {
         this.connection_id = connection_id;
+    }
+
+    public String getConnection_date() {
+        return connection_date;
+    }
+
+    public void setConnection_date(String connection_date) {
+        this.connection_date = connection_date;
     }
 }

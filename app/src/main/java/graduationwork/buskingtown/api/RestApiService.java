@@ -6,6 +6,7 @@ import graduationwork.buskingtown.PracticeRoomReservation;
 import graduationwork.buskingtown.model.Busker;
 import graduationwork.buskingtown.model.ChangePassword;
 import graduationwork.buskingtown.model.CoinManagement;
+import graduationwork.buskingtown.model.ConcertReservation;
 import graduationwork.buskingtown.model.Connections;
 import graduationwork.buskingtown.model.LendLocation;
 import graduationwork.buskingtown.model.LendLocationOption;
@@ -215,6 +216,23 @@ public interface RestApiService {
     @DELETE("rentLocation/cancelReservationPracticeRoom/{reservation_id}/")
     Call<PracticeReservation> cancelReservation (@Header("Authorization")String autoToken, @Path("reservation_id")int reservation_id);
 
+    //콘서트
+    //예약체크
+    @GET("rentLocation/reservationConcertRoom/{provide}/{provide_option}/{concert_date}/")
+    Call<List<ConcertReservation>> reservationCheckConcert(@Header("Authorization")String autoToken, @Path("provide")int provide, @Path("provide_option")int provide_option, @Path("concert_date")String concert_date);
+
+    //예약하기
+    @POST("rentLocation/reservationConcertRoom/")
+    Call<ConcertReservation> reservationConcert(@Header("Authorization")String autoToken, @Body ConcertReservation concertReservation);
+
+    //예약확인
+    @GET("accounts/reservationConcertCheck/{busker_id}/")
+    Call<List<ConcertReservation>> reservationBuskerConcertCheck (@Header("Authorization")String autoToken, @Path("busker_id")int busker);
+
+    //예약취소
+    @DELETE("rentLocation/cancelReservationConcertRoom/{reservation_id}/")
+    Call<ConcertReservation> cancelConcertReservation (@Header("Authorization")String autoToken, @Path("reservation_id")int reservation_id);
+
     //supportCoin
     @POST("busking/supportCoin/")
     Call<SupportCoin> supportCoin(@Header("Authorization")String autoToken, @Body SupportCoin supportCoin);
@@ -257,4 +275,8 @@ public interface RestApiService {
     //라이브 공연
     @GET("busking/liveBusking/{road_concert_date}/{current_time}/")
     Call<List<RoadConcert>> getLiveBuking(@Header("Authorization")String autoToken,@Path("road_concert_date")String road_concert_date,@Path("current_time")String current_time);
+
+    //팔로워 수 통계 조회
+    @GET("accounts/followerStatics/{busker_id}/{start_date}/{end_date}/")
+    Call<List<Connections>> getFollowerStatistic(@Header("Authoriztion")String autoToken,@Path("busker_id")int busker, @Path("start_date")String start_date, @Path("end_date")String end_date);
 }

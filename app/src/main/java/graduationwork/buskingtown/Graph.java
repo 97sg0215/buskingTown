@@ -1,5 +1,7 @@
 package graduationwork.buskingtown;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,7 +21,17 @@ import com.github.mikephil.charting.data.LineDataSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import graduationwork.buskingtown.api.RestApiService;
+
 public class Graph extends Fragment {
+
+    SharedPreferences prefUser, prefBusker;
+
+    RestApiService apiService;
+
+    String user_token;
+    int busker_id;
+    String start_date,end_date;
 
     private LineChart lineChart;
 
@@ -32,19 +44,27 @@ public class Graph extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.graph, container, false);
 
+        prefBusker = this.getActivity().getSharedPreferences("BuskerUser", Activity.MODE_PRIVATE);
+        prefUser = this.getActivity().getSharedPreferences("User", Activity.MODE_PRIVATE);
+
+        restApiBuilder();
+
+        getLocalData();
+
         lineChart = (LineChart)v.findViewById(R.id.chart);
 
+        //setValues
         List<Entry> entries = new ArrayList<>();
-        entries.add(new Entry(1, 1));
-        entries.add(new Entry(2, 2));
-        entries.add(new Entry(3, 0));
-        entries.add(new Entry(4, 4));
-        entries.add(new Entry(5, 3));
+        entries.add(new Entry(1, 0.0f));
+        entries.add(new Entry(2, 2.0f));
+        entries.add(new Entry(3, 1.0f));
+        entries.add(new Entry(4, 1.0f));
 
         LineDataSet lineDataSet = new LineDataSet(entries, "좋아하는 팬");
+//        lineDataSet.setAxisDependency(VAxis/.;
         lineDataSet.setLineWidth(2);
-        lineDataSet.setCircleRadius(6);
-        //lineDataSet.setCircleColor(Color.parseColor("#FFA1B4DC"));
+        lineDataSet.setCircleRadius(3);
+        lineDataSet.setCircleColor(Color.parseColor("#FFA1B4DC"));
         lineDataSet.setCircleColor(getResources().getColor(R.color.mainYellow));
         lineDataSet.setCircleColorHole(Color.WHITE);
         lineDataSet.setColor(getResources().getColor(R.color.mainYellow));
@@ -54,13 +74,17 @@ public class Graph extends Fragment {
         lineDataSet.setDrawHighlightIndicators(false);
         lineDataSet.setDrawValues(false);
 
+
         LineData lineData = new LineData(lineDataSet);
         lineChart.setData(lineData);
+
+       // String[] values = { "Jan", "Feb", "Mar","April"};
 
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextColor(Color.BLACK);
-        xAxis.enableGridDashedLine(8, 24, 0);
+        xAxis.enableGridDashedLine(5, 20, 0);
+        //xAxis.setValueFormatter(new MyXAxisValueFormatter(values));
 
         YAxis yLAxis = lineChart.getAxisLeft();
         yLAxis.setTextColor(Color.BLACK);
@@ -85,4 +109,14 @@ public class Graph extends Fragment {
         return v;
     }
 
+    public void restApiBuilder() {
+        ApplicationController application = ApplicationController.getInstance();
+        application.buildNetworkService();
+        apiService = ApplicationController.getInstance().getRestApiService();
+    }
+
+    public void getLocalData(){
+        user_token = prefUser.getString("auth_token",null);
+        busker_id = prefBusker.getInt("busker_id",0);
+    }
 }
