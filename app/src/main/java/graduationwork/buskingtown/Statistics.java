@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
@@ -40,23 +41,16 @@ public class Statistics extends AppCompatActivity implements View.OnClickListene
     SimpleDateFormat simpleDateFormat;
 
     private final int oneFRAGMENT = 1;
+    private final int towFRAGMENT = 2;
+
+    String put_start_date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
 
-        callFragment(oneFRAGMENT);
-
-//        LinearLayout clickDropdownBox = (LinearLayout) findViewById(R.id.clickDropdownBox);
-//        ImageButton dropdown= (ImageButton)findViewById(R.id.dropdownImg);
-//        dropdown.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View v){
-//                clickDropdownBox.setVisibility(View.VISIBLE);
-//                dropdown.setVisibility(View.INVISIBLE);
-//            }
-//        });
+        //callFragment(oneFRAGMENT);
 
         //버튼 참조변수
         oneMonth = (Button) findViewById(R.id.oneMonth);
@@ -76,6 +70,8 @@ public class Statistics extends AppCompatActivity implements View.OnClickListene
         coinStartYear = startCalendar.get(Calendar.YEAR);
         coinStartMonth = startCalendar.get(Calendar.MONTH);
         coinStartDay = startCalendar.get(Calendar.DAY_OF_MONTH);
+        put_start_date = coinStartYear+"-"+coinStartMonth+"-"+coinStartDay;
+
 
         final GregorianCalendar endCalendar = new GregorianCalendar();
         coinEndYear = endCalendar.get(Calendar.YEAR);
@@ -88,52 +84,9 @@ public class Statistics extends AppCompatActivity implements View.OnClickListene
         //데이트 피커
         coinSD = (Button) findViewById(R.id.coinSD);
         coinSD.setText(String.format("%2d년 %02d월 %02d일",coinStartYear,coinStartMonth,coinStartDay));
-        coinSD.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                DatePickerDialog.OnDateSetListener dateStartPicker = new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        coinSD.setText(year + "년 " + (monthOfYear + 1) + "월 " + dayOfMonth + "일");
-                    }
-                };
-
-
-                new SpinnerDatePickerDialogBuilder()
-                        .callback(dateStartPicker)
-                        .context(Statistics.this)
-                        .spinnerTheme(R.style.DatePickerSpinner)
-                        .showTitle(true)
-                        .defaultDate(coinStartYear,coinStartMonth,coinStartDay)
-                        .build()
-                        .show();
-            }
-        });
 
         coinED = (Button) findViewById(R.id.coinED);
         coinED.setText(String.format("%2d년 %02d월 %02d일",coinEndYear,coinEndMonth+1,coinEndDay));
-        coinED.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                DatePickerDialog.OnDateSetListener dateEndPicker = new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        coinED.setText(year + "년 " + (monthOfYear + 1) + "월 " + dayOfMonth + "일");
-                    }
-                };
-
-                new SpinnerDatePickerDialogBuilder()
-                        .callback(dateEndPicker)
-                        .context(Statistics.this)
-                        .spinnerTheme(R.style.DatePickerSpinner)
-                        .showTitle(true)
-                        .defaultDate(coinEndYear,coinEndMonth,coinEndDay)
-                        .build()
-                        .show();
-            }
-        });
 
         //아래는 뒤로가기 버튼 클릭시 뒤로가는거임
         ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
@@ -153,10 +106,10 @@ public class Statistics extends AppCompatActivity implements View.OnClickListene
 
                 switch (position) {
                     case 0:
-                        Toast.makeText(parent.getContext(), "Spinner item 1!", Toast.LENGTH_SHORT).show();
                         break;
                     case 1:
-                        Toast.makeText(parent.getContext(), "Spinner item 2!", Toast.LENGTH_SHORT).show();
+                        Log.e("날짜?",String.valueOf(put_start_date));
+                        callFragment(towFRAGMENT,  put_start_date, coinEndYear+"-"+coinEndMonth+1+"-"+coinEndDay);
                         break;
                     case 2:
                         Toast.makeText(parent.getContext(), "Spinner item 3!", Toast.LENGTH_SHORT).show();
@@ -184,10 +137,10 @@ public class Statistics extends AppCompatActivity implements View.OnClickListene
         switch (view.getId()){
             case R.id.oneMonth :
                 //1개월 버튼색 활성화
-                callFragment(oneFRAGMENT);
                 oneMonth.setBackground(getDrawable(R.drawable.able_btn));
                 oneMonth.setTextColor(Color.parseColor("#ffffff"));
                 coinSD.setText(String.format("%2d년 %02d월 %02d일",coinStartYear,coinStartMonth,coinStartDay));
+                put_start_date = coinStartYear+"-"+coinStartMonth+"-"+coinStartDay;
                 //나머지 버튼색 비활성화
                 threeMonth.setBackground(getDrawable(R.drawable.date_rounded));
                 threeMonth.setTextColor(getResources().getColor(R.color.mainPurple));
@@ -202,6 +155,7 @@ public class Statistics extends AppCompatActivity implements View.OnClickListene
                 threeMonth.setBackground(getDrawable(R.drawable.able_btn));
                 threeMonth.setTextColor(Color.parseColor("#ffffff"));
                 coinSD.setText(String.format("%2d년 %02d월 %02d일",coinStartYear,coinStartMonth-2,coinStartDay));
+                put_start_date = coinStartYear+"-"+(coinStartMonth-2)+"-"+coinStartDay;
                 //나머지 버튼색 비활성화
                 oneMonth.setBackground(getDrawable(R.drawable.date_rounded));
                 oneMonth.setTextColor(getResources().getColor(R.color.mainPurple));
@@ -216,6 +170,7 @@ public class Statistics extends AppCompatActivity implements View.OnClickListene
                 sixMonth.setBackground(getDrawable(R.drawable.able_btn));
                 sixMonth.setTextColor(Color.parseColor("#ffffff"));
                 coinSD.setText(String.format("%2d년 %02d월 %02d일",coinStartYear,coinStartMonth-5,coinStartDay));
+                put_start_date = coinStartYear+"-"+(coinStartMonth-5)+"-"+coinStartDay;
                 //나머지 버튼색 비활성화
                 oneMonth.setBackground(getDrawable(R.drawable.date_rounded));
                 oneMonth.setTextColor(getResources().getColor(R.color.mainPurple));
@@ -230,6 +185,7 @@ public class Statistics extends AppCompatActivity implements View.OnClickListene
                 oneYearz.setBackground(getDrawable(R.drawable.able_btn));
                 oneYearz.setTextColor(Color.parseColor("#ffffff"));
                 coinSD.setText(String.format("%2d년 %02d월 %02d일",coinStartYear-1,coinStartMonth+1,coinStartDay));
+                put_start_date = (coinStartYear-1)+"-"+(coinStartMonth+1)+"-"+coinStartDay;
                 //나머지 버튼색 비활성화
                 oneMonth.setBackground(getDrawable(R.drawable.date_rounded));
                 oneMonth.setTextColor(getResources().getColor(R.color.mainPurple));
@@ -243,7 +199,7 @@ public class Statistics extends AppCompatActivity implements View.OnClickListene
 
 
 
-    private void callFragment(int frament_no) {
+    private void callFragment(int frament_no,String start_date,String end_date) {
         // 프래그먼트 사용을 위해
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
@@ -252,6 +208,20 @@ public class Statistics extends AppCompatActivity implements View.OnClickListene
                 // '그래프' 호출
                 Graph graphFragment = new Graph();
                 transaction.replace(R.id.fragmentContainer, graphFragment);
+                transaction.commit();
+
+                break;
+
+            case 2:
+                //팔로워 통계
+                FollowGraph followGraph = new FollowGraph();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("start_date", start_date);
+                bundle.putString("end_date",end_date);
+                followGraph.setArguments(bundle);
+
+                transaction.replace(R.id.fragmentContainer, followGraph);
                 transaction.commit();
 
                 break;

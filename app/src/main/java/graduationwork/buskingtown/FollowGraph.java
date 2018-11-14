@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +25,7 @@ import java.util.List;
 
 import graduationwork.buskingtown.api.RestApiService;
 
-public class Graph extends Fragment {
+public class FollowGraph extends Fragment {
 
     SharedPreferences prefUser, prefBusker;
 
@@ -35,10 +37,19 @@ public class Graph extends Fragment {
 
     private LineChart lineChart;
 
-    public Graph(){
+    public FollowGraph(){
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            start_date = bundle.getString(start_date);
+            end_date = bundle.getString(end_date);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,6 +63,9 @@ public class Graph extends Fragment {
         getLocalData();
 
         lineChart = (LineChart)v.findViewById(R.id.chart);
+
+        Log.e("조회 날짜", String.valueOf(start_date));
+        Log.e("조회 날짜", String.valueOf(end_date));
 
         //setValues
         List<Entry> entries = new ArrayList<>();
