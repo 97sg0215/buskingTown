@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".ConcertDatailReservation">
+
+    <RelativeLayout
+        android:id="@+id/statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="46.1dp"
+        android:background="@color/mainPurple">
+
+        <ImageButton
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:background="#00000000"
+            android:src="@drawable/backbtn" />
+
+        <TextView
+            android:id="@+id/loc_main_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fff"
+            android:fontFamily="@font/kopubbold"
+            android:textSize="17sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:lineSpacingExtra="2sp"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/kopubbold"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:text="다음"
+            android:textSize="17sp" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/statusBar"
+        android:layout_above="@+id/confirmBtn"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/practiceInf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/statusBar"
+                android:paddingTop="20.2dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:paddingBottom="19.9dp">
+
+                <TextView
+                    android:id="@+id/practiceName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:textColor="@color/mainPurple"
+                    android:fontFamily="@font/kopubbold"
+                    android:textSize="15sp"
+                    android:lineSpacingExtra="2sp"/>
+
+                <TextView
+                    android:id="@+id/practiceAdd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/practiceName"
+                    android:layout_marginTop="7.5dp"
+                    android:text="-"
+                    android:textColor="@color/fontBlack"
+                    android:textSize="10.5sp"
+                    android:fontFamily="@font/kopubmedium"/>
+
+                <ImageView
+                    android:id="@+id/practice_img"
+                    android:layout_width="140dp"
+                    android:layout_height="97.2dp"
+                    android:layout_alignParentRight="true"
+                    android:paddingLeft="12.5dp"
+                    android:background="@color/fontGray"/>
+
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/practiceInfUnderLine"
+                android:layout_width="match_parent"
+                android:layout_height="0.9dp"
+                android:layout_below="@+id/practiceInf"
+                android:background="@color/sub2Gray"/>
+
+            <RelativeLayout
+                android:id="@+id/choiceLayout"
+                android:layout_width="match_parent"
+                android:layout_height="55.1dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_below="@+id/practiceInfUnderLine">
+
+                <ImageView
+                    android:id="@+id/menuImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/menu"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:id="@+id/choiceText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="선택"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/menuImg"
+                    android:textSize="14sp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/fontBlack"
+                    android:fontFamily="@font/kopubdotumbold" />
+
+                <TextView
+                    android:id="@+id/roomChoice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="A room : 1~2인"
+                    android:layout_toRightOf="@+id/choiceText"
+                    android:layout_marginLeft="23dp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/fontBlack"
+                    android:fontFamily="@font/kopubdotummedium"
+                    android:background="#00000000"
+                    android:textSize="13sp"/>
+
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/choiceLayoutUnderLine"
+                android:layout_width="match_parent"
+                android:layout_height="0.9dp"
+                android:layout_below="@+id/choiceLayout"
+                android:background="@color/sub2Gray"/>
+
+            <RelativeLayout
+                android:id="@+id/dateSeeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/choiceLayoutUnderLine"
+                android:paddingTop="15dp"
+                android:paddingBottom="10.9dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <ImageView
+                    android:id="@+id/dateImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/date"
+                    android:layout_centerVertical="true"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/dateImage"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/practiceStartDate"
+                        android:layout_width="135dp"
+                        android:layout_height="35dp"
+                        android:layout_weight="4"
+                        android:text="-"
+                        android:fontFamily="@font/kopubmedium"
+                        android:textColor="@color/mainPurple"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/date_rounded"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/dateLayoutUnderLine"
+                android:layout_width="match_parent"
+                android:layout_height="0.9dp"
+                android:layout_below="@+id/dateSeeLayout"
+                android:background="@color/sub2Gray"/>
+
+            <RelativeLayout
+                android:id="@+id/timeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/dateLayoutUnderLine"
+                android:paddingTop="11.2dp"
+                android:paddingBottom="10.9dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <ImageView
+                    android:id="@+id/timeImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/time"
+                    android:layout_centerVertical="true"/>
+
+                <HorizontalScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:overScrollMode="never"
+                    android:layout_toRightOf="@+id/timeImage"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:id="@+id/choiceTimeBtnContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                    </LinearLayout>
+
+                </HorizontalScrollView>
+
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/timeLUnderLine"
+                android:layout_width="match_parent"
+                android:layout_height="0.9dp"
+                android:layout_below="@+id/timeLayout"
+                android:background="@color/sub2Gray"/>
+
+            <RelativeLayout
+                android:id="@+id/userInforLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/timeLUnderLine"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp">
+
+                <TextView
+                    android:id="@+id/userInfor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="이용자 정보"
+                    android:textColor="@color/mainYellow"
+                    android:fontFamily="@font/kopubdotumbold"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:id="@+id/emergencyIn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/userInfor"
+                    android:layout_marginLeft="7.5dp"
+                    android:layout_marginTop="23.2dp"
+                    android:text="정상적인 이용 및 긴급 연락을 위해 작성해주세요."
+                    android:textSize="10.5sp"
+                    android:textColor="@color/fontGray"/>
+
+                <LinearLayout
+                    android:id="@+id/teamEditName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20.4dp"
+                    android:layout_below="@+id/emergencyIn">
+
+                    <TextView
+                        android:id="@+id/teamText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/kopubbold"
+                        android:text="팀 명"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/fontBlack" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="23dp">
+
+                        <TextView
+                            android:id="@+id/team"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/date_rounded"
+                            android:fontFamily="@font/kopubmedium"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/mainPurple"
+                            android:text="버스커 버스커"
+                            android:textSize="14sp"
+                            android:paddingLeft="15.1dp"/>
+
+                    </FrameLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/cellEditPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@+id/teamEditName">
+
+                    <TextView
+                        android:id="@+id/cellPhonText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/kopubbold"
+                        android:text="휴대폰"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/fontBlack" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="15dp">
+
+                        <EditText
+                            android:id="@+id/busker_num"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/date_rounded"
+                            android:fontFamily="@font/kopubmedium"
+                            android:textColor="@color/mainPurple"
+                            android:hint="010-1234-5678"
+                            android:textSize="14sp"
+                            android:textColorHint="@color/fontGray"
+                            android:inputType="phone"
+                            android:paddingLeft="15.1dp"/>
+
+                    </FrameLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/emailEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@+id/cellEditPhone">
+
+                    <TextView
+                        android:id="@+id/emailText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/kopubbold"
+                        android:text="이메일"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/fontBlack" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="15dp">
+
+                        <EditText
+                            android:id="@+id/busker_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/date_rounded"
+                            android:fontFamily="@font/kopubmedium"
+                            android:textColor="@color/mainPurple"
+                            android:hint="busker@gmail.com"
+                            android:textSize="14sp"
+                            android:textColorHint="@color/fontGray"
+                            android:paddingLeft="15.1dp"/>
+
+                    </FrameLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/userUnderLine"
+                android:layout_width="match_parent"
+                android:layout_height="0.9dp"
+                android:layout_below="@+id/userInforLayout"
+                android:layout_marginTop="19.9dp"
+                android:background="@color/sub2Gray"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <TextView
+                    android:id="@+id/terms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_alignParentRight="true"
+                    android:text="* 이용규칙과 환불정책을 반드시 숙지하고 결제하세요."
+                    android:textSize="10.5sp"
+                    android:fontFamily="@font/kopubdotummedium"
+                    android:textColor="@color/subPink"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/terms"
+                    android:paddingBottom="26.4dp"
+                    android:layout_alignParentRight="true">
+
+                    <TextView
+                        android:id="@+id/total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="합 계"
+                        android:textColor="@color/fontBlack"
+                        android:fontFamily="@font/kopubdotumbold"
+                        android:textSize="15sp"
+                        android:layout_marginTop="16.5dp"/>
+
+                    <TextView
+                        android:id="@+id/price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/total"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="12dp"
+                        android:textSize="21sp"
+                        android:fontFamily="@font/kopubdotumbold"
+                        android:textColor="@color/fontBlack"
+                        android:text="-"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/price"
+                        android:layout_marginTop="19dp"
+                        android:layout_marginLeft="4.5dp"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/kopubdotummedium"
+                        android:text="원"
+                        android:textColor="@color/fontBlack"/>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/confirmBtn"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_alignParentBottom="true"
+        android:text="다 음"
+        android:fontFamily="@font/kopubbold"
+        android:textSize="14sp"
+        android:textColor="#fff"
+        android:lineSpacingExtra="-3.5sp"
+        android:background="@color/mainPurple"
+        android:layout_centerHorizontal="true"
+        style="?android:attr/borderlessButtonStyle"/>
+
+</RelativeLayout>

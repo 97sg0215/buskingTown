@@ -110,8 +110,12 @@
         <activity
             android:name=".LocationCancel"
             android:theme="@android:style/Theme.Dialog" />
-        <activity android:name=".CoinSendAfter_pop"
-            android:theme="@android:style/Theme.Dialog"/>
+        <activity
+            android:name=".CoinSendAfter_pop"
+            android:theme="@android:style/Theme.Dialog" />
+        <activity android:name=".ChannelBuskerConcertDetail" />
+        <activity android:name=".ConcertReservationCheck" />
+        <activity android:name=".ConcertDatailReservation"></activity>
     </application>
 
 </manifest>
