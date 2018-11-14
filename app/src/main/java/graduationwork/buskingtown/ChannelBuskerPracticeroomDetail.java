@@ -1,13 +1,22 @@
 package graduationwork.buskingtown;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Rect;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.net.Uri;
 import android.os.StrictMode;
+import android.provider.Settings;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +29,28 @@ import android.widget.LinearLayout;
 import android.view.LayoutInflater;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.nhn.android.maps.NMapActivity;
+import com.nhn.android.maps.NMapCompassManager;
+import com.nhn.android.maps.NMapContext;
+import com.nhn.android.maps.NMapController;
+import com.nhn.android.maps.NMapLocationManager;
+import com.nhn.android.maps.NMapOverlay;
+import com.nhn.android.maps.NMapOverlayItem;
+import com.nhn.android.maps.NMapView;
+import com.nhn.android.maps.maplib.NGeoPoint;
+import com.nhn.android.maps.nmapmodel.NMapError;
+import com.nhn.android.maps.nmapmodel.NMapPlacemark;
+import com.nhn.android.maps.overlay.NMapPOIdata;
+import com.nhn.android.maps.overlay.NMapPOIitem;
+import com.nhn.android.mapviewer.overlay.NMapCalloutOverlay;
+import com.nhn.android.mapviewer.overlay.NMapMyLocationOverlay;
+import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
+import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
+import com.nhn.android.mapviewer.overlay.NMapResourceProvider;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -77,6 +107,59 @@ public class ChannelBuskerPracticeroomDetail extends AppCompatActivity {
     TextView loc_name,loc_main_name, loc_address, option, loc_info, loc_rule, loc_refund_rule, addRule_text,addRefundRule_text, sum_fee;
 
     RestApiService apiService;
+
+    private static final String CLIENT_ID = "9a4pn7RAiPbnwnpUUS6k";
+
+    private NMapContext mMapContext;
+
+    RelativeLayout MapContainer;
+
+    // 맵 컨트롤러
+
+    NMapController mMapController = null;
+
+    NMapView mMapView;
+
+    // 오버레이의 리소스를 제공하기 위한 객체
+
+    NMapViewerResourceProvider mMapViewerResourceProvider = null;
+
+    // 오버레이 관리자
+
+    private NMapMyLocationOverlay mMyLocationOverlay;
+
+    private NMapLocationManager mMapLocationManager;
+
+    private NMapCompassManager mMapCompassManager;
+
+    private final String  TAG = "MainActivity";
+
+    private ViewGroup mapLayout;
+
+    private NMapResourceProvider nMapResourceProvider;
+    private NMapOverlayManager mapOverlayManager;
+
+    private NMapOverlayManager mOverlayManager;
+
+    private static final String LOG_TAG = "NMapViewer";
+    private static final boolean DEBUG = false;
+
+    private static final NGeoPoint NMAP_LOCATION_DEFAULT = new NGeoPoint(126.978371, 37.5666091);
+    private static final int NMAP_ZOOMLEVEL_DEFAULT = 11;
+    private static final int NMAP_VIEW_MODE_DEFAULT = NMapView.VIEW_MODE_VECTOR;
+    private static final boolean NMAP_TRAFFIC_MODE_DEFAULT = false;
+    private static final boolean NMAP_BICYCLE_MODE_DEFAULT = false;
+
+    private static final String KEY_ZOOM_LEVEL = "NMapViewer.zoomLevel";
+    private static final String KEY_CENTER_LONGITUDE = "NMapViewer.centerLongitudeE6";
+    private static final String KEY_CENTER_LATITUDE = "NMapViewer.centerLatitudeE6";
+    private static final String KEY_VIEW_MODE = "NMapViewer.viewMode";
+    private static final String KEY_TRAFFIC_MODE = "NMapViewer.trafficMode";
+    private static final String KEY_BICYCLE_MODE = "NMapViewer.bicycleMode";
+
+    private SharedPreferences mPreferences;
+
+    String addr = "사근동 208-2";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -229,6 +312,381 @@ public class ChannelBuskerPracticeroomDetail extends AppCompatActivity {
                 finish();
             }
         });
+
+        MapContainer = (RelativeLayout) findViewById(R.id.map_container);
+        mMapContext =  new NMapContext(this);
+        mMapContext.onCreate();
+
+        final Geocoder geocoder = new Geocoder(this);
+
+        mMapView = (NMapView)findViewById(R.id.map_view);
+        mMapView.setClientId(CLIENT_ID);// 클라이언트 아이디 설정
+        mMapContext.setupMapView(mMapView);
+
+        // initialize map view
+        mMapView.setClickable(true);
+        mMapView.setEnabled(true);
+        mMapView.setFocusable(true);
+        mMapView.setFocusableInTouchMode(true);
+        mMapView.requestFocus();
+
+        // 지도 객체로부터 컨트롤러 추출
+
+        mMapController = mMapView.getMapController();
+
+        // 확대/축소를 위한 줌 컨트롤러 표시 옵션 활성화
+        mMapView.setBuiltInZoomControls(true, null);
+        mMapContext.setMapDataProviderListener(onDataProviderListener);
+
+        // 지도에 대한 상태 변경 이벤트 연결
+        mMapView.setOnMapStateChangeListener(onMapViewStateChangeListener);
+
+        mMapViewerResourceProvider = new NMapViewerResourceProvider(this);
+        // create overlay manager
+        mOverlayManager = new NMapOverlayManager(this, mMapView, mMapViewerResourceProvider);
+
+        testPOIdataOverlay();
+
+    }
+    /* MapView State Change Listener*/
+    private final NMapView.OnMapStateChangeListener onMapViewStateChangeListener = new NMapView.OnMapStateChangeListener() {
+
+        @Override
+        public void onMapInitHandler(NMapView mapView, NMapError errorInfo) {
+
+            if (errorInfo == null) { // success
+                // restore map view state such as map center position and zoom level.
+                restoreInstanceState();
+
+            } else { // fail
+                Log.e(LOG_TAG, "onFailedToInitializeWithError: " + errorInfo.toString());
+
+                //Toast.makeText(NMapViewer.this, errorInfo.toString(), Toast.LENGTH_LONG).show();
+            }
+        }
+
+        @Override
+        public void onAnimationStateChange(NMapView mapView, int animType, int animState) {
+            if (DEBUG) {
+                Log.i(LOG_TAG, "onAnimationStateChange: animType=" + animType + ", animState=" + animState);
+            }
+        }
+
+        @Override
+        public void onMapCenterChange(NMapView mapView, NGeoPoint center) {
+            if (DEBUG) {
+                Log.i(LOG_TAG, "onMapCenterChange: center=" + center.toString());
+            }
+        }
+
+        @Override
+        public void onZoomLevelChange(NMapView mapView, int level) {
+            if (DEBUG) {
+                Log.i(LOG_TAG, "onZoomLevelChange: level=" + level);
+            }
+        }
+
+        @Override
+        public void onMapCenterChangeFine(NMapView mapView) {
+
+        }
+    };
+
+    /* Local Functions */
+    private static boolean mIsMapEnlared = false;
+
+    private void restoreInstanceState() {
+        mPreferences = getPreferences(MODE_PRIVATE);
+
+        int longitudeE6 = mPreferences.getInt(KEY_CENTER_LONGITUDE, NMAP_LOCATION_DEFAULT.getLongitudeE6());
+        int latitudeE6 = mPreferences.getInt(KEY_CENTER_LATITUDE, NMAP_LOCATION_DEFAULT.getLatitudeE6());
+        int level = mPreferences.getInt(KEY_ZOOM_LEVEL, NMAP_ZOOMLEVEL_DEFAULT);
+        int viewMode = mPreferences.getInt(KEY_VIEW_MODE, NMAP_VIEW_MODE_DEFAULT);
+        boolean trafficMode = mPreferences.getBoolean(KEY_TRAFFIC_MODE, NMAP_TRAFFIC_MODE_DEFAULT);
+        boolean bicycleMode = mPreferences.getBoolean(KEY_BICYCLE_MODE, NMAP_BICYCLE_MODE_DEFAULT);
+
+        mMapController.setMapViewMode(viewMode);
+        mMapController.setMapViewTrafficMode(trafficMode);
+        mMapController.setMapViewBicycleMode(bicycleMode);
+        mMapController.setMapCenter(new NGeoPoint(longitudeE6, latitudeE6), level);
+
+        if (mIsMapEnlared) {
+            mMapView.setScalingFactor(2.0F);
+        } else {
+            mMapView.setScalingFactor(1.0F);
+        }
+    }
+
+    public void onMapInitHandler(NMapView mapview, NMapError errorInfo) {
+
+        if (errorInfo == null) { // success
+
+            //startMyLocation();//현재위치로 이동
+
+            // mMapController.setMapCenter(new NGeoPoint(126.978371,
+
+            // 37.5666091),
+
+            // 11);
+
+        } else { // fail
+
+            android.util.Log.e("NMAP",
+
+                    "onMapInitHandler: error=" + errorInfo.toString());
+        }
+
+    }
+
+    public void onMapCenterChange(NMapView nMapView, NGeoPoint nGeoPoint) {
+
+    }
+
+    public void onMapCenterChangeFine(NMapView nMapView) {
+
+    }
+
+    public void onZoomLevelChange(NMapView nMapView, int i) {
+
+    }
+
+    public void onAnimationStateChange(NMapView nMapView, int i, int i1) {
+
+    }
+
+
+
+    private void stopMyLocation() {
+
+        if (mMyLocationOverlay != null) {
+
+            mMapLocationManager.disableMyLocation();
+
+
+
+            if (mMapView.isAutoRotateEnabled()) {
+
+                mMyLocationOverlay.setCompassHeadingVisible(false);
+
+
+
+                mMapCompassManager.disableCompass();
+
+
+
+                mMapView.setAutoRotateEnabled(false, false);
+
+
+
+                MapContainer.requestLayout();
+
+            }
+
+        }
+
+    }
+
+    private final NMapActivity.OnDataProviderListener onDataProviderListener = new NMapActivity.OnDataProviderListener() {
+
+
+
+        @Override
+
+        public void onReverseGeocoderResponse(NMapPlacemark placeMark, NMapError errInfo) {
+
+
+            String address = placeMark.doName+ " " + placeMark.siName+ " " + placeMark.dongName;
+            if (errInfo != null) {
+
+                Log.e("myLog", "Failed to findPlacemarkAtLocation: error=" + errInfo.toString());
+
+                //Toast.makeText(getActivity(), errInfo.toString(), Toast.LENGTH_LONG).show();
+
+                return;
+
+            }else{
+
+                //Toast.makeText(getActivity(), address, Toast.LENGTH_LONG).show();
+
+            }
+
+
+
+        }
+
+
+
+    };
+
+    private final NMapLocationManager.OnLocationChangeListener onMyLocationChangeListener = new NMapLocationManager.OnLocationChangeListener() {
+
+
+
+        @Override
+
+        public boolean onLocationChanged(NMapLocationManager locationManager,
+
+                                         NGeoPoint myLocation) {
+
+            if (mMapController != null) {
+                mMapController.animateTo(myLocation);
+            }
+
+            Log.d("myLog", "myLocation  lat " + myLocation.getLatitude());
+            Log.d("myLog", "myLocation  lng " + myLocation.getLongitude());
+
+
+            mMapContext.findPlacemarkAtLocation(myLocation.getLongitude(), myLocation.getLatitude());
+
+            //위도경도를 주소로 변환
+
+            return true;
+
+        }
+
+        @Override
+        public void onLocationUpdateTimeout(NMapLocationManager locationManager) {
+            // stop location updating
+
+            // Runnable runnable = new Runnable() {
+
+            // public void run() {
+
+            // stopMyLocation();
+
+            // }
+
+            // };
+
+            // runnable.run();
+
+        }
+
+
+        @Override
+        public void onLocationUnavailableArea(
+
+                NMapLocationManager locationManager, NGeoPoint myLocation) {
+
+            //Toast.makeText(getActivity(), "Your current location is unavailable area.", Toast.LENGTH_LONG).show();
+            stopMyLocation();
+
+        }
+
+    };
+
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        mMapContext.onStart();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        mMapContext.onResume();
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        mMapContext.onPause();
+    }
+    @Override
+    public void onStop() {
+        mMapContext.onStop();
+        super.onStop();
+    }
+    //public void onDestroyView() {super.onDestroyView();}
+    @Override
+    public void onDestroy() {
+        mMapContext.onDestroy();
+        super.onDestroy();
+        mMapView.setOnMapStateChangeListener((NMapView.OnMapStateChangeListener) null);
+    }
+
+    public NMapCalloutOverlay onCreateCalloutOverlay(NMapOverlay nMapOverlay, NMapOverlayItem nMapOverlayItem, Rect rect) {
+        return null;
+    }
+
+    private void testPOIdataOverlay() {
+
+        // Markers for POI item
+        int markerId = NMapPOIflagType.PIN;
+
+        // set POI data
+        NMapPOIdata poiData = new NMapPOIdata(1, mMapViewerResourceProvider);
+        poiData.beginPOIdata(1);
+//        NMapPOIitem item = poiData.addPOIitem(127.0630205, 37.5091300, "버스커버스커", markerId, 0);
+//        item.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
+//        NMapPOIitem item2 = poiData.addPOIitem(127.061, 37.51, "MC민지", markerId, 0);
+//        item2.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
+        double lat = findGeoPoint(this,addr).getLatitude();
+        double lon = findGeoPoint(this,addr).getLongitude();
+//        NMapPOIitem item3 = poiData.addPOIitem(lon,lat, "민지의 러브하우스", markerId, 0);
+//        item3.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
+
+//        NMapPOIitem item4 = poiData.addPOIitem(127.061, 37.51, "MC민지", markerId, 0);
+//        item4.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
+        poiData.addPOIitem(lon, lat, "스페이스연습실", markerId, 0);
+        poiData.endPOIdata();
+
+        // create POI data overlay
+        NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
+
+        // set event listener to the overlay
+        poiDataOverlay.setOnStateChangeListener(onPOIdataStateChangeListener);
+
+        // select an item
+        poiDataOverlay.selectPOIitem(0, true);
+
+        // show all POI data
+        poiDataOverlay.showAllPOIdata(0);
+    }
+
+    /* POI data State Change Listener*/
+    private final NMapPOIdataOverlay.OnStateChangeListener onPOIdataStateChangeListener = new NMapPOIdataOverlay.OnStateChangeListener() {
+
+        @Override
+        public void onCalloutClick(NMapPOIdataOverlay poiDataOverlay, NMapPOIitem item) {
+            if (DEBUG) {
+                Log.i(LOG_TAG, "onCalloutClick: title=" + item.getTitle());
+            }
+        }
+
+        @Override
+        public void onFocusChanged(NMapPOIdataOverlay poiDataOverlay, NMapPOIitem item) {
+            if (DEBUG) {
+                if (item != null) {
+                    Log.i(LOG_TAG, "onFocusChanged: " + item.toString());
+                } else {
+                    Log.i(LOG_TAG, "onFocusChanged: ");
+                }
+            }
+        }
+    };
+
+
+    public static Location findGeoPoint(Context mcontext, String address) {
+        Location loc = new Location("");
+        Geocoder coder = new Geocoder(mcontext);
+        List<Address> addr = null;// 한좌표에 대해 두개이상의 이름이 존재할수있기에 주소배열을 리턴받기 위해 설정
+
+        try {
+            addr = coder.getFromLocationName(address, 5);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }// 몇개 까지의 주소를 원하는지 지정 1~5개 정도가 적당
+        if (addr != null) {
+            for (int i = 0; i < addr.size(); i++) {
+                Address lating = addr.get(i);
+                double lat = lating.getLatitude(); // 위도가져오기
+                double lon = lating.getLongitude(); // 경도가져오기
+                loc.setLatitude(lat);
+                loc.setLongitude(lon);
+            }
+        }
+        return loc;
     }
 
     public Bitmap getBitmapFromURL(String src) {

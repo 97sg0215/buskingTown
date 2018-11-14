@@ -37,8 +37,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/statusBar"
-        android:layout_above="@+id/tabBtn"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:overScrollMode="never"
         android:scrollbars="none">
 
@@ -56,52 +56,52 @@
                     android:id="@id/practiceRoomImage"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
-                    android:background="@color/subGray"/>
+                    android:background="@color/subGray" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/practiceRoomImage"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="15dp"
-                    android:layout_alignBottom="@+id/practiceRoomImage">
+                    android:layout_marginBottom="15dp">
 
                     <Button
                         android:id="@+id/alignLeftButton"
                         android:layout_width="3dp"
                         android:layout_height="3dp"
-                        android:background="@drawable/able_circle"/>
+                        android:background="@drawable/able_circle" />
 
                     <Button
                         android:id="@+id/leftButton"
                         android:layout_width="3dp"
                         android:layout_height="3dp"
-                        android:background="@drawable/enable_circle"
                         android:layout_alignStart="@+id/alignLeftButton"
-                        android:layout_marginLeft="5dp"/>
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/enable_circle" />
 
                     <Button
                         android:id="@+id/centerButton"
                         android:layout_width="3dp"
                         android:layout_height="3dp"
-                        android:background="@drawable/enable_circle"
                         android:layout_alignStart="@+id/leftButton"
-                        android:layout_marginLeft="5dp"/>
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/enable_circle" />
 
                     <Button
                         android:id="@+id/rightButton"
                         android:layout_width="3dp"
                         android:layout_height="3dp"
-                        android:background="@drawable/enable_circle"
                         android:layout_alignLeft="@+id/centerButton"
-                        android:layout_marginLeft="5dp"/>
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/enable_circle" />
 
                     <Button
                         android:id="@+id/alignRightButton"
                         android:layout_width="3dp"
                         android:layout_height="3dp"
-                        android:background="@drawable/enable_circle"
                         android:layout_alignStart="@+id/rightButton"
-                        android:layout_marginLeft="5dp"/>
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/enable_circle" />
 
                 </LinearLayout>
 
@@ -118,33 +118,33 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:textSize="15sp"
+                    android:fontFamily="@font/kopubbold"
                     android:lineSpacingExtra="2sp"
                     android:text="-"
-                    android:fontFamily="@font/kopubbold"
-                    android:textColor="@color/mainPurple"/>
+                    android:textColor="@color/mainPurple"
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/practiceRoomAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="10.5sp"
+                    android:layout_below="@id/practiceRoomName"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/kopubmedium"
                     android:lineSpacingExtra="1sp"
                     android:text="-"
-                    android:layout_below="@id/practiceRoomName"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:fontFamily="@font/kopubmedium"
-                    android:textColor="@color/fontBlack"/>
+                    android:textColor="@color/fontBlack"
+                    android:textSize="10.5sp" />
 
                 <ImageButton
                     android:id="@+id/phone"
                     android:layout_width="22.5dp"
                     android:layout_height="22.5dp"
-                    android:layout_centerInParent="true"
                     android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
                     android:background="#00000000"
-                    android:src="@drawable/phone"/>
+                    android:src="@drawable/phone" />
 
             </RelativeLayout>
 
@@ -162,19 +162,19 @@
                     android:id="@+id/menu"
                     android:layout_width="12dp"
                     android:layout_height="8dp"
-                    android:layout_marginLeft="20dp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/menu"/>
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/menu" />
 
                 <TextView
                     android:id="@+id/dateSe"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/menu"
                     android:layout_marginLeft="10dp"
-                    android:text="선택"
+                    android:layout_toRightOf="@+id/menu"
                     android:fontFamily="@font/kopubbold"
+                    android:text="선택"
                     android:textColor="@color/fontBlack"
                     android:textSize="14sp" />
 
@@ -184,14 +184,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/sub2Gray" />
-            
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="35dp"
-                android:paddingRight="35dp"
+                android:background="@color/mainGray"
                 android:paddingBottom="20dp"
-                android:background="@color/mainGray">
+                android:paddingLeft="35dp"
+                android:paddingRight="35dp">
 
                 <RadioGroup
                     android:id="@+id/optionRadioGroup"
@@ -207,32 +207,32 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingBottom="25dp"
                 android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="25dp">
+                android:paddingRight="20dp">
 
                 <TextView
                     android:id="@+id/introduce"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:lineSpacingExtra="2sp"
                     android:layout_marginTop="25dp"
                     android:fontFamily="@font/kopubbold"
+                    android:lineSpacingExtra="2sp"
+                    android:text="소개"
                     android:textColor="@color/fontBlack"
-                    android:text="소개" />
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:lineSpacingExtra="8sp"
                     android:layout_below="@+id/introduce"
                     android:layout_marginTop="15dp"
                     android:fontFamily="@font/kopubmedium"
+                    android:lineSpacingExtra="8sp"
+                    android:text="-"
                     android:textColor="@color/fontBlack"
-                    android:text="-"/>
+                    android:textSize="13sp" />
 
             </RelativeLayout>
 
@@ -241,6 +241,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:background="@color/subGray">
+
+                <com.nhn.android.maps.NMapView
+                    android:id="@+id/map_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></com.nhn.android.maps.NMapView>
 
 
             </RelativeLayout>
@@ -254,31 +259,31 @@
                     android:id="@+id/ruleimage"
                     android:layout_width="12dp"
                     android:layout_height="12dp"
-                    android:layout_marginLeft="20dp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/loyalty"/>
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/loyalty" />
 
                 <TextView
                     android:id="@+id/ruleText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/ruleimage"
                     android:layout_marginLeft="10dp"
-                    android:text="이용 규칙"
+                    android:layout_toRightOf="@+id/ruleimage"
                     android:fontFamily="@font/kopubbold"
-                    android:textColor="@color/fontBlack"
                     android:lineSpacingExtra="1.5dp"
+                    android:text="이용 규칙"
+                    android:textColor="@color/fontBlack"
                     android:textSize="14sp" />
 
                 <ImageButton
                     android:id="@+id/dropdown_sch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/dropdown"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="20dp"/>
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/dropdown" />
 
                 <View
                     android:id="@+id/dropdown_sch_underline"
@@ -288,23 +293,22 @@
                     android:background="@color/sub2Gray" />
 
 
-
             </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/addRule"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/mainGray"
                 android:orientation="vertical"
                 android:padding="20dp"
-                android:visibility="gone"
-                android:background="@color/mainGray">
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/addRule_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/mainGray"/>
+                    android:background="@color/mainGray" />
 
             </LinearLayout>
 
@@ -317,31 +321,31 @@
                     android:id="@+id/refundimage"
                     android:layout_width="12dp"
                     android:layout_height="12dp"
-                    android:layout_marginLeft="20dp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/loyalty"/>
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/loyalty" />
 
                 <TextView
                     android:id="@+id/refundText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/refundimage"
                     android:layout_marginStart="10dp"
-                    android:text="환불 정책"
+                    android:layout_toRightOf="@+id/refundimage"
                     android:fontFamily="@font/kopubbold"
-                    android:textColor="@color/fontBlack"
                     android:lineSpacingExtra="1.5dp"
+                    android:text="환불 정책"
+                    android:textColor="@color/fontBlack"
                     android:textSize="14sp" />
 
                 <ImageButton
                     android:id="@+id/dropdown_sch_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/dropdown"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginEnd="20dp"/>
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/dropdown" />
 
                 <View
                     android:layout_width="match_parent"
@@ -355,18 +359,18 @@
                 android:id="@+id/addRefund"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/mainGray"
                 android:orientation="vertical"
                 android:padding="20dp"
-                android:background="@color/mainGray"
                 android:visibility="gone">
 
                 <TextView
                     android:id="@+id/addRule_text_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/mainGray"/>
+                    android:background="@color/mainGray" />
             </LinearLayout>
-            
+
         </LinearLayout>
 
     </ScrollView>
