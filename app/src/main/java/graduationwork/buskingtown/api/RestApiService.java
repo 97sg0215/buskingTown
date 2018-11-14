@@ -278,5 +278,5 @@ public interface RestApiService {
 
     //팔로워 수 통계 조회
     @GET("accounts/followerStatics/{busker_id}/{start_date}/{end_date}/")
-    Call<List<Connections>> getFollowerStatistic(@Header("Authoriztion")String autoToken,@Path("busker_id")int busker, @Path("start_date")String start_date, @Path("end_date")String end_date);
+    Call<List<Connections>> getFollowerStatistic(@Header("Authorization")String autoToken,@Path("busker_id")int busker, @Path("start_date")String start_date, @Path("end_date")String end_date);
 }

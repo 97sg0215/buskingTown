@@ -7,6 +7,7 @@ public class Connections {
     private int user;
     private int connection_id;
     private String connection_date;
+    private int follower_count;
 
     public int getFollowing() {
         return following;
@@ -38,5 +39,13 @@ public class Connections {
 
     public void setConnection_date(String connection_date) {
         this.connection_date = connection_date;
+    }
+
+    public int getFollower_count() {
+        return follower_count;
+    }
+
+    public void setFollower_count(int follower_count) {
+        this.follower_count = follower_count;
     }
 }
