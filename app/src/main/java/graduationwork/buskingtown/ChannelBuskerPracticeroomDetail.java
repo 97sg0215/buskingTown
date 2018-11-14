@@ -509,13 +509,7 @@ public class ChannelBuskerPracticeroomDetail extends AppCompatActivity {
                 //Toast.makeText(getActivity(), address, Toast.LENGTH_LONG).show();
 
             }
-
-
-
         }
-
-
-
     };
 
     private final NMapLocationManager.OnLocationChangeListener onMyLocationChangeListener = new NMapLocationManager.OnLocationChangeListener() {
@@ -546,20 +540,6 @@ public class ChannelBuskerPracticeroomDetail extends AppCompatActivity {
 
         @Override
         public void onLocationUpdateTimeout(NMapLocationManager locationManager) {
-            // stop location updating
-
-            // Runnable runnable = new Runnable() {
-
-            // public void run() {
-
-            // stopMyLocation();
-
-            // }
-
-            // };
-
-            // runnable.run();
-
         }
 
 
@@ -616,17 +596,8 @@ public class ChannelBuskerPracticeroomDetail extends AppCompatActivity {
         // set POI data
         NMapPOIdata poiData = new NMapPOIdata(1, mMapViewerResourceProvider);
         poiData.beginPOIdata(1);
-//        NMapPOIitem item = poiData.addPOIitem(127.0630205, 37.5091300, "버스커버스커", markerId, 0);
-//        item.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
-//        NMapPOIitem item2 = poiData.addPOIitem(127.061, 37.51, "MC민지", markerId, 0);
-//        item2.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
         double lat = findGeoPoint(this,addr).getLatitude();
         double lon = findGeoPoint(this,addr).getLongitude();
-//        NMapPOIitem item3 = poiData.addPOIitem(lon,lat, "민지의 러브하우스", markerId, 0);
-//        item3.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
-
-//        NMapPOIitem item4 = poiData.addPOIitem(127.061, 37.51, "MC민지", markerId, 0);
-//        item4.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
         poiData.addPOIitem(lon, lat, "스페이스연습실", markerId, 0);
         poiData.endPOIdata();
 
