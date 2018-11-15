@@ -83,6 +83,9 @@ public class ChannelBuskerPracticeroomDetail extends AppCompatActivity {
     String choice_option_name;
     Integer choice_option;
 
+    double p_lon;
+    double p_lat;
+
     int user_id, p_id;
 
     SharedPreferences prefUser;
@@ -183,6 +186,9 @@ public class ChannelBuskerPracticeroomDetail extends AppCompatActivity {
         p_start_time = getIntent().getStringExtra("provide_start_time");
         p_end_time = getIntent().getStringExtra("provide_end_time");
         p_email = getIntent().getStringExtra("provide_email");
+        p_lat = getIntent().getDoubleExtra("provide_lat",0);
+        p_lon = getIntent().getDoubleExtra("provide_lon",0);
+
 
         location_image = (ImageView) findViewById(R.id.practiceRoomImage);
         optionRadioGroup = (RadioGroup) findViewById(R.id.optionRadioGroup);

@@ -49,7 +49,6 @@ public class ChannelBuskerPracticeroom extends Fragment {
 
     String user_token;
 
-
     List<LendLocationOption> lendLocationOptions ;
     int user_id;
 
@@ -161,6 +160,8 @@ public class ChannelBuskerPracticeroom extends Fragment {
                                     detail.putExtra("provide_start_time",practiceList.get(finalI).getProvide_start_time());
                                     detail.putExtra("provide_end_time",practiceList.get(finalI).getProvide_end_time());
                                     detail.putExtra("provide_rule",practiceList.get(finalI).getProvide_rule());
+                                    detail.putExtra("provide_lat",practiceList.get(finalI).getProvide_lat());
+                                    detail.putExtra("provide_lon",practiceList.get(finalI).getProvide_lon());
                                     startActivity(detail);
                                 }
                             });
