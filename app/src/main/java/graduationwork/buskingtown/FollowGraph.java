@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -19,10 +20,14 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.Connections;
@@ -50,6 +55,13 @@ public class FollowGraph extends Fragment {
     int result = 0;
     ArrayList<Integer> follower_data = new ArrayList<>();
     ArrayList<Integer> follower_entry = new ArrayList<>();
+
+
+    ArrayList<Integer> oneWeek = new ArrayList<>();
+    int oneWeekSum =0;
+    int twoWeekSum =0;
+    int threeWeekSum =0;
+    int fourWeekSum =0;
 
     public FollowGraph(){
         // Required empty public constructor
@@ -103,64 +115,81 @@ public class FollowGraph extends Fragment {
                                 follower_data.add(0);
                             }
 
-                            for (int i = 0; i < follower_data.size(); i++) {
-                                result += follower_data.get(i);
-                                Log.e("데이터", String.valueOf(result));
-                                if(i%7==0){
-                                    follower_entry.add(result);
-                                }
+                            List<List<Integer>> pages = Lists.partition(follower_data,7);
+
+                            for (int i = 0; i < pages.get(0).size(); i++) {
+                                oneWeekSum += follower_data.get(i);
+
+                            }
+                            for (int i = 0; i < pages.get(0).size(); i++) {
+                                twoWeekSum += follower_data.get(i);
+
+                            }
+                            for (int i = 0; i < pages.get(0).size(); i++) {
+                                threeWeekSum += follower_data.get(i);
+
+                            }
+                            for (int i = 0; i < pages.get(0).size(); i++) {
+                                fourWeekSum += follower_data.get(i);
+
                             }
 
                             Log.e("총 데이터", String.valueOf(follower_entry));
 
+                            List<Entry> entries = new ArrayList<>();
+                            entries.add(new Entry(0, oneWeekSum));
+                            entries.add(new Entry(1, threeWeekSum));
+                            entries.add(new Entry(2, threeWeekSum));
+                            entries.add(new Entry(3, fourWeekSum));
 
-//                            LineDataSet lineDataSet = new LineDataSet(entries, "좋아하는 팬");
-////                          lineDataSet.setAxisDependency(VAxis/.;
-//                            lineDataSet.setLineWidth(2);
-//                            lineDataSet.setCircleRadius(3);
-//                            lineDataSet.setCircleColor(Color.parseColor("#FFA1B4DC"));
-//                            lineDataSet.setCircleColor(getResources().getColor(R.color.mainYellow));
-//                            lineDataSet.setCircleColorHole(Color.WHITE);
-//                            lineDataSet.setColor(getResources().getColor(R.color.mainYellow));
-//                            lineDataSet.setDrawCircleHole(true);
-//                            lineDataSet.setDrawCircles(true);
-//                            lineDataSet.setDrawHorizontalHighlightIndicator(false);
-//                            lineDataSet.setDrawHighlightIndicators(false);
-//                            lineDataSet.setDrawValues(false);
-//
-//
-//                            LineData lineData = new LineData(lineDataSet);
-//                            lineChart.setData(lineData);
-//
-//
-//                            String[] values_one_month = { "1주", "2주", "3주","4주"};
-//
-//                            XAxis xAxis = lineChart.getXAxis();
-//                            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-//                            xAxis.setTextColor(Color.BLACK);
-//                            xAxis.setDrawGridLines(false);
-//                            //  xAxis.enableGridDashedLine(5, 20, 0);
-//                            xAxis.setValueFormatter(new MyXAxisValueFormatter(values_one_month));
-//                            xAxis.setGranularity(1f);
-//                            xAxis.setTextSize(15);
-//
-//
-//                            YAxis yLAxis = lineChart.getAxisLeft();
-//                            yLAxis.setTextColor(Color.BLACK);
-//
-//                            YAxis yRAxis = lineChart.getAxisRight();
-//                            yRAxis.setDrawLabels(false);
-//                            yRAxis.setDrawAxisLine(false);
-//                            yRAxis.setDrawGridLines(false);
-//
-//                            Description description = new Description();
-//                            description.setText("");
-//
-//                            lineChart.setDoubleTapToZoomEnabled(false);
-//                            lineChart.setDrawGridBackground(false);
-//                            lineChart.setDescription(description);
-//                            lineChart.animateY(2000, Easing.EasingOption.EaseInCubic);
-//                            lineChart.invalidate();
+
+                            LineDataSet lineDataSet = new LineDataSet(entries, "좋아하는 팬");
+//                          lineDataSet.setAxisDependency(VAxis/.;
+                            lineDataSet.setLineWidth(2);
+                            lineDataSet.setCircleRadius(3);
+                            lineDataSet.setCircleColor(Color.parseColor("#FFA1B4DC"));
+                            lineDataSet.setCircleColor(getResources().getColor(R.color.mainYellow));
+                            lineDataSet.setCircleColorHole(Color.WHITE);
+                            lineDataSet.setColor(getResources().getColor(R.color.mainYellow));
+                            lineDataSet.setDrawCircleHole(true);
+                            lineDataSet.setDrawCircles(true);
+                            lineDataSet.setDrawHorizontalHighlightIndicator(false);
+                            lineDataSet.setDrawHighlightIndicators(false);
+                            lineDataSet.setDrawValues(false);
+
+
+                            LineData lineData = new LineData(lineDataSet);
+                            lineChart.setData(lineData);
+
+
+                            String[] values_one_month = { "1주", "2주", "3주","4주"};
+
+                            XAxis xAxis = lineChart.getXAxis();
+                            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+                            xAxis.setTextColor(Color.BLACK);
+                            xAxis.setDrawGridLines(false);
+                            //  xAxis.enableGridDashedLine(5, 20, 0);
+                            xAxis.setValueFormatter(new MyXAxisValueFormatter(values_one_month));
+                            xAxis.setGranularity(1f);
+                            xAxis.setTextSize(15);
+
+
+                            YAxis yLAxis = lineChart.getAxisLeft();
+                            yLAxis.setTextColor(Color.BLACK);
+
+                            YAxis yRAxis = lineChart.getAxisRight();
+                            yRAxis.setDrawLabels(false);
+                            yRAxis.setDrawAxisLine(false);
+                            yRAxis.setDrawGridLines(false);
+
+                            Description description = new Description();
+                            description.setText("");
+
+                            lineChart.setDoubleTapToZoomEnabled(false);
+                            lineChart.setDrawGridBackground(false);
+                            lineChart.setDescription(description);
+                            lineChart.animateY(2000, Easing.EasingOption.EaseInCubic);
+                            lineChart.invalidate();
                         }
                     }else {
 
