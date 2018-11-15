@@ -4,6 +4,7 @@ public class LendLocation {
     int provide_id,user;
     String provide_image, provider_phone, provider_email, provide_start_date, provide_end_date, provide_start_time, provide_end_time,provide_location, provide_description
             ,provide_rule, provide_refund_rule,provide_location_name;
+    double provide_lon , provide_lat;
 
     public int getProvide_id() {
         return provide_id;
@@ -115,5 +116,21 @@ public class LendLocation {
 
     public void setProvide_location_name(String provide_location_name) {
         this.provide_location_name = provide_location_name;
+    }
+
+    public double getProvide_lon() {
+        return provide_lon;
+    }
+
+    public void setProvide_lon(double provide_lon) {
+        this.provide_lon = provide_lon;
+    }
+
+    public double getProvide_lat() {
+        return provide_lat;
+    }
+
+    public void setProvide_lat(double provide_lat) {
+        this.provide_lat = provide_lat;
     }
 }
