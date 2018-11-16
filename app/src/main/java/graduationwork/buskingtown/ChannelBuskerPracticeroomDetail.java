@@ -188,6 +188,7 @@ public class ChannelBuskerPracticeroomDetail extends AppCompatActivity {
         p_lat = getIntent().getDoubleExtra("provide_lat",0);
         p_lon = getIntent().getDoubleExtra("provide_lon",0);
 
+
         location_image = (ImageView) findViewById(R.id.practiceRoomImage);
         optionRadioGroup = (RadioGroup) findViewById(R.id.optionRadioGroup);
         loc_main_name = (TextView) findViewById(R.id.busker_main_team_name);
@@ -602,7 +603,7 @@ public class ChannelBuskerPracticeroomDetail extends AppCompatActivity {
         poiData.beginPOIdata(1);
         double lat = findGeoPoint(this,addr).getLatitude();
         double lon = findGeoPoint(this,addr).getLongitude();
-        poiData.addPOIitem(126.985068072990000000000000000000, 37.560964489950500000000000000000, "스페이스연습실", markerId, 0);
+        poiData.addPOIitem(lon, lat, "스페이스연습실", markerId, 0);
         poiData.endPOIdata();
 
         // create POI data overlay
