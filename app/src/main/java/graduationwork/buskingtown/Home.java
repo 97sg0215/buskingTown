@@ -197,17 +197,17 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
             }
         });
 
-        //다가오는 콘서트
-        View concertlist = inflater.inflate(R.layout.goingconcert, goingConcert_list, false);
-        if(concertlist.getParent()!= null)
-            ((ViewGroup)concertlist.getParent()).removeView(concertlist);
-        goingConcert_list.addView(concertlist);
-
-        //좋아하는 버스커 스토리
-        View storylist = inflater.inflate(R.layout.buskerstory, buskerStory_list, false);
-        if(storylist.getParent()!= null)
-            ((ViewGroup)storylist.getParent()).removeView(storylist);
-        buskerStory_list.addView(storylist);
+//        //다가오는 콘서트
+//        View concertlist = inflater.inflate(R.layout.goingconcert, goingConcert_list, false);
+//        if(concertlist.getParent()!= null)
+//            ((ViewGroup)concertlist.getParent()).removeView(concertlist);
+//        goingConcert_list.addView(concertlist);
+//
+//        //좋아하는 버스커 스토리
+//        View storylist = inflater.inflate(R.layout.buskerstory, buskerStory_list, false);
+//        if(storylist.getParent()!= null)
+//            ((ViewGroup)storylist.getParent()).removeView(storylist);
+//        buskerStory_list.addView(storylist);
 
 
 

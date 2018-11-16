@@ -1,10 +1,12 @@
 package graduationwork.buskingtown;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.location.Address;
@@ -44,8 +46,17 @@ import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
 import com.nhn.android.mapviewer.overlay.NMapResourceProvider;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import graduationwork.buskingtown.api.RestApiService;
+import graduationwork.buskingtown.model.Busker;
+import graduationwork.buskingtown.model.RoadConcert;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.github.mikephil.charting.charts.Chart.LOG_TAG;
 
@@ -65,7 +76,7 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
 
     // 오버레이의 리소스를 제공하기 위한 객체
 
-	NMapViewerResourceProvider mMapViewerResourceProvider = null;
+    NMapViewerResourceProvider mMapViewerResourceProvider = null;
 
     // 오버레이 관리자
 
@@ -89,11 +100,25 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
 
     String addr = "사근동";
 
+    SharedPreferences prefUser, prefBusker;
+
+    RestApiService apiService;
+
+    String user_token,busker_name;
+    int busker_id;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_realtime_busking_map, container, false);
         MapContainer = (RelativeLayout) v.findViewById(R.id.map_container);
+
+        prefBusker = this.getActivity().getSharedPreferences("BuskerUser", Activity.MODE_PRIVATE);
+        prefUser = this.getActivity().getSharedPreferences("User", Activity.MODE_PRIVATE);
+
+        restApiBuilder();
+
+        getLocalData();
 
         return v;
     }
@@ -295,9 +320,9 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
 
                                          NGeoPoint myLocation) {
 
-			if (mMapController != null) {
-				mMapController.animateTo(myLocation);
-			}
+            if (mMapController != null) {
+                mMapController.animateTo(myLocation);
+            }
 
             Log.d("myLog", "myLocation  lat " + myLocation.getLatitude());
             Log.d("myLog", "myLocation  lng " + myLocation.getLongitude());
@@ -385,37 +410,83 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
 
     private void testPOIdataOverlay() {
 
-        // Markers for POI item
-        int markerId = NMapPOIflagType.PIN;
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat stf = new SimpleDateFormat("HH:MM");
+        String getDate = sdf.format(date);
+        String getTime = stf.format(date);
+
+        Call<List<RoadConcert>> listCall = apiService.getLiveBuking(user_token,getDate,getTime);
+        listCall.enqueue(new Callback<List<RoadConcert>>() {
+            @Override
+            public void onResponse(Call<List<RoadConcert>> call, Response<List<RoadConcert>> response) {
+                if(response.isSuccessful()){
+                    List<RoadConcert> roadConcerts = response.body();
+                    if(roadConcerts.size()!=0){
+                        Log.e("메세지", String.valueOf(roadConcerts.size()));
+                        for (int i=0;i<roadConcerts.size();i++){
+                            // Markers for POI item
+                            int markerId = NMapPOIflagType.PIN;
+
+                            Call<Busker> buskerCall = apiService.buskerDetail(user_token,roadConcerts.get(i).getBusker());
+                            buskerCall.enqueue(new Callback<Busker>() {
+                                @Override
+                                public void onResponse(Call<Busker> call, Response<Busker> response) {
+                                    if(response.isSuccessful()){
+                                        busker_name = String.valueOf(response.body().getBusker_name());
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<Busker> call, Throwable t) {
+
+                                }
+                            });
+
+                            NMapPOIdata poiData = new NMapPOIdata(2, mMapViewerResourceProvider);
+                            poiData.beginPOIdata(2);
+
+                            // set POI data
+                            NMapPOIitem item = poiData.addPOIitem(roadConcerts.get(i).getRoad_lon(), roadConcerts.get(i).getRoad_lat(), busker_name, markerId, 0);
+                            item.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
+
+
+                            // create POI data overlay
+                            NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
+
+                            // set event listener to the overlay
+                            poiDataOverlay.setOnStateChangeListener(onPOIdataStateChangeListener);
+
+                            // select an item
+                            poiDataOverlay.selectPOIitem(0, true);
+
+                            // show all POI data
+                            poiDataOverlay.showAllPOIdata(0);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<RoadConcert>> call, Throwable t) {
+
+            }
+        });
+
+
 
         // set POI data
-        NMapPOIdata poiData = new NMapPOIdata(2, mMapViewerResourceProvider);
-        poiData.beginPOIdata(2);
-        NMapPOIitem item = poiData.addPOIitem(127.0630205, 37.5091300, "버스커버스커", markerId, 0);
-        item.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
-        NMapPOIitem item2 = poiData.addPOIitem(127.061, 37.51, "MC민지", markerId, 0);
-        item2.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
-        double lat = findGeoPoint(getContext(),addr).getLatitude();
-        double lon = findGeoPoint(getContext(),addr).getLongitude();
-        NMapPOIitem item3 = poiData.addPOIitem(lon,lat, "민지의 러브하우스", markerId, 0);
-        item3.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
 
-//        NMapPOIitem item4 = poiData.addPOIitem(127.061, 37.51, "MC민지", markerId, 0);
-//        item4.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
-//        poiData.addPOIitem(127.061, 37.51, "Pizza 123-456", markerId, 0);
-//        poiData.endPOIdata();
+//        NMapPOIitem item = poiData.addPOIitem(127.0630205, 37.5091300, "버스커버스커", markerId, 0);
+//        item.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
+//        NMapPOIitem item2 = poiData.addPOIitem(127.061, 37.51, "MC민지", markerId, 0);
+//        item2.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
+//        double lat = findGeoPoint(getContext(),addr).getLatitude();
+//        double lon = findGeoPoint(getContext(),addr).getLongitude();
+//        NMapPOIitem item3 = poiData.addPOIitem(lon,lat, "민지의 러브하우스", markerId, 0);
+//        item3.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
 
-        // create POI data overlay
-        NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
-
-        // set event listener to the overlay
-        poiDataOverlay.setOnStateChangeListener(onPOIdataStateChangeListener);
-
-        // select an item
-        poiDataOverlay.selectPOIitem(0, true);
-
-        // show all POI data
-        poiDataOverlay.showAllPOIdata(0);
     }
 
     /* POI data State Change Listener*/
@@ -471,4 +542,14 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
         return loc;
     }
 
+    public void restApiBuilder() {
+        ApplicationController application = ApplicationController.getInstance();
+        application.buildNetworkService();
+        apiService = ApplicationController.getInstance().getRestApiService();
+    }
+
+    public void getLocalData(){
+        user_token = prefUser.getString("auth_token",null);
+        busker_id = prefBusker.getInt("busker_id",0);
+    }
 }

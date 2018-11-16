@@ -24,6 +24,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
             android:lineSpacingExtra="1sp"
+            android:paddingBottom="25dp"
             android:fontFamily="@font/kopubmedium"
             android:layout_below="@id/buskerProfileImangeFirst"/>
 

@@ -445,8 +445,8 @@ public class PracticeRoomReservation extends AppCompatActivity {
                                     }
                                 }
                             }
-                            for(int none:selectNoneCheck){
-                                if(j!=none){
+
+                                if(!selectNoneCheck.contains(j)){
                                     int finalJ = j;
                                     v.setOnClickListener(new View.OnClickListener() {
                                         @Override
@@ -462,7 +462,7 @@ public class PracticeRoomReservation extends AppCompatActivity {
                                                 if (selectCheck.size() == 2 && selectCheck.get(0) < finalJ && !selectNoneCheck.contains(finalJ-1)) {
                                                     selectCheckTime.clear();
                                                     for (int x = selectCheck.get(0); x < finalJ; x++) {
-                                                        if(x!=none){
+                                                        if(!selectNoneCheck.contains(x)){
                                                             choiceTimeBtnContainer.getChildAt(x).setBackground(getDrawable(R.drawable.able_btn));
                                                             if (choiceTimeBtnContainer.getChildAt(x) instanceof Button) {
                                                                 ((Button) choiceTimeBtnContainer.getChildAt(x)).setTextColor(Color.WHITE);
@@ -515,11 +515,11 @@ public class PracticeRoomReservation extends AppCompatActivity {
                                                         }
                                                     });
 
-                                                    for (int x = none+1; x < choiceTimeBtnContainer.getChildCount(); x++) {
-                                                        if (x != finalJ) {
-                                                            choiceTimeBtnContainer.getChildAt(x).setBackground(getDrawable(R.drawable.date_rounded));
-                                                            if (choiceTimeBtnContainer.getChildAt(x) instanceof Button)
-                                                                ((Button) choiceTimeBtnContainer.getChildAt(x)).setTextColor(R.color.mainPurple);
+                                                    for (int x = 0; x < ableCheck.size(); x++) {
+                                                        if (ableCheck.get(x) != finalJ) {
+                                                            choiceTimeBtnContainer.getChildAt(ableCheck.get(x)).setBackground(getDrawable(R.drawable.date_rounded));
+                                                            if (choiceTimeBtnContainer.getChildAt(ableCheck.get(x)) instanceof Button)
+                                                                ((Button) choiceTimeBtnContainer.getChildAt(ableCheck.get(x))).setTextColor(R.color.mainPurple);
                                                             selectCheck.clear();
                                                             selectCheck.add(finalJ);
                                                         }
@@ -534,7 +534,7 @@ public class PracticeRoomReservation extends AppCompatActivity {
                                                 if (selectCheck.size() == 2 && selectCheck.get(0) < finalJ) {
                                                     selectCheckTime.clear();
                                                     for (int x = selectCheck.get(0); x < finalJ; x++) {
-                                                        if(x!=none) {
+                                                        if(!selectNoneCheck.contains(x)) {
                                                             choiceTimeBtnContainer.getChildAt(x).setBackground(getDrawable(R.drawable.able_btn));
                                                             if (choiceTimeBtnContainer.getChildAt(x) instanceof Button) {
                                                                 ((Button) choiceTimeBtnContainer.getChildAt(x)).setTextColor(Color.WHITE);
@@ -588,11 +588,11 @@ public class PracticeRoomReservation extends AppCompatActivity {
                                                     });
 
 
-                                                    for (int x = none+1; x < choiceTimeBtnContainer.getChildCount(); x++) {
-                                                        if (x != finalJ) {
-                                                            choiceTimeBtnContainer.getChildAt(x).setBackground(getDrawable(R.drawable.date_rounded));
-                                                            if (choiceTimeBtnContainer.getChildAt(x) instanceof Button)
-                                                                ((Button) choiceTimeBtnContainer.getChildAt(x)).setTextColor(R.color.mainPurple);
+                                                    for (int x = 0; x < ableCheck.size(); x++) {
+                                                        if (ableCheck.get(x) != finalJ) {
+                                                            choiceTimeBtnContainer.getChildAt(ableCheck.get(x)).setBackground(getDrawable(R.drawable.date_rounded));
+                                                            if (choiceTimeBtnContainer.getChildAt(ableCheck.get(x)) instanceof Button)
+                                                                ((Button) choiceTimeBtnContainer.getChildAt(ableCheck.get(x))).setTextColor(R.color.mainPurple);
                                                             selectCheck.clear();
                                                             selectCheck.add(finalJ);
                                                         }
@@ -606,7 +606,7 @@ public class PracticeRoomReservation extends AppCompatActivity {
                                     v.setBackground(getDrawable(R.drawable.disable_btn));
                                     if (v instanceof Button) ((Button) v).setTextColor(Color.WHITE);
                                 }
-                            }
+
                         }
                     } else if(practice_date.equals(getDate)&&practiceReservations.size()!=0){
                         selectNoneCheck.clear();
@@ -657,8 +657,8 @@ public class PracticeRoomReservation extends AppCompatActivity {
                             ableCheck.removeAll(selectNoneCheck);
                             Log.e("선택 안되는 시간", String.valueOf(selectNoneCheck));
                             Log.e("선택 되는 시간", String.valueOf(ableCheck));
-                            for(int none:selectNoneCheck){
-                                if(j!=none) {
+
+                                if(!selectNoneCheck.contains(j)) {
                                     int finalJ = j;
                                     v.setOnClickListener(new View.OnClickListener() {
                                         @Override
@@ -678,7 +678,7 @@ public class PracticeRoomReservation extends AppCompatActivity {
                                                 if (selectCheck.size() == 2 && selectCheck.get(0) < finalJ && !(selectCheck.get(0) < checkIndex && checkIndex < finalJ)) {
                                                     selectCheckTime.clear();
                                                     for (int x = selectCheck.get(0); x < finalJ; x++) {
-                                                        if(x!=none){
+                                                        if(!selectNoneCheck.contains(x)){
                                                             choiceTimeBtnContainer.getChildAt(x).setBackground(getDrawable(R.drawable.able_btn));
                                                             if (choiceTimeBtnContainer.getChildAt(x) instanceof Button) {
                                                                 ((Button) choiceTimeBtnContainer.getChildAt(x)).setTextColor(Color.WHITE);
@@ -755,7 +755,7 @@ public class PracticeRoomReservation extends AppCompatActivity {
                                                 if (selectCheck.size() == 2 && selectCheck.get(0) < finalJ && !(selectCheck.get(0) < checkIndex && checkIndex < finalJ)) {
                                                     selectCheckTime.clear();
                                                     for (int x = selectCheck.get(0); x < finalJ; x++) {
-                                                        if(x!=none) {
+                                                        if(!selectNoneCheck.contains(x)) {
                                                             choiceTimeBtnContainer.getChildAt(x).setBackground(getDrawable(R.drawable.able_btn));
                                                             if (choiceTimeBtnContainer.getChildAt(x) instanceof Button) {
                                                                 ((Button) choiceTimeBtnContainer.getChildAt(x)).setTextColor(Color.WHITE);
@@ -827,7 +827,7 @@ public class PracticeRoomReservation extends AppCompatActivity {
                                     v.setBackground(getDrawable(R.drawable.disable_btn));
                                     if (v instanceof Button) ((Button) v).setTextColor(Color.WHITE);
                                 }
-                            }
+
                         }
 
                     } else if(!practice_date.equals(getDate)&&practiceReservations.size()!=0){
@@ -871,8 +871,8 @@ public class PracticeRoomReservation extends AppCompatActivity {
                             ableCheck.removeAll(selectNoneCheck);
                             Log.e("선택 안되는 시간", String.valueOf(selectNoneCheck));
                             Log.e("선택 되는 시간", String.valueOf(ableCheck));
-                            for(int none:selectNoneCheck){
-                                if(j!=none) {
+
+                                if(!selectNoneCheck.contains(j)) {
                                     int finalJ = j;
                                     v.setOnClickListener(new View.OnClickListener() {
                                         @Override
@@ -892,7 +892,7 @@ public class PracticeRoomReservation extends AppCompatActivity {
                                                 if (selectCheck.size() == 2 && selectCheck.get(0) < finalJ && !(selectCheck.get(0) < checkIndex && checkIndex < finalJ)) {
                                                     selectCheckTime.clear();
                                                     for (int x = selectCheck.get(0); x < finalJ; x++) {
-                                                        if(x!=none){
+                                                        if(!selectNoneCheck.contains(x)){
                                                             choiceTimeBtnContainer.getChildAt(x).setBackground(getDrawable(R.drawable.able_btn));
                                                             if (choiceTimeBtnContainer.getChildAt(x) instanceof Button) {
                                                                 ((Button) choiceTimeBtnContainer.getChildAt(x)).setTextColor(Color.WHITE);
@@ -969,7 +969,7 @@ public class PracticeRoomReservation extends AppCompatActivity {
                                                 if (selectCheck.size() == 2 && selectCheck.get(0) < finalJ && !(selectCheck.get(0) < checkIndex && checkIndex < finalJ)) {
                                                     selectCheckTime.clear();
                                                     for (int x = selectCheck.get(0); x < finalJ; x++) {
-                                                        if(x!=none) {
+                                                        if(!selectNoneCheck.contains(x)) {
                                                             choiceTimeBtnContainer.getChildAt(x).setBackground(getDrawable(R.drawable.able_btn));
                                                             if (choiceTimeBtnContainer.getChildAt(x) instanceof Button) {
                                                                 ((Button) choiceTimeBtnContainer.getChildAt(x)).setTextColor(Color.WHITE);
@@ -1041,7 +1041,7 @@ public class PracticeRoomReservation extends AppCompatActivity {
                                     v.setBackground(getDrawable(R.drawable.disable_btn));
                                     if (v instanceof Button) ((Button) v).setTextColor(Color.WHITE);
                                 }
-                            }
+
                         }
                     }
                 }else {

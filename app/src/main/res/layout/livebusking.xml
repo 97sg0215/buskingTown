@@ -63,4 +63,11 @@
         android:background="#00000000"
         android:src="@drawable/profile_big" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.9dp"
+        android:layout_below="@+id/buskerImg"
+        android:layout_marginTop="26.4dp"
+        android:background="@color/sub2Gray"/>
+
 </RelativeLayout>

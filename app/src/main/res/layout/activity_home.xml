@@ -113,7 +113,6 @@
                         android:id="@+id/liveBusker"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        android:layout_marginTop="25dp"
                         android:background="@drawable/cityback">
 
                         <TextView
@@ -176,16 +175,17 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="준비된 콘서트가 없습니다."
+                            android:layout_marginBottom="87dp"
                             android:textColor="@color/fontGray"
                             android:textSize="14sp"
                             android:layout_marginTop="112.9dp"
-                            android:layout_centerHorizontal="true"
-                            android:visibility="gone"/>
+                            android:layout_centerHorizontal="true" />
                     </RelativeLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="390dp"
+                        android:paddingBottom="20dp"
                         android:background="@color/mainGray"
                         android:orientation="vertical">
 
@@ -223,11 +223,10 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="75dp"
-                            android:layout_gravity="center"
-                            android:visibility="gone">
+                            android:layout_marginTop="105dp"
+                            android:layout_gravity="center">
 
-                        <TextView
+                            <TextView
                                 android:id="@+id/buskerStoryNone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"

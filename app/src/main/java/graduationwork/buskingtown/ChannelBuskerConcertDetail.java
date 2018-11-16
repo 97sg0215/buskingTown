@@ -590,7 +590,7 @@ public class ChannelBuskerConcertDetail extends AppCompatActivity {
         poiData.beginPOIdata(1);
         double lat = findGeoPoint(this,addr).getLatitude();
         double lon = findGeoPoint(this,addr).getLongitude();
-        poiData.addPOIitem(lon, lat, "스페이스연습실", markerId, 0);
+        poiData.addPOIitem(126.973952085586000000000000000000, 37.560568465589700000000000000000, "스페이스연습실", markerId, 0);
         poiData.endPOIdata();
 
         // create POI data overlay
