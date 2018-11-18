@@ -100,6 +100,8 @@ public class LocationLend extends AppCompatActivity {
 
     int p_type;
     String  p_phone,p_email, o_name, o_price, p_info, p_rule, p_refund_rule, p_start_time, p_end_time, p_start_date, p_end_date;
+    double p_lon, p_lat;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -209,12 +211,13 @@ public class LocationLend extends AppCompatActivity {
 
         location_name = getIntent().getStringExtra("location_name");
         location_detail = getIntent().getStringExtra("location_detail");
+        p_lon = getIntent().getDoubleExtra("p_lon",0);
+        p_lat = getIntent().getDoubleExtra("p_lat",0);
         if(location_name!=null){
             Log.e("장소이름", String.valueOf(location_name));
             addressChoice.setText(location_name+ " " +location_detail);
         }
 
-     //   provider_phone, provider_email, option_name, option_price;
         provider_phone = (EditText) findViewById(R.id.provider_phone);
         provider_email = (EditText) findViewById(R.id.provider_email);
         option_name = (EditText) findViewById(R.id.provide_option);
@@ -270,6 +273,7 @@ public class LocationLend extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 o_name = option_name.getText().toString();
+                option_name_list.add(o_name);
             }
         });
 
@@ -287,6 +291,7 @@ public class LocationLend extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 o_price = option_price.getText().toString();
+                option_price_list.add(o_price);
             }
         });
 
@@ -396,13 +401,8 @@ public class LocationLend extends AppCompatActivity {
                 Log.e("이름", String.valueOf(option_name_list));
                 Log.e("가격", String.valueOf(option_price_list));
 
-                if(option_name_list.size()==0&&option_price_list.size()==0){
-                    rent(real_album_path,p_type,p_phone,p_email,p_start_date,p_end_date,p_start_time,p_end_time,location_name,location_detail,p_info,p_rule,p_refund_rule,o_name,o_price,null,null);
-                }else {
-                    rent(real_album_path,p_type,p_phone,p_email,p_start_date,p_end_date,p_start_time,p_end_time,location_name,location_detail,p_info,p_rule,p_refund_rule,o_name,o_price,option_name_list,option_price_list);
-                }
 
-
+                rent(real_album_path,p_type,p_phone,p_email,p_start_date,p_end_date,p_start_time,p_end_time,location_name,p_lon,p_lat,location_detail,p_info,p_rule,p_refund_rule,option_name_list,option_price_list);
 
             }
         });
@@ -506,13 +506,14 @@ public class LocationLend extends AppCompatActivity {
                      String provide_start_time,
                      String provide_end_time,
                      String provide_location,
+                     double provide_lon,
+                     double provide_lat,
                      String provide_detail,
                      String provide_description,
                      String provide_rule,
                      String provide_refund_rule,
-                     String o_name, String o_price,
-                     ArrayList<String> o_name_list,
-                     ArrayList<String> o_price_list){
+                     ArrayList<String> op_name_list,
+                     ArrayList<String> op_price_list){
 
         RequestBody user = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(user_id));
         RequestBody p_type = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provide_type));
@@ -524,6 +525,8 @@ public class LocationLend extends AppCompatActivity {
         RequestBody p_start_time = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(provide_start_time));
         RequestBody p_end_time = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provide_end_time));
         RequestBody p_locaion = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provide_detail));
+        RequestBody p_lat = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provide_lat));
+        RequestBody p_lon = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provide_lon));
         RequestBody p_desciption = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provide_description));
         RequestBody p_rule = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provide_rule));
         RequestBody p_refund_rule = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provide_refund_rule));
@@ -547,24 +550,19 @@ public class LocationLend extends AppCompatActivity {
         Log.e("이미지",String.valueOf(surveyBody.contentType()));
         MultipartBody.Part filePart = MultipartBody.Part.createFormData("provide_image", file.getName(), surveyBody);
 
-        Call<LendLocation> rentLoc = apiService.rentLocation(user_token,user,p_type,p_phone,p_email,p_loc_name,p_start_date,p_end_date,p_start_time,p_end_time,p_locaion,p_desciption,p_rule,p_refund_rule,filePart);
+        Call<LendLocation> rentLoc = apiService.rentLocation(user_token,user,p_type,p_phone,p_email,p_loc_name,p_start_date,p_end_date,p_start_time,p_end_time,p_locaion,p_lon,p_lat,p_desciption,p_rule,p_refund_rule,filePart);
         rentLoc.enqueue(new Callback<LendLocation>() {
             @Override
             public void onResponse(Call<LendLocation> call, Response<LendLocation> response) {
                 if(response.isSuccessful()){
                     Log.e("아이디받아오는지", String.valueOf(response.body().getProvide_id()));
                     Log.e("장소제공:", "성공");
-                    if (o_name_list.size()==0&&o_price_list.size()==0){
-                        rent_option(response.body().getProvide_id(),o_name,o_price);
-                    }else {
-                        for (int i=0;i < o_name_list.size(); i++){
-                            rent_option(response.body().getProvide_id(),o_name_list.get(i),o_price_list.get(i));
-                        }
+                    for (int i=0;i < op_name_list.size(); i++){
+                        rent_option(response.body().getProvide_id(),op_name_list.get(i),op_price_list.get(i));
                     }
                     Intent provide_list = new Intent(getApplicationContext(),LocationLendStart.class);
                     startActivity(provide_list);
                     finish();
-
                 }else {
                     int StatusCode = response.code();
                     Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);

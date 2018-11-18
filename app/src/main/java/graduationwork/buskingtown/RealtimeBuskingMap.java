@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -54,6 +55,7 @@ import java.util.List;
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.Busker;
 import graduationwork.buskingtown.model.RoadConcert;
+import graduationwork.buskingtown.model.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -98,14 +100,15 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
     private static final String LOG_TAG = "NMapViewer";
     private static final boolean DEBUG = false;
 
-    String addr = "사근동";
 
     SharedPreferences prefUser, prefBusker;
 
     RestApiService apiService;
 
     String user_token,busker_name;
-    int busker_id;
+    int busker_id, user_id;
+
+    Intent buskerChannel1, buskerChannel2;
 
 
     @Override
@@ -115,6 +118,9 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
 
         prefBusker = this.getActivity().getSharedPreferences("BuskerUser", Activity.MODE_PRIVATE);
         prefUser = this.getActivity().getSharedPreferences("User", Activity.MODE_PRIVATE);
+
+        buskerChannel1 = new Intent(getActivity(), ChannelUser.class);
+        buskerChannel2 = new Intent(getActivity(), ChannelBusker.class);
 
         restApiBuilder();
 
@@ -435,7 +441,8 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
                                 @Override
                                 public void onResponse(Call<Busker> call, Response<Busker> response) {
                                     if(response.isSuccessful()){
-                                        busker_name = String.valueOf(response.body().getBusker_name());
+                                        busker_name = String.valueOf(response.body().getTeam_name());
+                                        int final_busker_id = response.body().getBusker_id();
 
                                         NMapPOIdata poiData = new NMapPOIdata(2, mMapViewerResourceProvider);
                                         poiData.beginPOIdata(2);
@@ -444,12 +451,11 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
                                         NMapPOIitem item = poiData.addPOIitem(roadConcerts.get(finalI).getRoad_lon(), roadConcerts.get(finalI).getRoad_lat(), busker_name, markerId, 0);
                                         item.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
 
-
                                         // create POI data overlay
                                         NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
 
                                         // set event listener to the overlay
-                                       // poiDataOverlay.setOnStateChangeListener(onPOIdataStateChangeListener);
+                                        my_channel_check(busker_name,final_busker_id,poiDataOverlay);
 
                                         // select an item
                                         poiDataOverlay.selectPOIitem(0, true);
@@ -480,18 +486,17 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
     }
 
     /* POI data State Change Listener*/
-    private final NMapPOIdataOverlay.OnStateChangeListener onPOIdataStateChangeListener = new NMapPOIdataOverlay.OnStateChangeListener() {
+    private final NMapPOIdataOverlay.OnStateChangeListener onPOIdataStateChangeListener1 = new NMapPOIdataOverlay.OnStateChangeListener() {
 
         @Override
         public void onCalloutClick(NMapPOIdataOverlay poiDataOverlay, NMapPOIitem item) {
             if (DEBUG) {
                 Log.i(LOG_TAG, "onCalloutClick: title=" + item.getTitle());
             }
+            startActivity(buskerChannel1);
 
             // [[TEMP]] handle a click event of the callout
             //Toast.makeText(v.RealtimeBuskingMap.this, "onCalloutClick: " + item.getTitle(), Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(getActivity(),Setting.class);
-            startActivity(intent);
         }
 
         @Override
@@ -505,6 +510,35 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
             }
         }
     };
+
+    private final NMapPOIdataOverlay.OnStateChangeListener onPOIdataStateChangeListener2 = new NMapPOIdataOverlay.OnStateChangeListener() {
+
+        @Override
+        public void onCalloutClick(NMapPOIdataOverlay poiDataOverlay, NMapPOIitem item) {
+            if (DEBUG) {
+                Log.i(LOG_TAG, "onCalloutClick: title=" + item.getTitle());
+            }
+
+            startActivity(buskerChannel2);
+
+            // [[TEMP]] handle a click event of the callout
+            //Toast.makeText(v.RealtimeBuskingMap.this, "onCalloutClick: " + item.getTitle(), Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onFocusChanged(NMapPOIdataOverlay poiDataOverlay, NMapPOIitem item) {
+            if (DEBUG) {
+                if (item != null) {
+                    Log.i(LOG_TAG, "onFocusChanged: " + item.toString());
+                } else {
+                    Log.i(LOG_TAG, "onFocusChanged: ");
+                }
+            }
+        }
+    };
+
+
+
     private void testGeocoder(){
 
     }
@@ -540,6 +574,44 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
 
     public void getLocalData(){
         user_token = prefUser.getString("auth_token",null);
+        user_id = prefUser.getInt("user_id",0);
         busker_id = prefBusker.getInt("busker_id",0);
+    }
+
+    public void my_channel_check(String team_name,int final_busker_id,NMapPOIdataOverlay poiDataOverlay){
+        retrofit2.Call<User> userDetail = apiService.getUserDetail(user_token,user_id);
+        userDetail.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(retrofit2.Call<User> call, Response<User> response) {
+                if(response.isSuccessful()){
+                    User user = response.body();
+                    if(user.getBusker()!=null){ //유저가 버스커일 경우
+                        //내 채널이 아닐 경우, 팀네임이 같지않은 경우
+                        if(!user.getBusker().getTeam_name().equals(team_name)){
+                            //개인 아이디를 다음 액티비티에서 받아 세팅
+                            buskerChannel1.putExtra("busker_id",final_busker_id);
+                            buskerChannel1.putExtra("team_name",team_name);
+                            poiDataOverlay.setOnStateChangeListener(onPOIdataStateChangeListener1);
+                        } //내 채널일 경우, 팀네임이 같을 경우
+                        else {
+                            //개인 아이디를 다음 액티비티에서 받아 세팅
+                            buskerChannel2.putExtra("busker_id",final_busker_id);
+                            poiDataOverlay.setOnStateChangeListener(onPOIdataStateChangeListener2);
+
+                        }
+                    } //내 채널이 아닐 경우, 유저가 버스커가 아닐 경우 정상 진행
+                    else {
+                        //개인 아이디를 다음 액티비티에서 받아 세팅
+                        buskerChannel1.putExtra("busker_id",final_busker_id);
+                        poiDataOverlay.setOnStateChangeListener(onPOIdataStateChangeListener1);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<User> call, Throwable t) {
+                Log.i(ApplicationController.TAG, "유저 정보 서버 연결 실패 Message : " + t.getMessage());
+            }
+        });
     }
 }

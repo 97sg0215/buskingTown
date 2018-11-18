@@ -175,6 +175,8 @@ public interface RestApiService {
                                      @Part("provide_start_time") RequestBody provide_start_time,
                                      @Part("provide_end_time") RequestBody provide_end_time,
                                      @Part("provide_location") RequestBody provide_location,
+                                     @Part("provide_lon") RequestBody provide_lon,
+                                     @Part("provide_lat") RequestBody provide_lat,
                                      @Part("provide_description") RequestBody provide_description,
                                      @Part("provide_rule") RequestBody provide_rule,
                                      @Part("provide_refund_rule") RequestBody provide_refund_rule,
