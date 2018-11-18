@@ -58,7 +58,7 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
 
     Button choiceBtn;
     String location_name, location_detail;
-
+    double lon, lat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +126,7 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
             @Override
             public void afterTextChanged(Editable s) {
                 location_name = addressIn.getText().toString();
-                choiceBtn(location_name,location_detail);
+                choiceBtn(location_name,location_detail,lat,lon);
             }
         });
 
@@ -209,6 +209,9 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
             }
 
             findPlacemarkAtLocation(point.longitude, point.latitude);
+
+            lon = point.longitude;
+            lat = point.latitude;
 
             item.setTitle(null);
 
@@ -338,7 +341,7 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
                     mFloatingPOIitem.setTitle(placeMark.toString());
                     detailAddress = (TextView)findViewById(R.id.detailAddress);
                     location_detail = placeMark.toString();
-                    choiceBtn(location_name,location_detail);
+                    choiceBtn(location_name,location_detail,lat,lon);
                     detailAddress.setText(placeMark.toString());
 
                 }
@@ -348,7 +351,7 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
 
     };
 
-    public void choiceBtn(String l_name,String l_detail) {
+    public void choiceBtn(String l_name,String l_detail, double lon, double lat) {
         //확인 버튼 변수
         final Button choiceBtn = (Button) findViewById(R.id.choiceBtn);
         choiceBtn.setOnClickListener(new View.OnClickListener() {
@@ -358,7 +361,12 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
                 Intent intent = new Intent(getBaseContext(), LocationLend.class);
                 intent.putExtra("location_name", l_name);
                 intent.putExtra("location_detail", l_detail);
+                intent.putExtra("lon", lon);
+                intent.putExtra("lat", lat);
+
                 Log.e("장소이름", String.valueOf(l_name));
+                Log.e("lon", String.valueOf(lon));
+                Log.e("lat", String.valueOf(lat));
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
