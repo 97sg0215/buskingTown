@@ -430,11 +430,32 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
                             int markerId = NMapPOIflagType.PIN;
 
                             Call<Busker> buskerCall = apiService.buskerDetail(user_token,roadConcerts.get(i).getBusker());
+                            int finalI = i;
                             buskerCall.enqueue(new Callback<Busker>() {
                                 @Override
                                 public void onResponse(Call<Busker> call, Response<Busker> response) {
                                     if(response.isSuccessful()){
                                         busker_name = String.valueOf(response.body().getBusker_name());
+
+                                        NMapPOIdata poiData = new NMapPOIdata(2, mMapViewerResourceProvider);
+                                        poiData.beginPOIdata(2);
+
+                                        // set POI data
+                                        NMapPOIitem item = poiData.addPOIitem(roadConcerts.get(finalI).getRoad_lon(), roadConcerts.get(finalI).getRoad_lat(), busker_name, markerId, 0);
+                                        item.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
+
+
+                                        // create POI data overlay
+                                        NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
+
+                                        // set event listener to the overlay
+                                       // poiDataOverlay.setOnStateChangeListener(onPOIdataStateChangeListener);
+
+                                        // select an item
+                                        poiDataOverlay.selectPOIitem(0, true);
+
+                                        // show all POI data
+                                        poiDataOverlay.showAllPOIdata(0);
                                     }
                                 }
 
@@ -444,25 +465,7 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
                                 }
                             });
 
-                            NMapPOIdata poiData = new NMapPOIdata(2, mMapViewerResourceProvider);
-                            poiData.beginPOIdata(2);
 
-                            // set POI data
-                            NMapPOIitem item = poiData.addPOIitem(roadConcerts.get(i).getRoad_lon(), roadConcerts.get(i).getRoad_lat(), busker_name, markerId, 0);
-                            item.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
-
-
-                            // create POI data overlay
-                            NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
-
-                            // set event listener to the overlay
-                            poiDataOverlay.setOnStateChangeListener(onPOIdataStateChangeListener);
-
-                            // select an item
-                            poiDataOverlay.selectPOIitem(0, true);
-
-                            // show all POI data
-                            poiDataOverlay.showAllPOIdata(0);
                         }
                     }
                 }
@@ -473,19 +476,6 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
 
             }
         });
-
-
-
-        // set POI data
-
-//        NMapPOIitem item = poiData.addPOIitem(127.0630205, 37.5091300, "버스커버스커", markerId, 0);
-//        item.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
-//        NMapPOIitem item2 = poiData.addPOIitem(127.061, 37.51, "MC민지", markerId, 0);
-//        item2.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
-//        double lat = findGeoPoint(getContext(),addr).getLatitude();
-//        double lon = findGeoPoint(getContext(),addr).getLongitude();
-//        NMapPOIitem item3 = poiData.addPOIitem(lon,lat, "민지의 러브하우스", markerId, 0);
-//        item3.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
 
     }
 
