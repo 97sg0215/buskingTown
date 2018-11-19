@@ -50,8 +50,6 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
 
     android.support.design.widget.FloatingActionButton fab;
 
-    ArrayList<String> teamList = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -168,61 +166,22 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    //버스커 정보 화면에 세팅(이름 및 팔로워등 세팅, 메소드가 길어지면 게시글 같은 건 따로 메소드 정의하세요)
-    public void buskerSetting(String busker_team_name, String busker_tag,String busker_image){
-        Log.e("버스커 정보", String.valueOf(busker_team_name));
-        mainTeamName.setText(busker_team_name);
-        subTeamName.setText(busker_team_name);
-        tag.setText(busker_tag);
-        //이미지 원형 처리
-        Picasso.with(getApplication()).load(busker_image).transform(new CircleTransForm()).into(busker_main_img);
-    }
-
-    public void buskerTeamCheck(String team_name, int busker_id){
-        HashMap<Integer,Integer> typelist = new HashMap<>();
-        retrofit2.Call<List<Busker>> busker_list = apiService.all_busker(user_token);
-        busker_list.enqueue(new Callback<List<Busker>>() {
+    public void buskerTeamCheck(String team_name){
+        retrofit2.Call<List<Busker>> buskerCall = apiService.buskerTeam(user_token,team_name);
+        buskerCall.enqueue(new Callback<List<Busker>>() {
             @Override
             public void onResponse(retrofit2.Call<List<Busker>> call, Response<List<Busker>> response) {
                 if(response.isSuccessful()){
-                    List<Busker> buskers = response.body();
-                    if(buskers.size()!=1){
-                        for (int i=0; i<buskers.size();i++){
-                            Log.e("팀이름",String.valueOf(team_name));
-                            //본인 일 경우에도 동일하게 검색이 되므로 이중 if문으로 처리
-                            if(team_name.equals(buskers.get(i).getTeam_name())){
-                                //팀 멤버가 몇명이 되나 확인
-                                String member = buskers.get(i).getTeam_name();
-                                teamList.add(member);
-                                //아이디와 타입값을 넘겨줌
-                                typelist.put(buskers.get(i).getBusker_id(),buskers.get(i).getBusker_type());
-                                Log.e("멤버 리스트", String.valueOf(typelist));
-
-                                //멤버 타입 가져오기
-                                Integer wrapper_buskertype = (Integer)typelist.get(buskers.get(i).getBusker_id());
-                                int busker_type = wrapper_buskertype.intValue();
-
-                                Integer wrapper_busker_leader = (Integer)typelist.get(getKey(typelist,1));
-                                int busker_leader_id = wrapper_busker_leader.intValue();
-
-                                //버스커 멤버가 있을때
-
-                                    //팀장일 경우 그대로 보여줌
-                                if(busker_type==1){
-                                    getBuskerData(user_token,busker_id);
-                                } //팀장이 아닐경우 팀장의 화면을 보여줌
-                                else {
-                                    getBuskerData(user_token,busker_leader_id);
-                                    Log.e("리더 아이디",String.valueOf(busker_leader_id));
-                                }
-                            }
-                        }
-                    }else {
-                        getBuskerData(user_token,busker_id);
-                    }
-
+                    int busker_id = response.body().get(0).getBusker_id();
+                    String busker_team_name = response.body().get(0).getTeam_name();
+                    String busker_tag = response.body().get(0).getBusker_tag();
+                    mainTeamName.setText(busker_team_name);
+                    subTeamName.setText(busker_team_name);
+                    tag.setText(busker_tag);
+                    //이미지 원형 처리
+                    Picasso.with(getApplication()).load(response.body().get(0).getBusker_image()).transform(new CircleTransForm()).into(busker_main_img);
+                    saveBuskerInfo(busker_id,busker_team_name,busker_tag);
                 }else {
-                    //에러 상태 보려고 해둔 코드
                     int StatusCode = response.code();
                     String s = response.message();
                     ResponseBody d = response.errorBody();
@@ -235,53 +194,17 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onFailure(retrofit2.Call<List<Busker>> call, Throwable t) {
-                Log.i(ApplicationController.TAG, "버스커 리스트 서버 연결 실패 Message : " + t.getMessage());
+                Log.i(ApplicationController.TAG, "버스커 정보 서버 연결 실패 Message : " + t.getMessage());
             }
         });
     }
 
-    //busker데이터 얻어오기
-    public void getBuskerData(String token, int busker_id){
-        final Busker[] busker = {new Busker()};
-        retrofit2.Call<Busker> buskerDetail = apiService.buskerDetail(token,busker_id);
-        buskerDetail.enqueue(new Callback<Busker>() {
-            @Override
-            public void onResponse(retrofit2.Call<Busker> call, Response<Busker> response) {
-                if(response.isSuccessful()){
-                    busker[0] = response.body();
-                    busker_team_name = busker[0].getTeam_name();
-                    busker_tag = busker[0].getBusker_tag();
-                    busker_image = busker[0].getBusker_image();
-                    busker_name = busker[0].getBusker_name();
-                    busker_type = busker[0].getBusker_type();
-                    buskerSetting(busker_team_name,busker_tag,busker_image);
-                    saveBuskerInfo(busker_id,busker_type,busker_team_name,busker_name,busker_tag);
-                }
-                else {
-                    //에러 상태 보려고 해둔 코드
-                    int StatusCode = response.code();
-                    String s = response.message();
-                    ResponseBody d = response.errorBody();
-                    Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
-                    Log.e("메세지", s);
-                    Log.e("리스폰스에러바디", String.valueOf(d));
-                    Log.e("리스폰스바디 : ", String.valueOf(response.body()));
-                }
-            }
-            @Override
-            public void onFailure(retrofit2.Call<Busker> call, Throwable t) {
-                Log.i(ApplicationController.TAG, "유저 정보 서버 연결 실패 Message : " + t.getMessage());
-            }
-        });
-    }
 
-    public void saveBuskerInfo(int busker_id,int busker_type,String team_name,String busker_name, String tag){
+    public void saveBuskerInfo(int busker_id,String team_name, String tag){
         SharedPreferences pref = getSharedPreferences("BuskerUser", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putInt("busker_id",busker_id);
-        editor.putInt("busker_type",busker_type);
         editor.putString("team_name", team_name);
-        editor.putString("busker_name", busker_name);
         editor.putString("tag", tag);
         editor.commit();
     }
@@ -291,24 +214,15 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
         SharedPreferences busker_pref = getSharedPreferences("BuskerUser", Activity.MODE_PRIVATE);
         user_token = pref.getString("auth_token",null);
         user_name = pref.getString("username",null);
-        busker_id = busker_pref.getInt("busker_id",0);
         team_name = busker_pref.getString("team_name",null);
 
-        buskerTeamCheck(team_name,busker_id);
+        buskerTeamCheck(team_name);
     }
 
     public void restApiBuilder() {
         ApplicationController application = ApplicationController.getInstance();
         application.buildNetworkService();
         apiService = ApplicationController.getInstance().getRestApiService();
-    }
-
-    public int getKey(HashMap<Integer, Integer> m, int value) {
-        for(int o: m.keySet()) {
-            if(m.get(o).equals(value)) {
-                return o; }
-        }
-        return 0;
     }
 
     //로딩해주는 코드

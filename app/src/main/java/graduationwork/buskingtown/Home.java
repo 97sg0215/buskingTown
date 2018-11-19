@@ -348,7 +348,6 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
                         else {
                             Intent buskerChannel = new Intent(getActivity(), ChannelBusker.class);
                             //개인 아이디를 다음 액티비티에서 받아 세팅
-                            buskerChannel.putExtra("busker_id",final_busker_id);
                             buskerChannel.putExtra("busker_user_id",final_user_id);
                             saveBuskerInfo(final_busker_id,user.getBusker().getBusker_type(),team_name,user.getBusker().getBusker_image());
                             startActivity(buskerChannel);

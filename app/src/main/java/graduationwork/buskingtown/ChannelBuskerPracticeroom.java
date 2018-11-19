@@ -60,6 +60,8 @@ public class ChannelBuskerPracticeroom extends Fragment {
     TextView practice_name_text, room_address_text, room_price_text;
     String room_image ,practice_name, room_address, room_price;
 
+    double provide_lon, provide_lat;
+
     public ChannelBuskerPracticeroom(){
         // Required empty public constructor
     }
@@ -161,6 +163,8 @@ public class ChannelBuskerPracticeroom extends Fragment {
                                     detail.putExtra("provide_start_time",practiceList.get(finalI).getProvide_start_time());
                                     detail.putExtra("provide_end_time",practiceList.get(finalI).getProvide_end_time());
                                     detail.putExtra("provide_rule",practiceList.get(finalI).getProvide_rule());
+                                    detail.putExtra("provide_lon",practiceList.get(finalI).getProvide_lon());
+                                    detail.putExtra("provide_lat",practiceList.get(finalI).getProvide_lat());
                                     startActivity(detail);
                                 }
                             });

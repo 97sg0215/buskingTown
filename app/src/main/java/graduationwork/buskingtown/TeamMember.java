@@ -82,13 +82,15 @@ public class TeamMember extends AppCompatActivity {
         myProfile = (ImageView) findViewById(R.id.my_profileImg);
         myID = (TextView) findViewById(R.id.my_id);
 
-        Picasso.with(getApplication()).load(user_image).transform(new CircleTransForm()).into(myProfile);
-        myID.setText(busker_name);
+        if(user_image!=null){
+            Picasso.with(getApplication()).load(user_image).transform(new CircleTransForm()).into(myProfile);
+        }
+        myID.setText(user_name);
 
         standByMember = (LinearLayout) findViewById(R.id.standByMember);
         myMember = (LinearLayout) findViewById(R.id.myMember);
 
-        Call<List<Busker>> buskerListCall = apiService.all_busker(user_token);
+        Call<List<Busker>> buskerListCall = apiService.buskerTeam(user_token,team_name);
         buskerListCall.enqueue(new Callback<List<Busker>>() {
             @Override
             public void onResponse(Call<List<Busker>> call, Response<List<Busker>> response) {
@@ -96,7 +98,7 @@ public class TeamMember extends AppCompatActivity {
                     List<Busker> buskers = response.body();
                     for (int i=0; i<buskers.size(); i++){
                         //나를 제외한 나와 팀네임이 같은 버스커 세팅
-                        if(team_name.equals(buskers.get(i).getTeam_name())&&!busker_name.equals(buskers.get(i).getBusker_name())){
+                        if(!user_name.equals(buskers.get(i).getBusker_name())){
                             member_names.add(buskers.get(i).getBusker_name());
                             Log.e("멤버리스트", String.valueOf(member_names));
                             //멤버들 사진

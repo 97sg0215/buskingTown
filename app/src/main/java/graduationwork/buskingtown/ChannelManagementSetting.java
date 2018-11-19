@@ -65,7 +65,7 @@ public class ChannelManagementSetting extends AppCompatActivity {
                                     //버스커 멤버가 있을때
                                     if (teamList.size()>=2){
                                         Intent MemberManagement = new Intent(getApplication(),TeamMember.class);
-                                        MemberManagement.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        MemberManagement.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         startActivity(MemberManagement);
                                     } //멤버가 없을때
                                     else {

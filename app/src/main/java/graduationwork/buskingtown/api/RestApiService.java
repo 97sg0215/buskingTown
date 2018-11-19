@@ -110,6 +110,10 @@ public interface RestApiService {
     @GET("busker/{busker_id}/")
     Call<Busker> buskerDetail (@Header("Authorization")String autoToken, @Path("busker_id")int id);
 
+    //버스커 팀 체크
+    @GET("accounts/buskerTeamCheck/{team_name}/")
+    Call<List<Busker>> buskerTeam(@Header("Authorization")String autoToken, @Path("team_name")String team_name);
+
     //게시물 작성
     @Multipart
     @POST("busking/postUpload/")

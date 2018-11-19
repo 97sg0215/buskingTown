@@ -146,7 +146,7 @@ public class ChannelBuskerPracticeroomDetail extends AppCompatActivity {
     private static final String LOG_TAG = "NMapViewer";
     private static final boolean DEBUG = false;
 
-    private static final NGeoPoint NMAP_LOCATION_DEFAULT = new NGeoPoint(126.978371, 37.5666091);
+
     private static final int NMAP_ZOOMLEVEL_DEFAULT = 11;
     private static final int NMAP_VIEW_MODE_DEFAULT = NMapView.VIEW_MODE_VECTOR;
     private static final boolean NMAP_TRAFFIC_MODE_DEFAULT = false;
@@ -161,7 +161,6 @@ public class ChannelBuskerPracticeroomDetail extends AppCompatActivity {
 
     private SharedPreferences mPreferences;
 
-    String addr = "사근동 208-2";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -402,7 +401,7 @@ public class ChannelBuskerPracticeroomDetail extends AppCompatActivity {
 
     private void restoreInstanceState() {
         mPreferences = getPreferences(MODE_PRIVATE);
-
+        NGeoPoint NMAP_LOCATION_DEFAULT = new NGeoPoint(p_lon, p_lat);
         int longitudeE6 = mPreferences.getInt(KEY_CENTER_LONGITUDE, NMAP_LOCATION_DEFAULT.getLongitudeE6());
         int latitudeE6 = mPreferences.getInt(KEY_CENTER_LATITUDE, NMAP_LOCATION_DEFAULT.getLatitudeE6());
         int level = mPreferences.getInt(KEY_ZOOM_LEVEL, NMAP_ZOOMLEVEL_DEFAULT);
@@ -601,9 +600,7 @@ public class ChannelBuskerPracticeroomDetail extends AppCompatActivity {
         // set POI data
         NMapPOIdata poiData = new NMapPOIdata(1, mMapViewerResourceProvider);
         poiData.beginPOIdata(1);
-        double lat = findGeoPoint(this,addr).getLatitude();
-        double lon = findGeoPoint(this,addr).getLongitude();
-        poiData.addPOIitem(lon, lat, "스페이스연습실", markerId, 0);
+        poiData.addPOIitem(p_lon, p_lat, p_name, markerId, 0);
         poiData.endPOIdata();
 
         // create POI data overlay
