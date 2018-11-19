@@ -11,8 +11,7 @@
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_centerHorizontal="true"
-        android:background="@color/mainGray"
-        android:layout_marginTop="15dp" />
+        android:background="@color/mainGray" />
 
     <TextView
         android:id="@+id/buskerId"

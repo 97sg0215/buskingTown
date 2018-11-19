@@ -5,8 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="252.5dp"
     android:layout_gravity="center_horizontal"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
     android:layout_marginBottom="15dp">
 
     <LinearLayout
@@ -22,7 +20,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="87.5dp"
             android:background="@color/mainGray">
 
             <TextView
@@ -57,7 +55,6 @@
                 android:layout_below="@id/practiceroomAddress"
                 android:layout_marginTop="7.5dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginBottom="15dp"
                 android:fontFamily="@font/kopubmedium"
                 android:textSize="14sp"
                 android:textColor="@color/fontBlack"
