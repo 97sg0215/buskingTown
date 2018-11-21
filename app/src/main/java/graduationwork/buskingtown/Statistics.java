@@ -41,7 +41,8 @@ public class Statistics extends AppCompatActivity{
     SimpleDateFormat simpleDateFormat;
 
     private final int oneFRAGMENT = 1;
-    private final int towFRAGMENT = 2;
+    private final int twoFRAGMENT = 2;
+    private final int threeFRAGMENT = 3;
 
     String put_start_date;
 
@@ -100,14 +101,12 @@ public class Statistics extends AppCompatActivity{
 
                 switch (position) {
                     case 0:
+                        callFragment(twoFRAGMENT, put_start_date, coinEndYear+"-"+(coinEndMonth+1)+"-"+coinEndDay);
                         break;
                     case 1:
-                        callFragment(towFRAGMENT, put_start_date, coinEndYear+"-"+(coinEndMonth+1)+"-"+coinEndDay);
+                        callFragment(threeFRAGMENT, put_start_date, coinEndYear+"-"+(coinEndMonth+1)+"-"+coinEndDay);
                         break;
                     case 2:
-                        Toast.makeText(parent.getContext(), "Spinner item 3!", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 3:
                         Toast.makeText(parent.getContext(), "Spinner item 4!", Toast.LENGTH_SHORT).show();
                         break;
                 }
@@ -225,6 +224,21 @@ public class Statistics extends AppCompatActivity{
                 followGraph.setArguments(bundle);
 
                 transaction.replace(R.id.fragmentContainer, followGraph);
+                transaction.commit();
+
+                break;
+
+            case 3:
+                onClickDate(3);
+                //코인 통계
+                CoinGraph coinGraph = new CoinGraph();
+
+                Bundle bundle2 = new Bundle();
+                bundle2.putString("start_date", start_date);
+                bundle2.putString("end_date",end_date);
+                coinGraph.setArguments(bundle2);
+
+                transaction.replace(R.id.fragmentContainer, coinGraph);
                 transaction.commit();
 
                 break;

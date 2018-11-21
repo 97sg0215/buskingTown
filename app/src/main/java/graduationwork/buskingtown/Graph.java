@@ -53,13 +53,17 @@ public class Graph extends Fragment {
 
         lineChart = (LineChart)v.findViewById(R.id.chart);
 
+
+
         //setValues
         List<Entry> entries = new ArrayList<>();
-        entries.add(new Entry(0, 0));
-        entries.add(new Entry(1, 2));
-        entries.add(new Entry(2, 1));
-        entries.add(new Entry(3, 1));
+        entries.add(new Entry(1, 0.0f));
+        entries.add(new Entry(2, 100.0f));
+        entries.add(new Entry(3, 20.0f));
+        entries.add(new Entry(4, 40.0f));
 
+//        YAxis left = lineChart.getAxisLeft();
+//        left.setValueFormatter(new MyYAxisValueFormatter());
 
         LineDataSet lineDataSet = new LineDataSet(entries, "좋아하는 팬");
 //        lineDataSet.setAxisDependency(VAxis/.;
@@ -75,22 +79,17 @@ public class Graph extends Fragment {
         lineDataSet.setDrawHighlightIndicators(false);
         lineDataSet.setDrawValues(false);
 
-
         LineData lineData = new LineData(lineDataSet);
         lineChart.setData(lineData);
 
 
-        String[] values_one_month = { "1주", "2주", "3주","4주"};
+        // String[] values = { "Jan", "Feb", "Mar","April"};
 
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextColor(Color.BLACK);
-        xAxis.setDrawGridLines(false);
-      //  xAxis.enableGridDashedLine(5, 20, 0);
-        xAxis.setValueFormatter(new MyXAxisValueFormatter(values_one_month));
-        xAxis.setGranularity(1f);
-        xAxis.setTextSize(15);
-
+        xAxis.enableGridDashedLine(5, 20, 0);
+        //xAxis.setValueFormatter(new MyXAxisValueFormatter(values));
 
         YAxis yLAxis = lineChart.getAxisLeft();
         yLAxis.setTextColor(Color.BLACK);
@@ -126,3 +125,4 @@ public class Graph extends Fragment {
         busker_id = prefBusker.getInt("busker_id",0);
     }
 }
+

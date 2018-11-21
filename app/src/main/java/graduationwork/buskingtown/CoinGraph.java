@@ -31,11 +31,12 @@ import java.util.ListIterator;
 
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.Connections;
+import graduationwork.buskingtown.model.SupportCoin;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FollowGraph extends Fragment {
+public class CoinGraph extends Fragment{
 
     SharedPreferences prefUser, prefBusker;
 
@@ -51,9 +52,9 @@ public class FollowGraph extends Fragment {
 
     private LineChart lineChart;
 
-    int follower_cnt;
+    int coin_cnt;
     int result = 0;
-    ArrayList<Integer> follower_data = new ArrayList<>();
+    ArrayList<Integer> coin_data = new ArrayList<>();
     ArrayList<Integer> follower_entry = new ArrayList<>();
 
 
@@ -63,10 +64,9 @@ public class FollowGraph extends Fragment {
     int threeWeekSum =0;
     int fourWeekSum =0;
 
-    public FollowGraph(){
+    public CoinGraph(){
         // Required empty public constructor
     }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,28 +96,30 @@ public class FollowGraph extends Fragment {
         String[] start_month_words = get_start_date.split("-");
         String[] end_month_words = get_end_date.split("-");
         int start_month = Integer.parseInt(start_month_words[1]);
+        int start_year = Integer.parseInt(start_month_words[0]);
         int end_month = Integer.parseInt(end_month_words[1]);
+        int end_year = Integer.parseInt(start_month_words[0]);
 
 
-        Call<List<Connections>> connectionsCall = apiService.getFollowerStatistic(user_token,busker_id,get_start_date,get_end_date);
-        connectionsCall.enqueue(new Callback<List<Connections>>() {
+        Call<List<SupportCoin>> connectionsCall = apiService.getCoinStatistic(user_token,busker_id,get_start_date,get_end_date);
+        connectionsCall.enqueue(new Callback<List<SupportCoin>>() {
             @Override
-            public void onResponse(Call<List<Connections>> call, Response<List<Connections>> response) {
+            public void onResponse(Call<List<SupportCoin>> call, Response<List<SupportCoin>> response) {
                 if(response.isSuccessful()) {
-                    List<Connections> connections = response.body();
+                    List<SupportCoin> connections = response.body();
                     if (connections.size() != 0) {
                         //1개월
                         if ((end_month - start_month) == 1) {
                             for(int x=0;x<connections.size();x++){
-                                follower_cnt = connections.get(x).getFollower_count();
-                                follower_data.add(follower_cnt);
+                                coin_cnt = connections.get(x).getDaily_coin_amount();
+                                coin_data.add(coin_cnt);
                             }
                             for (int day = 0; day < 28-connections.size(); day++) {
-                                follower_data.add(0);
+                                coin_data.add(0);
 
                             }
 
-                            List<List<Integer>> pages = Lists.partition(follower_data,7);
+                            List<List<Integer>> pages = Lists.partition(coin_data,7);
 
                             for (int i = 0; i < pages.get(0).size(); i++) {
                                 oneWeekSum += pages.get(0).get(i);
@@ -136,7 +138,7 @@ public class FollowGraph extends Fragment {
 
                             }
 
-                            Log.e("총 데이터", String.valueOf(twoWeekSum));
+                            Log.e("총 데이터", String.valueOf(coin_data));
 
                             List<Entry> entries = new ArrayList<>();
                             entries.add(new Entry(0, oneWeekSum));
@@ -145,7 +147,7 @@ public class FollowGraph extends Fragment {
                             entries.add(new Entry(3, fourWeekSum));
 
 
-                            LineDataSet lineDataSet = new LineDataSet(entries, "좋아하는 팬");
+                            LineDataSet lineDataSet = new LineDataSet(entries, "후원받은 코인의 수");
 //                          lineDataSet.setAxisDependency(VAxis/.;
                             lineDataSet.setLineWidth(2);
                             lineDataSet.setCircleRadius(3);
@@ -196,15 +198,15 @@ public class FollowGraph extends Fragment {
                         //3개월
                         else if((end_month - start_month) == 3){
                             for(int x=0;x<connections.size();x++){
-                                follower_cnt = connections.get(x).getFollower_count();
-                                follower_data.add(follower_cnt);
+                                coin_cnt = connections.get(x).getDaily_coin_amount();
+                                coin_data.add(coin_cnt);
                             }
                             for (int day = 0; day < 84-connections.size(); day++) {
-                                follower_data.add(0);
+                                coin_data.add(0);
 
                             }
 
-                            List<List<Integer>> pages = Lists.partition(follower_data,7);
+                            List<List<Integer>> pages = Lists.partition(coin_data,7);
 
                             for (int i = 0; i < pages.get(0).size(); i++) {
                                 oneWeekSum += pages.get(0).get(i);
@@ -232,7 +234,7 @@ public class FollowGraph extends Fragment {
                             entries.add(new Entry(3, fourWeekSum));
 
 
-                            LineDataSet lineDataSet = new LineDataSet(entries, "좋아하는 팬");
+                            LineDataSet lineDataSet = new LineDataSet(entries, "후원받은 코인의 수");
 //                          lineDataSet.setAxisDependency(VAxis/.;
                             lineDataSet.setLineWidth(2);
                             lineDataSet.setCircleRadius(3);
@@ -285,15 +287,15 @@ public class FollowGraph extends Fragment {
                         //6개월
                         else if((end_month - start_month) == 6){
                             for(int x=0;x<connections.size();x++){
-                                follower_cnt = connections.get(x).getFollower_count();
-                                follower_data.add(follower_cnt);
+                                coin_cnt = connections.get(x).getDaily_coin_amount();
+                                coin_data.add(coin_cnt);
                             }
                             for (int day = 0; day < 168-connections.size(); day++) {
-                                follower_data.add(0);
+                                coin_data.add(0);
 
                             }
 
-                            List<List<Integer>> pages = Lists.partition(follower_data,7);
+                            List<List<Integer>> pages = Lists.partition(coin_data,7);
 
                             for (int i = 0; i < pages.get(0).size(); i++) {
                                 oneWeekSum += pages.get(0).get(i);
@@ -321,7 +323,7 @@ public class FollowGraph extends Fragment {
                             entries.add(new Entry(3, fourWeekSum));
 
 
-                            LineDataSet lineDataSet = new LineDataSet(entries, "좋아하는 팬");
+                            LineDataSet lineDataSet = new LineDataSet(entries, "후원받은 코인의 수");
 //                          lineDataSet.setAxisDependency(VAxis/.;
                             lineDataSet.setLineWidth(2);
                             lineDataSet.setCircleRadius(3);
@@ -372,17 +374,17 @@ public class FollowGraph extends Fragment {
 
                         }
                         //1년
-                        else if((end_month - start_month) == 10){
+                        else if((end_year - start_year) == 1){
                             for(int x=0;x<connections.size();x++){
-                                follower_cnt = connections.get(x).getFollower_count();
-                                follower_data.add(follower_cnt);
+                                coin_cnt = connections.get(x).getDaily_coin_amount();
+                                coin_data.add(coin_cnt);
                             }
                             for (int day = 0; day < 336-connections.size(); day++) {
-                                follower_data.add(0);
+                                coin_data.add(0);
 
                             }
 
-                            List<List<Integer>> pages = Lists.partition(follower_data,7);
+                            List<List<Integer>> pages = Lists.partition(coin_data,7);
 
                             for (int i = 0; i < pages.get(0).size(); i++) {
                                 oneWeekSum += pages.get(0).get(i);
@@ -410,7 +412,7 @@ public class FollowGraph extends Fragment {
                             entries.add(new Entry(3, fourWeekSum));
 
 
-                            LineDataSet lineDataSet = new LineDataSet(entries, "좋아하는 팬");
+                            LineDataSet lineDataSet = new LineDataSet(entries, "후원받은 코인의 수");
 //                          lineDataSet.setAxisDependency(VAxis/.;
                             lineDataSet.setLineWidth(2);
                             lineDataSet.setCircleRadius(3);
@@ -475,7 +477,7 @@ public class FollowGraph extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<Connections>> call, Throwable t) {
+            public void onFailure(Call<List<SupportCoin>> call, Throwable t) {
                 Log.e("call","실패");
             }
         });
@@ -505,4 +507,5 @@ public class FollowGraph extends Fragment {
         return week;
 
     }
+
 }
