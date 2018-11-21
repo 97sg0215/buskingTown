@@ -121,7 +121,7 @@ public class CoinSendBefore_pop extends Activity implements View.OnClickListener
                         sendBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                if(coin_amount>Integer.parseInt(c_Count)){
+                                if(coin_amount>=Integer.parseInt(c_Count)){
                                     user.getProfile().setPurchase_coin(coin_amount-Integer.parseInt(c_Count));
                                     SupportCoin coin = new SupportCoin();
                                     coin.setCoin_amount(Integer.parseInt(c_Count));
@@ -175,7 +175,7 @@ public class CoinSendBefore_pop extends Activity implements View.OnClickListener
 
                                         @Override
                                         public void onFailure(retrofit2.Call<SupportCoin> call, Throwable t) {
-
+                                            Log.i(ApplicationController.TAG, "서버 연결 실패 Message : " + t.getMessage());
                                         }
                                     });
                                 }else {
