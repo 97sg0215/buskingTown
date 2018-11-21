@@ -61,6 +61,8 @@
                     android:textSize="12sp"
                     android:textColor="@color/subPink"
                     android:fontFamily="@font/kopubmedium"
+                    android:layout_marginLeft="20dp"
+                    android:paddingRight="20dp"
                     android:layout_centerInParent="true"
                     android:lineSpacingExtra="4sp"
                     android:text="공연이 취소될 경우 다른 버스커를 위해 하루 전까지 취소해주세요!
@@ -204,24 +206,6 @@
             android:lineSpacingExtra="-3.5sp"
             android:background="@color/mainPurple"
             android:layout_weight="1"
-            style="?android:attr/borderlessButtonStyle"/>
-
-        <View
-            android:layout_width="0.9dp"
-            android:layout_height="25dp"
-            android:background="#ffffff" />
-
-        <Button
-            android:id="@+id/change"
-            android:layout_width="wrap_content"
-            android:layout_height="46dp"
-            android:text="예약 변경"
-            android:fontFamily="@font/kopubbold"
-            android:layout_weight="1"
-            android:textSize="14sp"
-            android:textColor="#fff"
-            android:lineSpacingExtra="-3.5sp"
-            android:background="@color/mainPurple"
             style="?android:attr/borderlessButtonStyle"/>
 
     </LinearLayout>

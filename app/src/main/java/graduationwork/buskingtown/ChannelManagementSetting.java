@@ -117,7 +117,7 @@ public class ChannelManagementSetting extends AppCompatActivity {
         concertReservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent concert= new Intent(getApplication(),OpenConcert.class);
+                Intent concert= new Intent(getApplication(),ConcertReservationList.class);
                 startActivity(concert);
             }
         });

@@ -43,7 +43,7 @@ public class ConcertReservation extends AppCompatActivity {
         reject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent cacel = new Intent(getApplication(),LocationCancel.class);
+                Intent cacel = new Intent(getApplication(),LocationCancelConcert.class);
                 cacel.putExtra("reservation_id",reservation_id);
                 startActivity(cacel);
             }

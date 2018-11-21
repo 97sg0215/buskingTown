@@ -115,7 +115,9 @@
             android:theme="@android:style/Theme.Dialog" />
         <activity android:name=".ChannelBuskerConcertDetail" />
         <activity android:name=".ConcertReservationCheck" />
-        <activity android:name=".ConcertDatailReservation"></activity>
+        <activity android:name=".ConcertDatailReservation" />
+        <activity android:name=".LocationCancelConcert"
+            android:theme="@android:style/Theme.Dialog"/>
     </application>
 
 </manifest>
