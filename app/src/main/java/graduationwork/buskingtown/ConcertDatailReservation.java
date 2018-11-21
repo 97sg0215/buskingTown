@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.Locale;
 
 import graduationwork.buskingtown.api.RestApiService;
-import graduationwork.buskingtown.model.PracticeReservation;
+import graduationwork.buskingtown.model.ConcertReservation;
 import okhttp3.ResponseBody;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -222,13 +222,13 @@ public class ConcertDatailReservation extends AppCompatActivity {
         ArrayList<Integer> start_reservation_time = new ArrayList<>();
         ArrayList<Integer> end_reservation_time = new ArrayList<>();
 
-        retrofit2.Call<List<PracticeReservation>> getReservation = apiService.reservationCheckPractice(user_token,provide_id,provide_option_id,practice_date);
-        getReservation.enqueue(new Callback<List<PracticeReservation>>() {
+        retrofit2.Call<List<ConcertReservation>> getReservation = apiService.reservationCheckConcert(user_token,provide_id,provide_option_id,practice_date);
+        getReservation.enqueue(new Callback<List<ConcertReservation>>() {
             @SuppressLint("ResourceAsColor")
             @Override
-            public void onResponse(retrofit2.Call<List<PracticeReservation>> call, Response<List<PracticeReservation>> response) {
+            public void onResponse(retrofit2.Call<List<ConcertReservation>> call, Response<List<ConcertReservation>> response) {
                 if (response.isSuccessful()) {
-                    List<PracticeReservation> practiceReservations = response.body();
+                    List<ConcertReservation> concertReservations = response.body();
                     //대여 시간
                     String[] start_time_words = p_start_time.split(":");
                     String[] end_time_words = p_end_time.split(":");
@@ -243,7 +243,7 @@ public class ConcertDatailReservation extends AppCompatActivity {
                     String getDate = sdf.format(date);
                     int getTime = Integer.parseInt(stf.format(date));
 
-                    if (practiceReservations.size() == 0 && !practice_date.equals(getDate)) {
+                    if (concertReservations.size() == 0 && !practice_date.equals(getDate)) {
                         //오늘 날짜도 아니고 예약 목록이 하나도 없을때는 그냥 예약
                         //버튼 그리기
                         for (int start = start_time; start <= end_time - 2; start += 2) {
@@ -401,7 +401,7 @@ public class ConcertDatailReservation extends AppCompatActivity {
                                 }
                             });
                         }
-                    } else if (practiceReservations.size() == 0 && practice_date.equals(getDate)) {
+                    } else if (concertReservations.size() == 0 && practice_date.equals(getDate)) {
                         selectNoneCheck.clear();
                         //예약 된 것 없으나 오늘 날짜 일때
                         //버튼 그리기
@@ -589,7 +589,7 @@ public class ConcertDatailReservation extends AppCompatActivity {
                                 }
 
                         }
-                    } else if(practice_date.equals(getDate)&&practiceReservations.size()!=0){
+                    } else if(practice_date.equals(getDate)&&concertReservations.size()!=0){
                         selectNoneCheck.clear();
                         //오늘 날짜이고 예약 목록이 있을 때
                         //버튼 그리기
@@ -616,10 +616,10 @@ public class ConcertDatailReservation extends AppCompatActivity {
                                     }
                                 }
                             }
-                            for (int i=0; i < practiceReservations.size(); i ++){
+                            for (int i=0; i < concertReservations.size(); i ++){
                                 //end는 가져온 시간
-                                String reservation_start_time = practiceReservations.get(i).getPractice_start_time();
-                                String reservation_end_time = practiceReservations.get(i).getPractice_end_time();
+                                String reservation_start_time = concertReservations.get(i).getConcert_start_time();
+                                String reservation_end_time = concertReservations.get(i).getConcert_end_time();
                                 String[] start_reservation_words = reservation_start_time.split(":");
                                 String[] end_reservation_words = reservation_end_time.split(":");
 
@@ -811,7 +811,7 @@ public class ConcertDatailReservation extends AppCompatActivity {
 
                         }
 
-                    } else if(!practice_date.equals(getDate)&&practiceReservations.size()!=0){
+                    } else if(!practice_date.equals(getDate)&&concertReservations.size()!=0){
                         selectNoneCheck.clear();
                         //오늘 날짜는 아니나 예약 목록이 있을 때
                         //버튼 그리기
@@ -831,10 +831,10 @@ public class ConcertDatailReservation extends AppCompatActivity {
                             if (v instanceof Button) {
                                 c_time = String.valueOf(((Button) v).getText()).split(":");
                             }
-                            for (int i=0; i < practiceReservations.size(); i ++){
+                            for (int i=0; i < concertReservations.size(); i ++){
                                 //end는 가져온 시간
-                                String reservation_start_time = practiceReservations.get(i).getPractice_start_time();
-                                String reservation_end_time = practiceReservations.get(i).getPractice_end_time();
+                                String reservation_start_time = concertReservations.get(i).getConcert_start_time();
+                                String reservation_end_time = concertReservations.get(i).getConcert_end_time();
                                 String[] start_reservation_words = reservation_start_time.split(":");
                                 String[] end_reservation_words = reservation_end_time.split(":");
 
@@ -1037,7 +1037,7 @@ public class ConcertDatailReservation extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(retrofit2.Call<List<PracticeReservation>> call, Throwable t) {
+            public void onFailure(retrofit2.Call<List<ConcertReservation>> call, Throwable t) {
                 Log.i(ApplicationController.TAG, "서버 연결 실패 Message : " + t.getMessage());
             }
         });

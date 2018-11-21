@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="300dp"
-    android:layout_height="456dp"
+    android:layout_height="486dp"
     android:background="#fff"
     tools:context=".CoinSendBefore_pop">
 
@@ -66,11 +66,13 @@
         android:text="내 코인 -개"
         android:layout_below="@+id/coinLayout"
         android:layout_centerHorizontal="true"
+        android:paddingBottom="31.8dp"
         android:fontFamily="@font/kopubbold"
         android:textSize="12sp"
         android:layout_marginTop="9dp"/>
 
     <TextView
+        android:id="@+id/toBusker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="To. -"
@@ -85,7 +87,7 @@
         android:layout_height="245dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:layout_alignParentBottom="true">
+        android:layout_below="@id/coinTotal">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -119,7 +121,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.9dp"
                 android:layout_below="@+id/contentsOneUnderline"
-                android:layout_marginTop="35.7dp"
+                android:layout_marginTop="45.7dp"
                 android:background="@color/subGray" />
 
             <View
@@ -127,7 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.9dp"
                 android:layout_below="@+id/contentsTwoUnderline"
-                android:layout_marginTop="35.7dp"
+                android:layout_marginTop="45.7dp"
                 android:background="@color/subGray" />
 
             <View
@@ -135,7 +137,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.9dp"
                 android:layout_below="@+id/contentsThreeUnderline"
-                android:layout_marginTop="35.7dp"
+                android:layout_marginTop="45.7dp"
                 android:background="@color/subGray" />
 
 
