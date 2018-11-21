@@ -504,11 +504,7 @@ public class LocationLend extends AppCompatActivity {
                     Button endD = (Button)findViewById(R.id.timeED);
                     endD.setText(String.format("%d:%d", mHour, mMinute));
                     p_end_time = String.format("%d:%d:00", mHour, mMinute);
-
-                    p_end_time = getIntent().getStringExtra("p_end_time");
-                    if(p_end_time !=null){
-                        endD.setText(p_end_time);
-                    }
+                    
 
                 }
 
