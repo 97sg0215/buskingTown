@@ -40,6 +40,7 @@ import graduationwork.buskingtown.model.Connections;
 import graduationwork.buskingtown.model.LikePost;
 import graduationwork.buskingtown.model.Post;
 import graduationwork.buskingtown.model.Profile;
+import graduationwork.buskingtown.model.RoadConcert;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,9 +49,6 @@ import retrofit2.Response;
 import static graduationwork.buskingtown.api.RestApiService.API_URL;
 
 public class ChannelUser extends AppCompatActivity {
-
-    int test_schedule=5;
-    int test_concert=5;
 
     int busker_id, user_id, connection_id, busker_coin;
     String user_token, user_name, busker_team_name, busker_tag, busker_image,team_name;
@@ -85,6 +83,8 @@ public class ChannelUser extends AppCompatActivity {
 
         getLocalData();
 
+        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
         ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +95,78 @@ public class ChannelUser extends AppCompatActivity {
 
         busker_id = getIntent().getIntExtra("busker_id", busker_id);
         team_name = getIntent().getStringExtra("team_name");
+
+        final ImageButton dropdownBtn = (ImageButton) findViewById(R.id.dropdown_sch);
+        final LinearLayout scheduleBox = (LinearLayout) findViewById(R.id.addSchedule_sch);
+        Call<List<RoadConcert>> listCall = apiService.getNextReservationRoadConcert(user_token,busker_id);
+        listCall.enqueue(new Callback<List<RoadConcert>>() {
+            @Override
+            public void onResponse(Call<List<RoadConcert>> call, Response<List<RoadConcert>> response) {
+                if(response.isSuccessful()){
+                    List<RoadConcert> roadConcerts = response.body();
+                    if(roadConcerts.size()!=0){
+
+                        TextView scheduleList = (TextView) findViewById(R.id.scheduleList);
+
+                        String[] first_date_words = roadConcerts.get(0).getRoad_concert_date().split("-");
+                        String first_date = first_date_words[1] + "." +first_date_words[2];
+
+                        String[] first_start_time_words = roadConcerts.get(0).getRoad_concert_start_time().split(":");
+                        String[] first_end_time_words = roadConcerts.get(0).getRoad_concert_end_time().split(":");
+                        String first_start_time = first_start_time_words[0] + ":" +first_start_time_words[1];
+                        String first_end_time = first_end_time_words[0] + ":" +first_end_time_words[1];
+
+                        String setting_txt = first_date +" "+roadConcerts.get(0).getRoad_name() +" "+ first_start_time + "~"+ first_end_time;
+
+                        if(setting_txt.length()>50){
+                            scheduleList.setText(setting_txt.substring(0,24)+"...");
+                        }else {
+                            scheduleList.setText(setting_txt);
+                        }
+
+                        if(roadConcerts.size()>1){
+                            dropdownBtn.setVisibility(View.VISIBLE);
+
+                            dropdownBtn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v){
+                                    dropdownBtn.setVisibility(View.GONE);
+                                    for(int i=1;i<roadConcerts.size();i++){
+                                        View list = inflater.inflate(R.layout.schedule_list,scheduleBox,false);
+
+                                        String[] date_words = roadConcerts.get(i).getRoad_concert_date().split("-");
+                                        String date = date_words [1] + "." +date_words [2];
+
+                                        String[] start_time_words = roadConcerts.get(i).getRoad_concert_start_time().split(":");
+                                        String[] end_time_words = roadConcerts.get(i).getRoad_concert_end_time().split(":");
+                                        String start_time = start_time_words[0] + ":" +start_time_words[1];
+                                        String end_time = end_time_words[0] + ":" +end_time_words[1];
+
+                                        String setting_txt = roadConcerts.get(i).getRoad_name() +" "+ start_time + "~"+ end_time;
+
+                                        TextView dateSe = (TextView) list.findViewById(R.id.dateSe);
+                                        TextView scheduleListtxt = (TextView) list.findViewById(R.id.scheduleList);
+
+                                        dateSe.setText(date);
+                                        scheduleListtxt.setText(setting_txt);
+
+                                        if(list.getParent()!= null)
+                                            ((ViewGroup)list.getParent()).removeView(list);
+                                        scheduleBox.addView(list);
+
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<RoadConcert>> call, Throwable t) {
+
+            }
+        });
 
         final Busker[] busker = {new Busker()};
         retrofit2.Call<Busker> buskerDetail = apiService.buskerDetail(user_token,busker_id);
@@ -165,15 +237,6 @@ public class ChannelUser extends AppCompatActivity {
         tag = (TextView) findViewById(R.id.tag);
         busker_main_image = (ImageView) findViewById(R.id.profilebig);
         following_btn = (Button) findViewById(R.id.fan_on);
-
-
-        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        for (int scheduleCount=0; scheduleCount<test_schedule; scheduleCount++) {
-            addSchedule(inflater);
-        }
-        for (int scheduleCount=0; scheduleCount<test_concert; scheduleCount++) {
-            addConcert(inflater);
-        }
 
 
         //포스팅
@@ -502,47 +565,6 @@ public class ChannelUser extends AppCompatActivity {
 
             }
         });
-    }
-
-    public void addSchedule(final LayoutInflater inflater){
-        final LinearLayout scheduleBox = (LinearLayout) findViewById(R.id.addSchedule);
-        final ImageButton dropdownBtn = (ImageButton) findViewById(R.id.dropdown);
-        if (test_schedule > 1 ){
-            dropdownBtn.setVisibility(View.VISIBLE);
-            View list = inflater.inflate(R.layout.schedule_list,scheduleBox,false);
-            if(list.getParent()!= null)
-                ((ViewGroup)list.getParent()).removeView(list);
-            scheduleBox.addView(list);
-            scheduleBox.setVisibility(View.GONE);
-            dropdownBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    scheduleBox.setVisibility(View.VISIBLE);
-                    dropdownBtn.setBackground(getDrawable(R.drawable.more));
-                }
-            });
-        }
-    }
-
-    public void addConcert(final LayoutInflater inflater){
-        final LinearLayout concertBox = (LinearLayout) findViewById(R.id.addConcert);
-        final ImageButton dropdownBtn2 = (ImageButton) findViewById(R.id.dropdown2);
-        if(test_concert > 1){
-            dropdownBtn2.setVisibility(View.VISIBLE);
-            View list = inflater.inflate(R.layout.concert_list,concertBox,false);
-            if(list.getParent()!=null)
-                ((ViewGroup)list.getParent()).removeView(list);
-            concertBox.addView(list);
-            concertBox.setVisibility(View.GONE);
-            dropdownBtn2.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    concertBox.setVisibility(View.VISIBLE);
-                    dropdownBtn2.setBackground(getDrawable(R.drawable.more));
-                }
-            });
-        }
     }
 
     //user데이터 얻어오기
