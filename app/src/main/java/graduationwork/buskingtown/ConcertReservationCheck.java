@@ -26,7 +26,7 @@ import javax.mail.MessagingException;
 import javax.mail.SendFailedException;
 
 import graduationwork.buskingtown.api.RestApiService;
-import graduationwork.buskingtown.model.PracticeReservation;
+import graduationwork.buskingtown.model.ConcertReservation;
 import okhttp3.ResponseBody;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -127,14 +127,14 @@ public class ConcertReservationCheck extends AppCompatActivity {
 
     public void reservation(int provide_id,int provide_option, String date,String start_time,String end_time, int fee){
 
-        PracticeReservation practiceReservation = new PracticeReservation();
-        practiceReservation.setBusker(busker_id);
-        practiceReservation.setProvide(provide_id);
-        practiceReservation.setProvide_option(provide_option);
-        practiceReservation.setPractice_date(date);
-        practiceReservation.setPractice_start_time(start_time);
-        practiceReservation.setPractice_end_time(end_time);
-        practiceReservation.setPractice_fee(fee);
+        ConcertReservation ConcertReservation = new ConcertReservation();
+        ConcertReservation.setBusker(busker_id);
+        ConcertReservation.setProvide(provide_id);
+        ConcertReservation.setProvide_option(provide_option);
+        ConcertReservation.setConcert_date(date);
+        ConcertReservation.setConcert_start_time(start_time);
+        ConcertReservation.setConcert_end_time(end_time);
+        ConcertReservation.setConcert_fee(fee);
 
         total_message = "콘서트명: " + provide_name + "\n"
                 +"옵션명: " + option_name + "\n"
@@ -145,10 +145,10 @@ public class ConcertReservationCheck extends AppCompatActivity {
                 +"예약자번호: " +  phone + "\n"
                 +"예약자이메일: " + email +"\n";
 
-        retrofit2.Call<PracticeReservation> reservationCall = apiService.reservationPractice(user_token, practiceReservation);
-        reservationCall.enqueue(new Callback<PracticeReservation>() {
+        retrofit2.Call<ConcertReservation> reservationCall = apiService.reservationConcert(user_token, ConcertReservation);
+        reservationCall.enqueue(new Callback<ConcertReservation>() {
             @Override
-            public void onResponse(retrofit2.Call<PracticeReservation> call, Response<PracticeReservation> response) {
+            public void onResponse(retrofit2.Call<ConcertReservation> call, Response<ConcertReservation> response) {
                 if(response.isSuccessful()){
                     Log.i(ApplicationController.TAG, "예약 성공");
                     Intent intent = new Intent(getApplication(), ChannelBusker.class);
@@ -168,7 +168,7 @@ public class ConcertReservationCheck extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(retrofit2.Call<PracticeReservation> call, Throwable t) { }
+            public void onFailure(retrofit2.Call<ConcertReservation> call, Throwable t) { }
         });
 
     }
