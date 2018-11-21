@@ -25,6 +25,7 @@ import java.util.List;
 
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.Busker;
+import graduationwork.buskingtown.model.Connections;
 import okhttp3.ResponseBody;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,12 +49,21 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
     TextView mainTeamName,subTeamName,tag;
     ImageView busker_main_img;
 
+    TextView smileCount,coinAmount;
+
     android.support.design.widget.FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_channel_busker);
+
+        restApiBuilder();
+
+        getLocalData();
+
+        smileCount = (TextView) findViewById(R.id.smileCount);
+        coinAmount = (TextView) findViewById(R.id.coinAmount);
 
         RelativeLayout dotLayout = (RelativeLayout) findViewById(R.id.dotLayout);
         dotLayout.setOnClickListener(new RelativeLayout.OnClickListener() {
@@ -67,10 +77,6 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
         //로딩코드
         CheckTypesTask task = new CheckTypesTask();
         task.execute();
-
-        restApiBuilder();
-
-        getLocalData();
 
         fab = (android.support.design.widget.FloatingActionButton) findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -172,15 +178,36 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
             @Override
             public void onResponse(retrofit2.Call<List<Busker>> call, Response<List<Busker>> response) {
                 if(response.isSuccessful()){
-                    int busker_id = response.body().get(0).getBusker_id();
+                    busker_id = response.body().get(0).getBusker_id();
                     String busker_team_name = response.body().get(0).getTeam_name();
                     String busker_tag = response.body().get(0).getBusker_tag();
                     mainTeamName.setText(busker_team_name);
                     subTeamName.setText(busker_team_name);
                     tag.setText(busker_tag);
+                    coinAmount.setText(String.valueOf(response.body().get(0).getReceived_coin())+"개");
                     //이미지 원형 처리
                     Picasso.with(getApplication()).load(response.body().get(0).getBusker_image()).transform(new CircleTransForm()).into(busker_main_img);
                     saveBuskerInfo(busker_id,busker_team_name,busker_tag);
+
+                    //정보 세팅
+                    retrofit2.Call<List<Connections>> call2 = apiService.get_followers(user_token,busker_id);
+                    call2.enqueue(new Callback<List<Connections>>() {
+                        @Override
+                        public void onResponse(retrofit2.Call<List<Connections>> call, Response<List<Connections>> response) {
+                            if(response.isSuccessful()){
+                                List<Connections> connections = response.body();
+                                if(connections.size()!=0){
+                                    smileCount.setText(String.valueOf(connections.size())+"명");
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(retrofit2.Call<List<Connections>> call, Throwable t) {
+
+                        }
+                    });
+
                 }else {
                     int StatusCode = response.code();
                     String s = response.message();

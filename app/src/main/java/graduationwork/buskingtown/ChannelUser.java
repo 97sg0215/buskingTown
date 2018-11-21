@@ -56,7 +56,7 @@ public class ChannelUser extends AppCompatActivity {
     String user_token, user_name, busker_team_name, busker_tag, busker_image,team_name;
 
     //버스커 정보 세팅
-    TextView mainTeamName, subTeamName, tag;
+    TextView mainTeamName, subTeamName, tag, smileCount;
     ImageView busker_main_image;
 
     Button following_btn;
@@ -93,7 +93,6 @@ public class ChannelUser extends AppCompatActivity {
         });
 
 
-
         busker_id = getIntent().getIntExtra("busker_id", busker_id);
         team_name = getIntent().getStringExtra("team_name");
 
@@ -125,6 +124,26 @@ public class ChannelUser extends AppCompatActivity {
             @Override
             public void onFailure(retrofit2.Call<Busker> call, Throwable t) {
                 Log.i(ApplicationController.TAG, "유저 정보 서버 연결 실패 Message : " + t.getMessage());
+            }
+        });
+
+        smileCount = (TextView) findViewById(R.id.smileCount);
+        //정보 세팅
+        retrofit2.Call<List<Connections>> call2 = apiService.get_followers(user_token,busker_id);
+        call2.enqueue(new Callback<List<Connections>>() {
+            @Override
+            public void onResponse(retrofit2.Call<List<Connections>> call, Response<List<Connections>> response) {
+                if(response.isSuccessful()){
+                    List<Connections> connections = response.body();
+                    if(connections.size()!=0){
+                        smileCount.setText(String.valueOf(connections.size())+"명");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<List<Connections>> call, Throwable t) {
+
             }
         });
 

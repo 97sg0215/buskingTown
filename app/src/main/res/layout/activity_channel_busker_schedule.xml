@@ -77,7 +77,8 @@
             android:id="@+id/concert"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:layout_below="@+id/addSchedule">
+            android:layout_below="@+id/addSchedule"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/ticket"

@@ -171,7 +171,8 @@
                         android:layout_marginLeft="15.5dp"
                         android:layout_centerHorizontal="true"
                         android:layout_toRightOf="@+id/myCoint"
-                        android:background="@color/subGray" />
+                        android:background="@color/subGray"
+                        android:visibility="gone"/>
 
                     <ImageView
                         android:id="@+id/chart"
@@ -179,7 +180,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="15dp"
-                        android:src="@drawable/chart"/>
+                        android:src="@drawable/chart"
+                        android:visibility="gone"/>
 
                     <TextView
                         android:id="@+id/chartRank"
@@ -191,7 +193,8 @@
                         android:lineSpacingExtra="1sp"
                         android:text="-  위"
                         android:textColor="@color/fontBlack"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:visibility="gone"/>
 
                 </LinearLayout>
 

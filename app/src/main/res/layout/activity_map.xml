@@ -80,7 +80,8 @@
         android:layout_width="match_parent"
         android:layout_height="48.5dp"
         android:orientation="horizontal"
-        android:layout_below="@+id/searchLoca">
+        android:layout_below="@+id/searchLoca"
+        android:visibility="gone">
 
         <RelativeLayout
             android:id="@+id/mapsearchTab"

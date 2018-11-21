@@ -79,6 +79,9 @@ public class Ranking extends Fragment implements SwipeRefreshLayout.OnRefreshLis
 
     SwipeRefreshLayout mSwipeRefreshLayout;
 
+    ImageView buskerImage;
+    TextView buskerId,buskerTag;
+
     public Ranking() {
         // Required empty public constructor
     }
@@ -110,6 +113,10 @@ public class Ranking extends Fragment implements SwipeRefreshLayout.OnRefreshLis
         final View dayBar = (View) v.findViewById(R.id.dayRankingBar);
         final View weekBar = (View) v.findViewById(R.id.weekRankingBar);
         final View monthBar = (View) v.findViewById(R.id.monthRankingBar);
+
+        buskerId = (TextView) v.findViewById(R.id.buskerId);
+        buskerTag = (TextView) v.findViewById(R.id.buskerTag);
+        buskerImage = (ImageView) v.findViewById(R.id.buskerImage);
 
 
 //        busker_rank_list = (FrameLayout)v.findViewById(R.id.buskerrankingContainer);
@@ -180,7 +187,6 @@ public class Ranking extends Fragment implements SwipeRefreshLayout.OnRefreshLis
         busker_image_bitmap = new ArrayList<>();
 
 
-
             Call<List<Busker>> get_busker_rank = apiService.get_ranker(user_token);
             get_busker_rank.enqueue(new Callback<List<Busker>>() {
                 @Override
@@ -204,6 +210,16 @@ public class Ranking extends Fragment implements SwipeRefreshLayout.OnRefreshLis
                             //리스트 아이템(정보, 아래에 class객체 선언 해둠)에 정보를 받아와 세팅함 , 수경이 할것(테스트할때 임시데이터를 넣어서 해주세요)
                             listItems.add(new RankListItem(rank,busker_team_name.get(i),busker_tag.get(i), busker_image_bitmap.get(i), busker_id.get(i)));
                         }
+                        //임시
+                        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+                        if (SDK_INT > 8) {
+                            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                                    .permitAll().build();
+                            StrictMode.setThreadPolicy(policy);
+                            buskerImage.setImageBitmap(getBitmapFromURL(busker_image.get(5)));
+                        }
+                        buskerId.setText(busker.get(5).getBusker_name());
+                        buskerTag.setText(busker.get(5).getBusker_tag());
                         //화면 리스트 뷰에 정보들이 들어가있는 어댑터를 연결함
                         listView.setAdapter(mAdapter);
                     }else {
