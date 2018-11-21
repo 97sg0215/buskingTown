@@ -148,6 +148,8 @@ public class ChannelBuskerConcert extends Fragment {
                                     detail.putExtra("provide_start_time",concertList.get(finalI).getProvide_start_time());
                                     detail.putExtra("provide_end_time",concertList.get(finalI).getProvide_end_time());
                                     detail.putExtra("provide_rule",concertList.get(finalI).getProvide_rule());
+                                    detail.putExtra("provide_lon",concertList.get(finalI).getProvide_lon());
+                                    detail.putExtra("provide_lat",concertList.get(finalI).getProvide_lat());
                                     startActivity(detail);
                                 }
                             });

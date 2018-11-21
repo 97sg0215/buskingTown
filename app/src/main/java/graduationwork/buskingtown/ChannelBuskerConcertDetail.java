@@ -74,6 +74,8 @@ public class ChannelBuskerConcertDetail extends AppCompatActivity {
     String choice_option_price;
     String choice_option_name;
     Integer choice_option;
+    double p_lon;
+    double p_lat;
 
     int user_id, p_id;
 
@@ -136,7 +138,6 @@ public class ChannelBuskerConcertDetail extends AppCompatActivity {
     private static final String LOG_TAG = "NMapViewer";
     private static final boolean DEBUG = false;
 
-    private static final NGeoPoint NMAP_LOCATION_DEFAULT = new NGeoPoint(126.978371, 37.5666091);
     private static final int NMAP_ZOOMLEVEL_DEFAULT = 11;
     private static final int NMAP_VIEW_MODE_DEFAULT = NMapView.VIEW_MODE_VECTOR;
     private static final boolean NMAP_TRAFFIC_MODE_DEFAULT = false;
@@ -151,7 +152,6 @@ public class ChannelBuskerConcertDetail extends AppCompatActivity {
 
     private SharedPreferences mPreferences;
 
-    String addr = "사근동 208-2";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,6 +175,9 @@ public class ChannelBuskerConcertDetail extends AppCompatActivity {
         p_start_time = getIntent().getStringExtra("provide_start_time");
         p_end_time = getIntent().getStringExtra("provide_end_time");
         p_email = getIntent().getStringExtra("provide_email");
+
+        p_lon = getIntent().getDoubleExtra("provide_lon",0);
+        p_lat = getIntent().getDoubleExtra("provide_lat",0);
 
         location_image = (ImageView) findViewById(R.id.concertImage);
         optionRadioGroup = (RadioGroup) findViewById(R.id.optionRadioGroup);
@@ -390,6 +393,8 @@ public class ChannelBuskerConcertDetail extends AppCompatActivity {
     private void restoreInstanceState() {
         mPreferences = getPreferences(MODE_PRIVATE);
 
+        NGeoPoint NMAP_LOCATION_DEFAULT = new NGeoPoint(p_lon, p_lat);
+
         int longitudeE6 = mPreferences.getInt(KEY_CENTER_LONGITUDE, NMAP_LOCATION_DEFAULT.getLongitudeE6());
         int latitudeE6 = mPreferences.getInt(KEY_CENTER_LATITUDE, NMAP_LOCATION_DEFAULT.getLatitudeE6());
         int level = mPreferences.getInt(KEY_ZOOM_LEVEL, NMAP_ZOOMLEVEL_DEFAULT);
@@ -588,9 +593,7 @@ public class ChannelBuskerConcertDetail extends AppCompatActivity {
         // set POI data
         NMapPOIdata poiData = new NMapPOIdata(1, mMapViewerResourceProvider);
         poiData.beginPOIdata(1);
-        double lat = findGeoPoint(this,addr).getLatitude();
-        double lon = findGeoPoint(this,addr).getLongitude();
-        poiData.addPOIitem(126.973952085586000000000000000000, 37.560568465589700000000000000000, "스페이스연습실", markerId, 0);
+        poiData.addPOIitem(p_lon, p_lat, p_name, markerId, 0);
         poiData.endPOIdata();
 
         // create POI data overlay
