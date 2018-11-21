@@ -137,6 +137,10 @@ public class LocationLend extends AppCompatActivity {
 
         //데이트 피커
         concertSD = (Button) findViewById(R.id.concertSD);
+        p_start_date = getIntent().getStringExtra("p_start_date");
+        if(p_start_date !=null){
+            concertSD.setText(p_start_date);
+        }
         concertSD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -162,6 +166,10 @@ public class LocationLend extends AppCompatActivity {
 
 
         concertED = (Button) findViewById(R.id.concertED);
+        p_end_date = getIntent().getStringExtra("p_end_date");
+        if(p_end_date !=null){
+            concertED.setText(p_end_date);
+        }
         concertED.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -187,6 +195,8 @@ public class LocationLend extends AppCompatActivity {
 
         //수경이 코드
         location_image = (ImageView) findViewById(R.id.imageChoice);
+
+
         location_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -203,6 +213,14 @@ public class LocationLend extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent locationSearch = new Intent(getApplicationContext(), LocationSearch.class);
+                locationSearch.putExtra("p_phone", p_phone);
+                locationSearch.putExtra("p_email", p_email);
+                locationSearch.putExtra("p_start_date", p_start_date);
+                locationSearch.putExtra("p_end_date", p_end_date);
+                locationSearch.putExtra("p_start_time", p_start_time);
+                locationSearch.putExtra("p_end_time", p_end_time);
+
+
                 startActivity(locationSearch);
             }
         });
@@ -210,16 +228,41 @@ public class LocationLend extends AppCompatActivity {
         addressChoice = (TextView) findViewById(R.id.addressChoice);
 
         location_name = getIntent().getStringExtra("location_name");
-        location_detail = getIntent().getStringExtra("location_detail");
-        p_lon = getIntent().getDoubleExtra("p_lon",0);
-        p_lat = getIntent().getDoubleExtra("p_lat",0);
         if(location_name!=null){
             Log.e("장소이름", String.valueOf(location_name));
             addressChoice.setText(location_name+ " " +location_detail);
         }
 
+        location_detail = getIntent().getStringExtra("location_detail");
+        p_lon = getIntent().getDoubleExtra("p_lon",0);
+        p_lat = getIntent().getDoubleExtra("p_lat",0);
+
+
+        Button startD = (Button)findViewById(R.id.timeSD);
+        p_start_time = getIntent().getStringExtra("p_start_time");
+        if(p_start_time !=null){
+            startD.setText(p_start_time);
+        }
+
+        Button endD = (Button)findViewById(R.id.timeED);
+        p_end_time = getIntent().getStringExtra("p_end_time");
+        if(p_end_time !=null){
+            endD.setText(p_end_time);
+        }
+
+
         provider_phone = (EditText) findViewById(R.id.provider_phone);
+
+        p_phone = getIntent().getStringExtra("p_phone");
+        if(p_phone !=null){
+            provider_phone.setText(p_phone);
+        }
+
         provider_email = (EditText) findViewById(R.id.provider_email);
+        p_email = getIntent().getStringExtra("p_email");
+        if(p_email !=null){
+            provider_email.setText(p_email);
+        }
         option_name = (EditText) findViewById(R.id.provide_option);
         option_price = (EditText) findViewById(R.id.option_price);
 
@@ -239,6 +282,10 @@ public class LocationLend extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 p_phone = provider_phone.getText().toString();
+
+
+
+
             }
         });
 
@@ -439,6 +486,10 @@ public class LocationLend extends AppCompatActivity {
                     Button startD = (Button)findViewById(R.id.timeSD);
                     startD.setText(String.format("%d:%d", mHour, mMinute));
                     p_start_time = String.format("%d:%d:00", mHour, mMinute);
+
+
+
+
                 }
             };
 
@@ -456,6 +507,12 @@ public class LocationLend extends AppCompatActivity {
                     Button endD = (Button)findViewById(R.id.timeED);
                     endD.setText(String.format("%d:%d", mHour, mMinute));
                     p_end_time = String.format("%d:%d:00", mHour, mMinute);
+
+                    p_end_time = getIntent().getStringExtra("p_end_time");
+                    if(p_end_time !=null){
+                        endD.setText(p_end_time);
+                    }
+
                 }
 
             };

@@ -57,7 +57,7 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
     private EditText locationSearch, addressIn;
 
     Button choiceBtn;
-    String location_name, location_detail;
+    String location_name, location_detail, p_phone, p_email, p_start_date, p_end_date, p_start_time, p_end_time ;
     double lon, lat;
 
     @Override
@@ -351,6 +351,7 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
 
     };
 
+
     public void choiceBtn(String l_name,String l_detail, double lon, double lat) {
         //확인 버튼 변수
         final Button choiceBtn = (Button) findViewById(R.id.choiceBtn);
@@ -359,14 +360,30 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), LocationLend.class);
+
+                p_phone = getIntent().getStringExtra("p_phone");
+                p_email = getIntent().getStringExtra("p_email");
+                p_start_date = getIntent().getStringExtra("p_start_date");
+                p_end_date = getIntent().getStringExtra("p_end_date");
+                p_start_time = getIntent().getStringExtra("p_start_time");
+                p_end_time = getIntent().getStringExtra("p_end_time");
+
+
                 intent.putExtra("location_name", l_name);
                 intent.putExtra("location_detail", l_detail);
                 intent.putExtra("lon", lon);
                 intent.putExtra("lat", lat);
+                intent.putExtra("p_phone", p_phone);
+                intent.putExtra("p_email", p_email);
+                intent.putExtra("p_start_date", p_start_date);
+                intent.putExtra("p_end_date", p_end_date);
+                intent.putExtra("p_start_time", p_start_time);
+                intent.putExtra("p_end_time", p_end_time);
 
                 Log.e("장소이름", String.valueOf(l_name));
                 Log.e("lon", String.valueOf(lon));
                 Log.e("lat", String.valueOf(lat));
+                Log.e("전화번호", String.valueOf(p_phone));
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
