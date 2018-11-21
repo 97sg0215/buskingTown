@@ -210,8 +210,8 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
 
             findPlacemarkAtLocation(point.longitude, point.latitude);
 
-            lon = point.longitude;
-            lat = point.latitude;
+            lat = point.longitude;
+            lon = point.latitude;
 
             item.setTitle(null);
 

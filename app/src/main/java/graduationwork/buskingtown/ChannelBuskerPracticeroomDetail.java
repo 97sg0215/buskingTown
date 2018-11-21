@@ -184,8 +184,11 @@ public class ChannelBuskerPracticeroomDetail extends AppCompatActivity {
         p_start_time = getIntent().getStringExtra("provide_start_time");
         p_end_time = getIntent().getStringExtra("provide_end_time");
         p_email = getIntent().getStringExtra("provide_email");
-        p_lat = getIntent().getDoubleExtra("provide_lat",0);
+
         p_lon = getIntent().getDoubleExtra("provide_lon",0);
+        p_lat = getIntent().getDoubleExtra("provide_lat",0);
+
+        Log.e("위도",String.valueOf(p_lat));
 
 
         location_image = (ImageView) findViewById(R.id.practiceRoomImage);

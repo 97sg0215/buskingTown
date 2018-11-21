@@ -1,19 +1,25 @@
 package graduationwork.buskingtown;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Date;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.Message;
+import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 
 public class GMailSender extends javax.mail.Authenticator {
@@ -65,11 +71,39 @@ public class GMailSender extends javax.mail.Authenticator {
     }
 
     public synchronized void sendMail(String subject, String body, String recipients) throws Exception {
+
         MimeMessage message = new MimeMessage(session);
         DataHandler handler = new DataHandler(new ByteArrayDataSource(body.getBytes(), "text/plain")); //본문 내용을 byte단위로 쪼개어 전달
         message.setSender(new InternetAddress(user));  //본인 이메일 설정
         message.setSubject(subject); //해당 이메일의 본문 설정
         message.setDataHandler(handler);
+        if (recipients.indexOf(',') > 0)
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
+        else
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipients));
+        Transport.send(message); //메시지 전달
+    }
+
+    public synchronized void sendMailWithFile(String subject, String body, String recipients,String filePath, String fileName) throws Exception {
+        MimeMessage message = new MimeMessage(session);
+        message.setContent(body,"text/plain");
+        DataHandler handler = new DataHandler(new ByteArrayDataSource(body.getBytes(), "text/plain")); //본문 내용을 byte단위로 쪼개어 전달
+        message.setSender(new InternetAddress(user));  //본인 이메일 설정
+        message.setSubject(subject);
+        message.setSentDate(new Date());
+
+        //첨부파일
+        MimeBodyPart attachPart = new MimeBodyPart();
+        attachPart.setDataHandler(new DataHandler(new FileDataSource(new File(filePath))));
+        MimeMultipart multipart = new MimeMultipart();
+        multipart.addBodyPart(attachPart);
+
+        message.setContent(multipart);
+        message.setFileName(fileName);
+
+         //해당 이메일의 본문 설정
+     //   message.setDataHandler(handler);
+
         if (recipients.indexOf(',') > 0)
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
         else

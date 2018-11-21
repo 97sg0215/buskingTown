@@ -228,14 +228,20 @@ public class LocationLend extends AppCompatActivity {
         addressChoice = (TextView) findViewById(R.id.addressChoice);
 
         location_name = getIntent().getStringExtra("location_name");
-        if(location_name!=null){
-            Log.e("장소이름", String.valueOf(location_name));
-            addressChoice.setText(location_name+ " " +location_detail);
-        }
-
         location_detail = getIntent().getStringExtra("location_detail");
         p_lon = getIntent().getDoubleExtra("p_lon",0);
         p_lat = getIntent().getDoubleExtra("p_lat",0);
+        if(location_name!=null){
+            Log.e("장소이름", String.valueOf(location_name));
+            Log.e("lon", String.valueOf(p_lon));
+            Log.e("lat", String.valueOf(p_lat));
+            addressChoice.setText(location_name+ " " +location_detail);
+        }
+
+        provider_phone = (EditText) findViewById(R.id.provider_phone);
+        provider_email = (EditText) findViewById(R.id.provider_email);
+        option_name = (EditText) findViewById(R.id.provide_option);
+        option_price = (EditText) findViewById(R.id.option_price);
 
 
         Button startD = (Button)findViewById(R.id.timeSD);
@@ -250,7 +256,6 @@ public class LocationLend extends AppCompatActivity {
             endD.setText(p_end_time);
         }
 
-
         provider_phone = (EditText) findViewById(R.id.provider_phone);
 
         p_phone = getIntent().getStringExtra("p_phone");
@@ -263,8 +268,6 @@ public class LocationLend extends AppCompatActivity {
         if(p_email !=null){
             provider_email.setText(p_email);
         }
-        option_name = (EditText) findViewById(R.id.provide_option);
-        option_price = (EditText) findViewById(R.id.option_price);
 
         provider_phone.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
@@ -282,10 +285,6 @@ public class LocationLend extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 p_phone = provider_phone.getText().toString();
-
-
-
-
             }
         });
 
@@ -320,7 +319,6 @@ public class LocationLend extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 o_name = option_name.getText().toString();
-                option_name_list.add(o_name);
             }
         });
 
@@ -338,7 +336,6 @@ public class LocationLend extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 o_price = option_price.getText().toString();
-                option_price_list.add(o_price);
             }
         });
 
@@ -432,6 +429,9 @@ public class LocationLend extends AppCompatActivity {
                     p_type = 2;
                 }
 
+                option_name_list.add(o_name);
+                option_price_list.add(o_price);
+
                 if (optionContainer != null) {
                    for (int i = 0; i < optionContainer.getChildCount(); i++) {
                         optionListChild.add(optionContainer.getChildAt(i));
@@ -486,9 +486,6 @@ public class LocationLend extends AppCompatActivity {
                     Button startD = (Button)findViewById(R.id.timeSD);
                     startD.setText(String.format("%d:%d", mHour, mMinute));
                     p_start_time = String.format("%d:%d:00", mHour, mMinute);
-
-
-
 
                 }
             };
@@ -617,6 +614,8 @@ public class LocationLend extends AppCompatActivity {
                     for (int i=0;i < op_name_list.size(); i++){
                         rent_option(response.body().getProvide_id(),op_name_list.get(i),op_price_list.get(i));
                     }
+                    op_name_list.clear();
+                    op_price_list.clear();
                     Intent provide_list = new Intent(getApplicationContext(),LocationLendStart.class);
                     startActivity(provide_list);
                     finish();

@@ -182,6 +182,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/fileAdd"
                     android:layout_width="match_parent"
                     android:layout_height="75dp">
 
@@ -194,7 +195,7 @@
                         android:lineSpacingExtra="23sp"
                         android:text="이미지 첨부" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/imageaddHint"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

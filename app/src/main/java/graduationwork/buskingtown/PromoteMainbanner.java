@@ -1,9 +1,15 @@
 package graduationwork.buskingtown;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.MediaStore;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,17 +21,27 @@ import android.support.v4.app.Fragment;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.SendFailedException;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMultipart;
 
 public class PromoteMainbanner extends Fragment {
 
@@ -35,11 +51,16 @@ public class PromoteMainbanner extends Fragment {
 
     String team_name, phone, user_email, date, total_message, content, requriement;
 
-    TextView publicDateHint;
+    TextView publicDateHint,imageaddHint;
     SimpleDateFormat simpleDateFormat;
     int promoteYear, promoteMonth, promoteDay, mHour, mMinute;
-    RelativeLayout dateImgLayout;
+    RelativeLayout dateImgLayout, fileAdd;
     String p_date;
+
+    private Uri mImageCaptureUri;
+    String real_album_path;
+
+    final int REQ_CODE_SELECT_IMAGE=100;
 
     public PromoteMainbanner(){
         // Required empty public constructor
@@ -74,7 +95,7 @@ public class PromoteMainbanner extends Fragment {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int date) {
                         publicDateHint.setText(year + "년 " + (month + 1) + "월 " + date + "일");
-                        String p_start_date = String.valueOf(year+"-"+(month+1)+"-"+date);
+                        p_date = String.valueOf(year+"-"+(month+1)+"-"+date);
                     }
                 }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
                 dialog.getDatePicker().setMinDate(new Date().getTime());    //입력한 날짜 이후로 클릭 안되게 옵션
@@ -88,12 +109,25 @@ public class PromoteMainbanner extends Fragment {
                 .permitDiskWrites()
                 .permitNetwork().build());
 
-        //email = (EditText) v.findViewById(R.id.emailHint); //받는 사람의 이메일
         message = (EditText) v.findViewById(R.id.teamNameHint); //본문 내용
         phone_hint = (EditText) v.findViewById(R.id.phoneNumberHint);
         email_hint = (EditText) v.findViewById(R.id.emailHint);
         content_hint = (EditText)v.findViewById(R.id.publicContentHint);
         requriement_hint = (EditText)v.findViewById(R.id.requriementHint);
+        fileAdd = (RelativeLayout) v.findViewById(R.id.fileAdd);
+
+        fileAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //갤러리 열기
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
+                intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
+            }
+        });
+
+        imageaddHint = (TextView) v.findViewById(R.id.imageaddHint);
 
         message.addTextChangedListener(new TextWatcher() {
             @Override
@@ -182,12 +216,6 @@ public class PromoteMainbanner extends Fragment {
             }
         });
 
-
-        total_message = "팀 이름: "+ team_name+"\n"
-                +"신청인 휴대폰: " + phone+"\n"
-                +"신청인 이메일: " + user_email+"\n"
-                +"신청 날짜: " ;
-
         paymentBtn = (Button) v.findViewById(R.id.paymentBtn);
         paymentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,17 +226,47 @@ public class PromoteMainbanner extends Fragment {
 
         return v;
     }
+
+    // 선택된 이미지 가져오기
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == REQ_CODE_SELECT_IMAGE){
+            if(resultCode== Activity.RESULT_OK) {
+                try {
+                    mImageCaptureUri = data.getData();
+                    Log.e("SmartWheel", mImageCaptureUri.getPath().toString());
+                    real_album_path= getPath(mImageCaptureUri);
+                    Log.e("real_album_path",real_album_path);
+                    imageaddHint.setText(real_album_path);
+                } catch (Exception e) { e.printStackTrace();	}
+            }
+        }
+    }
+
+    public String getPath(Uri uri) {
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getActivity().getContentResolver().query(uri, projection, null, null, null);
+        getActivity().startManagingCursor(cursor);
+        int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(columnIndex);
+    }
+
     private class senmailAsync extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
+            total_message = "팀 이름: "+ team_name+"\n"
+                    +"신청인 휴대폰: " + phone+"\n"
+                    +"신청인 이메일: " + user_email+"\n"
+                    +"신청 날짜: "+ p_date+"\n"
+                    +"신청 내용: "+ content+"\n"
+                    +"요구 사항:" + requriement;
             try {
                 GMailSender gMailSender = new GMailSender("buskingtown2018@gmail.com", "khphTown123");
                 //GMailSender.sendMail(제목, 본문내용, 받는사람);
-                gMailSender.sendMail("추천순위 노출 신청입니다.", total_message, email);
-                Log.e("메시지",String.valueOf(message));
+                gMailSender.sendMailWithFile("추천순위 노출 신청입니다.", total_message, email, real_album_path, team_name);
                 Log.e("이메일",String.valueOf(email));
                 Log.e("이메일","이메일을 성공적으로 보냈습니다.");
-                //  Toast.makeText(getActivity().getApplicationContext(), "이메일을 성공적으로 보냈습니다.", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity().getApplicationContext(), "메인배너 홍보 신청이 완료 되었습니다!", Toast.LENGTH_SHORT).show();
             } catch (SendFailedException e) {
                 Log.e("이메일","이메일 형식이 잘못되었습니다.");
                 //   Toast.makeText(getActivity().getApplicationContext(), "이메일 형식이 잘못되었습니다.", Toast.LENGTH_SHORT).show();
@@ -221,5 +279,4 @@ public class PromoteMainbanner extends Fragment {
             return null;
         }
     }
-
 }
