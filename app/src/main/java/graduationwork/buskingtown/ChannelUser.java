@@ -227,6 +227,7 @@ public class ChannelUser extends AppCompatActivity {
                 Intent CoinSendBefore_pop = new Intent(getApplication(), CoinSendBefore_pop.class);
                 CoinSendBefore_pop.putExtra("busker_id",busker_id);
                 CoinSendBefore_pop.putExtra("busker_coin",busker_coin);
+                CoinSendBefore_pop.putExtra("busker_name",team_name);
                 startActivity(CoinSendBefore_pop);
             }
         });

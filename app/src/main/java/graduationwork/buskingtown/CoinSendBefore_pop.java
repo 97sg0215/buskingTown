@@ -33,11 +33,11 @@ import retrofit2.Response;
 public class CoinSendBefore_pop extends Activity implements View.OnClickListener{
 
     EditText coin_Count, support_message;
-    String c_Count,user_token,c_message;
+    String c_Count,user_token,c_message,busker_name;
     int busker_id,user_id,coin_amount,busker_coin_amount;
     RestApiService apiService;
     Button sendBtn;
-    TextView coinTotal;
+    TextView coinTotal,toBusker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +50,16 @@ public class CoinSendBefore_pop extends Activity implements View.OnClickListener
         getLocalData();
 
         coinTotal = (TextView) findViewById(R.id.coinTotal);
+        toBusker = (TextView) findViewById(R.id.toBusker);
 
         sendBtn = findViewById(R.id.sendBtn);
         sendBtn.setOnClickListener(null);
 
         busker_id = getIntent().getIntExtra("busker_id", 0);
         busker_coin_amount = getIntent().getIntExtra("busker_coin",0);
+        busker_name = getIntent().getStringExtra("busker_name");
+
+        toBusker.setText("To. "+busker_name);
 
         findViewById(R.id.delete).setOnClickListener(this);
 

@@ -6,8 +6,11 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -22,6 +25,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,6 +36,8 @@ import java.util.List;
 
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.Busker;
+import graduationwork.buskingtown.model.Connections;
+import graduationwork.buskingtown.model.Post;
 import graduationwork.buskingtown.model.RoadConcert;
 import graduationwork.buskingtown.model.User;
 import okhttp3.ResponseBody;
@@ -56,6 +65,7 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
     int user_id;
 
     LinearLayout top_busker_list,livebusking,goingConcert_list,buskerStory_list;
+    RelativeLayout noneBuskerStory;
 
     ImageView goingconcertImge;
 
@@ -63,6 +73,7 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
     TextView buskerId,concertInfo;
 
     ArrayList<Integer> busker_id = new ArrayList<>();
+    ArrayList<Integer> follow_busker_id = new ArrayList<>();
     ArrayList<String> busker_image = new ArrayList<>();
 
 
@@ -203,15 +214,50 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
 //            ((ViewGroup)concertlist.getParent()).removeView(concertlist);
 //        goingConcert_list.addView(concertlist);
 //
-//        //좋아하는 버스커 스토리
-//        View storylist = inflater.inflate(R.layout.buskerstory, buskerStory_list, false);
-//        if(storylist.getParent()!= null)
-//            ((ViewGroup)storylist.getParent()).removeView(storylist);
-//        buskerStory_list.addView(storylist);
+        //좋아하는 버스커 스토리
+        noneBuskerStory = (RelativeLayout) v.findViewById(R.id.noneBuskerStory);
+        follow_busker_id.clear();
+        retrofit2.Call<List<Connections>> call2 = apiService. get_followings(user_token,user_id);
+        call2.enqueue(new Callback<List<Connections>>() {
+            @Override
+            public void onResponse(retrofit2.Call<List<Connections>> call, Response<List<Connections>> response) {
+                if(response.isSuccessful()){
+                    List<Connections> connections = response.body();
+                    if(connections.size()!=0){
+                        for(int i=0; i<connections.size(); i++){
+                            follow_busker_id.add(connections.get(i).getFollowing());
+                        }
+                        followingPost(inflater,follow_busker_id);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<List<Connections>> call, Throwable t) {
+
+            }
+        });
 
 
 
         return v;
+    }
+
+    public Bitmap getBitmapFromURL(String src) {
+        HttpURLConnection connection = null;
+        try {
+            URL url = new URL(src);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input); return myBitmap;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }finally{
+            if(connection!=null)connection.disconnect();
+        }
     }
 
 
@@ -368,6 +414,70 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
                 Log.i(ApplicationController.TAG, "유저 정보 서버 연결 실패 Message : " + t.getMessage());
             }
         });
+    }
+
+    public void followingPost(LayoutInflater inflater, ArrayList<Integer> follow_busker_id){
+        if(follow_busker_id.size()!=0){
+            noneBuskerStory.setVisibility(View.GONE);
+            for(int i=0; i<follow_busker_id.size();i++){
+                Call<List<Post>> post = apiService.postList(user_token,follow_busker_id.get(i));
+                int finalI = i;
+                post.enqueue(new Callback<List<Post>>() {
+                    @Override
+                    public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                        if(response.isSuccessful()){
+                            List<Post> posts = response.body();
+                            if(posts.size()!=0){
+                                for(int p=0; p<posts.size();p++){
+                                    View storylist = inflater.inflate(R.layout.buskerstory, buskerStory_list, false);
+                                    TextView main_team_name = (TextView) storylist.findViewById(R.id.main_team_name);
+                                    TextView buskerId = (TextView) storylist.findViewById(R.id.buskerId);
+                                    TextView postWriting = (TextView) storylist.findViewById(R.id.postWriting);
+                                    ImageView profileSmall = (ImageView) storylist.findViewById(R.id.profileSmall);
+                                    ImageView postingImg = (ImageView) storylist.findViewById(R.id.postingImg);
+                                    Log.e("이미지",String.valueOf(posts.get(p).getPost_image()));
+                                    postWriting.setText(String.valueOf(posts.get(p).getContent()));
+
+                                    String postImg = "http://buskingtown.pythonanywhere.com"+ posts.get(p).getPost_image();
+                                    int SDK_INT = android.os.Build.VERSION.SDK_INT;
+                                    if (SDK_INT > 8) {
+                                        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                                                .permitAll().build();
+                                        StrictMode.setThreadPolicy(policy);
+                                        postingImg.setImageBitmap(getBitmapFromURL(postImg));
+                                        postingImg.setScaleType(ImageView.ScaleType.FIT_XY);
+                                    }
+                                    Call<Busker> buskerCall = apiService.buskerDetail(user_token,follow_busker_id.get(finalI));
+                                    buskerCall.enqueue(new Callback<Busker>() {
+                                        @Override
+                                        public void onResponse(Call<Busker> call, Response<Busker> response) {
+                                            if(response.isSuccessful()){
+                                                main_team_name.setText(String.valueOf(response.body().getTeam_name()));
+                                                buskerId.setText(String.valueOf(response.body().getTeam_name()));
+                                                Picasso.with(getContext()).load(response.body().getBusker_image()).transform(new CircleTransForm()).into(profileSmall);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<Busker> call, Throwable t) {
+
+                                        }
+                                    });
+                                    if(storylist.getParent()!= null)
+                                        ((ViewGroup)storylist.getParent()).removeView(storylist);
+                                    buskerStory_list.addView(storylist);
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Post>> call, Throwable t) {
+
+                    }
+                });
+            }
+        }
     }
 
 
