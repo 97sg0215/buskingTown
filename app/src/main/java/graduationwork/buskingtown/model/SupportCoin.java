@@ -9,6 +9,7 @@ public class SupportCoin {
     String support_message;
     String date_created;
     boolean view_check;
+    int daily_coin_amount;
 
     public int getSupportCoin_id() {
         return supportCoin_id;
@@ -72,5 +73,13 @@ public class SupportCoin {
 
     public void setView_check(boolean view_check) {
         this.view_check = view_check;
+    }
+
+    public int getDaily_coin_amount() {
+        return daily_coin_amount;
+    }
+
+    public void setDaily_coin_amount(int daily_coin_amount) {
+        this.daily_coin_amount = daily_coin_amount;
     }
 }
