@@ -96,8 +96,8 @@ public class ChannelUser extends AppCompatActivity {
         busker_id = getIntent().getIntExtra("busker_id", busker_id);
         team_name = getIntent().getStringExtra("team_name");
 
-        final ImageButton dropdownBtn = (ImageButton) findViewById(R.id.dropdown_sch);
-        final LinearLayout scheduleBox = (LinearLayout) findViewById(R.id.addSchedule_sch);
+        final ImageButton dropdownBtn = (ImageButton) findViewById(R.id.dropdown);
+        final LinearLayout scheduleBox = (LinearLayout) findViewById(R.id.addSchedule);
         Call<List<RoadConcert>> listCall = apiService.getNextReservationRoadConcert(user_token,busker_id);
         listCall.enqueue(new Callback<List<RoadConcert>>() {
             @Override
