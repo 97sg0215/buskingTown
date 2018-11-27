@@ -52,42 +52,9 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingTop="10dp">
 
-            <RelativeLayout
-                android:id="@+id/postingInfor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/posting">
-
-                <ImageButton
-                    android:id="@+id/like"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:background="#00000000"
-                    android:src="@drawable/like_s"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="10sp"
-                    android:layout_marginTop="15dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="20dp"
-                    android:textColor="@color/fontBlack"
-                    android:fontFamily="@font/kopubmedium"
-                    android:lineSpacingExtra="3sp"
-                    android:text="- likes" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/postingInfor">
 
                 <TextView
                     android:id="@+id/buskerId"
@@ -136,7 +103,6 @@
                     android:textColor="@color/fontGray"
                     android:textSize="5sp" />
 
-            </RelativeLayout>
 
         </RelativeLayout>
 

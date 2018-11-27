@@ -48,49 +48,57 @@ public class ChannelManagementSetting extends AppCompatActivity {
 
         //팀원관리
         buskerTeamLayout = (RelativeLayout) findViewById(R.id.buskerTeamLayout);
-        buskerTeamLayout.setOnClickListener(new View.OnClickListener() {
+
+
+        retrofit2.Call<List<Busker>> busker_list = apiService.all_busker(user_token);
+        busker_list.enqueue(new Callback<List<Busker>>() {
             @Override
-            public void onClick(View view) {
-                retrofit2.Call<List<Busker>> busker_list = apiService.all_busker(user_token);
-                busker_list.enqueue(new Callback<List<Busker>>() {
-                    @Override
-                    public void onResponse(retrofit2.Call<List<Busker>> call, Response<List<Busker>> response) {
-                        if(response.isSuccessful()){
-                            List<Busker> buskers = response.body();
-                            for (int i=0; i<buskers.size();i++){
-                                //본인 일 경우에도 동일하게 검색이 되므로 이중 if문으로 처리
-                                if(team_name.equals(buskers.get(i).getTeam_name())){
-                                    String member = buskers.get(i).getTeam_name();
-                                    teamList.add(member);
-                                    //버스커 멤버가 있을때
-                                    if (teamList.size()>=2){
+            public void onResponse(retrofit2.Call<List<Busker>> call, Response<List<Busker>> response) {
+                if(response.isSuccessful()){
+                    List<Busker> buskers = response.body();
+                    for (int i=0; i<buskers.size();i++){
+                        //본인 일 경우에도 동일하게 검색이 되므로 이중 if문으로 처리
+                        if(team_name.equals(buskers.get(i).getTeam_name())){
+                            String member = buskers.get(i).getTeam_name();
+                            teamList.add(member);
+                            //버스커 멤버가 있을때
+                            if (teamList.size()>=2){
+                                buskerTeamLayout.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
                                         Intent MemberManagement = new Intent(getApplication(),TeamMember.class);
                                         MemberManagement.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         startActivity(MemberManagement);
-                                    } //멤버가 없을때
-                                    else {
+                                    }
+                                });
+                            } //멤버가 없을때
+                            else {
+                                buskerTeamLayout.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
                                         Intent NoneMemberManagement = new Intent(getApplication(),MemberManagement.class);
+                                        NoneMemberManagement.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         startActivity(NoneMemberManagement);
                                     }
-                                }
+                                });
                             }
-                        }else {
-                            //에러 상태 보려고 해둔 코드
-                            int StatusCode = response.code();
-                            String s = response.message();
-                            ResponseBody d = response.errorBody();
-                            Log.i(ApplicationController.TAG, "홈 상태 Code : " + StatusCode);
-                            Log.e("메세지", s);
-                            Log.e("리스폰스에러바디", String.valueOf(d));
-                            Log.e("리스폰스바디", String.valueOf(response.body()));
                         }
                     }
+                }else {
+                    //에러 상태 보려고 해둔 코드
+                    int StatusCode = response.code();
+                    String s = response.message();
+                    ResponseBody d = response.errorBody();
+                    Log.i(ApplicationController.TAG, "홈 상태 Code : " + StatusCode);
+                    Log.e("메세지", s);
+                    Log.e("리스폰스에러바디", String.valueOf(d));
+                    Log.e("리스폰스바디", String.valueOf(response.body()));
+                }
+            }
 
-                    @Override
-                    public void onFailure(retrofit2.Call<List<Busker>> call, Throwable t) {
-                        Log.i(ApplicationController.TAG, "버스커 리스트 서버 연결 실패 Message : " + t.getMessage());
-                    }
-                });
+            @Override
+            public void onFailure(retrofit2.Call<List<Busker>> call, Throwable t) {
+                Log.i(ApplicationController.TAG, "버스커 리스트 서버 연결 실패 Message : " + t.getMessage());
             }
         });
 
