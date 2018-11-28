@@ -173,6 +173,12 @@ public class ChannelBuskerPracticeroomDetail extends AppCompatActivity {
 
         restApiBuilder();
 
+        ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { ChannelBuskerPracticeroomDetail.super.onBackPressed(); }
+        });
+
         p_id = getIntent().getIntExtra("provide_id",0);
         p_name = getIntent().getStringExtra("provide_name");
         p_info = getIntent().getStringExtra("provide_description");
@@ -398,6 +404,10 @@ public class ChannelBuskerPracticeroomDetail extends AppCompatActivity {
 
         }
     };
+
+    public void previousActivity(View v){
+        onBackPressed();
+    }
 
     /* Local Functions */
     private static boolean mIsMapEnlared = false;

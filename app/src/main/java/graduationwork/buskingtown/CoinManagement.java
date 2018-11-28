@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -53,6 +54,12 @@ public class CoinManagement extends AppCompatActivity {
         getLocalData();
 
         restApiBuilder();
+
+        ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { CoinManagement.super.onBackPressed(); }
+        });
 
         message_container = (LinearLayout) findViewById(R.id.message_container);
 
@@ -157,6 +164,10 @@ public class CoinManagement extends AppCompatActivity {
 
         SharedPreferences busker_pref = getSharedPreferences("BuskerUser", Activity.MODE_PRIVATE);
         busker_id = busker_pref.getInt("busker_id",0);
+    }
+
+    public void previousActivity(View v){
+        onBackPressed();
     }
 
     //api연결

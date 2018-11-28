@@ -48,6 +48,12 @@ public class TeamMember extends AppCompatActivity {
 
         getLocalData();
 
+        ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { TeamMember.super.onBackPressed(); }
+        });
+
         //내 프로필 보기
         ImageView myprofileimg = (ImageView) findViewById(R.id.my_profileImg);
         myprofileimg.setOnClickListener(new View.OnClickListener() {
@@ -214,7 +220,7 @@ public class TeamMember extends AppCompatActivity {
         apiService = ApplicationController.getInstance().getRestApiService();
     }
 
-    public void previousTeamActivity(View v){
+    public void previousActivity(View v){
         onBackPressed();
     }
 }

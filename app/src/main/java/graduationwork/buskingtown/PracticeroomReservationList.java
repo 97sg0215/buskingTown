@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -55,6 +56,12 @@ public class PracticeroomReservationList extends AppCompatActivity {
         listItems = new ArrayList<PracticeRoomListItem>();
         listView = (ListView) findViewById(R.id.reservationContainer);
         mAdapter = new PracticeRoomListCustom(listItems);
+
+        ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { PracticeroomReservationList.super.onBackPressed(); }
+        });
 
 
 
@@ -122,6 +129,10 @@ public class PracticeroomReservationList extends AppCompatActivity {
             this.end_time = end_time;
             this.provide_id = provide_id;
         }
+    }
+
+    public void previousActivity(View v){
+        onBackPressed();
     }
 
 

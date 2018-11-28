@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -71,6 +72,12 @@ public class BuskerCertification extends AppCompatActivity {
 
         restApiBuilder();
         getLocalData();
+
+        ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { BuskerCertification.super.onBackPressed(); }
+        });
 
         //runtime permission
         PermissionListener permissionListener= new PermissionListener() {
@@ -404,8 +411,9 @@ public class BuskerCertification extends AppCompatActivity {
         });
     }
 
-
-
+    public void previousActivity(View v){
+        onBackPressed();
+    }
 
     public void getLocalData(){
         SharedPreferences pref = getSharedPreferences("User", Activity.MODE_PRIVATE);

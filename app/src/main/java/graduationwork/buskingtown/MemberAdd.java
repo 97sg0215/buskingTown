@@ -60,6 +60,12 @@ public class MemberAdd extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_add);
 
+        ImageButton backBtn = (ImageButton) findViewById(R.id.clearBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { MemberAdd.super.onBackPressed(); }
+        });
+
         getLocalData();
 
         restApiBuilder();
@@ -127,6 +133,10 @@ public class MemberAdd extends AppCompatActivity {
 
 
 
+    }
+
+    public void previousActivity(View v){
+        onBackPressed();
     }
 
     // 검색을 수행하는 메소드

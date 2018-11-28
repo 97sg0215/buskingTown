@@ -164,6 +164,12 @@ public class ChannelBuskerConcertDetail extends AppCompatActivity {
 
         restApiBuilder();
 
+        ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { ChannelBuskerConcertDetail.super.onBackPressed(); }
+        });
+
         p_id = getIntent().getIntExtra("provide_id",0);
         p_name = getIntent().getStringExtra("provide_name");
         p_info = getIntent().getStringExtra("provide_description");
@@ -508,6 +514,10 @@ public class ChannelBuskerConcertDetail extends AppCompatActivity {
             }
         }
     };
+
+    public void previousActivity(View v){
+        onBackPressed();
+    }
 
     private final NMapLocationManager.OnLocationChangeListener onMyLocationChangeListener = new NMapLocationManager.OnLocationChangeListener() {
 

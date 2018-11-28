@@ -61,6 +61,10 @@ public class SignUp2Step extends AppCompatActivity {
         Log.e("비밀번호", String.valueOf("보안을 위해 띄우지 않습니다."));
 
         ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { SignUp2Step.super.onBackPressed(); }
+        });
 
 
         //아이디 에디터 텍스트 입력 변수

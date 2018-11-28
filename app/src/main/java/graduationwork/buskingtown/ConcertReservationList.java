@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -44,6 +45,12 @@ public class ConcertReservationList extends AppCompatActivity {
 
         restApiBuilder();
         getLocalData();
+
+        ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { ConcertReservationList.super.onBackPressed(); }
+        });
 
         notice_reservation = findViewById(R.id.reservationText);
 
@@ -178,6 +185,10 @@ public class ConcertReservationList extends AppCompatActivity {
 
             return reservation_list;
         }
+    }
+
+    public void previousActivity(View v){
+        onBackPressed();
     }
 
     public void getLocalData(){

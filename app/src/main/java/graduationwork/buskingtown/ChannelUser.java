@@ -261,6 +261,8 @@ public class ChannelUser extends AppCompatActivity {
                             TextView postMainTeamName = (TextView) postLists.findViewById(R.id.main_team_name);
                             TextView postDate = (TextView) postLists.findViewById(R.id.post_date);
                             ImageButton like = (ImageButton) postLists.findViewById(R.id.like);
+                            ImageButton menu = (ImageButton) postLists.findViewById(R.id.spinner_drop);
+                            menu.setVisibility(View.GONE);
 
                             String post_image = API_URL + posts.get(i).getPost_image();
                             String post_content = posts.get(i).getContent();
