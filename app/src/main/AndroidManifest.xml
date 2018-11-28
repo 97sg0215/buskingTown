@@ -22,6 +22,10 @@
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
+    <!-- 인앱 결제 -->
+    <uses-permission android:name="com.android.vending.BILLING" />
+
+
     <application
         android:name=".ApplicationController"
         android:allowBackup="true"

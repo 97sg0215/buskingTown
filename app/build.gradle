@@ -60,7 +60,11 @@ dependencies {
     //캘린더
     implementation 'com.github.tibolte:agendacalendarview:1.0.4'
 
+    //통계 (배열 나누기)
     implementation 'com.google.guava:guava:23.5-android'
+
+    //인앱 결제
+    implementation 'com.android.billingclient:billing:1.2'
     //bind
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
