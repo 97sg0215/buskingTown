@@ -54,14 +54,12 @@ public abstract class NMapCalloutOverlayView extends FrameLayout implements
      */
     private Rect getBounds(NMapView mapView) {
 
-        //  First determine the screen coordinates of the selected MapLocation
         mapView.getMapProjection().toPixels(mOverlayItem.getPointInUtmk(), mTempPoint);
 
         mTempRect.left = this.getLeft();
         mTempRect.top = this.getTop();
         mTempRect.right = this.getRight();
         mTempRect.bottom = this.getBottom();
-
         mTempRect.union(mTempPoint.x, mTempPoint.y);
 
         return mTempRect;
@@ -144,8 +142,6 @@ public abstract class NMapCalloutOverlayView extends FrameLayout implements
     }
 
     private void animateCallout() {
-
-        // Create a scale animation
         ScaleAnimation animation = new ScaleAnimation(0.5f, 1.0f, 0.5f, 1.0f, ScaleAnimation.RELATIVE_TO_SELF, 0.5f,
                 ScaleAnimation.RELATIVE_TO_SELF, 1.0f);
 

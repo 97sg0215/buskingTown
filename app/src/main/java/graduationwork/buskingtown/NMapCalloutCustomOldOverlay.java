@@ -38,7 +38,6 @@ import com.nhn.android.mapviewer.overlay.NMapResourceProvider;
 public class NMapCalloutCustomOldOverlay extends NMapCalloutOverlay {
 	private static final String LOG_TAG = "NMapCalloutCustomOverlay";
 	private static final boolean DEBUG = false;
-
 	private static final int CALLOUT_TEXT_COLOR = 0xFFFFFFFF;
 	private static final float CALLOUT_TEXT_SIZE = 16.0F;
 	private static final Typeface CALLOUT_TEXT_TYPEFACE = null;//Typeface.DEFAULT_BOLD;

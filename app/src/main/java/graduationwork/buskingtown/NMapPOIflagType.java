@@ -22,7 +22,6 @@ package graduationwork.buskingtown;
  */
 public class NMapPOIflagType {
 	public static final int UNKNOWN = 0x0000;
-
 	// Single POI icons
 	private static final int SINGLE_POI_BASE = 0x0100;
 

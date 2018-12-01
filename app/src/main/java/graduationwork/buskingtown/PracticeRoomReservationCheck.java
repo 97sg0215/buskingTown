@@ -8,16 +8,15 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import graduationwork.buskingtown.api.RestApiService;
 
 public class PracticeRoomReservationCheck extends AppCompatActivity {
 
-    String date,start_time,end_time,loc_name,address;
-    int provide,reservation_id;
+    String date, start_time, end_time, loc_name, address;
+    int provide, reservation_id;
 
     TextView date_text, time_text, loc_name_text, address_text;
 
-    Button reject, update;
+    Button reject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,16 +26,18 @@ public class PracticeRoomReservationCheck extends AppCompatActivity {
         ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { PracticeRoomReservationCheck.super.onBackPressed(); }
+            public void onClick(View v) {
+                PracticeRoomReservationCheck.super.onBackPressed();
+            }
         });
 
         date = getIntent().getStringExtra("date");
         start_time = getIntent().getStringExtra("start_time");
         end_time = getIntent().getStringExtra("end_time");
         loc_name = getIntent().getStringExtra("loc_name");
-        provide = getIntent().getIntExtra("provide",0);
+        provide = getIntent().getIntExtra("provide", 0);
         address = getIntent().getStringExtra("address");
-        reservation_id = getIntent().getIntExtra("reservation_id",0);
+        reservation_id = getIntent().getIntExtra("reservation_id", 0);
 
         date_text = (TextView) findViewById(R.id.showDateIn);
         time_text = (TextView) findViewById(R.id.showTimeIn);
@@ -44,7 +45,7 @@ public class PracticeRoomReservationCheck extends AppCompatActivity {
         address_text = (TextView) findViewById(R.id.addressIn);
 
         date_text.setText(date);
-        time_text.setText(start_time +" ~ "+end_time);
+        time_text.setText(start_time + " ~ " + end_time);
         loc_name_text.setText(loc_name);
         address_text.setText(address);
 
@@ -52,14 +53,14 @@ public class PracticeRoomReservationCheck extends AppCompatActivity {
         reject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent cacel = new Intent(getApplication(),LocationCancel.class);
-                cacel.putExtra("reservation_id",reservation_id);
+                Intent cacel = new Intent(getApplication(), LocationCancel.class);
+                cacel.putExtra("reservation_id", reservation_id);
                 startActivity(cacel);
             }
         });
     }
 
-    public void previousActivity(View v){
+    public void previousActivity(View v) {
         onBackPressed();
     }
 }

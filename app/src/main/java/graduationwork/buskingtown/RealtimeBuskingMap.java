@@ -2,31 +2,22 @@ package graduationwork.buskingtown;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
-import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
 import com.nhn.android.maps.NMapActivity;
 import com.nhn.android.maps.NMapCompassManager;
 import com.nhn.android.maps.NMapContext;
@@ -46,9 +37,7 @@ import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
 import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
 import com.nhn.android.mapviewer.overlay.NMapResourceProvider;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -60,7 +49,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.github.mikephil.charting.charts.Chart.LOG_TAG;
 
 public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateChangeListener, NMapOverlayManager.OnCalloutOverlayListener {
 
@@ -71,24 +59,21 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
     RelativeLayout MapContainer;
 
     // 맵 컨트롤러
-
     NMapController mMapController = null;
 
     NMapView mMapView;
 
     // 오버레이의 리소스를 제공하기 위한 객체
-
     NMapViewerResourceProvider mMapViewerResourceProvider = null;
 
     // 오버레이 관리자
-
     private NMapMyLocationOverlay mMyLocationOverlay;
 
     private NMapLocationManager mMapLocationManager;
 
     private NMapCompassManager mMapCompassManager;
 
-    private final String  TAG = "MainActivity";
+    private final String TAG = "MainActivity";
 
     private ViewGroup mapLayout;
 
@@ -105,7 +90,7 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
 
     RestApiService apiService;
 
-    String user_token,busker_name;
+    String user_token, busker_name;
     int busker_id, user_id;
 
     Intent buskerChannel1, buskerChannel2;
@@ -132,16 +117,17 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mMapContext =  new NMapContext(super.getActivity());
+        mMapContext = new NMapContext(super.getActivity());
         mMapContext.onCreate();
     }
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         final Geocoder geocoder = new Geocoder(getContext());
 
-        mMapView = (NMapView)getView().findViewById(R.id.map_view);
+        mMapView = (NMapView) getView().findViewById(R.id.map_view);
         mMapView.setClientId(CLIENT_ID);// 클라이언트 아이디 설정
         mMapContext.setupMapView(mMapView);
 
@@ -176,13 +162,6 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
 
         if (errorInfo == null) { // success
 
-            //startMyLocation();//현재위치로 이동
-
-            // mMapController.setMapCenter(new NGeoPoint(126.978371,
-
-            // 37.5666091),
-
-            // 11);
 
         } else { // fail
 
@@ -222,10 +201,9 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
 
 
 //퍼미션 권한 안주면 여기서 멈춤
-        if(ContextCompat.checkSelfPermission(getContext(),Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_DENIED){
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
             Toast.makeText(getActivity(), "위치에 접근하기위해서는 위치 접근 권한이 필요해요", Toast.LENGTH_LONG).show();
-        }
-        else {
+        } else {
             boolean isMyLocationEnabled = mMapLocationManager
 
                     .enableMyLocation(true);
@@ -233,7 +211,6 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
             if (!isMyLocationEnabled) {
 
                 Toast.makeText(getActivity(), "Please enable a My Location source in system settings", Toast.LENGTH_LONG).show();
-
 
 
                 Intent goToSettings = new Intent(
@@ -244,12 +221,10 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
 
                 //       finish();
 
-            }else{
+            } else {
 
             }
         }
-
-
 
 
     }
@@ -261,19 +236,15 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
             mMapLocationManager.disableMyLocation();
 
 
-
             if (mMapView.isAutoRotateEnabled()) {
 
                 mMyLocationOverlay.setCompassHeadingVisible(false);
 
 
-
                 mMapCompassManager.disableCompass();
 
 
-
                 mMapView.setAutoRotateEnabled(false, false);
-
 
 
                 MapContainer.requestLayout();
@@ -287,37 +258,27 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
     private final NMapActivity.OnDataProviderListener onDataProviderListener = new NMapActivity.OnDataProviderListener() {
 
 
-
         @Override
 
         public void onReverseGeocoderResponse(NMapPlacemark placeMark, NMapError errInfo) {
 
 
-            String address = placeMark.doName+ " " + placeMark.siName+ " " + placeMark.dongName;
+            String address = placeMark.doName + " " + placeMark.siName + " " + placeMark.dongName;
             if (errInfo != null) {
-
-                Log.e("myLog", "Failed to findPlacemarkAtLocation: error=" + errInfo.toString());
-
-                //Toast.makeText(getActivity(), errInfo.toString(), Toast.LENGTH_LONG).show();
-
                 return;
 
-            }else{
+            } else {
 
-                //Toast.makeText(getActivity(), address, Toast.LENGTH_LONG).show();
 
             }
-
 
 
         }
 
 
-
     };
 
     private final NMapLocationManager.OnLocationChangeListener onMyLocationChangeListener = new NMapLocationManager.OnLocationChangeListener() {
-
 
 
         @Override
@@ -330,9 +291,6 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
                 mMapController.animateTo(myLocation);
             }
 
-            Log.d("myLog", "myLocation  lat " + myLocation.getLatitude());
-            Log.d("myLog", "myLocation  lng " + myLocation.getLongitude());
-
 
             mMapContext.findPlacemarkAtLocation(myLocation.getLongitude(), myLocation.getLatitude());
 
@@ -344,19 +302,6 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
 
         @Override
         public void onLocationUpdateTimeout(NMapLocationManager locationManager) {
-            // stop location updating
-
-            // Runnable runnable = new Runnable() {
-
-            // public void run() {
-
-            // stopMyLocation();
-
-            // }
-
-            // };
-
-            // runnable.run();
 
         }
 
@@ -379,29 +324,34 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
 
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         mMapContext.onStart();
     }
+
     @Override
     public void onResume() {
         super.onResume();
         mMapContext.onResume();
     }
+
     @Override
     public void onPause() {
         super.onPause();
         mMapContext.onPause();
     }
+
     @Override
     public void onStop() {
         mMapContext.onStop();
         super.onStop();
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
     }
+
     @Override
     public void onDestroy() {
         mMapContext.onDestroy();
@@ -423,24 +373,23 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
         String getDate = sdf.format(date);
         String getTime = stf.format(date);
 
-        Call<List<RoadConcert>> listCall = apiService.getLiveBuking(user_token,getDate,getTime);
+        Call<List<RoadConcert>> listCall = apiService.getLiveBuking(user_token, getDate, getTime);
         listCall.enqueue(new Callback<List<RoadConcert>>() {
             @Override
             public void onResponse(Call<List<RoadConcert>> call, Response<List<RoadConcert>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     List<RoadConcert> roadConcerts = response.body();
-                    if(roadConcerts.size()!=0){
-                        Log.e("메세지", String.valueOf(roadConcerts.size()));
-                        for (int i=0;i<roadConcerts.size();i++){
+                    if (roadConcerts.size() != 0) {
+                        for (int i = 0; i < roadConcerts.size(); i++) {
                             // Markers for POI item
                             int markerId = NMapPOIflagType.PIN;
 
-                            Call<Busker> buskerCall = apiService.buskerDetail(user_token,roadConcerts.get(i).getBusker());
+                            Call<Busker> buskerCall = apiService.buskerDetail(user_token, roadConcerts.get(i).getBusker());
                             int finalI = i;
                             buskerCall.enqueue(new Callback<Busker>() {
                                 @Override
                                 public void onResponse(Call<Busker> call, Response<Busker> response) {
-                                    if(response.isSuccessful()){
+                                    if (response.isSuccessful()) {
                                         busker_name = String.valueOf(response.body().getTeam_name());
                                         int final_busker_id = response.body().getBusker_id();
 
@@ -455,7 +404,7 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
                                         NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
 
                                         // set event listener to the overlay
-                                        my_channel_check(busker_name,final_busker_id,poiDataOverlay);
+                                        my_channel_check(busker_name, final_busker_id, poiDataOverlay);
 
                                         // select an item
                                         poiDataOverlay.selectPOIitem(0, true);
@@ -494,18 +443,13 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
                 Log.i(LOG_TAG, "onCalloutClick: title=" + item.getTitle());
             }
             startActivity(buskerChannel1);
-
-            // [[TEMP]] handle a click event of the callout
-            //Toast.makeText(v.RealtimeBuskingMap.this, "onCalloutClick: " + item.getTitle(), Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void onFocusChanged(NMapPOIdataOverlay poiDataOverlay, NMapPOIitem item) {
             if (DEBUG) {
                 if (item != null) {
-                    Log.i(LOG_TAG, "onFocusChanged: " + item.toString());
                 } else {
-                    Log.i(LOG_TAG, "onFocusChanged: ");
                 }
             }
         }
@@ -520,9 +464,6 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
             }
 
             startActivity(buskerChannel2);
-
-            // [[TEMP]] handle a click event of the callout
-            //Toast.makeText(v.RealtimeBuskingMap.this, "onCalloutClick: " + item.getTitle(), Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -538,71 +479,43 @@ public class RealtimeBuskingMap extends Fragment implements NMapView.OnMapStateC
     };
 
 
-
-    private void testGeocoder(){
-
-    }
-
-    public static Location findGeoPoint(Context mcontext, String address) {
-        Location loc = new Location("");
-        Geocoder coder = new Geocoder(mcontext);
-        List<Address> addr = null;// 한좌표에 대해 두개이상의 이름이 존재할수있기에 주소배열을 리턴받기 위해 설정
-
-        try {
-            addr = coder.getFromLocationName(address, 5);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }// 몇개 까지의 주소를 원하는지 지정 1~5개 정도가 적당
-        if (addr != null) {
-            for (int i = 0; i < addr.size(); i++) {
-                Address lating = addr.get(i);
-                double lat = lating.getLatitude(); // 위도가져오기
-                double lon = lating.getLongitude(); // 경도가져오기
-                loc.setLatitude(lat);
-                loc.setLongitude(lon);
-            }
-        }
-        return loc;
-    }
-
     public void restApiBuilder() {
         ApplicationController application = ApplicationController.getInstance();
         application.buildNetworkService();
         apiService = ApplicationController.getInstance().getRestApiService();
     }
 
-    public void getLocalData(){
-        user_token = prefUser.getString("auth_token",null);
-        user_id = prefUser.getInt("user_id",0);
-        busker_id = prefBusker.getInt("busker_id",0);
+    public void getLocalData() {
+        user_token = prefUser.getString("auth_token", null);
+        user_id = prefUser.getInt("user_id", 0);
+        busker_id = prefBusker.getInt("busker_id", 0);
     }
 
-    public void my_channel_check(String team_name,int final_busker_id,NMapPOIdataOverlay poiDataOverlay){
-        retrofit2.Call<User> userDetail = apiService.getUserDetail(user_token,user_id);
+    public void my_channel_check(String team_name, int final_busker_id, NMapPOIdataOverlay poiDataOverlay) {
+        retrofit2.Call<User> userDetail = apiService.getUserDetail(user_token, user_id);
         userDetail.enqueue(new Callback<User>() {
             @Override
             public void onResponse(retrofit2.Call<User> call, Response<User> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     User user = response.body();
-                    if(user.getBusker()!=null){ //유저가 버스커일 경우
+                    if (user.getBusker() != null) { //유저가 버스커일 경우
                         //내 채널이 아닐 경우, 팀네임이 같지않은 경우
-                        if(!user.getBusker().getTeam_name().equals(team_name)){
+                        if (!user.getBusker().getTeam_name().equals(team_name)) {
                             //개인 아이디를 다음 액티비티에서 받아 세팅
-                            buskerChannel1.putExtra("busker_id",final_busker_id);
-                            buskerChannel1.putExtra("team_name",team_name);
+                            buskerChannel1.putExtra("busker_id", final_busker_id);
+                            buskerChannel1.putExtra("team_name", team_name);
                             poiDataOverlay.setOnStateChangeListener(onPOIdataStateChangeListener1);
                         } //내 채널일 경우, 팀네임이 같을 경우
                         else {
                             //개인 아이디를 다음 액티비티에서 받아 세팅
-                            buskerChannel2.putExtra("busker_id",final_busker_id);
+                            buskerChannel2.putExtra("busker_id", final_busker_id);
                             poiDataOverlay.setOnStateChangeListener(onPOIdataStateChangeListener2);
 
                         }
                     } //내 채널이 아닐 경우, 유저가 버스커가 아닐 경우 정상 진행
                     else {
                         //개인 아이디를 다음 액티비티에서 받아 세팅
-                        buskerChannel1.putExtra("busker_id",final_busker_id);
+                        buskerChannel1.putExtra("busker_id", final_busker_id);
                         poiDataOverlay.setOnStateChangeListener(onPOIdataStateChangeListener1);
                     }
                 }

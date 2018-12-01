@@ -1,7 +1,6 @@
 package graduationwork.buskingtown;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,7 +48,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            imageView = (ImageView)itemView.findViewById(R.id.recylcerview_image);
+            imageView = (ImageView) itemView.findViewById(R.id.recylcerview_image);
         }
     }
 

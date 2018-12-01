@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 public class TabBar extends AppCompatActivity implements View.OnClickListener {
 
-    String user_token,user_name;
+    String user_token, user_name;
     int user_id;
 
     //호출될프래그먼트 변수들
@@ -52,24 +52,24 @@ public class TabBar extends AppCompatActivity implements View.OnClickListener {
     //버튼 클릭시 프레그먼트 호출하는 메소드
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.ranking :
+        switch (v.getId()) {
+            case R.id.ranking:
                 callFragment(rankingFRAGMENT);
                 break;
 
-            case R.id.map :
+            case R.id.map:
                 callFragment(mapFRAGMENT);
                 break;
 
-            case R.id.home :
+            case R.id.home:
                 callFragment(homeFRAGMENT);
                 break;
 
-            case R.id.notification :
+            case R.id.notification:
                 callFragment(notificationFRAGMENT);
                 break;
 
-            case R.id.myPage :
+            case R.id.myPage:
                 callFragment(myPageFRAGMENT);
                 break;
         }
@@ -161,10 +161,10 @@ public class TabBar extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
-    public void getLocalData(){
+    public void getLocalData() {
         SharedPreferences pref = getSharedPreferences("User", Activity.MODE_PRIVATE);
-        user_token = pref.getString("auth_token",null);
-        user_name = pref.getString("username",null);
-        user_id = pref.getInt("user_id",0);
+        user_token = pref.getString("auth_token", null);
+        user_name = pref.getString("username", null);
+        user_id = pref.getInt("user_id", 0);
     }
 }

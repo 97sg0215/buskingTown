@@ -22,11 +22,10 @@ import java.util.Locale;
 public class OpenConcert extends AppCompatActivity {
 
     RelativeLayout placeLayout;
-
     int mHour, mMinute;
 
     Button concertStartDate, concertEndDate, timeStartDate, timeEndDate;
-    int concertStartYear, concertStartMonth, concertStartDay , concertEndYear, concertEndMonth, concertEndDay;
+    int concertStartYear, concertStartMonth, concertStartDay, concertEndYear, concertEndMonth, concertEndDay;
     SimpleDateFormat simpleDateFormat;
 
     @Override
@@ -37,7 +36,9 @@ public class OpenConcert extends AppCompatActivity {
         ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { OpenConcert.super.onBackPressed(); }
+            public void onClick(View v) {
+                OpenConcert.super.onBackPressed();
+            }
         });
 
         //장소검색
@@ -45,7 +46,7 @@ public class OpenConcert extends AppCompatActivity {
         placeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent placeSearch = new Intent(getApplication(),LocationSearch.class);
+                Intent placeSearch = new Intent(getApplication(), LocationSearch.class);
                 startActivity(placeSearch);
             }
         });
@@ -86,7 +87,7 @@ public class OpenConcert extends AppCompatActivity {
                         .context(OpenConcert.this)
                         .spinnerTheme(R.style.DatePickerSpinner)
                         .showTitle(true)
-                        .defaultDate(concertStartYear,concertStartMonth,concertStartDay)
+                        .defaultDate(concertStartYear, concertStartMonth, concertStartDay)
                         .build()
                         .show();
             }
@@ -110,7 +111,7 @@ public class OpenConcert extends AppCompatActivity {
                         .context(OpenConcert.this)
                         .spinnerTheme(R.style.DatePickerSpinner)
                         .showTitle(true)
-                        .defaultDate(concertEndYear,concertEndMonth,concertEndDay)
+                        .defaultDate(concertEndYear, concertEndMonth, concertEndDay)
                         .build()
                         .show();
             }
@@ -118,8 +119,8 @@ public class OpenConcert extends AppCompatActivity {
 
     }
 
-    public void sOnClick(View v){
-        switch (v.getId()){
+    public void sOnClick(View v) {
+        switch (v.getId()) {
             //시간 대화상자 버튼이 눌리면 대화상자를 보여줌
 
             case R.id.timeStartDate:
@@ -149,7 +150,7 @@ public class OpenConcert extends AppCompatActivity {
                     mMinute = minute;
 
                     //텍스트뷰의 값을 업데이트함
-                    Button startD = (Button)findViewById(R.id.timeStartDate);
+                    Button startD = (Button) findViewById(R.id.timeStartDate);
                     startD.setText(String.format("%d:%d", mHour, mMinute));
                 }
             };
@@ -165,13 +166,13 @@ public class OpenConcert extends AppCompatActivity {
                     mMinute = minute;
 
                     //텍스트뷰의 값을 업데이트함
-                    Button endD = (Button)findViewById(R.id.timeEndDate);
+                    Button endD = (Button) findViewById(R.id.timeEndDate);
                     endD.setText(String.format("%d:%d", mHour, mMinute));
                 }
 
             };
 
-    public void previousActivity(View v){
+    public void previousActivity(View v) {
         onBackPressed();
     }
 }

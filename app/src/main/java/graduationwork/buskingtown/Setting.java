@@ -6,11 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 public class Setting extends AppCompatActivity {
 
-    private RelativeLayout versionInformation,settingnoticeLayout, PassWdChangeLayout, withdrawal;
+    private RelativeLayout versionInformation, settingnoticeLayout, PassWdChangeLayout, withdrawal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +19,9 @@ public class Setting extends AppCompatActivity {
         ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { Setting.super.onBackPressed(); }
+            public void onClick(View v) {
+                Setting.super.onBackPressed();
+            }
         });
 
         //버전정보
@@ -28,7 +29,7 @@ public class Setting extends AppCompatActivity {
         versionInformation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent versionInformation = new Intent(getApplication(),VersionInformation.class);
+                Intent versionInformation = new Intent(getApplication(), VersionInformation.class);
                 startActivity(versionInformation);
             }
         });
@@ -38,7 +39,7 @@ public class Setting extends AppCompatActivity {
         settingnoticeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent settingnotice = new Intent(getApplication(),SettingNotice.class);
+                Intent settingnotice = new Intent(getApplication(), SettingNotice.class);
                 startActivity(settingnotice);
             }
         });
@@ -48,7 +49,7 @@ public class Setting extends AppCompatActivity {
         PassWdChangeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent passwordchange = new Intent(getApplication(),PasswdChange.class);
+                Intent passwordchange = new Intent(getApplication(), PasswdChange.class);
                 startActivity(passwordchange);
             }
         });
@@ -58,14 +59,14 @@ public class Setting extends AppCompatActivity {
         withdrawal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent withdrawalAct = new Intent(getApplication(),WithdrawalPop.class);
+                Intent withdrawalAct = new Intent(getApplication(), WithdrawalPop.class);
                 startActivity(withdrawalAct);
             }
         });
     }
 
     //백버튼 메소드
-    public void previousActivity(View v){
+    public void previousActivity(View v) {
         onBackPressed();
     }
 }

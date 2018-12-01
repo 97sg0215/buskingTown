@@ -1,43 +1,26 @@
 package graduationwork.buskingtown;
 
-import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.PathShape;
-import android.os.Build;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import com.tsongkha.spinnerdatepicker.DatePicker;
-import com.tsongkha.spinnerdatepicker.DatePickerDialog;
-import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-public class Statistics extends AppCompatActivity{
+public class Statistics extends AppCompatActivity {
 
     Button oneMonth, threeMonth, sixMonth, oneYearz, coinSD, coinED;
-    int coinStartYear, coinStartMonth, coinStartDay , coinEndYear, coinEndMonth, coinEndDay;
+    int coinStartYear, coinStartMonth, coinStartDay, coinEndYear, coinEndMonth, coinEndDay;
     SimpleDateFormat simpleDateFormat;
 
     private final int oneFRAGMENT = 1;
@@ -51,8 +34,6 @@ public class Statistics extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
 
-        //callFragment(oneFRAGMENT);
-
         //버튼 참조변수
         oneMonth = (Button) findViewById(R.id.oneMonth);
         threeMonth = (Button) findViewById(R.id.threeMonth);
@@ -65,7 +46,7 @@ public class Statistics extends AppCompatActivity{
         coinStartYear = startCalendar.get(Calendar.YEAR);
         coinStartMonth = startCalendar.get(Calendar.MONTH);
         coinStartDay = startCalendar.get(Calendar.DAY_OF_MONTH);
-        put_start_date = coinStartYear+"-"+coinStartMonth+"-"+coinStartDay;
+        put_start_date = coinStartYear + "-" + coinStartMonth + "-" + coinStartDay;
 
 
         final GregorianCalendar endCalendar = new GregorianCalendar();
@@ -78,19 +59,21 @@ public class Statistics extends AppCompatActivity{
 
         //데이트 피커
         coinSD = (Button) findViewById(R.id.coinSD);
-        coinSD.setText(String.format("%2d년 %02d월 %02d일",coinStartYear,coinStartMonth,coinStartDay));
+        coinSD.setText(String.format("%2d년 %02d월 %02d일", coinStartYear, coinStartMonth, coinStartDay));
 
         coinED = (Button) findViewById(R.id.coinED);
-        coinED.setText(String.format("%2d년 %02d월 %02d일",coinEndYear,coinEndMonth+1,coinEndDay));
+        coinED.setText(String.format("%2d년 %02d월 %02d일", coinEndYear, coinEndMonth + 1, coinEndDay));
 
         //아래는 뒤로가기 버튼 클릭시 뒤로가는거임
         ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { Statistics.super.onBackPressed(); }
+            public void onClick(View v) {
+                Statistics.super.onBackPressed();
+            }
         });
 
-        Spinner spinner = (Spinner)findViewById(R.id.spinner_drop);
+        Spinner spinner = (Spinner) findViewById(R.id.spinner_drop);
         ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.statistics_menu, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
@@ -101,10 +84,10 @@ public class Statistics extends AppCompatActivity{
 
                 switch (position) {
                     case 0:
-                        callFragment(twoFRAGMENT, put_start_date, coinEndYear+"-"+(coinEndMonth+1)+"-"+coinEndDay);
+                        callFragment(twoFRAGMENT, put_start_date, coinEndYear + "-" + (coinEndMonth + 1) + "-" + coinEndDay);
                         break;
                     case 1:
-                        callFragment(threeFRAGMENT, put_start_date, coinEndYear+"-"+(coinEndMonth+1)+"-"+coinEndDay);
+                        callFragment(threeFRAGMENT, put_start_date, coinEndYear + "-" + (coinEndMonth + 1) + "-" + coinEndDay);
                         break;
                     case 2:
                         Toast.makeText(parent.getContext(), "Spinner item 4!", Toast.LENGTH_SHORT).show();
@@ -115,12 +98,11 @@ public class Statistics extends AppCompatActivity{
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
-                // sometimes you need nothing here
             }
         });
     }
 
-    public void previousActivity(View v){
+    public void previousActivity(View v) {
         onBackPressed();
     }
 
@@ -130,9 +112,9 @@ public class Statistics extends AppCompatActivity{
             public void onClick(View v) {
                 oneMonth.setBackground(getDrawable(R.drawable.able_btn));
                 oneMonth.setTextColor(Color.parseColor("#ffffff"));
-                coinSD.setText(String.format("%2d년 %02d월 %02d일",coinStartYear,coinStartMonth,coinStartDay));
-                put_start_date = coinStartYear+"-"+coinStartMonth+"-"+coinStartDay;
-                callFragment(fragmentNum, put_start_date, coinEndYear+"-"+(coinEndMonth+1)+"-"+coinEndDay);
+                coinSD.setText(String.format("%2d년 %02d월 %02d일", coinStartYear, coinStartMonth, coinStartDay));
+                put_start_date = coinStartYear + "-" + coinStartMonth + "-" + coinStartDay;
+                callFragment(fragmentNum, put_start_date, coinEndYear + "-" + (coinEndMonth + 1) + "-" + coinEndDay);
                 //나머지 버튼색 비활성화
                 threeMonth.setBackground(getDrawable(R.drawable.date_rounded));
                 threeMonth.setTextColor(getResources().getColor(R.color.mainPurple));
@@ -148,9 +130,9 @@ public class Statistics extends AppCompatActivity{
             public void onClick(View v) {
                 threeMonth.setBackground(getDrawable(R.drawable.able_btn));
                 threeMonth.setTextColor(Color.parseColor("#ffffff"));
-                coinSD.setText(String.format("%2d년 %02d월 %02d일",coinStartYear,coinStartMonth-2,coinStartDay));
-                put_start_date = coinStartYear+"-"+(coinStartMonth-2)+"-"+coinStartDay;
-                callFragment(fragmentNum, put_start_date, coinEndYear+"-"+(coinEndMonth+1)+"-"+coinEndDay);
+                coinSD.setText(String.format("%2d년 %02d월 %02d일", coinStartYear, coinStartMonth - 2, coinStartDay));
+                put_start_date = coinStartYear + "-" + (coinStartMonth - 2) + "-" + coinStartDay;
+                callFragment(fragmentNum, put_start_date, coinEndYear + "-" + (coinEndMonth + 1) + "-" + coinEndDay);
                 //나머지 버튼색 비활성화
                 oneMonth.setBackground(getDrawable(R.drawable.date_rounded));
                 oneMonth.setTextColor(getResources().getColor(R.color.mainPurple));
@@ -166,9 +148,9 @@ public class Statistics extends AppCompatActivity{
             public void onClick(View v) {
                 sixMonth.setBackground(getDrawable(R.drawable.able_btn));
                 sixMonth.setTextColor(Color.parseColor("#ffffff"));
-                coinSD.setText(String.format("%2d년 %02d월 %02d일",coinStartYear,coinStartMonth-5,coinStartDay));
-                put_start_date = coinStartYear+"-"+(coinStartMonth-5)+"-"+coinStartDay;
-                callFragment(fragmentNum, put_start_date, coinEndYear+"-"+(coinEndMonth+1)+"-"+coinEndDay);
+                coinSD.setText(String.format("%2d년 %02d월 %02d일", coinStartYear, coinStartMonth - 5, coinStartDay));
+                put_start_date = coinStartYear + "-" + (coinStartMonth - 5) + "-" + coinStartDay;
+                callFragment(fragmentNum, put_start_date, coinEndYear + "-" + (coinEndMonth + 1) + "-" + coinEndDay);
                 //나머지 버튼색 비활성화
                 oneMonth.setBackground(getDrawable(R.drawable.date_rounded));
                 oneMonth.setTextColor(getResources().getColor(R.color.mainPurple));
@@ -184,9 +166,9 @@ public class Statistics extends AppCompatActivity{
             public void onClick(View v) {
                 oneYearz.setBackground(getDrawable(R.drawable.able_btn));
                 oneYearz.setTextColor(Color.parseColor("#ffffff"));
-                coinSD.setText(String.format("%2d년 %02d월 %02d일",coinStartYear-1,coinStartMonth+1,coinStartDay));
-                put_start_date = (coinStartYear-1)+"-"+(coinStartMonth+1)+"-"+coinStartDay;
-                callFragment(fragmentNum, put_start_date, coinEndYear+"-"+(coinEndMonth+1)+"-"+coinEndDay);
+                coinSD.setText(String.format("%2d년 %02d월 %02d일", coinStartYear - 1, coinStartMonth + 1, coinStartDay));
+                put_start_date = (coinStartYear - 1) + "-" + (coinStartMonth + 1) + "-" + coinStartDay;
+                callFragment(fragmentNum, put_start_date, coinEndYear + "-" + (coinEndMonth + 1) + "-" + coinEndDay);
                 //나머지 버튼색 비활성화
                 oneMonth.setBackground(getDrawable(R.drawable.date_rounded));
                 oneMonth.setTextColor(getResources().getColor(R.color.mainPurple));
@@ -199,8 +181,7 @@ public class Statistics extends AppCompatActivity{
     }
 
 
-
-    private void callFragment(int frament_no,String start_date,String end_date) {
+    private void callFragment(int frament_no, String start_date, String end_date) {
         // 프래그먼트 사용을 위해
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
@@ -220,7 +201,7 @@ public class Statistics extends AppCompatActivity{
 
                 Bundle bundle = new Bundle();
                 bundle.putString("start_date", start_date);
-                bundle.putString("end_date",end_date);
+                bundle.putString("end_date", end_date);
                 followGraph.setArguments(bundle);
 
                 transaction.replace(R.id.fragmentContainer, followGraph);
@@ -235,7 +216,7 @@ public class Statistics extends AppCompatActivity{
 
                 Bundle bundle2 = new Bundle();
                 bundle2.putString("start_date", start_date);
-                bundle2.putString("end_date",end_date);
+                bundle2.putString("end_date", end_date);
                 coinGraph.setArguments(bundle2);
 
                 transaction.replace(R.id.fragmentContainer, coinGraph);
@@ -245,8 +226,6 @@ public class Statistics extends AppCompatActivity{
 
         }
     }
-
-
 
 
 }

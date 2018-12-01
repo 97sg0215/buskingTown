@@ -44,7 +44,6 @@ public class NMapViewerResourceProvider extends NMapResourceProvider implements
 	private static final boolean DEBUG = false;
 
 	private static final Bitmap.Config BITMAP_CONFIG_DEFAULT = Bitmap.Config.ARGB_8888;
-
 	private static final int POI_FONT_COLOR_NUMBER = 0xFF909090;
 	private static final float POI_FONT_SIZE_NUMBER = 10.0F;
 

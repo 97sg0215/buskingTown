@@ -22,7 +22,7 @@ public abstract class OnSingleClickListener implements View.OnClickListener {
             return;
         }
 
-        // 중복 클릭아 아니라면 추상함수 호출
+        // 중복 클릭이 아니라면 추상함수 호출
         onSingleClick(v);
     }
 }

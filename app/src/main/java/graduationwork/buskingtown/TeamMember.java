@@ -28,14 +28,14 @@ import retrofit2.Response;
 
 public class TeamMember extends AppCompatActivity {
 
-    String user_token,user_name,user_image,busker_name,team_name,member_image;
+    String user_token, user_name, user_image, busker_name, team_name, member_image;
     int user_id;
 
     RestApiService apiService;
 
     ImageView myProfile, memberProfile;
     TextView myID, memberID;
-    LinearLayout standByMember,myMember;
+    LinearLayout standByMember, myMember;
 
     ArrayList<String> member_names = new ArrayList<>();
 
@@ -51,29 +51,20 @@ public class TeamMember extends AppCompatActivity {
         ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { TeamMember.super.onBackPressed(); }
+            public void onClick(View v) {
+                TeamMember.super.onBackPressed();
+            }
         });
 
         //내 프로필 보기
         ImageView myprofileimg = (ImageView) findViewById(R.id.my_profileImg);
         myprofileimg.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                Intent myimg = new Intent(getApplication(),MyProfileClick.class);
+            public void onClick(View v) {
+                Intent myimg = new Intent(getApplication(), MyProfileClick.class);
                 startActivity(myimg);
             }
         });
-
-//        //내 프로필 보기 (여기다 해도되나 싶어서 임시)
-//        ImageView memberfileimg = (ImageView) findViewById(R.id.member_profileImg);
-//        memberfileimg.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v){
-//                Intent memberimg = new Intent(getApplication(),MemberProfileClick.class);
-//                startActivity(memberimg);
-//            }
-//        });
-
 
         //멤버 추가
         RelativeLayout add_member_btn = (RelativeLayout) findViewById(R.id.plus_member);
@@ -88,7 +79,7 @@ public class TeamMember extends AppCompatActivity {
         myProfile = (ImageView) findViewById(R.id.my_profileImg);
         myID = (TextView) findViewById(R.id.my_id);
 
-        if(user_image!=null){
+        if (user_image != null) {
             Picasso.with(getApplication()).load(user_image).transform(new CircleTransForm()).into(myProfile);
         }
         myID.setText(user_name);
@@ -96,82 +87,77 @@ public class TeamMember extends AppCompatActivity {
         standByMember = (LinearLayout) findViewById(R.id.standByMember);
         myMember = (LinearLayout) findViewById(R.id.myMember);
 
-        Call<List<Busker>> buskerListCall = apiService.buskerTeam(user_token,team_name);
+        Call<List<Busker>> buskerListCall = apiService.buskerTeam(user_token, team_name);
         buskerListCall.enqueue(new Callback<List<Busker>>() {
             @Override
             public void onResponse(Call<List<Busker>> call, Response<List<Busker>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     List<Busker> buskers = response.body();
-                    for (int i=0; i<buskers.size(); i++){
+                    for (int i = 0; i < buskers.size(); i++) {
                         //나를 제외한 나와 팀네임이 같은 버스커 세팅
-                        if(!user_name.equals(buskers.get(i).getBusker_name())){
+                        if (!user_name.equals(buskers.get(i).getBusker_name())) {
                             member_names.add(buskers.get(i).getBusker_name());
-                            Log.e("멤버리스트", String.valueOf(member_names));
                             //멤버들 사진
-                            Call<User> userDetail = apiService.getUserDetail(user_token,buskers.get(i).getUser());
+                            Call<User> userDetail = apiService.getUserDetail(user_token, buskers.get(i).getUser());
                             int finalI = i;
                             userDetail.enqueue(new Callback<User>() {
                                 @Override
                                 public void onResponse(Call<User> call, Response<User> response) {
-                                    if(response.isSuccessful()){
+                                    if (response.isSuccessful()) {
                                         User member = response.body();
                                         member_image = member.getProfile().getUser_image();
 
                                         //certification none인 멤버 , 수락 대기 멤버 > 수락신청이 왔을때 yes를 누르면 수락 확인이 됨
-                                        if(buskers.get(finalI).getCertification()==null){
+                                        if (buskers.get(finalI).getCertification() == null) {
                                             RelativeLayout waitingMsg = (RelativeLayout) findViewById(R.id.waitingGroup);
                                             waitingMsg.setVisibility(View.VISIBLE);
 
-                                            View standbylist = getLayoutInflater().inflate(R.layout.my_member,standByMember,false);
+                                            View standbylist = getLayoutInflater().inflate(R.layout.my_member, standByMember, false);
                                             memberProfile = (ImageView) standbylist.findViewById(R.id.member_profileImg);
                                             memberID = (TextView) standbylist.findViewById(R.id.member_name);
 
                                             memberID.setText(buskers.get(finalI).getBusker_name());
-                                            if(member_image!=null){
+                                            if (member_image != null) {
                                                 Picasso.with(getApplication()).load(member_image).transform(new CircleTransForm()).into(memberProfile);
                                             }
-                                            if(standbylist.getParent()!= null)
-                                                ((ViewGroup)standbylist.getParent()).removeView(standbylist);
+                                            if (standbylist.getParent() != null)
+                                                ((ViewGroup) standbylist.getParent()).removeView(standbylist);
                                             standByMember.addView(standbylist);
                                         } //수락 확인한 멤버
-                                        else if(buskers.get(finalI).getCertification()==true) {
-                                            View successlist = getLayoutInflater().inflate(R.layout.my_member,myMember,false);
+                                        else if (buskers.get(finalI).getCertification() == true) {
+                                            View successlist = getLayoutInflater().inflate(R.layout.my_member, myMember, false);
                                             memberProfile = (ImageView) successlist.findViewById(R.id.member_profileImg);
                                             memberID = (TextView) successlist.findViewById(R.id.member_name);
 
                                             memberID.setText(buskers.get(finalI).getBusker_name());
-                                            if(member_image!=null){
+                                            if (member_image != null) {
                                                 Picasso.with(getApplication()).load(member_image).transform(new CircleTransForm()).into(memberProfile);
                                             }
-                                            if(successlist.getParent()!= null)
-                                                ((ViewGroup)successlist.getParent()).removeView(successlist);
+                                            if (successlist.getParent() != null)
+                                                ((ViewGroup) successlist.getParent()).removeView(successlist);
                                             myMember.addView(successlist);
                                         } //수락 거절한 멤버
                                         else {
-                                            Call<Busker> deleteBusker = apiService.deleteBusker(user_token,buskers.get(finalI).getBusker_id());
+                                            Call<Busker> deleteBusker = apiService.deleteBusker(user_token, buskers.get(finalI).getBusker_id());
                                             deleteBusker.enqueue(new Callback<Busker>() {
                                                 @Override
                                                 public void onResponse(Call<Busker> call, Response<Busker> response) {
                                                     if (response.isSuccessful()) {
-                                                        Log.e("버스커삭제:", "완료");
                                                     } else {
                                                         int StatusCode = response.code();
                                                         Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
-                                                        Log.e("메세지", String.valueOf(response.message()));
-                                                        Log.e("리스폰스에러바디", String.valueOf(response.errorBody()));
-                                                        Log.e("리스폰스바디", String.valueOf(response.body()));
                                                     }
                                                 }
 
                                                 @Override
                                                 public void onFailure(Call<Busker> call, Throwable t) {
-                                                    Log.e("call","실패");
                                                 }
                                             });
                                         }
-                                    }else {
+                                    } else {
                                         int StatusCode = response.code();
-                                        Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);;
+                                        Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
+                                        ;
                                     }
                                 }
 
@@ -182,12 +168,9 @@ public class TeamMember extends AppCompatActivity {
                             });
                         }
                     }
-                }else {
+                } else {
                     int StatusCode = response.code();
                     Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
-                    Log.e("메세지", String.valueOf(response.message()));
-                    Log.e("리스폰스에러바디", String.valueOf(response.errorBody()));
-                    Log.e("리스폰스바디", String.valueOf(response.body()));
                 }
             }
 
@@ -199,17 +182,17 @@ public class TeamMember extends AppCompatActivity {
     }
 
     //user데이터 얻어오기
-    public void getLocalData(){
+    public void getLocalData() {
         SharedPreferences pref = getSharedPreferences("User", Activity.MODE_PRIVATE);
         SharedPreferences busker_pref = getSharedPreferences("BuskerUser", Activity.MODE_PRIVATE);
 
-        user_token = pref.getString("auth_token",null);
-        user_name = pref.getString("username",null);
-        user_id = pref.getInt("user_id",0);
-        user_image = pref.getString("user_image",null);
+        user_token = pref.getString("auth_token", null);
+        user_name = pref.getString("username", null);
+        user_id = pref.getInt("user_id", 0);
+        user_image = pref.getString("user_image", null);
 
-        busker_name = busker_pref.getString("busker_name",null);
-        team_name = busker_pref.getString("team_name",null);
+        busker_name = busker_pref.getString("busker_name", null);
+        team_name = busker_pref.getString("team_name", null);
 
     }
 
@@ -220,7 +203,7 @@ public class TeamMember extends AppCompatActivity {
         apiService = ApplicationController.getInstance().getRestApiService();
     }
 
-    public void previousActivity(View v){
+    public void previousActivity(View v) {
         onBackPressed();
     }
 }

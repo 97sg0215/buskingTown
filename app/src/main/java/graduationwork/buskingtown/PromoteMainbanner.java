@@ -63,11 +63,9 @@ public class PromoteMainbanner extends Fragment {
     final int REQ_CODE_SELECT_IMAGE=100;
 
     public PromoteMainbanner(){
-        // Required empty public constructor
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.activity_promote_mainbanner, container, false);
 
         //달력개체 불러옴
@@ -264,15 +262,8 @@ public class PromoteMainbanner extends Fragment {
                 GMailSender gMailSender = new GMailSender("buskingtown2018@gmail.com", "khphTown123");
                 //GMailSender.sendMail(제목, 본문내용, 받는사람);
                 gMailSender.sendMailWithFile("추천순위 노출 신청입니다.", total_message, email, real_album_path, team_name);
-                Log.e("이메일",String.valueOf(email));
-                Log.e("이메일","이메일을 성공적으로 보냈습니다.");
-//                Toast.makeText(getActivity().getApplicationContext(), "메인배너 홍보 신청이 완료 되었습니다!", Toast.LENGTH_SHORT).show();
             } catch (SendFailedException e) {
-                Log.e("이메일","이메일 형식이 잘못되었습니다.");
-                //   Toast.makeText(getActivity().getApplicationContext(), "이메일 형식이 잘못되었습니다.", Toast.LENGTH_SHORT).show();
             } catch (MessagingException e) {
-                Log.e("이메일","인터넷 연결을 확인해주십시오");
-                // Toast.makeText(getActivity().getApplicationContext(), "인터넷 연결을 확인해주십시오", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 e.printStackTrace();
             }

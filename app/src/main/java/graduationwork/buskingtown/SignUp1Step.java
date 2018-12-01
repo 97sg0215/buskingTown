@@ -2,13 +2,10 @@ package graduationwork.buskingtown;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,14 +14,7 @@ import android.widget.ImageButton;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import graduationwork.buskingtown.api.RestApiService;
-import graduationwork.buskingtown.model.SignUp;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class SignUp1Step extends AppCompatActivity {
-    private RestApiService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +47,7 @@ public class SignUp1Step extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
+
             // 입력이 끝났을 때
             @Override
             public void afterTextChanged(Editable editable) {
@@ -69,7 +60,7 @@ public class SignUp1Step extends AppCompatActivity {
                 final Button nextBtn = (Button) findViewById(R.id.nextBtn);
 
                 //이메일 형식, 비밀번호 형식, 비밀번호 확인 형식 모두 맞으면 버튼 활성화
-                if(emailOk[0]&&pwOk[0]&&pwCheckOk[0]){
+                if (emailOk[0] && pwOk[0] && pwCheckOk[0]) {
                     //색지정 할때 getApplicationContext().getResources().getColor(컬러이름)으로 해주세요.
                     nextBtn.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.mainPurple));
                     //다음 로그인 버튼
@@ -79,7 +70,7 @@ public class SignUp1Step extends AppCompatActivity {
                             nextSignUp();
                         }
                     });
-                }else {
+                } else {
                     nextBtn.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.subGray));
                     nextBtn.setOnClickListener(null);
                 }
@@ -98,6 +89,7 @@ public class SignUp1Step extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
+
             // 입력이 끝났을 때
             @Override
             public void afterTextChanged(Editable editable) {
@@ -109,7 +101,7 @@ public class SignUp1Step extends AppCompatActivity {
                 //다음 버튼 변수
                 final Button nextBtn = (Button) findViewById(R.id.nextBtn);
 
-                if(emailOk[0]&&pwOk[0]&&pwCheckOk[0]){//이메일 형식, 비밀번호 형식, 비밀번호 확인 형식 모두 맞으면 버튼 활성화
+                if (emailOk[0] && pwOk[0] && pwCheckOk[0]) {//이메일 형식, 비밀번호 형식, 비밀번호 확인 형식 모두 맞으면 버튼 활성화
                     nextBtn.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.mainPurple));
                     nextBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -117,7 +109,7 @@ public class SignUp1Step extends AppCompatActivity {
                             nextSignUp();
                         }
                     });
-                }else {
+                } else {
                     nextBtn.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.subGray));
                     nextBtn.setOnClickListener(null);
                 }
@@ -136,10 +128,12 @@ public class SignUp1Step extends AppCompatActivity {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
+
             //입력 시
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
+
             //컬러이름 불러오기
             @SuppressLint("ResourceAsColor")
             //입력이 끝난 후
@@ -153,7 +147,7 @@ public class SignUp1Step extends AppCompatActivity {
                 //다음 버튼 변수
                 final Button nextBtn = (Button) findViewById(R.id.nextBtn);
 
-                if(emailOk[0]&&pwOk[0]&&pwCheckOk[0]){//이메일 형식, 비밀번호 형식, 비밀번호 확인 형식 모두 맞으면 버튼 활성화
+                if (emailOk[0] && pwOk[0] && pwCheckOk[0]) {//이메일 형식, 비밀번호 형식, 비밀번호 확인 형식 모두 맞으면 버튼 활성화
                     nextBtn.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.mainPurple));
                     nextBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -161,7 +155,7 @@ public class SignUp1Step extends AppCompatActivity {
                             nextSignUp();
                         }
                     });
-                }else {
+                } else {
                     nextBtn.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.subGray));
                     nextBtn.setOnClickListener(null);
                 }
@@ -170,7 +164,7 @@ public class SignUp1Step extends AppCompatActivity {
     }
 
     //이메일 형식이 제대로 되어있나 체크 메소드
-    public static boolean checkEmail(String email){
+    public static boolean checkEmail(String email) {
         String regex = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(email);
@@ -179,8 +173,8 @@ public class SignUp1Step extends AppCompatActivity {
     }
 
     //비밀번호 형식이 제대로 되어있나 체크 메소드
-    public static boolean checkPW(String pw){
-        String regex =  "^(?=.*[a-zA-Z]+)(?=.*[!@#$%^*+=-]|.*[0-9]+).{8,16}$";
+    public static boolean checkPW(String pw) {
+        String regex = "^(?=.*[a-zA-Z]+)(?=.*[!@#$%^*+=-]|.*[0-9]+).{8,16}$";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(pw);
         boolean isNormal = m.matches();
@@ -188,8 +182,8 @@ public class SignUp1Step extends AppCompatActivity {
     }
 
     //회원가입2 액티비티로 넘어가기
-    public void nextSignUp(){
-        Intent nextSignUpActivity = new Intent(getApplication(),SignUp2Step.class);
+    public void nextSignUp() {
+        Intent nextSignUpActivity = new Intent(getApplication(), SignUp2Step.class);
 
         final EditText emailEdit = (EditText) findViewById(R.id.email);
         final String checkEmail = emailEdit.getText().toString();
@@ -198,14 +192,14 @@ public class SignUp1Step extends AppCompatActivity {
         final String checkPw = passWdEdit.getText().toString();
 
         //회원가입2단계로 데이터 넘김
-        nextSignUpActivity.putExtra("email",checkEmail);
-        nextSignUpActivity.putExtra("password",checkPw);
+        nextSignUpActivity.putExtra("email", checkEmail);
+        nextSignUpActivity.putExtra("password", checkPw);
 
         startActivity(nextSignUpActivity);
     }
 
     //백버튼 메소드
-    public void previousActivity(View v){
+    public void previousActivity(View v) {
         onBackPressed();
     }
 

@@ -1,7 +1,6 @@
 package graduationwork.buskingtown;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -10,9 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
@@ -30,21 +27,20 @@ public class Notification extends Fragment {
     //리스트에 들어갈 정보들
     ArrayList<NotificationItem> listItems;
 
-    public Notification(){
+    public Notification() {
         // Required empty public constructor
     }
+
     private static final String TAG = "Notification";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View v =  inflater.inflate(R.layout.activity_notification, container, false);
+        View v = inflater.inflate(R.layout.activity_notification, container, false);
 
         //스와이프메뉴
         listItems = new ArrayList<NotificationItem>();
         listView = (SwipeMenuListView) v.findViewById(R.id.listView);
         mAdapter = new NotificationAdapter((listItems));
-
         listItems.add(new NotificationItem("mitch"));
 
         listView.setAdapter(mAdapter);
@@ -106,7 +102,7 @@ public class Notification extends Fragment {
     }
 
     //리스트 아이템들(화면에 띄워지는 정보들을 세팅)
-    public class NotificationItem{
+    public class NotificationItem {
         private String team_name;
         //이런식으로 들어가는 정보 세팅하셈
 
@@ -145,8 +141,7 @@ public class Notification extends Fragment {
             //부모뷰에 리스트로 세팅될 하나의 조각을 세팅하는 것
             LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            View result = inflater.inflate(R.layout.simple_list_item_1,parent,false);
-
+            View result = inflater.inflate(R.layout.simple_list_item_1, parent, false);
 
             return result;
         }

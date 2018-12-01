@@ -11,7 +11,6 @@ import com.nhn.android.maps.NMapOverlayItem;
 import com.nhn.android.maps.overlay.NMapPOIitem;
 
 public class NMapCalloutCustomOverlayView extends NMapCalloutOverlayView {
-
     private View mCalloutView;
     private TextView mCalloutText;
     private View mRightArrow;

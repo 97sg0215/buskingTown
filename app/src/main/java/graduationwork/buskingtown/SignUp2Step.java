@@ -12,29 +12,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.tsongkha.spinnerdatepicker.DatePicker;
-import com.tsongkha.spinnerdatepicker.DatePickerDialog;
-import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.Profile;
 import graduationwork.buskingtown.model.SignUp;
-import graduationwork.buskingtown.model.User;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -56,14 +41,14 @@ public class SignUp2Step extends AppCompatActivity {
 
         //이전 액티비티에서 이메일, 비밀번호 받아와서 이어서 작성
         userEmail = getIntent().getStringExtra("email");
-        Log.e("이메일", String.valueOf(userEmail));
         userPassword = getIntent().getStringExtra("password");
-        Log.e("비밀번호", String.valueOf("보안을 위해 띄우지 않습니다."));
 
         ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { SignUp2Step.super.onBackPressed(); }
+            public void onClick(View v) {
+                SignUp2Step.super.onBackPressed();
+            }
         });
 
 
@@ -86,7 +71,6 @@ public class SignUp2Step extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
 
             }
 
@@ -111,7 +95,7 @@ public class SignUp2Step extends AppCompatActivity {
                             String userID = inputIDEdit.getText().toString();
                             String userPhone = phoneNumEdit.getText().toString();
 
-                            signUp(userID,userEmail,userPassword,userPhone);
+                            signUp(userID, userEmail, userPassword, userPhone);
                         }
                     });
                 } else {
@@ -159,11 +143,8 @@ public class SignUp2Step extends AppCompatActivity {
                             String userID = inputIDEdit.getText().toString();
                             String userPhone = phoneNumEdit.getText().toString();
 
-                            signUp(userID,userEmail,userPassword,userPhone);
+                            signUp(userID, userEmail, userPassword, userPhone);
 
-                            Log.e("아이디",String.valueOf(userID));
-                            Log.e("이메일",String.valueOf(userEmail));
-                            Log.e("폰",String.valueOf(userPhone));
                         }
                     });
                 } else {
@@ -208,27 +189,22 @@ public class SignUp2Step extends AppCompatActivity {
         signUp.setUsername(id);
         signUp.setPassword(password);
         signUp.setProfile(profile);
-        Log.e("프로필", String.valueOf(profile));
 
         Call<SignUp> postCall = apiService.postSignUp(signUp);
         postCall.enqueue(new Callback<SignUp>() {
             @Override
             public void onResponse(Call<SignUp> call, Response<SignUp> response) {
                 if (response.isSuccessful()) {
-                    Log.e("회원가입:", "성공");
                     Toast.makeText(getApplicationContext(), "버스킹타운 회원이 되신걸 축하드립니다!!", Toast.LENGTH_SHORT).show();
                     startLogin();
                 } else {
                     int StatusCode = response.code();
                     Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
-                    if(StatusCode == 400){
+                    if (StatusCode == 400) {
                         Toast.makeText(getApplicationContext(), "중복된 아이디가 존재 합니다.\n다른 아이디로 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
-                    }else {
+                    } else {
                         Toast.makeText(getApplicationContext(), "회원가입에 실패했습니다.\n다시 시도해주세요", Toast.LENGTH_SHORT).show();
                     }
-                    Log.e("메세지", String.valueOf(response.message()));
-                    Log.e("리스폰스에러바디", String.valueOf(response.errorBody()));
-                    Log.e("리스폰스바디", String.valueOf(response.raw().toString()));
                 }
             }
 

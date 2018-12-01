@@ -1,10 +1,7 @@
 package graduationwork.buskingtown;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -33,10 +30,6 @@ import com.nhn.android.mapviewer.overlay.NMapCalloutOverlay;
 import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
 import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
-
 
 public class RoadSearch extends NMapActivity implements OnMapStateChangeListener {
     private static final String LOG_TAG = "NMapViewer";
@@ -51,16 +44,12 @@ public class RoadSearch extends NMapActivity implements OnMapStateChangeListener
     // 맵을 추가할 레이아웃
     RelativeLayout MapContainer;
 
-    private final String  TAG = "MainActivity";
-
+    private final String TAG = "MainActivity";
     private NMapViewerResourceProvider mMapViewerResourceProvider;
     private NMapOverlayManager mOverlayManager;
-
     private NMapPOIitem mFloatingPOIitem;
     private NMapPOIdataOverlay mFloatingPOIdataOverlay;
-
     private TextView detailAddress;
-
     private EditText locationSearch, addressIn;
 
     Button choiceBtn;
@@ -76,7 +65,9 @@ public class RoadSearch extends NMapActivity implements OnMapStateChangeListener
         ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { RoadSearch.super.onBackPressed(); }
+            public void onClick(View v) {
+                RoadSearch.super.onBackPressed();
+            }
         });
 
         // 네이버 지도를 넣기 위한 LinearLayout 컴포넌트
@@ -118,7 +109,7 @@ public class RoadSearch extends NMapActivity implements OnMapStateChangeListener
 
         locationSearch = (EditText) findViewById(R.id.locationSearchText);
 
-        addressIn =(EditText)findViewById(R.id.addressIn);
+        addressIn = (EditText) findViewById(R.id.addressIn);
 
         addressIn.addTextChangedListener(new TextWatcher() {
             @Override
@@ -134,12 +125,13 @@ public class RoadSearch extends NMapActivity implements OnMapStateChangeListener
             @Override
             public void afterTextChanged(Editable s) {
                 location_name = addressIn.getText().toString();
-                choiceBtn(location_name,location_detail,lon,lat);
+                choiceBtn(location_name, location_detail, lon, lat);
             }
         });
 
     }
-    public void previousActivity(View v){
+
+    public void previousActivity(View v) {
         onBackPressed();
     }
 
@@ -147,7 +139,8 @@ public class RoadSearch extends NMapActivity implements OnMapStateChangeListener
      * 지도 레벨 변경 시 호출되며 변경된 지도 레벨이 파라미터로 전달된다.
      */
     @Override
-    public void onZoomLevelChange(NMapView mapview, int level) {}
+    public void onZoomLevelChange(NMapView mapview, int level) {
+    }
 
     @Override
     public void onMapInitHandler(NMapView nMapView, NMapError nMapError) {
@@ -158,7 +151,8 @@ public class RoadSearch extends NMapActivity implements OnMapStateChangeListener
      * 지도 중심 변경 시 호출되며 변경된 중심 좌표가 파라미터로 전달된다.
      */
     @Override
-    public void onMapCenterChange(NMapView mapview, NGeoPoint center) {}
+    public void onMapCenterChange(NMapView mapview, NGeoPoint center) {
+    }
 
     /**
      * 지도 애니메이션 상태 변경 시 호출된다.
@@ -167,10 +161,12 @@ public class RoadSearch extends NMapActivity implements OnMapStateChangeListener
      */
     @Override
     public void onAnimationStateChange(
-            NMapView arg0, int animType, int animState) {}
+            NMapView arg0, int animType, int animState) {
+    }
 
     @Override
-    public void onMapCenterChangeFine(NMapView arg0) {}
+    public void onMapCenterChangeFine(NMapView arg0) {
+    }
 
     private void testFloatingPOIdataOverlay() {
         // Markers for POI item
@@ -221,14 +217,11 @@ public class RoadSearch extends NMapActivity implements OnMapStateChangeListener
             lon = point.longitude;
             lat = point.latitude;
 
-            //getAddress(getApplicationContext(),point.longitude,point.latitude);
-
             item.setTitle(null);
 
         }
     };
 
-    /* POI data State Change Listener*/
     private final NMapPOIdataOverlay.OnStateChangeListener onPOIdataStateChangeListener = new NMapPOIdataOverlay.OnStateChangeListener() {
 
         @Override
@@ -236,9 +229,6 @@ public class RoadSearch extends NMapActivity implements OnMapStateChangeListener
             if (DEBUG) {
                 Log.i(LOG_TAG, "onCalloutClick: title=" + item.getTitle());
             }
-
-            // [[TEMP]] handle a click event of the callout
-            //Toast.makeText(RoadSearch.this, "onCalloutClick: " + item.getTitle(), Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -258,11 +248,9 @@ public class RoadSearch extends NMapActivity implements OnMapStateChangeListener
         @Override
         public NMapCalloutOverlay onCreateCalloutOverlay(NMapOverlay itemOverlay, NMapOverlayItem overlayItem, Rect itemBounds) {
 
-            // handle overlapped items
             if (itemOverlay instanceof NMapPOIdataOverlay) {
-                NMapPOIdataOverlay poiDataOverlay = (NMapPOIdataOverlay)itemOverlay;
+                NMapPOIdataOverlay poiDataOverlay = (NMapPOIdataOverlay) itemOverlay;
 
-                // check if it is selected by touch event
                 if (!poiDataOverlay.isFocusedBySelectItem()) {
                     int countOfOverlappedItems = 1;
 
@@ -270,12 +258,10 @@ public class RoadSearch extends NMapActivity implements OnMapStateChangeListener
                     for (int i = 0; i < poiData.count(); i++) {
                         NMapPOIitem poiItem = poiData.getPOIitem(i);
 
-                        // skip selected item
                         if (poiItem == overlayItem) {
                             continue;
                         }
 
-                        // check if overlapped or not
                         if (Rect.intersects(poiItem.getBoundsInScreen(), overlayItem.getBoundsInScreen())) {
                             countOfOverlappedItems++;
                         }
@@ -289,9 +275,8 @@ public class RoadSearch extends NMapActivity implements OnMapStateChangeListener
                 }
             }
 
-            // use custom old callout overlay
             if (overlayItem instanceof NMapPOIitem) {
-                NMapPOIitem poiItem = (NMapPOIitem)overlayItem;
+                NMapPOIitem poiItem = (NMapPOIitem) overlayItem;
 
                 if (poiItem.showRightButton()) {
                     return new NMapCalloutCustomOldOverlay(itemOverlay, overlayItem, itemBounds,
@@ -299,11 +284,8 @@ public class RoadSearch extends NMapActivity implements OnMapStateChangeListener
                 }
             }
 
-            // use custom callout overlay
             return new NMapCalloutCustomOverlay(itemOverlay, overlayItem, itemBounds, mMapViewerResourceProvider);
 
-            // set basic callout overlay
-            //return new NMapCalloutBasicOverlay(itemOverlay, overlayItem, itemBounds);
         }
 
     };
@@ -327,7 +309,6 @@ public class RoadSearch extends NMapActivity implements OnMapStateChangeListener
 
     };
 
-    /* NMapDataProvider Listener */
     private final OnDataProviderListener onDataProviderListener = new OnDataProviderListener() {
 
         @Override
@@ -339,8 +320,6 @@ public class RoadSearch extends NMapActivity implements OnMapStateChangeListener
             }
 
             if (errInfo != null) {
-                Log.e(LOG_TAG, "Failed to findPlacemarkAtLocation: error=" + errInfo.toString());
-
                 return;
             }
 
@@ -349,9 +328,9 @@ public class RoadSearch extends NMapActivity implements OnMapStateChangeListener
 
                 if (placeMark != null) {
                     mFloatingPOIitem.setTitle(placeMark.toString());
-                    detailAddress = (TextView)findViewById(R.id.detailAddress);
+                    detailAddress = (TextView) findViewById(R.id.detailAddress);
                     location_detail = placeMark.toString();
-                    choiceBtn(location_name,location_detail,lat,lon);
+                    choiceBtn(location_name, location_detail, lat, lon);
                     detailAddress.setText(placeMark.toString());
 
                 }
@@ -361,7 +340,7 @@ public class RoadSearch extends NMapActivity implements OnMapStateChangeListener
 
     };
 
-    public void choiceBtn(String l_name,String l_detail, double lon, double lat) {
+    public void choiceBtn(String l_name, String l_detail, double lon, double lat) {
         //확인 버튼 변수
         final Button choiceBtn = (Button) findViewById(R.id.choiceBtn);
         choiceBtn.setOnClickListener(new View.OnClickListener() {
@@ -374,9 +353,6 @@ public class RoadSearch extends NMapActivity implements OnMapStateChangeListener
                 intent.putExtra("lon", lon);
                 intent.putExtra("lat", lat);
 
-                Log.e("장소이름", String.valueOf(l_name));
-                Log.e("lon", String.valueOf(lon));
-                Log.e("lat", String.valueOf(lat));
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
@@ -384,35 +360,6 @@ public class RoadSearch extends NMapActivity implements OnMapStateChangeListener
         });
 
     }
-
-    public static String getAddress(Context mContext, double lat, double lng) {
-        String nowAddress ="현재 위치를 확인 할 수 없습니다.";
-        Geocoder geocoder = new Geocoder(mContext, Locale.KOREA);
-        List<Address> address;
-        try {
-            if (geocoder != null) {
-                //세번째 파라미터는 좌표에 대해 주소를 리턴 받는 갯수로
-                //한좌표에 대해 두개이상의 이름이 존재할수있기에 주소배열을 리턴받기 위해 최대갯수 설정
-                address = geocoder.getFromLocation(lat, lng, 1);
-
-                if (address != null && address.size() > 0) {
-                    // 주소 받아오기
-                    String currentLocationAddress = address.get(0).getAddressLine(0).toString();
-                    nowAddress  = currentLocationAddress;
-
-                }
-            }
-
-        } catch (IOException e) {
-            //Toast.makeText(baseContext, "주소를 가져 올 수 없습니다.", Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-        }
-        return nowAddress;
-    }
-
-
-
-
 
 }
 

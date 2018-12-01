@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,8 +19,6 @@ import java.util.regex.Pattern;
 
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.ChangePassword;
-import graduationwork.buskingtown.model.Login;
-import graduationwork.buskingtown.model.User;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -31,7 +28,7 @@ import retrofit2.Response;
 public class PasswdChange extends AppCompatActivity {
 
     private TextView passwdok;
-    private EditText nowPasswd,newPasswd,newPasswdCheck;
+    private EditText nowPasswd, newPasswd, newPasswdCheck;
     RestApiService apiService;
     String user_token, nowpw, newpw, checkpw;
     int user_id;
@@ -50,15 +47,14 @@ public class PasswdChange extends AppCompatActivity {
         ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { PasswdChange.super.onBackPressed(); }
+            public void onClick(View v) {
+                PasswdChange.super.onBackPressed();
+            }
         });
-
-        final boolean[] pwOk = new boolean[1];
-        final boolean[] pwCheckOk = new boolean[1];
 
         nowPasswd = (EditText) findViewById(R.id.nowPasswd);
         newPasswd = (EditText) findViewById(R.id.newPasswd);
-        newPasswdCheck = (EditText)findViewById(R.id.newPasswdCheck);
+        newPasswdCheck = (EditText) findViewById(R.id.newPasswdCheck);
 
         nowPasswd.addTextChangedListener(new TextWatcher() {
             @Override
@@ -111,21 +107,20 @@ public class PasswdChange extends AppCompatActivity {
             }
         });
 
-            //완료
+        //완료
         passwdok = (TextView) findViewById(R.id.passwdOK);
         passwdok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.e("비번", checkpw);
-                if(newpw.equals(checkpw)){
+                if (newpw.equals(checkpw)) {
                     ChangePassword changePassword = new ChangePassword(nowpw, checkpw);
-                    Call<ResponseBody> changePassWord = apiService.changePassword(user_token,user_id,changePassword);
+                    Call<ResponseBody> changePassWord = apiService.changePassword(user_token, user_id, changePassword);
                     changePassWord.enqueue(new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                            if(response.isSuccessful()){
-                                Log.e("메세지", "비번 변경 성공");
-                                Toast.makeText(PasswdChange.this,"변경된 비밀번호로 다시 로그인해주세요!",Toast.LENGTH_SHORT).show();
+                            if (response.isSuccessful()) {
+                                Toast.makeText(PasswdChange.this, "변경된 비밀번호로 다시 로그인해주세요!", Toast.LENGTH_SHORT).show();
                                 SharedPreferences.Editor editor = pref.edit();
                                 editor.clear(); //clear all stored data
                                 editor.commit();
@@ -134,42 +129,39 @@ public class PasswdChange extends AppCompatActivity {
                                 login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(login);
                                 finish();
-                            }else {
+                            } else {
                                 int StatusCode = response.code();
                                 String s = response.message();
-                                ResponseBody d = response.errorBody();
                                 Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
-                                Log.e("메세지", s);
-                                Toast.makeText(PasswdChange.this,s,Toast.LENGTH_SHORT).show();
-                                Log.e("리스폰스에러바디", String.valueOf(d));
-                                Log.e("리스폰스바디", String.valueOf(response.body()));
+                                Toast.makeText(PasswdChange.this, s, Toast.LENGTH_SHORT).show();
                             }
                         }
+
                         @Override
                         public void onFailure(Call<ResponseBody> call, Throwable t) {
                             Log.i(ApplicationController.TAG, "비밀번호 변경 서버 연결 실패 Message : " + t.getMessage());
                         }
                     });
-                }else {
-                    Toast.makeText(PasswdChange.this,"새로운 비밀번호와 비밀번호 확인이 달라요!",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(PasswdChange.this, "새로운 비밀번호와 비밀번호 확인이 달라요!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
     //비밀번호 형식이 제대로 되어있나 체크 메소드
-    public static boolean checkPW(String pw){
-        String regex =  "^(?=.*[a-zA-Z]+)(?=.*[!@#$%^*+=-]|.*[0-9]+).{8,16}$";
+    public static boolean checkPW(String pw) {
+        String regex = "^(?=.*[a-zA-Z]+)(?=.*[!@#$%^*+=-]|.*[0-9]+).{8,16}$";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(pw);
         boolean isNormal = m.matches();
         return isNormal;
     }
 
-    public void getLocalData(){
+    public void getLocalData() {
         SharedPreferences pref = getSharedPreferences("User", Activity.MODE_PRIVATE);
-        user_token = pref.getString("auth_token",null);
-        user_id = pref.getInt("user_id",0);
+        user_token = pref.getString("auth_token", null);
+        user_id = pref.getInt("user_id", 0);
     }
 
     //api연결
@@ -179,7 +171,7 @@ public class PasswdChange extends AppCompatActivity {
         apiService = ApplicationController.getInstance().getRestApiService();
     }
 
-    public void previousActivity(View v){
+    public void previousActivity(View v) {
         onBackPressed();
     }
 
