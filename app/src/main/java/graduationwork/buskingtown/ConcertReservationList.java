@@ -49,7 +49,9 @@ public class ConcertReservationList extends AppCompatActivity {
         ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { ConcertReservationList.super.onBackPressed(); }
+            public void onClick(View v) {
+                ConcertReservationList.super.onBackPressed();
+            }
         });
 
         notice_reservation = findViewById(R.id.reservationText);
@@ -58,16 +60,15 @@ public class ConcertReservationList extends AppCompatActivity {
         listItems = new ArrayList<ConcertListItem>();
         mAdapter = new ConcertListCustom(listItems);
 
-        Call<List<graduationwork.buskingtown.model.ConcertReservation>> reservationCall = apiService.reservationBuskerConcertCheck(user_token,busker_id);
+        Call<List<graduationwork.buskingtown.model.ConcertReservation>> reservationCall = apiService.reservationBuskerConcertCheck(user_token, busker_id);
         reservationCall.enqueue(new Callback<List<graduationwork.buskingtown.model.ConcertReservation>>() {
             @Override
             public void onResponse(Call<List<graduationwork.buskingtown.model.ConcertReservation>> call, Response<List<graduationwork.buskingtown.model.ConcertReservation>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     List<graduationwork.buskingtown.model.ConcertReservation> practiceReservation = response.body();
-                    Log.e("사이즈?",String.valueOf(practiceReservation.size()));
-                    if(practiceReservation.size() != 0){
+                    if (practiceReservation.size() != 0) {
                         notice_reservation.setVisibility(View.GONE);
-                        for (int i = 0; i< practiceReservation.size();i++){
+                        for (int i = 0; i < practiceReservation.size(); i++) {
                             listItems.add(new ConcertListItem(practiceReservation.get(i).getReservation_id(),
                                     practiceReservation.get(i).getConcert_date(),
                                     practiceReservation.get(i).getConcert_start_time(),
@@ -76,13 +77,9 @@ public class ConcertReservationList extends AppCompatActivity {
                         }
                         //화면 리스트 뷰에 정보들이 들어가있는 어댑터를 연결함
                         listView.setAdapter(mAdapter);
-                    }
-                    else {
+                    } else {
                         int StatusCode = response.code();
                         Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
-                        Log.e("메세지", String.valueOf(response.message()));
-                        Log.e("리스폰스에러바디", String.valueOf(response.errorBody()));
-                        Log.e("리스폰스바디", String.valueOf(response.body()));
                     }
                 }
             }
@@ -96,14 +93,14 @@ public class ConcertReservationList extends AppCompatActivity {
     }
 
     //리스트 아이템들(화면에 띄워지는 정보들을 세팅)
-    public class ConcertListItem{
+    public class ConcertListItem {
         private int reservation_id;
         private String date;
         private String start_time;
         private String end_time;
         private int provide_id;
 
-        public ConcertListItem(int reservation_id,String date, String start_time, String end_time, int provide_id) {
+        public ConcertListItem(int reservation_id, String date, String start_time, String end_time, int provide_id) {
             this.reservation_id = reservation_id;
             this.date = date;
             this.start_time = start_time;
@@ -140,22 +137,22 @@ public class ConcertReservationList extends AppCompatActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             //부모뷰에 리스트로 세팅될 하나의 조각을 세팅하는 것
-            reservation_list = getLayoutInflater().inflate(R.layout.reservationlist,reservation_container,false);
+            reservation_list = getLayoutInflater().inflate(R.layout.reservationlist, reservation_container, false);
             TextView date = reservation_list.findViewById(R.id.reservationDate);
             TextView time = reservation_list.findViewById(R.id.reservationTime);
             TextView loc_name = reservation_list.findViewById(R.id.reservationLocation);
             date.setText(getItem(position).date);
             String start_time_text = getItem(position).start_time;
             String end_time_text = getItem(position).end_time;
-            time.setText(start_time_text+" ~ "+end_time_text);
+            time.setText(start_time_text + " ~ " + end_time_text);
             final String[] loc_name_text = new String[1];
             final String[] address = new String[1];
 
-            Call<LendLocation> roomInfo = apiService.roomInfo(user_token,getItem(position).provide_id);
+            Call<LendLocation> roomInfo = apiService.roomInfo(user_token, getItem(position).provide_id);
             roomInfo.enqueue(new Callback<LendLocation>() {
                 @Override
                 public void onResponse(Call<LendLocation> call, Response<LendLocation> response) {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         loc_name_text[0] = response.body().getProvide_location_name();
                         address[0] = response.body().getProvide_location();
                         loc_name.setText(loc_name_text[0]);
@@ -171,14 +168,14 @@ public class ConcertReservationList extends AppCompatActivity {
             reservation_list.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent check = new Intent(getApplication(),ConcertReservation.class);
-                    check.putExtra("reservation_id",getItem(position).reservation_id);
-                    check.putExtra("loc_name",loc_name_text[0]);
-                    check.putExtra("provide",getItem(position).provide_id);
-                    check.putExtra("start_time",getItem(position).start_time);
-                    check.putExtra("end_time",getItem(position).end_time);
-                    check.putExtra("date",getItem(position).date);
-                    check.putExtra("address",address[0]);
+                    Intent check = new Intent(getApplication(), ConcertReservation.class);
+                    check.putExtra("reservation_id", getItem(position).reservation_id);
+                    check.putExtra("loc_name", loc_name_text[0]);
+                    check.putExtra("provide", getItem(position).provide_id);
+                    check.putExtra("start_time", getItem(position).start_time);
+                    check.putExtra("end_time", getItem(position).end_time);
+                    check.putExtra("date", getItem(position).date);
+                    check.putExtra("address", address[0]);
                     startActivity(check);
                 }
             });
@@ -187,16 +184,16 @@ public class ConcertReservationList extends AppCompatActivity {
         }
     }
 
-    public void previousActivity(View v){
+    public void previousActivity(View v) {
         onBackPressed();
     }
 
-    public void getLocalData(){
+    public void getLocalData() {
         SharedPreferences pref = getSharedPreferences("User", Activity.MODE_PRIVATE);
         SharedPreferences busker_pref = getSharedPreferences("BuskerUser", Activity.MODE_PRIVATE);
-        user_token = pref.getString("auth_token",null);
-        user_name = pref.getString("username",null);
-        busker_id = busker_pref.getInt("busker_id",0);
+        user_token = pref.getString("auth_token", null);
+        user_name = pref.getString("username", null);
+        busker_id = busker_pref.getInt("busker_id", 0);
     }
 
     public void restApiBuilder() {

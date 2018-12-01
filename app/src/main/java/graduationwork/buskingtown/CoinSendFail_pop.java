@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
-public class CoinSendFail_pop extends Activity implements View.OnClickListener{
+public class CoinSendFail_pop extends Activity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +17,7 @@ public class CoinSendFail_pop extends Activity implements View.OnClickListener{
 
         findViewById(R.id.delete).setOnClickListener(this);
 
-        findViewById(R.id.coinChargeBtn).setOnClickListener(new Button.OnClickListener(){
+        findViewById(R.id.coinChargeBtn).setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent coinCharge = new Intent(getApplicationContext(), CoinCharge.class);
@@ -25,8 +25,9 @@ public class CoinSendFail_pop extends Activity implements View.OnClickListener{
             }
         });
     }
-    public void onClick(View v){
-        switch (v.getId()){
+
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.delete:
                 this.finish();
                 break;

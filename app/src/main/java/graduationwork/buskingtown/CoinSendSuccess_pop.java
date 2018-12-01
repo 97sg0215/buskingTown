@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
-public class CoinSendSuccess_pop extends Activity implements View.OnClickListener{
+public class CoinSendSuccess_pop extends Activity implements View.OnClickListener {
 
     Button coinSendCheckBtn;
 
@@ -16,20 +16,19 @@ public class CoinSendSuccess_pop extends Activity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_coin_send_success_pop);
-
         findViewById(R.id.delete).setOnClickListener(this);
-
         coinSendCheckBtn = (Button) findViewById(R.id.coinSendCheckBtn);
         coinSendCheckBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplication(),MycoinHouse.class);
+                Intent i = new Intent(getApplication(), MycoinHouse.class);
                 startActivity(i);
             }
         });
     }
-    public void onClick(View v){
-        switch (v.getId()){
+
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.delete:
                 this.finish();
                 break;

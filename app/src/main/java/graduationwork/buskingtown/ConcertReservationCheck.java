@@ -27,7 +27,6 @@ import javax.mail.SendFailedException;
 
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.ConcertReservation;
-import okhttp3.ResponseBody;
 import retrofit2.Callback;
 import retrofit2.Response;
 
@@ -36,9 +35,9 @@ public class ConcertReservationCheck extends AppCompatActivity {
     RestApiService apiService;
 
     int busker_id, provide_id, option_id, fee;
-    String user_token, practice_date, start_time, end_time, provide_image, provide_name, provide_address, option_name, team_name, phone, email,p_email,total_message;
+    String user_token, practice_date, start_time, end_time, provide_image, provide_name, provide_address, option_name, team_name, phone, email, p_email, total_message;
 
-    TextView practice_name,practice_add, rc_name, option_txt, date_txt, time_txt, team_txt, num_txt, email_txt, price_txt;
+    TextView practice_name, practice_add, rc_name, option_txt, date_txt, time_txt, team_txt, num_txt, email_txt, price_txt;
 
     ImageView room_image;
 
@@ -58,10 +57,10 @@ public class ConcertReservationCheck extends AppCompatActivity {
                 .permitDiskWrites()
                 .permitNetwork().build());
 
-        provide_id = getIntent().getIntExtra("rc_id",0);
+        provide_id = getIntent().getIntExtra("rc_id", 0);
         p_email = getIntent().getStringExtra("p_email");
-        option_id = getIntent().getIntExtra("rc_option_id",0);
-        fee = getIntent().getIntExtra("rc_option_price",0);
+        option_id = getIntent().getIntExtra("rc_option_id", 0);
+        fee = getIntent().getIntExtra("rc_option_price", 0);
         provide_image = getIntent().getStringExtra("rc_image");
         provide_name = getIntent().getStringExtra("rc_name");
         provide_address = getIntent().getStringExtra("rc_address");
@@ -108,24 +107,24 @@ public class ConcertReservationCheck extends AppCompatActivity {
         email_txt.setText(email);
         price_txt.setText(String.valueOf(fee));
 
-
-        //아래는 뒤로가기 버튼 클릭시 뒤로가는거임
         ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { ConcertReservationCheck.super.onBackPressed(); }
+            public void onClick(View v) {
+                ConcertReservationCheck.super.onBackPressed();
+            }
         });
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reservation(provide_id,option_id,practice_date,start_time,end_time,fee);
+                reservation(provide_id, option_id, practice_date, start_time, end_time, fee);
             }
         });
 
     }
 
-    public void reservation(int provide_id,int provide_option, String date,String start_time,String end_time, int fee){
+    public void reservation(int provide_id, int provide_option, String date, String start_time, String end_time, int fee) {
 
         ConcertReservation ConcertReservation = new ConcertReservation();
         ConcertReservation.setBusker(busker_id);
@@ -137,38 +136,34 @@ public class ConcertReservationCheck extends AppCompatActivity {
         ConcertReservation.setConcert_fee(fee);
 
         total_message = "콘서트명: " + provide_name + "\n"
-                +"옵션명: " + option_name + "\n"
-                +"예약날짜: " + date + "\n"
-                +"예약시간: " + start_time +" ~ "+end_time + "\n\n"
-                +"예약자 정보" + "\n"
-                +"예약자명: " + team_name +"\n"
-                +"예약자번호: " +  phone + "\n"
-                +"예약자이메일: " + email +"\n";
+                + "옵션명: " + option_name + "\n"
+                + "예약날짜: " + date + "\n"
+                + "예약시간: " + start_time + " ~ " + end_time + "\n\n"
+                + "예약자 정보" + "\n"
+                + "예약자명: " + team_name + "\n"
+                + "예약자번호: " + phone + "\n"
+                + "예약자이메일: " + email + "\n";
 
         retrofit2.Call<ConcertReservation> reservationCall = apiService.reservationConcert(user_token, ConcertReservation);
         reservationCall.enqueue(new Callback<ConcertReservation>() {
             @Override
             public void onResponse(retrofit2.Call<ConcertReservation> call, Response<ConcertReservation> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     Log.i(ApplicationController.TAG, "예약 성공");
                     Intent intent = new Intent(getApplication(), ChannelBusker.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
-                    Toast.makeText(ConcertReservationCheck.this,"예약이 완료 되었습니다!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ConcertReservationCheck.this, "예약이 완료 되었습니다!", Toast.LENGTH_SHORT).show();
                     new ConcertReservationCheck.senmailAsync().execute();
-                }else {
+                } else {
                     int StatusCode = response.code();
-                    String s = response.message();
-                    ResponseBody d = response.errorBody();
                     Log.i(ApplicationController.TAG, "예약 상태 Code : " + StatusCode);
-                    Log.e("메세지", s);
-                    Log.e("리스폰스에러바디", String.valueOf(d));
-                    Log.e("리스폰스바디", String.valueOf(response.body()));
                 }
             }
 
             @Override
-            public void onFailure(retrofit2.Call<ConcertReservation> call, Throwable t) { }
+            public void onFailure(retrofit2.Call<ConcertReservation> call, Throwable t) {
+            }
         });
 
     }
@@ -179,11 +174,11 @@ public class ConcertReservationCheck extends AppCompatActivity {
         apiService = ApplicationController.getInstance().getRestApiService();
     }
 
-    public void getLocalData(){
+    public void getLocalData() {
         SharedPreferences pref = getSharedPreferences("User", Activity.MODE_PRIVATE);
         SharedPreferences buskerPref = getSharedPreferences("BuskerUser", Activity.MODE_PRIVATE);
-        user_token = pref.getString("auth_token",null);
-        busker_id = buskerPref.getInt("busker_id",0);
+        user_token = pref.getString("auth_token", null);
+        busker_id = buskerPref.getInt("busker_id", 0);
     }
 
     public Bitmap getBitmapFromURL(String src) {
@@ -199,12 +194,12 @@ public class ConcertReservationCheck extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
             return null;
-        }finally{
-            if(connection!=null)connection.disconnect();
+        } finally {
+            if (connection != null) connection.disconnect();
         }
     }
 
-    public void previousActivity(View v){
+    public void previousActivity(View v) {
         onBackPressed();
     }
 
@@ -213,17 +208,9 @@ public class ConcertReservationCheck extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             try {
                 GMailSender gMailSender = new GMailSender("buskingtown2018@gmail.com", "khphTown123");
-                //GMailSender.sendMail(제목, 본문내용, 받는사람);
                 gMailSender.sendMail("[버스킹타운] 콘서트 예약 신청입니다.", total_message, p_email);
-                Log.e("이메일",String.valueOf(email));
-                Log.e("이메일","이메일을 성공적으로 보냈습니다.");
-                //  Toast.makeText(getActivity().getApplicationContext(), "이메일을 성공적으로 보냈습니다.", Toast.LENGTH_SHORT).show();
             } catch (SendFailedException e) {
-                Log.e("이메일","이메일 형식이 잘못되었습니다.");
-                //   Toast.makeText(getActivity().getApplicationContext(), "이메일 형식이 잘못되었습니다.", Toast.LENGTH_SHORT).show();
             } catch (MessagingException e) {
-                Log.e("이메일","인터넷 연결을 확인해주십시오");
-                // Toast.makeText(getActivity().getApplicationContext(), "인터넷 연결을 확인해주십시오", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -11,19 +11,11 @@ import android.widget.TextView;
 
 public class ChannelBuskerTab extends Fragment {
 
-    //호출될프래그먼트 변수들
-    private final int roadFRAGMENT = 1;
-    private final int practicePlaceFRAGMENT = 2;
-    private final int concertPlaceFRAGMENT = 3;
-
-    //탭바 아이콘 변수들
     private TextView roadConcert, practiceRoom, concert;
     private RelativeLayout roadTab, practiceTab, concertTab;
 
-    public ChannelBuskerTab(){
-        // Required empty public constructor
+    public ChannelBuskerTab() {
     }
-
 
     @Override
     @SuppressLint("ResourceAsColor")
@@ -35,10 +27,9 @@ public class ChannelBuskerTab extends Fragment {
         roadConcert = (TextView) v.findViewById(R.id.roadConcert);
         practiceRoom = (TextView) v.findViewById(R.id.practiceRoom);
         concert = (TextView) v.findViewById(R.id.concert);
-
         roadTab = (RelativeLayout) v.findViewById(R.id.roadTab);
         practiceTab = (RelativeLayout) v.findViewById(R.id.practiceTab);
-        concertTab = (RelativeLayout) v. findViewById(R.id.concertTab);
+        concertTab = (RelativeLayout) v.findViewById(R.id.concertTab);
 
         final View roadConcertBar = (View) v.findViewById(R.id.roadConcertBar);
         final View practiceRoomBar = (View) v.findViewById(R.id.practiceRoomBar);
@@ -48,10 +39,9 @@ public class ChannelBuskerTab extends Fragment {
         getFragmentManager().beginTransaction().add(R.id.buskerFragmentContainer, new ChannelBuskerReservation()).commit();
 
         //클릭메소드 연결
-        roadTab.setOnClickListener(new View.OnClickListener(){
+        roadTab.setOnClickListener(new View.OnClickListener() {
 
             @Override
-
             public void onClick(View v) {
                 getFragmentManager().beginTransaction().replace(R.id.buskerFragmentContainer, new ChannelBuskerReservation()).commit();
                 //버튼색 활성화
@@ -66,7 +56,7 @@ public class ChannelBuskerTab extends Fragment {
 
 
         });
-        practiceTab.setOnClickListener(new View.OnClickListener(){
+        practiceTab.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -83,7 +73,7 @@ public class ChannelBuskerTab extends Fragment {
 
             }
         });
-        concertTab.setOnClickListener(new View.OnClickListener(){
+        concertTab.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {

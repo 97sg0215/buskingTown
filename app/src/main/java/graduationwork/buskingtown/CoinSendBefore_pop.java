@@ -13,12 +13,8 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.Calendar;
 
 import graduationwork.buskingtown.api.RestApiService;
-import graduationwork.buskingtown.model.Busker;
 import graduationwork.buskingtown.model.Profile;
 import graduationwork.buskingtown.model.SupportCoin;
 import graduationwork.buskingtown.model.User;
@@ -30,14 +26,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class CoinSendBefore_pop extends Activity implements View.OnClickListener{
+public class CoinSendBefore_pop extends Activity implements View.OnClickListener {
 
     EditText coin_Count, support_message;
-    String c_Count,user_token,c_message,busker_name;
-    int busker_id,user_id,coin_amount,busker_coin_amount;
+    String c_Count, user_token, c_message, busker_name;
+    int busker_id, user_id, coin_amount, busker_coin_amount;
     RestApiService apiService;
     Button sendBtn;
-    TextView coinTotal,toBusker;
+    TextView coinTotal, toBusker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,21 +47,15 @@ public class CoinSendBefore_pop extends Activity implements View.OnClickListener
 
         coinTotal = (TextView) findViewById(R.id.coinTotal);
         toBusker = (TextView) findViewById(R.id.toBusker);
-
         sendBtn = findViewById(R.id.sendBtn);
         sendBtn.setOnClickListener(null);
-
         busker_id = getIntent().getIntExtra("busker_id", 0);
-        busker_coin_amount = getIntent().getIntExtra("busker_coin",0);
+        busker_coin_amount = getIntent().getIntExtra("busker_coin", 0);
         busker_name = getIntent().getStringExtra("busker_name");
-
-        toBusker.setText("To. "+busker_name);
-
+        toBusker.setText("To. " + busker_name);
         findViewById(R.id.delete).setOnClickListener(this);
-
         coin_Count = (EditText) findViewById(R.id.coinCount);
         support_message = (EditText) findViewById(R.id.contentsOne);
-
         coin_Count.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -80,7 +70,7 @@ public class CoinSendBefore_pop extends Activity implements View.OnClickListener
             @Override
             public void afterTextChanged(Editable s) {
                 c_Count = coin_Count.getText().toString();
-                send_coin(coin_Count,support_message);
+                send_coin(coin_Count, support_message);
             }
         });
 
@@ -98,60 +88,56 @@ public class CoinSendBefore_pop extends Activity implements View.OnClickListener
             @Override
             public void afterTextChanged(Editable s) {
                 c_message = support_message.getText().toString();
-                send_coin(coin_Count,support_message);
+                send_coin(coin_Count, support_message);
             }
         });
 
 
-        send_coin(coin_Count,support_message);
+        send_coin(coin_Count, support_message);
 
     }
 
-    public void send_coin(EditText coin,EditText message){
-        Call<User> userCall = apiService.getUserDetail(user_token,user_id);
+    public void send_coin(EditText coin, EditText message) {
+        Call<User> userCall = apiService.getUserDetail(user_token, user_id);
         userCall.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     User user = response.body();
                     coin_amount = user.getProfile().getPurchase_coin();
-                    coinTotal.setText("내 코인 "+ coin_amount+ " 개");
-                    if (!coin.getText().toString().replace(" ", "").equals("")&&!message.getText().toString().replace(" ", "").equals("")) {
+                    coinTotal.setText("내 코인 " + coin_amount + " 개");
+                    if (!coin.getText().toString().replace(" ", "").equals("") && !message.getText().toString().replace(" ", "").equals("")) {
                         sendBtn.setBackground(getDrawable(R.drawable.able_btn));
                         sendBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                if(coin_amount>=Integer.parseInt(c_Count)){
-                                    user.getProfile().setPurchase_coin(coin_amount-Integer.parseInt(c_Count));
+                                if (coin_amount >= Integer.parseInt(c_Count)) {
+                                    user.getProfile().setPurchase_coin(coin_amount - Integer.parseInt(c_Count));
                                     SupportCoin coin = new SupportCoin();
                                     coin.setCoin_amount(Integer.parseInt(c_Count));
                                     coin.setSupport_message(c_message);
                                     coin.setBusker(busker_id);
                                     coin.setUser(user_id);
-                                    coin.setCoin_balance(coin_amount-Integer.parseInt(c_Count));
-                                    retrofit2.Call<SupportCoin> c_coin = apiService.supportCoin(user_token,coin);
+                                    coin.setCoin_balance(coin_amount - Integer.parseInt(c_Count));
+                                    retrofit2.Call<SupportCoin> c_coin = apiService.supportCoin(user_token, coin);
                                     c_coin.enqueue(new Callback<SupportCoin>() {
                                         @Override
-                                        public void onResponse(retrofit2.Call<SupportCoin> call, Response<SupportCoin> response){
+                                        public void onResponse(retrofit2.Call<SupportCoin> call, Response<SupportCoin> response) {
                                             if (response.isSuccessful()) {
                                                 //코인 보내기 성공 시
-                                                RequestBody user = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(user_id));
-                                                RequestBody coin_set = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(coin_amount-Integer.parseInt(c_Count)));
+                                                RequestBody user = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(user_id));
+                                                RequestBody coin_set = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(coin_amount - Integer.parseInt(c_Count)));
                                                 Intent successfulcoin = new Intent(CoinSendBefore_pop.this, CoinSendSuccess_pop.class);
                                                 startActivity(successfulcoin);
-                                                Call<Profile> profileCall = apiService.updateCoin(user_token,user_id,user,coin_set);
+                                                Call<Profile> profileCall = apiService.updateCoin(user_token, user_id, user, coin_set);
                                                 profileCall.enqueue(new Callback<Profile>() {
                                                     @Override
                                                     public void onResponse(Call<Profile> call, Response<Profile> response) {
-                                                        if(response.isSuccessful()){
-                                                            coinTotal.setText("내 코인 "+String.valueOf(coin_amount-Integer.parseInt(c_Count))+ " 개");
-                                                        }
-                                                        else {
+                                                        if (response.isSuccessful()) {
+                                                            coinTotal.setText("내 코인 " + String.valueOf(coin_amount - Integer.parseInt(c_Count)) + " 개");
+                                                        } else {
                                                             int StatusCode = response.code();
                                                             Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
-                                                            Log.e("메세지", String.valueOf(response.message()));
-                                                            Log.e("리스폰스에러바디", String.valueOf(response.errorBody()));
-                                                            Log.e("리스폰스바디", String.valueOf(response.body()));
                                                         }
                                                     }
 
@@ -160,16 +146,11 @@ public class CoinSendBefore_pop extends Activity implements View.OnClickListener
 
                                                     }
                                                 });
-                                            }else{
+                                            } else {
                                                 int StatusCode = response.code();
                                                 String s = response.message();
                                                 ResponseBody d = response.errorBody();
                                                 Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
-                                                Log.e("메세지", String.valueOf(user_id));
-                                                Log.e("메세지", String.valueOf(busker_id));
-                                                Log.e("메세지", s);
-                                                Log.e("리스폰스에러바디", String.valueOf(d));
-                                                Log.e("리스폰스바디", String.valueOf(response.body()));
                                             }
                                         }
 
@@ -178,8 +159,8 @@ public class CoinSendBefore_pop extends Activity implements View.OnClickListener
                                             Log.i(ApplicationController.TAG, "서버 연결 실패 Message : " + t.getMessage());
                                         }
                                     });
-                                }else {
-                                    Intent fail = new Intent(getApplication(),CoinSendFail_pop.class);
+                                } else {
+                                    Intent fail = new Intent(getApplication(), CoinSendFail_pop.class);
                                     startActivity(fail);
                                 }
                             }
@@ -187,6 +168,7 @@ public class CoinSendBefore_pop extends Activity implements View.OnClickListener
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<User> call, Throwable t) {
             }
@@ -208,11 +190,11 @@ public class CoinSendBefore_pop extends Activity implements View.OnClickListener
     }
 
 
-    public void onClick(View v){
-        switch (v.getId()){
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.delete:
                 this.finish();
                 break;
-            }
         }
+    }
 }

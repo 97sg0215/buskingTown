@@ -5,10 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
-
-import java.util.ArrayList;
 
 public class ClientCenterCounsel extends AppCompatActivity {
 
@@ -22,14 +19,16 @@ public class ClientCenterCounsel extends AppCompatActivity {
         ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { ClientCenterCounsel.super.onBackPressed(); }
+            public void onClick(View v) {
+                ClientCenterCounsel.super.onBackPressed();
+            }
         });
 
-        counselLayout= (RelativeLayout) findViewById(R.id. counselLayout);
+        counselLayout = (RelativeLayout) findViewById(R.id.counselLayout);
         counselLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent ClientCenterCounselDetail = new Intent(getApplication(),ClientCenterCounselDetail.class);
+                Intent ClientCenterCounselDetail = new Intent(getApplication(), ClientCenterCounselDetail.class);
                 startActivity(ClientCenterCounselDetail);
             }
         });
@@ -37,7 +36,7 @@ public class ClientCenterCounsel extends AppCompatActivity {
     }
 
     //백버튼 메소드
-    public void previousActivity(View v){
+    public void previousActivity(View v) {
         onBackPressed();
     }
 }
