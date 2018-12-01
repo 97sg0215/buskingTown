@@ -3,16 +3,13 @@ package graduationwork.buskingtown;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telecom.Call;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.PracticeReservation;
-import okhttp3.ResponseBody;
 import retrofit2.Callback;
 import retrofit2.Response;
 
@@ -31,18 +28,18 @@ public class LocationCancel extends Activity {
         getLocalData();
 
 
-        int reservation_id = getIntent().getIntExtra("reservation_id",0);
+        int reservation_id = getIntent().getIntExtra("reservation_id", 0);
 
         Button cancelBtn = (Button) findViewById(R.id.cancelBtn);
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                retrofit2.Call<PracticeReservation> call = apiService.cancelReservation(user_token,reservation_id);
+                retrofit2.Call<PracticeReservation> call = apiService.cancelReservation(user_token, reservation_id);
                 call.enqueue(new Callback<PracticeReservation>() {
                     @Override
                     public void onResponse(retrofit2.Call<PracticeReservation> call, Response<PracticeReservation> response) {
-                        if(response.isSuccessful()){
-                            Intent i = new Intent(getApplication(),PracticeroomReservationList.class);
+                        if (response.isSuccessful()) {
+                            Intent i = new Intent(getApplication(), PracticeroomReservationList.class);
                             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(i);
                         }
@@ -58,10 +55,10 @@ public class LocationCancel extends Activity {
         });
     }
 
-    public void getLocalData(){
+    public void getLocalData() {
         SharedPreferences pref = getSharedPreferences("User", Activity.MODE_PRIVATE);
         SharedPreferences buskerPref = getSharedPreferences("BuskerUser", Activity.MODE_PRIVATE);
-        user_token = pref.getString("auth_token",null);
+        user_token = pref.getString("auth_token", null);
     }
 
     public void restApiBuilder() {

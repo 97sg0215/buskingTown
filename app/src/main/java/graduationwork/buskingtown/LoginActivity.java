@@ -2,7 +2,6 @@ package graduationwork.buskingtown;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -22,7 +21,6 @@ import android.widget.Toast;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,13 +34,12 @@ import retrofit2.Response;
 
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
-import com.pusher.pushnotifications.PushNotifications;
 
 public class LoginActivity extends AppCompatActivity {
 
     private RestApiService apiService;
 
-    String inputValue = null, user_token, user_name,user_image;
+    String inputValue = null, user_token, user_name, user_image;
     int user_id;
 
     @Override
@@ -51,20 +48,17 @@ public class LoginActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-//
-//        PushNotifications.start(getApplicationContext(), "4c4a8894-87b8-4006-8e7e-b2b57fa83b79");
-//        PushNotifications.subscribe("hello");
 
         //runtime permission
-        PermissionListener permissionListener= new PermissionListener() {
+        PermissionListener permissionListener = new PermissionListener() {
             @Override
             public void onPermissionGranted() {
-                Toast.makeText(LoginActivity.this,"위치 권한허가",Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "위치 권한허가", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                Toast.makeText(LoginActivity.this,"위치 권한거부\n위치 접근이 거부될 경우 앱 사용에 제한이 있을 수 있어요."+ deniedPermissions.toString(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "위치 권한거부\n위치 접근이 거부될 경우 앱 사용에 제한이 있을 수 있어요." + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
 
             }
 
@@ -82,7 +76,6 @@ public class LoginActivity extends AppCompatActivity {
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
-                Log.e("KeyHash:", android.util.Base64.encodeToString(md.digest(), android.util.Base64.DEFAULT));
             }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -104,10 +97,10 @@ public class LoginActivity extends AppCompatActivity {
         getLocalData();
 
         //로그인 유지, 어플리케이션에 회원정보가 저장되어 있으면 로그인 액티비티 종료하고 바로 메인 화면으로 넘어감
-        if (user_token!=null){
+        if (user_token != null) {
             Intent i = new Intent(getApplication(), TabBar.class);
             startActivity(i);
-            saveUserInfo(user_token,user_id,user_name,user_image);
+            saveUserInfo(user_token, user_id, user_name, user_image);
             finish();
         }
 
@@ -241,32 +234,27 @@ public class LoginActivity extends AppCompatActivity {
 
                     //유저 정보 보내기
                     int id = user.getId();
-                    getUserDetail(auth_header,id);
+                    getUserDetail(auth_header, id);
                 } else {
-                    Toast.makeText(getApplicationContext(),"아이디 비밀번호를 확인해주세요",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "아이디 비밀번호를 확인해주세요", Toast.LENGTH_SHORT).show();
                     //에러 상태 보려고 해둔 코드
                     int StatusCode = response.code();
-                    String s = response.message();
-                    ResponseBody d = response.errorBody();
                     Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
-                    Log.e("메세지", s);
-                    Log.e("리스폰스에러바디", String.valueOf(d));
-                    Log.e("리스폰스바디", String.valueOf(user));
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                Toast.makeText(getApplicationContext(),"아이디 비밀번호를 확인해주세요",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "아이디 비밀번호를 확인해주세요", Toast.LENGTH_SHORT).show();
                 Log.i(ApplicationController.TAG, "실패 Message : " + t.getMessage());
             }
         });
     }
 
     //user 정보를 얻어와 저장 하기 위함
-    public void getUserDetail(String token,int id){
+    public void getUserDetail(String token, int id) {
         final User[] userDetail = {new User()};
-        Call<User> userDetailCall = apiService.getUserDetail(token,id);
+        Call<User> userDetailCall = apiService.getUserDetail(token, id);
         userDetailCall.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
@@ -274,26 +262,18 @@ public class LoginActivity extends AppCompatActivity {
                 String username = userDetail[0].getUsername();
                 String user_image = userDetail[0].getProfile().getUser_image();
 
-                if(response.isSuccessful()){
-                    Log.e("유저 아이디",String.valueOf(id));
-                    Log.e("유저 이미지",String.valueOf(user_image));
-                    Log.e("유저정보가져오기:", "성공");
+                if (response.isSuccessful()) {
 
                     //유저 정보 저장 메소드
-                    saveUserInfo(token,id,username,user_image);
+                    saveUserInfo(token, id, username, user_image);
 
                     //메인 홈 진행
                     mainEnter();
 
-                } else{
+                } else {
                     //에러 상태 보려고 해둔 코드
                     int StatusCode = response.code();
-                    String s = response.message();
-                    ResponseBody d = response.errorBody();
                     Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
-                    Log.e("메세지", s);
-                    Log.e("리스폰스에러바디", String.valueOf(d));
-                    Log.e("리스폰스바디", String.valueOf(response.body()));
                 }
             }
 
@@ -311,19 +291,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                    Log.e("토큰 불러오기:", "성공");
-                    Log.e("토큰 상태 리스폰스바디 : ", String.valueOf(response.body()));
                 } else {
                     //에러 상태 보려고 해둔 코드
                     int StatusCode = response.code();
-                    String s = response.message();
-                    ResponseBody d = response.errorBody();
                     Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
-                    Log.e("메세지", s);
-                    Log.e("리스폰스에러바디", String.valueOf(d));
-                    Log.e("리스폰스바디 : ", String.valueOf(response.body()));
                 }
             }
+
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
             }
@@ -331,13 +305,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //유저 정보를 저장하여 다른 액티비티에서 불러오기 위함
-    public void saveUserInfo(String token,int user,String username,String user_image){
+    public void saveUserInfo(String token, int user, String username, String user_image) {
         SharedPreferences pref = getSharedPreferences("User", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
-        editor.putString("auth_token",token);
-        editor.putInt("user_id",user);
-        editor.putString("username",username);
-        editor.putString("user_image",user_image);
+        editor.putString("auth_token", token);
+        editor.putInt("user_id", user);
+        editor.putString("username", username);
+        editor.putString("user_image", user_image);
         editor.commit();
     }
 
@@ -356,12 +330,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // 저장 되어 있는 user 불러오기
-    public void getLocalData(){
+    public void getLocalData() {
         SharedPreferences pref = getSharedPreferences("User", Activity.MODE_PRIVATE);
-        user_token = pref.getString("auth_token",null);
-        user_name = pref.getString("username",null);
-        user_id = pref.getInt("user_id",0);
-        user_image = pref.getString("user_image",null);
+        user_token = pref.getString("auth_token", null);
+        user_name = pref.getString("username", null);
+        user_id = pref.getInt("user_id", 0);
+        user_image = pref.getString("user_image", null);
     }
 
 

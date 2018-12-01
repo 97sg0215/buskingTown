@@ -3,7 +3,6 @@ package graduationwork.buskingtown;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -28,18 +27,18 @@ public class LocationCancelConcert extends Activity {
         restApiBuilder();
         getLocalData();
 
-        int reservation_id = getIntent().getIntExtra("reservation_id",0);
+        int reservation_id = getIntent().getIntExtra("reservation_id", 0);
 
         Button cancelBtn = (Button) findViewById(R.id.cancelBtn);
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                retrofit2.Call<ConcertReservation> call = apiService.cancelConcertReservation(user_token,reservation_id);
+                retrofit2.Call<ConcertReservation> call = apiService.cancelConcertReservation(user_token, reservation_id);
                 call.enqueue(new Callback<ConcertReservation>() {
                     @Override
                     public void onResponse(retrofit2.Call<ConcertReservation> call, Response<ConcertReservation> response) {
-                        if(response.isSuccessful()){
-                            Intent i = new Intent(getApplication(),ConcertReservationList.class);
+                        if (response.isSuccessful()) {
+                            Intent i = new Intent(getApplication(), ConcertReservationList.class);
                             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(i);
                         }
@@ -55,10 +54,10 @@ public class LocationCancelConcert extends Activity {
 
     }
 
-    public void getLocalData(){
+    public void getLocalData() {
         SharedPreferences pref = getSharedPreferences("User", Activity.MODE_PRIVATE);
         SharedPreferences buskerPref = getSharedPreferences("BuskerUser", Activity.MODE_PRIVATE);
-        user_token = pref.getString("auth_token",null);
+        user_token = pref.getString("auth_token", null);
     }
 
     public void restApiBuilder() {

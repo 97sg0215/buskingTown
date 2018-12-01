@@ -44,7 +44,7 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
     // 맵을 추가할 레이아웃
     RelativeLayout MapContainer;
 
-    private final String  TAG = "MainActivity";
+    private final String TAG = "MainActivity";
 
     private NMapViewerResourceProvider mMapViewerResourceProvider;
     private NMapOverlayManager mOverlayManager;
@@ -57,7 +57,7 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
     private EditText locationSearch, addressIn;
 
     Button choiceBtn;
-    String location_name, location_detail, p_phone, p_email, p_start_date, p_end_date, p_start_time, p_end_time ;
+    String location_name, location_detail, p_phone, p_email, p_start_date, p_end_date, p_start_time, p_end_time;
     double lon, lat;
 
     @Override
@@ -68,7 +68,9 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
         ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { LocationSearch.super.onBackPressed(); }
+            public void onClick(View v) {
+                LocationSearch.super.onBackPressed();
+            }
         });
 
         // 네이버 지도를 넣기 위한 LinearLayout 컴포넌트
@@ -110,7 +112,7 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
 
         locationSearch = (EditText) findViewById(R.id.locationSearchText);
 
-        addressIn =(EditText)findViewById(R.id.addressIn);
+        addressIn = (EditText) findViewById(R.id.addressIn);
 
         addressIn.addTextChangedListener(new TextWatcher() {
             @Override
@@ -126,12 +128,13 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
             @Override
             public void afterTextChanged(Editable s) {
                 location_name = addressIn.getText().toString();
-                choiceBtn(location_name,location_detail,lat,lon);
+                choiceBtn(location_name, location_detail, lat, lon);
             }
         });
 
     }
-    public void previousActivity(View v){
+
+    public void previousActivity(View v) {
         onBackPressed();
     }
 
@@ -139,7 +142,8 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
      * 지도 레벨 변경 시 호출되며 변경된 지도 레벨이 파라미터로 전달된다.
      */
     @Override
-    public void onZoomLevelChange(NMapView mapview, int level) {}
+    public void onZoomLevelChange(NMapView mapview, int level) {
+    }
 
     @Override
     public void onMapInitHandler(NMapView nMapView, NMapError nMapError) {
@@ -150,7 +154,8 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
      * 지도 중심 변경 시 호출되며 변경된 중심 좌표가 파라미터로 전달된다.
      */
     @Override
-    public void onMapCenterChange(NMapView mapview, NGeoPoint center) {}
+    public void onMapCenterChange(NMapView mapview, NGeoPoint center) {
+    }
 
     /**
      * 지도 애니메이션 상태 변경 시 호출된다.
@@ -159,10 +164,12 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
      */
     @Override
     public void onAnimationStateChange(
-            NMapView arg0, int animType, int animState) {}
+            NMapView arg0, int animType, int animState) {
+    }
 
     @Override
-    public void onMapCenterChangeFine(NMapView arg0) {}
+    public void onMapCenterChangeFine(NMapView arg0) {
+    }
 
     private void testFloatingPOIdataOverlay() {
         // Markers for POI item
@@ -250,7 +257,7 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
 
             // handle overlapped items
             if (itemOverlay instanceof NMapPOIdataOverlay) {
-                NMapPOIdataOverlay poiDataOverlay = (NMapPOIdataOverlay)itemOverlay;
+                NMapPOIdataOverlay poiDataOverlay = (NMapPOIdataOverlay) itemOverlay;
 
                 // check if it is selected by touch event
                 if (!poiDataOverlay.isFocusedBySelectItem()) {
@@ -281,7 +288,7 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
 
             // use custom old callout overlay
             if (overlayItem instanceof NMapPOIitem) {
-                NMapPOIitem poiItem = (NMapPOIitem)overlayItem;
+                NMapPOIitem poiItem = (NMapPOIitem) overlayItem;
 
                 if (poiItem.showRightButton()) {
                     return new NMapCalloutCustomOldOverlay(itemOverlay, overlayItem, itemBounds,
@@ -292,8 +299,6 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
             // use custom callout overlay
             return new NMapCalloutCustomOverlay(itemOverlay, overlayItem, itemBounds, mMapViewerResourceProvider);
 
-            // set basic callout overlay
-            //return new NMapCalloutBasicOverlay(itemOverlay, overlayItem, itemBounds);
         }
 
     };
@@ -339,9 +344,9 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
 
                 if (placeMark != null) {
                     mFloatingPOIitem.setTitle(placeMark.toString());
-                    detailAddress = (TextView)findViewById(R.id.detailAddress);
+                    detailAddress = (TextView) findViewById(R.id.detailAddress);
                     location_detail = placeMark.toString();
-                    choiceBtn(location_name,location_detail,lat,lon);
+                    choiceBtn(location_name, location_detail, lat, lon);
                     detailAddress.setText(placeMark.toString());
 
                 }
@@ -352,7 +357,7 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
     };
 
 
-    public void choiceBtn(String l_name,String l_detail, double lon, double lat) {
+    public void choiceBtn(String l_name, String l_detail, double lon, double lat) {
         //확인 버튼 변수
         final Button choiceBtn = (Button) findViewById(R.id.choiceBtn);
         choiceBtn.setOnClickListener(new View.OnClickListener() {
@@ -380,10 +385,6 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
                 intent.putExtra("p_start_time", p_start_time);
                 intent.putExtra("p_end_time", p_end_time);
 
-                Log.e("장소이름", String.valueOf(l_name));
-                Log.e("lon", String.valueOf(lon));
-                Log.e("lat", String.valueOf(lat));
-                Log.e("전화번호", String.valueOf(p_phone));
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
@@ -391,10 +392,6 @@ public class LocationSearch extends NMapActivity implements OnMapStateChangeList
         });
 
     }
-
-
-
-
 
 }
 

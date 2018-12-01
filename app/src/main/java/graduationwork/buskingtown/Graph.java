@@ -31,12 +31,10 @@ public class Graph extends Fragment {
 
     String user_token;
     int busker_id;
-    String start_date,end_date;
 
     private LineChart lineChart;
 
-    public Graph(){
-        // Required empty public constructor
+    public Graph() {
     }
 
 
@@ -51,9 +49,7 @@ public class Graph extends Fragment {
 
         getLocalData();
 
-        lineChart = (LineChart)v.findViewById(R.id.chart);
-
-
+        lineChart = (LineChart) v.findViewById(R.id.chart);
 
         //setValues
         List<Entry> entries = new ArrayList<>();
@@ -62,11 +58,7 @@ public class Graph extends Fragment {
         entries.add(new Entry(3, 20.0f));
         entries.add(new Entry(4, 40.0f));
 
-//        YAxis left = lineChart.getAxisLeft();
-//        left.setValueFormatter(new MyYAxisValueFormatter());
-
         LineDataSet lineDataSet = new LineDataSet(entries, "좋아하는 팬");
-//        lineDataSet.setAxisDependency(VAxis/.;
         lineDataSet.setLineWidth(2);
         lineDataSet.setCircleRadius(3);
         lineDataSet.setCircleColor(Color.parseColor("#FFA1B4DC"));
@@ -82,14 +74,10 @@ public class Graph extends Fragment {
         LineData lineData = new LineData(lineDataSet);
         lineChart.setData(lineData);
 
-
-        // String[] values = { "Jan", "Feb", "Mar","April"};
-
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextColor(Color.BLACK);
         xAxis.enableGridDashedLine(5, 20, 0);
-        //xAxis.setValueFormatter(new MyXAxisValueFormatter(values));
 
         YAxis yLAxis = lineChart.getAxisLeft();
         yLAxis.setTextColor(Color.BLACK);
@@ -108,9 +96,6 @@ public class Graph extends Fragment {
         lineChart.animateY(2000, Easing.EasingOption.EaseInCubic);
         lineChart.invalidate();
 
-
-
-
         return v;
     }
 
@@ -120,9 +105,9 @@ public class Graph extends Fragment {
         apiService = ApplicationController.getInstance().getRestApiService();
     }
 
-    public void getLocalData(){
-        user_token = prefUser.getString("auth_token",null);
-        busker_id = prefBusker.getInt("busker_id",0);
+    public void getLocalData() {
+        user_token = prefUser.getString("auth_token", null);
+        busker_id = prefBusker.getInt("busker_id", 0);
     }
 }
 

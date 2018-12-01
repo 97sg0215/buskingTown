@@ -23,13 +23,11 @@ public class Map extends Fragment {
     private TextView map_text, date_text;
     private View map_bar, date_bar;
 
-    public Map(){
-        // Required empty public constructor
+    public Map() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.activity_map, container, false);
 
         //로딩코드
@@ -40,10 +38,8 @@ public class Map extends Fragment {
 
         map_text = (TextView) v.findViewById(R.id.mapsearch);
         date_text = (TextView) v.findViewById(R.id.datesearch);
-
         map_bar = (View) v.findViewById(R.id.mapsearchBar);
         date_bar = (View) v.findViewById(R.id.datesearchBar);
-
         map = (RelativeLayout) v.findViewById(R.id.mapsearchTab);
         date = (RelativeLayout) v.findViewById(R.id.datesearchTab);
 
@@ -54,7 +50,6 @@ public class Map extends Fragment {
 
                 map_text.setTextColor(getResources().getColor(R.color.mainYellow));
                 map_bar.setVisibility(View.VISIBLE);
-
                 date_text.setTextColor(getResources().getColor(R.color.fontBlack));
                 date_bar.setVisibility(View.GONE);
             }
@@ -74,7 +69,6 @@ public class Map extends Fragment {
 
         return v;
     }
-
 
 
     @SuppressLint("ResourceAsColor")
@@ -102,7 +96,6 @@ public class Map extends Fragment {
 
     }
 
-    //로딩코드, fragment일때는 getContext()를 씀
     private class CheckTypesTask extends AsyncTask<Void, Void, Void> {
 
         ProgressDialog asyncDialog = new ProgressDialog(

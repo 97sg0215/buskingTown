@@ -49,9 +49,9 @@ class GpsInfo extends Service implements LocationListener {
 
     @TargetApi(23)
     public Location getLocation() {
-        if ( Build.VERSION.SDK_INT >= 23 &&
+        if (Build.VERSION.SDK_INT >= 23 &&
                 ContextCompat.checkSelfPermission(
-                        mContext, android.Manifest.permission.ACCESS_FINE_LOCATION )
+                        mContext, android.Manifest.permission.ACCESS_FINE_LOCATION)
                         != PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(
                         mContext, android.Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -120,18 +120,18 @@ class GpsInfo extends Service implements LocationListener {
 
     /**
      * GPS 종료
-     * */
-    public void stopUsingGPS(){
-        if(locationManager != null){
+     */
+    public void stopUsingGPS() {
+        if (locationManager != null) {
             locationManager.removeUpdates(GpsInfo.this);
         }
     }
 
     /**
      * 위도값을 가져옵니다.
-     * */
-    public double getLatitude(){
-        if(location != null){
+     */
+    public double getLatitude() {
+        if (location != null) {
             lat = location.getLatitude();
         }
         return lat;
@@ -139,9 +139,9 @@ class GpsInfo extends Service implements LocationListener {
 
     /**
      * 경도값을 가져옵니다.
-     * */
-    public double getLongitude(){
-        if(location != null){
+     */
+    public double getLongitude() {
+        if (location != null) {
             lon = location.getLongitude();
         }
         return lon;
@@ -149,7 +149,7 @@ class GpsInfo extends Service implements LocationListener {
 
     /**
      * GPS 나 wife 정보가 켜져있는지 확인합니다.
-     * */
+     */
     public boolean isGetLocation() {
         return this.isGetLocation;
     }
@@ -157,8 +157,8 @@ class GpsInfo extends Service implements LocationListener {
     /**
      * GPS 정보를 가져오지 못했을때
      * 설정값으로 갈지 물어보는 alert 창
-     * */
-    public void showSettingsAlert(){
+     */
+    public void showSettingsAlert() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
 
         alertDialog.setTitle("GPS 사용유무셋팅");
@@ -167,7 +167,7 @@ class GpsInfo extends Service implements LocationListener {
         // OK 를 누르게 되면 설정창으로 이동합니다.
         alertDialog.setPositiveButton("Settings",
                 new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int which) {
+                    public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         mContext.startActivity(intent);
                     }
@@ -189,22 +189,17 @@ class GpsInfo extends Service implements LocationListener {
     }
 
     public void onLocationChanged(Location location) {
-        // TODO Auto-generated method stub
-
     }
 
     public void onStatusChanged(String provider, int status, Bundle extras) {
-        // TODO Auto-generated method stub
 
     }
 
     public void onProviderEnabled(String provider) {
-        // TODO Auto-generated method stub
 
     }
 
     public void onProviderDisabled(String provider) {
-        // TODO Auto-generated method stub
 
     }
 }

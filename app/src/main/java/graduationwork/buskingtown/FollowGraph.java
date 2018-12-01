@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -23,11 +22,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.Connections;
@@ -38,33 +33,21 @@ import retrofit2.Response;
 public class FollowGraph extends Fragment {
 
     SharedPreferences prefUser, prefBusker;
-
     RestApiService apiService;
-
-
-
     String user_token;
     int busker_id;
-    String get_start_date,get_end_date;
-
+    String get_start_date, get_end_date;
     List<Entry> entries = new ArrayList<>();
-
     private LineChart lineChart;
-
     int follower_cnt;
     int result = 0;
     ArrayList<Integer> follower_data = new ArrayList<>();
-    ArrayList<Integer> follower_entry = new ArrayList<>();
+    int oneWeekSum = 0;
+    int twoWeekSum = 0;
+    int threeWeekSum = 0;
+    int fourWeekSum = 0;
 
-
-    ArrayList<Integer> oneWeek = new ArrayList<>();
-    int oneWeekSum =0;
-    int twoWeekSum =0;
-    int threeWeekSum =0;
-    int fourWeekSum =0;
-
-    public FollowGraph(){
-        // Required empty public constructor
+    public FollowGraph() {
     }
 
     @Override
@@ -88,10 +71,7 @@ public class FollowGraph extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.graph, container, false);
 
-        lineChart = (LineChart)v.findViewById(R.id.chart);
-
-        Log.e("조회 날짜", String.valueOf(get_start_date));
-        Log.e("조회 날짜", String.valueOf(get_end_date));
+        lineChart = (LineChart) v.findViewById(R.id.chart);
 
         String[] start_month_words = get_start_date.split("-");
         String[] end_month_words = get_end_date.split("-");
@@ -99,25 +79,25 @@ public class FollowGraph extends Fragment {
         int end_month = Integer.parseInt(end_month_words[1]);
 
 
-        Call<List<Connections>> connectionsCall = apiService.getFollowerStatistic(user_token,busker_id,get_start_date,get_end_date);
+        Call<List<Connections>> connectionsCall = apiService.getFollowerStatistic(user_token, busker_id, get_start_date, get_end_date);
         connectionsCall.enqueue(new Callback<List<Connections>>() {
             @Override
             public void onResponse(Call<List<Connections>> call, Response<List<Connections>> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     List<Connections> connections = response.body();
                     if (connections.size() != 0) {
                         //1개월
                         if ((end_month - start_month) == 1) {
-                            for(int x=0;x<connections.size();x++){
+                            for (int x = 0; x < connections.size(); x++) {
                                 follower_cnt = connections.get(x).getFollower_count();
                                 follower_data.add(follower_cnt);
                             }
-                            for (int day = 0; day < 28-connections.size(); day++) {
+                            for (int day = 0; day < 28 - connections.size(); day++) {
                                 follower_data.add(0);
 
                             }
 
-                            List<List<Integer>> pages = Lists.partition(follower_data,7);
+                            List<List<Integer>> pages = Lists.partition(follower_data, 7);
 
                             for (int i = 0; i < pages.get(0).size(); i++) {
                                 oneWeekSum += pages.get(0).get(i);
@@ -136,8 +116,6 @@ public class FollowGraph extends Fragment {
 
                             }
 
-                            Log.e("총 데이터", String.valueOf(twoWeekSum));
-
                             List<Entry> entries = new ArrayList<>();
                             entries.add(new Entry(0, oneWeekSum));
                             entries.add(new Entry(1, twoWeekSum));
@@ -146,7 +124,6 @@ public class FollowGraph extends Fragment {
 
 
                             LineDataSet lineDataSet = new LineDataSet(entries, "좋아하는 팬");
-//                          lineDataSet.setAxisDependency(VAxis/.;
                             lineDataSet.setLineWidth(2);
                             lineDataSet.setCircleRadius(3);
                             lineDataSet.setCircleColor(Color.parseColor("#FFA1B4DC"));
@@ -159,22 +136,19 @@ public class FollowGraph extends Fragment {
                             lineDataSet.setDrawHighlightIndicators(false);
                             lineDataSet.setDrawValues(false);
 
-
                             LineData lineData = new LineData(lineDataSet);
                             lineChart.setData(lineData);
 
 
-                            String[] values_one_month = { "1주", "2주", "3주","4주"};
+                            String[] values_one_month = {"1주", "2주", "3주", "4주"};
 
                             XAxis xAxis = lineChart.getXAxis();
                             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                             xAxis.setTextColor(Color.BLACK);
                             xAxis.setDrawGridLines(false);
-                            //  xAxis.enableGridDashedLine(5, 20, 0);
                             xAxis.setValueFormatter(new MyXAxisValueFormatter(values_one_month));
                             xAxis.setGranularity(1f);
                             xAxis.setTextSize(15);
-
 
                             YAxis yLAxis = lineChart.getAxisLeft();
                             yLAxis.setTextColor(Color.BLACK);
@@ -194,17 +168,17 @@ public class FollowGraph extends Fragment {
                             lineChart.invalidate();
                         }
                         //3개월
-                        else if((end_month - start_month) == 3){
-                            for(int x=0;x<connections.size();x++){
+                        else if ((end_month - start_month) == 3) {
+                            for (int x = 0; x < connections.size(); x++) {
                                 follower_cnt = connections.get(x).getFollower_count();
                                 follower_data.add(follower_cnt);
                             }
-                            for (int day = 0; day < 84-connections.size(); day++) {
+                            for (int day = 0; day < 84 - connections.size(); day++) {
                                 follower_data.add(0);
 
                             }
 
-                            List<List<Integer>> pages = Lists.partition(follower_data,7);
+                            List<List<Integer>> pages = Lists.partition(follower_data, 7);
 
                             for (int i = 0; i < pages.get(0).size(); i++) {
                                 oneWeekSum += pages.get(0).get(i);
@@ -223,8 +197,6 @@ public class FollowGraph extends Fragment {
 
                             }
 
-                            Log.e("총 데이터", String.valueOf(twoWeekSum));
-
                             List<Entry> entries = new ArrayList<>();
                             entries.add(new Entry(0, oneWeekSum));
                             entries.add(new Entry(1, twoWeekSum));
@@ -233,7 +205,6 @@ public class FollowGraph extends Fragment {
 
 
                             LineDataSet lineDataSet = new LineDataSet(entries, "좋아하는 팬");
-//                          lineDataSet.setAxisDependency(VAxis/.;
                             lineDataSet.setLineWidth(2);
                             lineDataSet.setCircleRadius(3);
                             lineDataSet.setCircleColor(Color.parseColor("#FFA1B4DC"));
@@ -246,18 +217,15 @@ public class FollowGraph extends Fragment {
                             lineDataSet.setDrawHighlightIndicators(false);
                             lineDataSet.setDrawValues(false);
 
-
                             LineData lineData = new LineData(lineDataSet);
                             lineChart.setData(lineData);
 
-
-                            String[] values_one_month = { "3주", "6주", "9주","12주"};
+                            String[] values_one_month = {"3주", "6주", "9주", "12주"};
 
                             XAxis xAxis = lineChart.getXAxis();
                             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                             xAxis.setTextColor(Color.BLACK);
                             xAxis.setDrawGridLines(false);
-                            //  xAxis.enableGridDashedLine(5, 20, 0);
                             xAxis.setValueFormatter(new MyXAxisValueFormatter(values_one_month));
                             xAxis.setGranularity(1f);
                             xAxis.setTextSize(15);
@@ -283,17 +251,17 @@ public class FollowGraph extends Fragment {
 
                         }
                         //6개월
-                        else if((end_month - start_month) == 6){
-                            for(int x=0;x<connections.size();x++){
+                        else if ((end_month - start_month) == 6) {
+                            for (int x = 0; x < connections.size(); x++) {
                                 follower_cnt = connections.get(x).getFollower_count();
                                 follower_data.add(follower_cnt);
                             }
-                            for (int day = 0; day < 168-connections.size(); day++) {
+                            for (int day = 0; day < 168 - connections.size(); day++) {
                                 follower_data.add(0);
 
                             }
 
-                            List<List<Integer>> pages = Lists.partition(follower_data,7);
+                            List<List<Integer>> pages = Lists.partition(follower_data, 7);
 
                             for (int i = 0; i < pages.get(0).size(); i++) {
                                 oneWeekSum += pages.get(0).get(i);
@@ -312,8 +280,6 @@ public class FollowGraph extends Fragment {
 
                             }
 
-                            Log.e("총 데이터", String.valueOf(twoWeekSum));
-
                             List<Entry> entries = new ArrayList<>();
                             entries.add(new Entry(0, oneWeekSum));
                             entries.add(new Entry(1, twoWeekSum));
@@ -322,7 +288,6 @@ public class FollowGraph extends Fragment {
 
 
                             LineDataSet lineDataSet = new LineDataSet(entries, "좋아하는 팬");
-//                          lineDataSet.setAxisDependency(VAxis/.;
                             lineDataSet.setLineWidth(2);
                             lineDataSet.setCircleRadius(3);
                             lineDataSet.setCircleColor(Color.parseColor("#FFA1B4DC"));
@@ -339,8 +304,7 @@ public class FollowGraph extends Fragment {
                             LineData lineData = new LineData(lineDataSet);
                             lineChart.setData(lineData);
 
-
-                            String[] values_one_month = { "6주", "12주", "18주","24주"};
+                            String[] values_one_month = {"6주", "12주", "18주", "24주"};
 
                             XAxis xAxis = lineChart.getXAxis();
                             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -350,7 +314,6 @@ public class FollowGraph extends Fragment {
                             xAxis.setValueFormatter(new MyXAxisValueFormatter(values_one_month));
                             xAxis.setGranularity(1f);
                             xAxis.setTextSize(15);
-
 
                             YAxis yLAxis = lineChart.getAxisLeft();
                             yLAxis.setTextColor(Color.BLACK);
@@ -372,17 +335,17 @@ public class FollowGraph extends Fragment {
 
                         }
                         //1년
-                        else if((end_month - start_month) == 10){
-                            for(int x=0;x<connections.size();x++){
+                        else if ((end_month - start_month) == 10) {
+                            for (int x = 0; x < connections.size(); x++) {
                                 follower_cnt = connections.get(x).getFollower_count();
                                 follower_data.add(follower_cnt);
                             }
-                            for (int day = 0; day < 336-connections.size(); day++) {
+                            for (int day = 0; day < 336 - connections.size(); day++) {
                                 follower_data.add(0);
 
                             }
 
-                            List<List<Integer>> pages = Lists.partition(follower_data,7);
+                            List<List<Integer>> pages = Lists.partition(follower_data, 7);
 
                             for (int i = 0; i < pages.get(0).size(); i++) {
                                 oneWeekSum += pages.get(0).get(i);
@@ -411,7 +374,6 @@ public class FollowGraph extends Fragment {
 
 
                             LineDataSet lineDataSet = new LineDataSet(entries, "좋아하는 팬");
-//                          lineDataSet.setAxisDependency(VAxis/.;
                             lineDataSet.setLineWidth(2);
                             lineDataSet.setCircleRadius(3);
                             lineDataSet.setCircleColor(Color.parseColor("#FFA1B4DC"));
@@ -424,18 +386,16 @@ public class FollowGraph extends Fragment {
                             lineDataSet.setDrawHighlightIndicators(false);
                             lineDataSet.setDrawValues(false);
 
-
                             LineData lineData = new LineData(lineDataSet);
                             lineChart.setData(lineData);
 
 
-                            String[] values_one_month = { "3개월", "6개월", "9개월","12개월"};
+                            String[] values_one_month = {"3개월", "6개월", "9개월", "12개월"};
 
                             XAxis xAxis = lineChart.getXAxis();
                             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                             xAxis.setTextColor(Color.BLACK);
                             xAxis.setDrawGridLines(false);
-                            //  xAxis.enableGridDashedLine(5, 20, 0);
                             xAxis.setValueFormatter(new MyXAxisValueFormatter(values_one_month));
                             xAxis.setGranularity(1f);
                             xAxis.setTextSize(15);
@@ -458,29 +418,23 @@ public class FollowGraph extends Fragment {
                             lineChart.animateY(2000, Easing.EasingOption.EaseInCubic);
                             lineChart.invalidate();
 
-
                         }
 
-
-                    }else {
+                    } else {
 
                     }
-                }else {
+                } else {
                     int StatusCode = response.code();
                     Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
-                    Log.e("메세지", String.valueOf(response.message()));
-                    Log.e("리스폰스에러바디", String.valueOf(response.errorBody()));
-                    Log.e("리스폰스바디", String.valueOf(response.body()));
                 }
             }
 
             @Override
             public void onFailure(Call<List<Connections>> call, Throwable t) {
-                Log.e("call","실패");
+                Log.e("call", "실패");
             }
         });
 
-        //setValues
 
         return v;
     }
@@ -491,18 +445,9 @@ public class FollowGraph extends Fragment {
         apiService = ApplicationController.getInstance().getRestApiService();
     }
 
-    public void getLocalData(){
-        user_token = prefUser.getString("auth_token",null);
-        busker_id = prefBusker.getInt("busker_id",0);
+    public void getLocalData() {
+        user_token = prefUser.getString("auth_token", null);
+        busker_id = prefBusker.getInt("busker_id", 0);
     }
 
-    //현재 날짜 주차
-
-    public static String getWeek(){
-
-        Calendar c = Calendar.getInstance();
-        String week = String.valueOf(c.get(Calendar.WEEK_OF_MONTH));
-        return week;
-
-    }
 }

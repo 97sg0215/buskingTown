@@ -4,7 +4,6 @@ public class Event {
     private String title;
     private String dtstart;
     private String dtend;
-    private String _id;
 
     public Event() {
     }
@@ -33,12 +32,5 @@ public class Event {
         this.dtend = dtend;
     }
 
-    public String get_id() {
-        return _id;
-    }
-
-    public void set_id(String _id) {
-        this._id = _id;
-    }
 
 }

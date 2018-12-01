@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Location;
-import android.net.Uri;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,7 +26,6 @@ import java.util.List;
 
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.LendLocation;
-
 import graduationwork.buskingtown.model.LendLocationOption;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,7 +37,7 @@ public class LocationLendStart extends AppCompatActivity {
 
     private RestApiService apiService;
 
-    String user_token,option_list;
+    String user_token, option_list;
     int user_id;
 
     View lendList;
@@ -73,21 +70,21 @@ public class LocationLendStart extends AppCompatActivity {
             }
         });
 
-         lendBox = (LinearLayout) findViewById(R.id.lendContainer);
+        lendBox = (LinearLayout) findViewById(R.id.lendContainer);
 
 
-        Call<List<LendLocation>> provideList = apiService.provideList(user_token,user_id);
+        Call<List<LendLocation>> provideList = apiService.provideList(user_token, user_id);
         provideList.enqueue(new Callback<List<LendLocation>>() {
             @Override
             public void onResponse(Call<List<LendLocation>> call, Response<List<LendLocation>> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     List<LendLocation> lendLocation = response.body();
-                    if(lendLocation.size()!=0){
-                        for (int i=0; i<lendLocation.size();i++){
-                            lendList = getLayoutInflater().inflate(R.layout.lendbox,lendBox,false);
+                    if (lendLocation.size() != 0) {
+                        for (int i = 0; i < lendLocation.size(); i++) {
+                            lendList = getLayoutInflater().inflate(R.layout.lendbox, lendBox, false);
 
 
-                            ImageView rentImg = (ImageView)lendList.findViewById(R.id.lendImage);
+                            ImageView rentImg = (ImageView) lendList.findViewById(R.id.lendImage);
                             TextView loc_name_text = (TextView) lendList.findViewById(R.id.practiceroomName);
                             TextView loc_text = (TextView) lendList.findViewById(R.id.practiceroomAddress);
 
@@ -110,20 +107,17 @@ public class LocationLendStart extends AppCompatActivity {
 
                             //옵션 가격 세팅
                             TextView price_text = (TextView) lendList.findViewById(R.id.practiceroomPrice);
-                            Call<List<LendLocationOption>> callOptionList = apiService.provideOptionList(user_token,lendLocation.get(i).getProvide_id());
+                            Call<List<LendLocationOption>> callOptionList = apiService.provideOptionList(user_token, lendLocation.get(i).getProvide_id());
                             callOptionList.enqueue(new Callback<List<LendLocationOption>>() {
                                 @Override
                                 public void onResponse(Call<List<LendLocationOption>> call, Response<List<LendLocationOption>> response) {
-                                    if(response.isSuccessful()){
+                                    if (response.isSuccessful()) {
                                         List<LendLocationOption> lendLocationOptions = response.body();
                                         option_list = lendLocationOptions.get(0).getProvide_price();
                                         price_text.setText(option_list);
-                                    }else {
+                                    } else {
                                         int StatusCode = response.code();
                                         Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
-                                        Log.e("메세지", String.valueOf(response.message()));
-                                        Log.e("리스폰스에러바디", String.valueOf(response.errorBody()));
-                                        Log.e("리스폰스바디", String.valueOf(response.body()));
                                     }
                                 }
 
@@ -133,17 +127,14 @@ public class LocationLendStart extends AppCompatActivity {
                                 }
                             });
 
-                            if(lendList.getParent()!= null)
-                                ((ViewGroup)lendList.getParent()).removeView(lendList);
+                            if (lendList.getParent() != null)
+                                ((ViewGroup) lendList.getParent()).removeView(lendList);
                             lendBox.addView(lendList);
                         }
                     }
-                }else {
+                } else {
                     int StatusCode = response.code();
                     Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
-                    Log.e("메세지", String.valueOf(response.message()));
-                    Log.e("리스폰스에러바디", String.valueOf(response.errorBody()));
-                    Log.e("리스폰스바디", String.valueOf(response.body()));
                 }
             }
 
@@ -155,10 +146,10 @@ public class LocationLendStart extends AppCompatActivity {
 
     }
 
-    public void addLocation(View view){
-        Intent message = new Intent(getApplication(),LocationLend.class);
+    public void addLocation(View view) {
+        Intent message = new Intent(getApplication(), LocationLend.class);
         startActivity(message);
-        }
+    }
 
 
     public void restApiBuilder() {
@@ -167,13 +158,13 @@ public class LocationLendStart extends AppCompatActivity {
         apiService = ApplicationController.getInstance().getRestApiService();
     }
 
-    public void getLocalData(){
+    public void getLocalData() {
         SharedPreferences pref = getSharedPreferences("User", Activity.MODE_PRIVATE);
-        user_token = pref.getString("auth_token",null);
-        user_id = pref.getInt("user_id",0);
+        user_token = pref.getString("auth_token", null);
+        user_id = pref.getInt("user_id", 0);
     }
 
-    public void previousActivity(View v){
+    public void previousActivity(View v) {
         onBackPressed();
     }
 
@@ -190,8 +181,8 @@ public class LocationLendStart extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
             return null;
-        }finally{
-            if(connection!=null)connection.disconnect();
+        } finally {
+            if (connection != null) connection.disconnect();
         }
     }
 }

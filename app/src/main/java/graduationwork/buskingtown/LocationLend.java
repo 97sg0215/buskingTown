@@ -2,7 +2,6 @@ package graduationwork.buskingtown;
 
 import android.app.Activity;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -15,22 +14,17 @@ import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.tsongkha.spinnerdatepicker.DatePicker;
 import com.tsongkha.spinnerdatepicker.DatePickerDialog;
@@ -51,8 +45,6 @@ import graduationwork.buskingtown.model.LendLocationOption;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -63,7 +55,7 @@ public class LocationLend extends AppCompatActivity {
 
     private Uri mImageCaptureUri;
 
-    final int REQ_CODE_SELECT_IMAGE=100;
+    final int REQ_CODE_SELECT_IMAGE = 100;
 
     String user_token;
     String real_album_path;
@@ -74,17 +66,16 @@ public class LocationLend extends AppCompatActivity {
     int mHour, mMinute;
 
     Button concertSD, concertED, timeSD, timeED, confirmBtn;
-    int concertStartYear, concertStartMonth, concertStartDay , concertEndYear, concertEndMonth, concertEndDay;
+    int concertStartYear, concertStartMonth, concertStartDay, concertEndYear, concertEndMonth, concertEndDay;
     SimpleDateFormat simpleDateFormat;
 
     //정보 입력
     ImageView location_image;
     RadioButton rb, practice_room, concert_room;
-    EditText provider_phone, option_name, option_price, location_info, provide_rule, refund_rule, provide_option,provide_option_price, provider_email;
+    EditText provider_phone, option_name, option_price, location_info, provide_rule, refund_rule, provide_option, provide_option_price, provider_email;
     LinearLayout optionContainer, locationChoice;
     View optionList;
     TextView addressChoice;
-    String stringData;
 
     ArrayList<String> option_name_list = new ArrayList<>();
     ArrayList<String> option_price_list = new ArrayList<>();
@@ -96,10 +87,8 @@ public class LocationLend extends AppCompatActivity {
     ArrayList<EditText> nameList = new ArrayList<>();
     ArrayList<EditText> priceList = new ArrayList<>();
 
-    String option_names,option_prices;
-
     int p_type;
-    String  p_phone,p_email, o_name, o_price, p_info, p_rule, p_refund_rule, p_start_time, p_end_time, p_start_date, p_end_date;
+    String p_phone, p_email, o_name, o_price, p_info, p_rule, p_refund_rule, p_start_time, p_end_time, p_start_date, p_end_date;
     double p_lon, p_lat;
 
     @Override
@@ -113,7 +102,9 @@ public class LocationLend extends AppCompatActivity {
         ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { LocationLend.super.onBackPressed(); }
+            public void onClick(View v) {
+                LocationLend.super.onBackPressed();
+            }
         });
 
         //시간을 가져오기위한 Calendar 인스턴스 선언
@@ -138,7 +129,7 @@ public class LocationLend extends AppCompatActivity {
         //데이트 피커
         concertSD = (Button) findViewById(R.id.concertSD);
         p_start_date = getIntent().getStringExtra("p_start_date");
-        if(p_start_date !=null){
+        if (p_start_date != null) {
             concertSD.setText(p_start_date);
         }
         concertSD.setOnClickListener(new View.OnClickListener() {
@@ -158,7 +149,7 @@ public class LocationLend extends AppCompatActivity {
                         .context(LocationLend.this)
                         .spinnerTheme(R.style.DatePickerSpinner)
                         .showTitle(true)
-                        .defaultDate(concertStartYear,concertStartMonth,concertStartDay)
+                        .defaultDate(concertStartYear, concertStartMonth, concertStartDay)
                         .build()
                         .show();
             }
@@ -167,7 +158,7 @@ public class LocationLend extends AppCompatActivity {
 
         concertED = (Button) findViewById(R.id.concertED);
         p_end_date = getIntent().getStringExtra("p_end_date");
-        if(p_end_date !=null){
+        if (p_end_date != null) {
             concertED.setText(p_end_date);
         }
         concertED.setOnClickListener(new View.OnClickListener() {
@@ -187,7 +178,7 @@ public class LocationLend extends AppCompatActivity {
                         .context(LocationLend.this)
                         .spinnerTheme(R.style.DatePickerSpinner)
                         .showTitle(true)
-                        .defaultDate(concertEndYear,concertEndMonth,concertEndDay)
+                        .defaultDate(concertEndYear, concertEndMonth, concertEndDay)
                         .build()
                         .show();
             }
@@ -220,7 +211,6 @@ public class LocationLend extends AppCompatActivity {
                 locationSearch.putExtra("p_start_time", p_start_time);
                 locationSearch.putExtra("p_end_time", p_end_time);
 
-
                 startActivity(locationSearch);
             }
         });
@@ -229,13 +219,10 @@ public class LocationLend extends AppCompatActivity {
 
         location_name = getIntent().getStringExtra("location_name");
         location_detail = getIntent().getStringExtra("location_detail");
-        p_lon = getIntent().getDoubleExtra("p_lon",0);
-        p_lat = getIntent().getDoubleExtra("p_lat",0);
-        if(location_name!=null){
-            Log.e("장소이름", String.valueOf(location_name));
-            Log.e("lon", String.valueOf(p_lon));
-            Log.e("lat", String.valueOf(p_lat));
-            addressChoice.setText(location_name+ " " +location_detail);
+        p_lon = getIntent().getDoubleExtra("p_lon", 0);
+        p_lat = getIntent().getDoubleExtra("p_lat", 0);
+        if (location_name != null) {
+            addressChoice.setText(location_name + " " + location_detail);
         }
 
         provider_phone = (EditText) findViewById(R.id.provider_phone);
@@ -244,28 +231,28 @@ public class LocationLend extends AppCompatActivity {
         option_price = (EditText) findViewById(R.id.option_price);
 
 
-        Button startD = (Button)findViewById(R.id.timeSD);
+        Button startD = (Button) findViewById(R.id.timeSD);
         p_start_time = getIntent().getStringExtra("p_start_time");
-        if(p_start_time !=null){
+        if (p_start_time != null) {
             startD.setText(p_start_time);
         }
 
-        Button endD = (Button)findViewById(R.id.timeED);
+        Button endD = (Button) findViewById(R.id.timeED);
         p_end_time = getIntent().getStringExtra("p_end_time");
-        if(p_end_time !=null){
+        if (p_end_time != null) {
             endD.setText(p_end_time);
         }
 
         provider_phone = (EditText) findViewById(R.id.provider_phone);
 
         p_phone = getIntent().getStringExtra("p_phone");
-        if(p_phone !=null){
+        if (p_phone != null) {
             provider_phone.setText(p_phone);
         }
 
         provider_email = (EditText) findViewById(R.id.provider_email);
         p_email = getIntent().getStringExtra("p_email");
-        if(p_email !=null){
+        if (p_email != null) {
             provider_email.setText(p_email);
         }
 
@@ -400,9 +387,9 @@ public class LocationLend extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 optionContainer = (LinearLayout) findViewById(R.id.option_container);
-                optionList = getLayoutInflater().inflate(R.layout.option_list,optionContainer,false);
-                if(optionList.getParent()!= null)
-                    ((ViewGroup)optionList.getParent()).removeView(optionList);
+                optionList = getLayoutInflater().inflate(R.layout.option_list, optionContainer, false);
+                if (optionList.getParent() != null)
+                    ((ViewGroup) optionList.getParent()).removeView(optionList);
                 optionContainer.addView(optionList);
 
             }
@@ -433,7 +420,7 @@ public class LocationLend extends AppCompatActivity {
                 option_price_list.add(o_price);
 
                 if (optionContainer != null) {
-                   for (int i = 0; i < optionContainer.getChildCount(); i++) {
+                    for (int i = 0; i < optionContainer.getChildCount(); i++) {
                         optionListChild.add(optionContainer.getChildAt(i));
 
                         nameList.add(optionListChild.get(i).findViewById(R.id.provide_option));
@@ -444,18 +431,14 @@ public class LocationLend extends AppCompatActivity {
                     }
                 }
 
-
-                Log.e("이름", String.valueOf(option_name_list));
-                Log.e("가격", String.valueOf(option_price_list));
-
-
-                rent(real_album_path,p_type,p_phone,p_email,p_start_date,p_end_date,p_start_time,p_end_time,location_name,p_lon,p_lat,location_detail,p_info,p_rule,p_refund_rule,option_name_list,option_price_list);
+                rent(real_album_path, p_type, p_phone, p_email, p_start_date, p_end_date, p_start_time, p_end_time, location_name, p_lon, p_lat, location_detail, p_info, p_rule, p_refund_rule, option_name_list, option_price_list);
 
             }
         });
     }
-    public void sOnClick(View v){
-        switch (v.getId()){
+
+    public void sOnClick(View v) {
+        switch (v.getId()) {
             //시간 대화상자 버튼이 눌리면 대화상자를 보여줌
 
             case R.id.timeSD:
@@ -483,7 +466,7 @@ public class LocationLend extends AppCompatActivity {
                     mMinute = minute;
 
                     //텍스트뷰의 값을 업데이트함
-                    Button startD = (Button)findViewById(R.id.timeSD);
+                    Button startD = (Button) findViewById(R.id.timeSD);
                     startD.setText(String.format("%d:%d", mHour, mMinute));
                     p_start_time = String.format("%d:%d:00", mHour, mMinute);
 
@@ -501,39 +484,41 @@ public class LocationLend extends AppCompatActivity {
                     mMinute = minute;
 
                     //텍스트뷰의 값을 업데이트함
-                    Button endD = (Button)findViewById(R.id.timeED);
+                    Button endD = (Button) findViewById(R.id.timeED);
                     endD.setText(String.format("%d:%d", mHour, mMinute));
                     p_end_time = String.format("%d:%d:00", mHour, mMinute);
-                    
+
 
                 }
 
             };
 
-    public void previousActivity(View v){
+    public void previousActivity(View v) {
         onBackPressed();
     }
 
     // 선택된 이미지 가져오기
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == REQ_CODE_SELECT_IMAGE){
-            if(resultCode== Activity.RESULT_OK) {
+        if (requestCode == REQ_CODE_SELECT_IMAGE) {
+            if (resultCode == Activity.RESULT_OK) {
                 try {
                     //이미지 데이터를 비트맵으로 받아온다.
                     Bitmap image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
 
                     //배치해놓은 ImageView에 set
-                    ImageView imageS = (ImageView)findViewById(R.id.imageChoice);
+                    ImageView imageS = (ImageView) findViewById(R.id.imageChoice);
                     imageS.setImageBitmap(image_bitmap);
 
                     mImageCaptureUri = data.getData();
-                    Log.e("SmartWheel", mImageCaptureUri.getPath().toString());
-                    real_album_path= getPath(mImageCaptureUri);
-                    Log.e("real_album_path",real_album_path);
+                    real_album_path = getPath(mImageCaptureUri);
 
-                }catch (FileNotFoundException e) { e.printStackTrace(); }
-                catch (IOException e) { e.printStackTrace(); }
-                catch (Exception e) { e.printStackTrace();	}
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -563,64 +548,47 @@ public class LocationLend extends AppCompatActivity {
                      String provide_rule,
                      String provide_refund_rule,
                      ArrayList<String> op_name_list,
-                     ArrayList<String> op_price_list){
+                     ArrayList<String> op_price_list) {
 
-        RequestBody user = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(user_id));
-        RequestBody p_type = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provide_type));
-        RequestBody p_phone = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provider_phone));
-        RequestBody p_email = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provider_email));
-        RequestBody p_loc_name = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provide_location));
+        RequestBody user = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(user_id));
+        RequestBody p_type = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(provide_type));
+        RequestBody p_phone = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(provider_phone));
+        RequestBody p_email = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(provider_email));
+        RequestBody p_loc_name = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(provide_location));
         RequestBody p_start_date = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(provide_start_date));
-        RequestBody p_end_date = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provide_end_date));
+        RequestBody p_end_date = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(provide_end_date));
         RequestBody p_start_time = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(provide_start_time));
-        RequestBody p_end_time = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provide_end_time));
-        RequestBody p_locaion = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provide_detail));
-        RequestBody p_lat = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provide_lat));
-        RequestBody p_lon = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provide_lon));
-        RequestBody p_desciption = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provide_description));
-        RequestBody p_rule = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provide_rule));
-        RequestBody p_refund_rule = RequestBody.create(MediaType.parse("multipart/form-data"),String.valueOf(provide_refund_rule));
-
-        Log.e("내용",String.valueOf(user_id));
-        Log.e("내용",String.valueOf(provide_type));
-        Log.e("내용",String.valueOf(provider_phone));
-        Log.e("내용",String.valueOf(provide_start_date));
-        Log.e("내용",String.valueOf(provide_end_date));
-        Log.e("내용",String.valueOf(provide_start_time));
-        Log.e("내용",String.valueOf(provide_end_time));
-        Log.e("내용",String.valueOf(provide_description));
-        Log.e("내용",String.valueOf(provide_rule));
-        Log.e("내용",String.valueOf(provide_refund_rule));
+        RequestBody p_end_time = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(provide_end_time));
+        RequestBody p_locaion = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(provide_detail));
+        RequestBody p_lat = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(provide_lat));
+        RequestBody p_lon = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(provide_lon));
+        RequestBody p_desciption = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(provide_description));
+        RequestBody p_rule = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(provide_rule));
+        RequestBody p_refund_rule = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(provide_refund_rule));
 
         //이미지 업로드
         File file = new File(provide_image);
-        Log.e("파일경로",String.valueOf(provide_image));
-        Log.e("파일이름",String.valueOf(file.getName()));
         RequestBody surveyBody = RequestBody.create(MediaType.parse("image/*"), file);
-        Log.e("이미지",String.valueOf(surveyBody.contentType()));
         MultipartBody.Part filePart = MultipartBody.Part.createFormData("provide_image", file.getName(), surveyBody);
 
-        Call<LendLocation> rentLoc = apiService.rentLocation(user_token,user,p_type,p_phone,p_email,p_loc_name,p_start_date,p_end_date,p_start_time,p_end_time,p_locaion,p_lon,p_lat,p_desciption,p_rule,p_refund_rule,filePart);
+        Call<LendLocation> rentLoc = apiService.rentLocation(user_token, user, p_type, p_phone, p_email, p_loc_name, p_start_date, p_end_date, p_start_time, p_end_time, p_locaion, p_lon, p_lat, p_desciption, p_rule, p_refund_rule, filePart);
         rentLoc.enqueue(new Callback<LendLocation>() {
             @Override
             public void onResponse(Call<LendLocation> call, Response<LendLocation> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     Log.e("아이디받아오는지", String.valueOf(response.body().getProvide_id()));
                     Log.e("장소제공:", "성공");
-                    for (int i=0;i < op_name_list.size(); i++){
-                        rent_option(response.body().getProvide_id(),op_name_list.get(i),op_price_list.get(i));
+                    for (int i = 0; i < op_name_list.size(); i++) {
+                        rent_option(response.body().getProvide_id(), op_name_list.get(i), op_price_list.get(i));
                     }
                     op_name_list.clear();
                     op_price_list.clear();
-                    Intent provide_list = new Intent(getApplicationContext(),LocationLendStart.class);
+                    Intent provide_list = new Intent(getApplicationContext(), LocationLendStart.class);
                     startActivity(provide_list);
                     finish();
-                }else {
+                } else {
                     int StatusCode = response.code();
                     Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
-                    Log.e("메세지", String.valueOf(response.message()));
-                    Log.e("리스폰스에러바디", String.valueOf(response.errorBody()));
-                    Log.e("리스폰스바디", String.valueOf(response.body()));
                 }
             }
 
@@ -631,25 +599,21 @@ public class LocationLend extends AppCompatActivity {
         });
     }
 
-    public void rent_option(int provide_id, String o_name, String o_price){
+    public void rent_option(int provide_id, String o_name, String o_price) {
         LendLocationOption lendOption = new LendLocationOption();
         lendOption.setUser(user_id);
         lendOption.setProvide(provide_id);
         lendOption.setProvide_option_name(o_name);
         lendOption.setProvide_price(o_price);
 
-        Call<LendLocationOption> optionCall = apiService.rentLocationOption(user_token,lendOption);
+        Call<LendLocationOption> optionCall = apiService.rentLocationOption(user_token, lendOption);
         optionCall.enqueue(new Callback<LendLocationOption>() {
             @Override
             public void onResponse(Call<LendLocationOption> call, Response<LendLocationOption> response) {
-                if(response.isSuccessful()){
-                    Log.e("옵션 제공:", "성공");
-                }else {
+                if (response.isSuccessful()) {
+                } else {
                     int StatusCode = response.code();
                     Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
-                    Log.e("메세지", String.valueOf(response.message()));
-                    Log.e("리스폰스에러바디", String.valueOf(response.errorBody()));
-                    Log.e("리스폰스바디", String.valueOf(response.body()));
                 }
             }
 
@@ -666,10 +630,10 @@ public class LocationLend extends AppCompatActivity {
         apiService = ApplicationController.getInstance().getRestApiService();
     }
 
-    public void getLocalData(){
+    public void getLocalData() {
         SharedPreferences pref = getSharedPreferences("User", Activity.MODE_PRIVATE);
-        user_token = pref.getString("auth_token",null);
-        user_id = pref.getInt("user_id",0);
+        user_token = pref.getString("auth_token", null);
+        user_id = pref.getInt("user_id", 0);
     }
 
 }
