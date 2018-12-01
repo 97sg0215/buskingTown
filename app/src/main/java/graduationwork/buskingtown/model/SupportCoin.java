@@ -7,16 +7,11 @@ public class SupportCoin {
     int coin_amount;
     int coin_balance;
     String support_message;
-    String date_created;
     boolean view_check;
     int daily_coin_amount;
 
     public int getSupportCoin_id() {
         return supportCoin_id;
-    }
-
-    public void setSupportCoin_id(int supportCoin_id) {
-        this.supportCoin_id = supportCoin_id;
     }
 
     public int getBusker() {
@@ -43,14 +38,6 @@ public class SupportCoin {
         this.coin_amount = coin_amount;
     }
 
-    public String getDate_created() {
-        return date_created;
-    }
-
-    public void setDate_created(String date_created) {
-        this.date_created = date_created;
-    }
-
     public String getSupport_message() {
         return support_message;
     }
@@ -59,16 +46,8 @@ public class SupportCoin {
         this.support_message = support_message;
     }
 
-    public int getCoin_balance() {
-        return coin_balance;
-    }
-
     public void setCoin_balance(int coin_balance) {
         this.coin_balance = coin_balance;
-    }
-
-    public boolean isView_check() {
-        return view_check;
     }
 
     public void setView_check(boolean view_check) {
@@ -79,7 +58,4 @@ public class SupportCoin {
         return daily_coin_amount;
     }
 
-    public void setDaily_coin_amount(int daily_coin_amount) {
-        this.daily_coin_amount = daily_coin_amount;
-    }
 }

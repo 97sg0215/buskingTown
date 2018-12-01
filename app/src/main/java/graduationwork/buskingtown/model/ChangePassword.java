@@ -1,6 +1,7 @@
 package graduationwork.buskingtown.model;
 
 public class ChangePassword {
+
     String old_password;
     String new_password;
 

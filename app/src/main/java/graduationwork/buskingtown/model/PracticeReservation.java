@@ -32,10 +32,6 @@ public class PracticeReservation {
         return reservation_id;
     }
 
-    public void setReservation_id(int reservation_id) {
-        this.reservation_id = reservation_id;
-    }
-
     public String getPractice_date() {
         return practice_date;
     }
@@ -58,10 +54,6 @@ public class PracticeReservation {
 
     public void setPractice_end_time(String practice_end_time) {
         this.practice_end_time = practice_end_time;
-    }
-
-    public int getPractice_fee() {
-        return practice_fee;
     }
 
     public void setPractice_fee(int practice_fee) {

@@ -11,10 +11,6 @@ public class Post {
         return post_id;
     }
 
-    public void setPost_id(int post_id) {
-        this.post_id = post_id;
-    }
-
     public String getContent() {
         return content;
     }
@@ -35,16 +31,8 @@ public class Post {
         return post_image;
     }
 
-    public void setPost_image(String post_image) {
-        this.post_image = post_image;
-    }
-
     public String getCreated_at() {
         return created_at;
-    }
-
-    public void setCreated_at(String created_at) {
-        this.created_at = created_at;
     }
 
 }

@@ -12,20 +12,12 @@ public class LendLocationOption {
         this.user = user;
     }
 
-    public int getProvide() {
-        return provide;
-    }
-
     public void setProvide(int provide) {
         this.provide = provide;
     }
 
     public int getProvide_option_id() {
         return provide_option_id;
-    }
-
-    public void setProvide_option_id(int provide_option_id) {
-        this.provide_option_id = provide_option_id;
     }
 
     public String getProvide_option_name() {

@@ -12,10 +12,6 @@ public class User {
         return token;
     }
 
-    public void setToken(String token) {
-        this.token = token;
-    }
-
     public int getId() {
         return id;
     }

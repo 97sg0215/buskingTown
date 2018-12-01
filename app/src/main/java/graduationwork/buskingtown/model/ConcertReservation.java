@@ -32,14 +32,6 @@ public class ConcertReservation {
         return reservation_id;
     }
 
-    public void setReservation_id(int reservation_id) {
-        this.reservation_id = reservation_id;
-    }
-
-    public int getConcert_fee() {
-        return concert_fee;
-    }
-
     public void setConcert_fee(int concert_fee) {
         this.concert_fee = concert_fee;
     }

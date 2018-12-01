@@ -7,10 +7,6 @@ public class LikePost {
         return like_post_id;
     }
 
-    public void setLike_post_id(int like_post_id) {
-        this.like_post_id = like_post_id;
-    }
-
     public int getPost() {
         return post;
     }
@@ -25,10 +21,6 @@ public class LikePost {
 
     public void setBusker(int busker) {
         this.busker = busker;
-    }
-
-    public int getLikes() {
-        return likes;
     }
 
     public void setLikes(int likes) {

@@ -1,7 +1,5 @@
 package graduationwork.buskingtown.model;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Profile {
     String user;
