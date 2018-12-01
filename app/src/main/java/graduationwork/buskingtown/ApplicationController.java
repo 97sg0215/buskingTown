@@ -1,17 +1,12 @@
 package graduationwork.buskingtown;
 
 import android.app.Application;
-
 import graduationwork.buskingtown.api.RestApiService;
-
-import android.app.Application;
 import android.util.Log;
-
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
 import static graduationwork.buskingtown.api.RestApiService.API_URL;
 
 //네트워크 연결 메소드화
@@ -39,9 +34,6 @@ public class ApplicationController extends Application {
     public void buildNetworkService() {
         synchronized (ApplicationController.class) {
             if (restApiService == null) {
-                Log.i(TAG, API_URL);
-
-                // Add logging into retrofit 2.0
                 HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
                 logging.setLevel(HttpLoggingInterceptor.Level.BODY);
                 OkHttpClient.Builder httpClient = new OkHttpClient.Builder();

@@ -35,25 +35,20 @@ public class ChannelBuskerConcert extends Fragment {
 
     private RestApiService apiService;
     SharedPreferences prefUser;
-
     String user_token;
-    List<LendLocationOption> lendLocationOptions ;
+    List<LendLocationOption> lendLocationOptions;
     int user_id;
-
     LinearLayout concertBox;
     ImageView lendImage;
-
     TextView concert_text, concert_address_text, concert_price_text;
-    String concert_image , concert_name, concert_address, concert_price;
+    String concert_image, concert_name, concert_address;
 
-    int test__concert=3;
+    public ChannelBuskerConcert() {
 
-    public ChannelBuskerConcert(){
-        // Required empty public constructor
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.activity_channel_busker_concert, container, false);
 
         //로딩코드
@@ -68,24 +63,21 @@ public class ChannelBuskerConcert extends Fragment {
 
         concertBox = (LinearLayout) v.findViewById(R.id.concertContainer);
 
-        TextView concertText = (TextView)v.findViewById(R.id.concertText);
+        TextView concertText = (TextView) v.findViewById(R.id.concertText);
 
         Call<List<LendLocation>> callConcert = apiService.concertRoomList(user_token);
         callConcert.enqueue(new Callback<List<LendLocation>>() {
             @Override
             public void onResponse(Call<List<LendLocation>> call, Response<List<LendLocation>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     List<LendLocation> concertList = response.body();
-                    if(concertList.size()!=0){
-                        for (int i =0; i<concertList.size(); i++){
+                    if (concertList.size() != 0) {
+                        for (int i = 0; i < concertList.size(); i++) {
                             concertText.setVisibility(View.GONE);
-                            View concertlist = inflater.inflate(R.layout.concertbox,concertBox,false);
-
+                            View concertlist = inflater.inflate(R.layout.concertbox, concertBox, false);
                             lendImage = (ImageView) concertlist.findViewById(R.id.lendImage);
                             concert_text = (TextView) concertlist.findViewById(R.id.practiceroomName);
                             concert_address_text = (TextView) concertlist.findViewById(R.id.practiceroomAddress);
-
-
                             concert_image = concertList.get(i).getProvide_image();
                             concert_name = concertList.get(i).getProvide_location_name();
                             concert_address = concertList.get(i).getProvide_location();
@@ -102,20 +94,17 @@ public class ChannelBuskerConcert extends Fragment {
                                 lendImage.setScaleType(ImageView.ScaleType.FIT_XY);
                             }
 
-                            Call<List<LendLocationOption>> callOptionList = apiService.provideOptionList(user_token,concertList.get(i).getProvide_id());
+                            Call<List<LendLocationOption>> callOptionList = apiService.provideOptionList(user_token, concertList.get(i).getProvide_id());
                             callOptionList.enqueue(new Callback<List<LendLocationOption>>() {
                                 @Override
                                 public void onResponse(Call<List<LendLocationOption>> call, Response<List<LendLocationOption>> response) {
-                                    if(response.isSuccessful()){
+                                    if (response.isSuccessful()) {
                                         lendLocationOptions = response.body();
                                         concert_price_text = (TextView) concertlist.findViewById(R.id.practiceroomPrice);
                                         concert_price_text.setText(lendLocationOptions.get(0).getProvide_price() + " 원 / 시");
-                                    }else {
+                                    } else {
                                         int StatusCode = response.code();
                                         Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
-                                        Log.e("메세지", String.valueOf(response.message()));
-                                        Log.e("리스폰스에러바디", String.valueOf(response.errorBody()));
-                                        Log.e("리스폰스바디", String.valueOf(response.body()));
                                     }
                                 }
 
@@ -125,8 +114,8 @@ public class ChannelBuskerConcert extends Fragment {
                                 }
                             });
 
-                            if(concertlist.getParent()!= null)
-                                ((ViewGroup)concertlist.getParent()).removeView(concertlist);
+                            if (concertlist.getParent() != null)
+                                ((ViewGroup) concertlist.getParent()).removeView(concertlist);
                             concertBox.addView(concertlist);
 
 
@@ -135,33 +124,30 @@ public class ChannelBuskerConcert extends Fragment {
                             detailBtn.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Intent detail = new Intent(getActivity(),ChannelBuskerConcertDetail.class);
-                                    detail.putExtra("provide_id",concertList.get(finalI).getProvide_id());
-                                    detail.putExtra("provide_image",concertList.get(finalI).getProvide_image());
-                                    detail.putExtra("provide_name",concertList.get(finalI).getProvide_location_name());
-                                    detail.putExtra("provide_email",concertList.get(finalI).getProvider_email());
-                                    detail.putExtra("provide_address",concertList.get(finalI).getProvide_location());
-                                    detail.putExtra("provider_phone",concertList.get(finalI).getProvider_phone());
-                                    detail.putExtra("provide_description",concertList.get(finalI).getProvide_description());
-                                    detail.putExtra("provide_rule",concertList.get(finalI).getProvide_rule());
-                                    detail.putExtra("provide_refund_rule",concertList.get(finalI).getProvide_refund_rule());
-                                    detail.putExtra("provide_start_time",concertList.get(finalI).getProvide_start_time());
-                                    detail.putExtra("provide_end_time",concertList.get(finalI).getProvide_end_time());
-                                    detail.putExtra("provide_rule",concertList.get(finalI).getProvide_rule());
-                                    detail.putExtra("provide_lon",concertList.get(finalI).getProvide_lon());
-                                    detail.putExtra("provide_lat",concertList.get(finalI).getProvide_lat());
+                                    Intent detail = new Intent(getActivity(), ChannelBuskerConcertDetail.class);
+                                    detail.putExtra("provide_id", concertList.get(finalI).getProvide_id());
+                                    detail.putExtra("provide_image", concertList.get(finalI).getProvide_image());
+                                    detail.putExtra("provide_name", concertList.get(finalI).getProvide_location_name());
+                                    detail.putExtra("provide_email", concertList.get(finalI).getProvider_email());
+                                    detail.putExtra("provide_address", concertList.get(finalI).getProvide_location());
+                                    detail.putExtra("provider_phone", concertList.get(finalI).getProvider_phone());
+                                    detail.putExtra("provide_description", concertList.get(finalI).getProvide_description());
+                                    detail.putExtra("provide_rule", concertList.get(finalI).getProvide_rule());
+                                    detail.putExtra("provide_refund_rule", concertList.get(finalI).getProvide_refund_rule());
+                                    detail.putExtra("provide_start_time", concertList.get(finalI).getProvide_start_time());
+                                    detail.putExtra("provide_end_time", concertList.get(finalI).getProvide_end_time());
+                                    detail.putExtra("provide_rule", concertList.get(finalI).getProvide_rule());
+                                    detail.putExtra("provide_lon", concertList.get(finalI).getProvide_lon());
+                                    detail.putExtra("provide_lat", concertList.get(finalI).getProvide_lat());
                                     startActivity(detail);
                                 }
                             });
                         }
                     }
 
-                }else {
+                } else {
                     int StatusCode = response.code();
                     Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
-                    Log.e("메세지", String.valueOf(response.message()));
-                    Log.e("리스폰스에러바디", String.valueOf(response.errorBody()));
-                    Log.e("리스폰스바디", String.valueOf(response.body()));
                 }
             }
 
@@ -170,8 +156,6 @@ public class ChannelBuskerConcert extends Fragment {
                 Log.i(ApplicationController.TAG, "연습실 리스트 서버 연결 실패 Message : " + t.getMessage());
             }
         });
-
-
 
         return v;
     }
@@ -182,9 +166,9 @@ public class ChannelBuskerConcert extends Fragment {
         apiService = ApplicationController.getInstance().getRestApiService();
     }
 
-    public void getLocalData(){
-        user_token = prefUser.getString("auth_token",null);
-        user_id = prefUser.getInt("user_id",0);
+    public void getLocalData() {
+        user_token = prefUser.getString("auth_token", null);
+        user_id = prefUser.getInt("user_id", 0);
     }
 
     public Bitmap getBitmapFromURL(String src) {
@@ -200,8 +184,8 @@ public class ChannelBuskerConcert extends Fragment {
         } catch (IOException e) {
             e.printStackTrace();
             return null;
-        }finally{
-            if(connection!=null)connection.disconnect();
+        } finally {
+            if (connection != null) connection.disconnect();
         }
     }
 
@@ -225,7 +209,6 @@ public class ChannelBuskerConcert extends Fragment {
         protected Void doInBackground(Void... arg0) {
             try {
                 for (int i = 0; i < 5; i++) {
-                    //asyncDialog.setProgress(i * 30);
                     Thread.sleep(300);
                 }
             } catch (InterruptedException e) {

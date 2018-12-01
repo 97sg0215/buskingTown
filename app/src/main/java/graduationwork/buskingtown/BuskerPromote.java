@@ -3,28 +3,18 @@ package graduationwork.buskingtown;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
-
-import java.util.ArrayList;
-
-public class BuskerPromote extends AppCompatActivity implements View.OnClickListener{
+public class BuskerPromote extends AppCompatActivity implements View.OnClickListener {
 
     //호출될프래그먼트 변수들
     private final int mainbannerFRAGMENT = 1;
     private final int recommendFRAGMENT = 2;
 
     //탭바 아이콘 변수들
-    private TextView mainbanner,recommend;
-    private View mainbannerBar,recommendBar;
+    private TextView mainbanner, recommend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,14 +66,13 @@ public class BuskerPromote extends AppCompatActivity implements View.OnClickList
         switch (frament_no) {
             case 1:
                 // '메인배너홍보' 호출
-                PromoteMainbanner mainbannerFRAGMENT = new  PromoteMainbanner();
+                PromoteMainbanner mainbannerFRAGMENT = new PromoteMainbanner();
                 transaction.replace(R.id.fragmentContainer, mainbannerFRAGMENT);
                 transaction.commit();
 
                 mainbanner.setTextColor(getResources().getColor(R.color.mainYellow));
                 recommend.setTextColor(getResources().getColor(R.color.fontBlack));
                 break;
-
 
 
             case 2:

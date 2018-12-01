@@ -25,7 +25,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.nhn.android.maps.NMapActivity;
 import com.nhn.android.maps.NMapCompassManager;
 import com.nhn.android.maps.NMapContext;
@@ -44,14 +43,12 @@ import com.nhn.android.mapviewer.overlay.NMapMyLocationOverlay;
 import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
 import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
 import com.nhn.android.mapviewer.overlay.NMapResourceProvider;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.LendLocationOption;
 import retrofit2.Call;
@@ -76,68 +73,47 @@ public class ChannelBuskerConcertDetail extends AppCompatActivity {
     Integer choice_option;
     double p_lon;
     double p_lat;
-
     int user_id, p_id;
-
     SharedPreferences prefUser;
 
     ArrayList<Integer> o_id = new ArrayList<Integer>();
     ArrayList<String> o_price = new ArrayList<String>();
     ArrayList<String> o_name = new ArrayList<String>();
 
-    List<LendLocationOption> lendLocationOptions ;
-
+    List<LendLocationOption> lendLocationOptions;
     ImageView location_image;
-
     RadioGroup optionRadioGroup;
     RadioButton optionList;
-
     LinearLayout addRule, addRefund;
-
     ImageButton dropdown_sch, dropdown_sch_1;
-
     Button go_reservation;
-
-    TextView loc_name,loc_main_name, loc_address, option, loc_info, loc_rule, loc_refund_rule, addRule_text,addRefundRule_text, sum_fee;
-
+    TextView loc_name, loc_main_name, loc_address, loc_info, addRule_text, addRefundRule_text, sum_fee;
     RestApiService apiService;
-
     private static final String CLIENT_ID = "9a4pn7RAiPbnwnpUUS6k";
-
     private NMapContext mMapContext;
-
     RelativeLayout MapContainer;
 
     // 맵 컨트롤러
-
     NMapController mMapController = null;
-
     NMapView mMapView;
 
     // 오버레이의 리소스를 제공하기 위한 객체
-
     NMapViewerResourceProvider mMapViewerResourceProvider = null;
 
     // 오버레이 관리자
-
     private NMapMyLocationOverlay mMyLocationOverlay;
-
     private NMapLocationManager mMapLocationManager;
-
     private NMapCompassManager mMapCompassManager;
 
-    private final String  TAG = "MainActivity";
+    private final String TAG = "MainActivity";
 
     private ViewGroup mapLayout;
 
     private NMapResourceProvider nMapResourceProvider;
     private NMapOverlayManager mapOverlayManager;
-
     private NMapOverlayManager mOverlayManager;
-
     private static final String LOG_TAG = "NMapViewer";
     private static final boolean DEBUG = false;
-
     private static final int NMAP_ZOOMLEVEL_DEFAULT = 11;
     private static final int NMAP_VIEW_MODE_DEFAULT = NMapView.VIEW_MODE_VECTOR;
     private static final boolean NMAP_TRAFFIC_MODE_DEFAULT = false;
@@ -167,10 +143,12 @@ public class ChannelBuskerConcertDetail extends AppCompatActivity {
         ImageButton backBtn = (ImageButton) findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { ChannelBuskerConcertDetail.super.onBackPressed(); }
+            public void onClick(View v) {
+                ChannelBuskerConcertDetail.super.onBackPressed();
+            }
         });
 
-        p_id = getIntent().getIntExtra("provide_id",0);
+        p_id = getIntent().getIntExtra("provide_id", 0);
         p_name = getIntent().getStringExtra("provide_name");
         p_info = getIntent().getStringExtra("provide_description");
         p_phone = getIntent().getStringExtra("provider_phone");
@@ -181,9 +159,8 @@ public class ChannelBuskerConcertDetail extends AppCompatActivity {
         p_start_time = getIntent().getStringExtra("provide_start_time");
         p_end_time = getIntent().getStringExtra("provide_end_time");
         p_email = getIntent().getStringExtra("provide_email");
-
-        p_lon = getIntent().getDoubleExtra("provide_lon",0);
-        p_lat = getIntent().getDoubleExtra("provide_lat",0);
+        p_lon = getIntent().getDoubleExtra("provide_lon", 0);
+        p_lat = getIntent().getDoubleExtra("provide_lat", 0);
 
         location_image = (ImageView) findViewById(R.id.concertImage);
         optionRadioGroup = (RadioGroup) findViewById(R.id.optionRadioGroup);
@@ -196,12 +173,11 @@ public class ChannelBuskerConcertDetail extends AppCompatActivity {
         addRefundRule_text = (TextView) findViewById(R.id.addRule_text_1);
         dropdown_sch_1 = (ImageButton) findViewById(R.id.dropdown_sch_1);
         addRule = (LinearLayout) findViewById(R.id.addRule);
-        addRefund =(LinearLayout) findViewById(R.id.addRefund);
+        addRefund = (LinearLayout) findViewById(R.id.addRefund);
         sum_fee = (TextView) findViewById(R.id.sum_fee);
 
         loc_main_name.setText(p_name);
         loc_name.setText(p_name);
-
         loc_address.setText(p_address);
 
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
@@ -210,33 +186,30 @@ public class ChannelBuskerConcertDetail extends AppCompatActivity {
                     .permitAll().build();
             StrictMode.setThreadPolicy(policy);
 
-            location_image .setImageBitmap(getBitmapFromURL(p_image));
-            location_image .setScaleType(ImageView.ScaleType.FIT_XY);
+            location_image.setImageBitmap(getBitmapFromURL(p_image));
+            location_image.setScaleType(ImageView.ScaleType.FIT_XY);
         }
 
-        Call<List<LendLocationOption>> callOptionList = apiService.provideOptionList(user_token,p_id);
+        Call<List<LendLocationOption>> callOptionList = apiService.provideOptionList(user_token, p_id);
         callOptionList.enqueue(new Callback<List<LendLocationOption>>() {
             @Override
             public void onResponse(Call<List<LendLocationOption>> call, Response<List<LendLocationOption>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     lendLocationOptions = response.body();
-                    for(int i=0;i<lendLocationOptions.size();i++){
-                        optionList = (RadioButton) getLayoutInflater().inflate(R.layout.reservation_practiceroom_detail_radio,optionRadioGroup,false);
-                        optionList.setText(lendLocationOptions.get(i).getProvide_option_name() +" : "+lendLocationOptions.get(i).getProvide_price() + " 원/시");
+                    for (int i = 0; i < lendLocationOptions.size(); i++) {
+                        optionList = (RadioButton) getLayoutInflater().inflate(R.layout.reservation_practiceroom_detail_radio, optionRadioGroup, false);
+                        optionList.setText(lendLocationOptions.get(i).getProvide_option_name() + " : " + lendLocationOptions.get(i).getProvide_price() + " 원/시");
                         o_price.add(lendLocationOptions.get(i).getProvide_price());
                         optionList.setId(i);
                         o_id.add(lendLocationOptions.get(i).getProvide_option_id());
                         o_name.add((lendLocationOptions.get(i).getProvide_option_name()));
-                        if(optionList.getParent()!= null)
-                            ((ViewGroup)optionList.getParent()).removeView(optionList);
+                        if (optionList.getParent() != null)
+                            ((ViewGroup) optionList.getParent()).removeView(optionList);
                         optionRadioGroup.addView(optionList);
                     }
-                }else {
+                } else {
                     int StatusCode = response.code();
                     Log.i(ApplicationController.TAG, "상태 Code : " + StatusCode);
-                    Log.e("메세지", String.valueOf(response.message()));
-                    Log.e("리스폰스에러바디", String.valueOf(response.errorBody()));
-                    Log.e("리스폰스바디", String.valueOf(response.body()));
                 }
             }
 
@@ -248,11 +221,8 @@ public class ChannelBuskerConcertDetail extends AppCompatActivity {
 
         loc_info.setText(p_info);
 
-
         String[] phone_words = p_phone.split("-");
-
-        String tel = "tel:"+phone_words[0]+phone_words[1]+phone_words[2];
-
+        String tel = "tel:" + phone_words[0] + phone_words[1] + phone_words[2];
         ImageButton phone = (ImageButton) findViewById(R.id.phone);
         phone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -294,36 +264,34 @@ public class ChannelBuskerConcertDetail extends AppCompatActivity {
         go_reservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent goReservaion = new Intent(getApplication(), ConcertDatailReservation.class);
-                goReservaion.putExtra("provide_id",p_id);
-                goReservaion.putExtra("provide_image",p_image);
-                goReservaion.putExtra("provide_name",p_name);
-                goReservaion.putExtra("provide_email",p_email);
-                goReservaion.putExtra("provide_address",p_address);
-                goReservaion.putExtra("provide_description",p_info);
+                goReservaion.putExtra("provide_id", p_id);
+                goReservaion.putExtra("provide_image", p_image);
+                goReservaion.putExtra("provide_name", p_name);
+                goReservaion.putExtra("provide_email", p_email);
+                goReservaion.putExtra("provide_address", p_address);
+                goReservaion.putExtra("provide_description", p_info);
                 goReservaion.putExtra("provide_option_id", choice_option);
                 goReservaion.putExtra("provide_option_price", choice_option_price);
-                goReservaion.putExtra("provide_option_name",choice_option_name);
-                goReservaion.putExtra("provide_start_time",p_start_time);
-                goReservaion.putExtra("provide_end_time",p_end_time);
-                Log.e("옵션아이디",String.valueOf(choice_option));
+                goReservaion.putExtra("provide_option_name", choice_option_name);
+                goReservaion.putExtra("provide_start_time", p_start_time);
+                goReservaion.putExtra("provide_end_time", p_end_time);
+                Log.e("옵션아이디", String.valueOf(choice_option));
                 startActivity(goReservaion);
                 finish();
             }
         });
 
         MapContainer = (RelativeLayout) findViewById(R.id.map_container);
-        mMapContext =  new NMapContext(this);
+        mMapContext = new NMapContext(this);
         mMapContext.onCreate();
 
         final Geocoder geocoder = new Geocoder(this);
 
-        mMapView = (NMapView)findViewById(R.id.map_view);
+        mMapView = (NMapView) findViewById(R.id.map_view);
         mMapView.setClientId(CLIENT_ID);// 클라이언트 아이디 설정
         mMapContext.setupMapView(mMapView);
 
-        // initialize map view
         mMapView.setClickable(true);
         mMapView.setEnabled(true);
         mMapView.setFocusable(true);
@@ -331,7 +299,6 @@ public class ChannelBuskerConcertDetail extends AppCompatActivity {
         mMapView.requestFocus();
 
         // 지도 객체로부터 컨트롤러 추출
-
         mMapController = mMapView.getMapController();
 
         // 확대/축소를 위한 줌 컨트롤러 표시 옵션 활성화
@@ -349,20 +316,17 @@ public class ChannelBuskerConcertDetail extends AppCompatActivity {
 
     }
 
-    /* MapView State Change Listener*/
+
     private final NMapView.OnMapStateChangeListener onMapViewStateChangeListener = new NMapView.OnMapStateChangeListener() {
 
         @Override
         public void onMapInitHandler(NMapView mapView, NMapError errorInfo) {
 
-            if (errorInfo == null) { // success
-                // restore map view state such as map center position and zoom level.
+            if (errorInfo == null) {
                 restoreInstanceState();
 
-            } else { // fail
+            } else {
                 Log.e(LOG_TAG, "onFailedToInitializeWithError: " + errorInfo.toString());
-
-                //Toast.makeText(NMapViewer.this, errorInfo.toString(), Toast.LENGTH_LONG).show();
             }
         }
 
@@ -393,7 +357,7 @@ public class ChannelBuskerConcertDetail extends AppCompatActivity {
         }
     };
 
-    /* Local Functions */
+
     private static boolean mIsMapEnlared = false;
 
     private void restoreInstanceState() {
@@ -420,107 +384,41 @@ public class ChannelBuskerConcertDetail extends AppCompatActivity {
         }
     }
 
-    public void onMapInitHandler(NMapView mapview, NMapError errorInfo) {
-
-        if (errorInfo == null) { // success
-
-            //startMyLocation();//현재위치로 이동
-
-            // mMapController.setMapCenter(new NGeoPoint(126.978371,
-
-            // 37.5666091),
-
-            // 11);
-
-        } else { // fail
-
-            android.util.Log.e("NMAP",
-
-                    "onMapInitHandler: error=" + errorInfo.toString());
-        }
-
-    }
-
-    public void onMapCenterChange(NMapView nMapView, NGeoPoint nGeoPoint) {
-
-    }
-
-    public void onMapCenterChangeFine(NMapView nMapView) {
-
-    }
-
-    public void onZoomLevelChange(NMapView nMapView, int i) {
-
-    }
-
-    public void onAnimationStateChange(NMapView nMapView, int i, int i1) {
-
-    }
-
-
 
     private void stopMyLocation() {
-
         if (mMyLocationOverlay != null) {
-
             mMapLocationManager.disableMyLocation();
 
-
-
             if (mMapView.isAutoRotateEnabled()) {
-
                 mMyLocationOverlay.setCompassHeadingVisible(false);
-
-
-
                 mMapCompassManager.disableCompass();
-
-
-
                 mMapView.setAutoRotateEnabled(false, false);
-
-
-
                 MapContainer.requestLayout();
-
             }
-
         }
-
     }
 
     private final NMapActivity.OnDataProviderListener onDataProviderListener = new NMapActivity.OnDataProviderListener() {
-
-
-
         @Override
 
         public void onReverseGeocoderResponse(NMapPlacemark placeMark, NMapError errInfo) {
-
-
-            String address = placeMark.doName+ " " + placeMark.siName+ " " + placeMark.dongName;
+            String address = placeMark.doName + " " + placeMark.siName + " " + placeMark.dongName;
             if (errInfo != null) {
 
                 Log.e("myLog", "Failed to findPlacemarkAtLocation: error=" + errInfo.toString());
 
-                //Toast.makeText(getActivity(), errInfo.toString(), Toast.LENGTH_LONG).show();
-
                 return;
 
-            }else{
-
-                //Toast.makeText(getActivity(), address, Toast.LENGTH_LONG).show();
-
+            } else {
             }
         }
     };
 
-    public void previousActivity(View v){
+    public void previousActivity(View v) {
         onBackPressed();
     }
 
     private final NMapLocationManager.OnLocationChangeListener onMyLocationChangeListener = new NMapLocationManager.OnLocationChangeListener() {
-
 
 
         @Override
@@ -533,13 +431,7 @@ public class ChannelBuskerConcertDetail extends AppCompatActivity {
                 mMapController.animateTo(myLocation);
             }
 
-            Log.d("myLog", "myLocation  lat " + myLocation.getLatitude());
-            Log.d("myLog", "myLocation  lng " + myLocation.getLongitude());
-
-
             mMapContext.findPlacemarkAtLocation(myLocation.getLongitude(), myLocation.getLatitude());
-
-            //위도경도를 주소로 변환
 
             return true;
 
@@ -554,8 +446,6 @@ public class ChannelBuskerConcertDetail extends AppCompatActivity {
         public void onLocationUnavailableArea(
 
                 NMapLocationManager locationManager, NGeoPoint myLocation) {
-
-            //Toast.makeText(getActivity(), "Your current location is unavailable area.", Toast.LENGTH_LONG).show();
             stopMyLocation();
 
         }
@@ -564,26 +454,29 @@ public class ChannelBuskerConcertDetail extends AppCompatActivity {
 
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         mMapContext.onStart();
     }
+
     @Override
     public void onResume() {
         super.onResume();
         mMapContext.onResume();
     }
+
     @Override
     public void onPause() {
         super.onPause();
         mMapContext.onPause();
     }
+
     @Override
     public void onStop() {
         mMapContext.onStop();
         super.onStop();
     }
-    //public void onDestroyView() {super.onDestroyView();}
+
     @Override
     public void onDestroy() {
         mMapContext.onDestroy();
@@ -625,7 +518,6 @@ public class ChannelBuskerConcertDetail extends AppCompatActivity {
         @Override
         public void onCalloutClick(NMapPOIdataOverlay poiDataOverlay, NMapPOIitem item) {
             if (DEBUG) {
-                Log.i(LOG_TAG, "onCalloutClick: title=" + item.getTitle());
             }
         }
 
@@ -633,9 +525,8 @@ public class ChannelBuskerConcertDetail extends AppCompatActivity {
         public void onFocusChanged(NMapPOIdataOverlay poiDataOverlay, NMapPOIitem item) {
             if (DEBUG) {
                 if (item != null) {
-                    Log.i(LOG_TAG, "onFocusChanged: " + item.toString());
+
                 } else {
-                    Log.i(LOG_TAG, "onFocusChanged: ");
                 }
             }
         }
@@ -650,9 +541,8 @@ public class ChannelBuskerConcertDetail extends AppCompatActivity {
         try {
             addr = coder.getFromLocationName(address, 5);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
-        }// 몇개 까지의 주소를 원하는지 지정 1~5개 정도가 적당
+        }
         if (addr != null) {
             for (int i = 0; i < addr.size(); i++) {
                 Address lating = addr.get(i);
@@ -678,8 +568,8 @@ public class ChannelBuskerConcertDetail extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
             return null;
-        }finally{
-            if(connection!=null)connection.disconnect();
+        } finally {
+            if (connection != null) connection.disconnect();
         }
     }
 
@@ -689,9 +579,9 @@ public class ChannelBuskerConcertDetail extends AppCompatActivity {
         apiService = ApplicationController.getInstance().getRestApiService();
     }
 
-    public void getLocalData(){
-        user_token = prefUser.getString("auth_token",null);
-        user_id = prefUser.getInt("user_id",0);
+    public void getLocalData() {
+        user_token = prefUser.getString("auth_token", null);
+        user_id = prefUser.getInt("user_id", 0);
     }
 
 }

@@ -8,25 +8,17 @@ import android.os.AsyncTask;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telecom.Call;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
-
-import java.text.BreakIterator;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
 import graduationwork.buskingtown.api.RestApiService;
 import graduationwork.buskingtown.model.Busker;
 import graduationwork.buskingtown.model.Connections;
-import okhttp3.ResponseBody;
 import retrofit2.Callback;
 import retrofit2.Response;
 
@@ -42,15 +34,12 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
     private ImageView board, calendar;
 
     //유저 정보 변수들
-    String user_token,user_name;
-    String busker_team_name, busker_tag, busker_image,busker_name,team_name;
-    int user_id,busker_id,busker_type;
-
-    TextView mainTeamName,subTeamName,tag;
+    String user_token, user_name;
+    String team_name;
+    int user_id, busker_id;
+    TextView mainTeamName, subTeamName, tag;
     ImageView busker_main_img;
-
-    TextView smileCount,coinAmount;
-
+    TextView smileCount, coinAmount;
     android.support.design.widget.FloatingActionButton fab;
 
     @Override
@@ -90,8 +79,8 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
         ImageButton moreBtn = (ImageButton) findViewById(R.id.morebtn);
         moreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                Intent channelManagementSetting = new Intent(getApplication(),ChannelManagementSetting.class);
+            public void onClick(View v) {
+                Intent channelManagementSetting = new Intent(getApplication(), ChannelManagementSetting.class);
                 startActivity(channelManagementSetting);
             }
         });
@@ -148,7 +137,7 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
         switch (frament_no) {
             case 1:
                 // '일정페이지' 호출
-                ChannelBuskerSchedule scheduleFragment = new  ChannelBuskerSchedule();
+                ChannelBuskerSchedule scheduleFragment = new ChannelBuskerSchedule();
                 transaction.replace(R.id.fragmentContainer, scheduleFragment);
                 transaction.commit();
 
@@ -172,32 +161,32 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    public void buskerTeamCheck(String team_name){
-        retrofit2.Call<List<Busker>> buskerCall = apiService.buskerTeam(user_token,team_name);
+    public void buskerTeamCheck(String team_name) {
+        retrofit2.Call<List<Busker>> buskerCall = apiService.buskerTeam(user_token, team_name);
         buskerCall.enqueue(new Callback<List<Busker>>() {
             @Override
             public void onResponse(retrofit2.Call<List<Busker>> call, Response<List<Busker>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     busker_id = response.body().get(0).getBusker_id();
                     String busker_team_name = response.body().get(0).getTeam_name();
                     String busker_tag = response.body().get(0).getBusker_tag();
                     mainTeamName.setText(busker_team_name);
                     subTeamName.setText(busker_team_name);
                     tag.setText(busker_tag);
-                    coinAmount.setText(String.valueOf(response.body().get(0).getReceived_coin())+"개");
+                    coinAmount.setText(String.valueOf(response.body().get(0).getReceived_coin()) + "개");
                     //이미지 원형 처리
                     Picasso.with(getApplication()).load(response.body().get(0).getBusker_image()).transform(new CircleTransForm()).into(busker_main_img);
-                    saveBuskerInfo(busker_id,busker_team_name,busker_tag);
+                    saveBuskerInfo(busker_id, busker_team_name, busker_tag);
 
                     //정보 세팅
-                    retrofit2.Call<List<Connections>> call2 = apiService.get_followers(user_token,busker_id);
+                    retrofit2.Call<List<Connections>> call2 = apiService.get_followers(user_token, busker_id);
                     call2.enqueue(new Callback<List<Connections>>() {
                         @Override
                         public void onResponse(retrofit2.Call<List<Connections>> call, Response<List<Connections>> response) {
-                            if(response.isSuccessful()){
+                            if (response.isSuccessful()) {
                                 List<Connections> connections = response.body();
-                                if(connections.size()!=0){
-                                    smileCount.setText(String.valueOf(connections.size())+"명");
+                                if (connections.size() != 0) {
+                                    smileCount.setText(String.valueOf(connections.size()) + "명");
                                 }
                             }
                         }
@@ -208,14 +197,9 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
                         }
                     });
 
-                }else {
+                } else {
                     int StatusCode = response.code();
-                    String s = response.message();
-                    ResponseBody d = response.errorBody();
                     Log.i(ApplicationController.TAG, "홈 상태 Code : " + StatusCode);
-                    Log.e("메세지", s);
-                    Log.e("리스폰스에러바디", String.valueOf(d));
-                    Log.e("리스폰스바디", String.valueOf(response.body()));
                 }
             }
 
@@ -227,21 +211,21 @@ public class ChannelBusker extends AppCompatActivity implements View.OnClickList
     }
 
 
-    public void saveBuskerInfo(int busker_id,String team_name, String tag){
+    public void saveBuskerInfo(int busker_id, String team_name, String tag) {
         SharedPreferences pref = getSharedPreferences("BuskerUser", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
-        editor.putInt("busker_id",busker_id);
+        editor.putInt("busker_id", busker_id);
         editor.putString("team_name", team_name);
         editor.putString("tag", tag);
         editor.commit();
     }
 
-    public void getLocalData(){
+    public void getLocalData() {
         SharedPreferences pref = getSharedPreferences("User", Activity.MODE_PRIVATE);
         SharedPreferences busker_pref = getSharedPreferences("BuskerUser", Activity.MODE_PRIVATE);
-        user_token = pref.getString("auth_token",null);
-        user_name = pref.getString("username",null);
-        team_name = busker_pref.getString("team_name",null);
+        user_token = pref.getString("auth_token", null);
+        user_name = pref.getString("username", null);
+        team_name = busker_pref.getString("team_name", null);
 
         buskerTeamCheck(team_name);
     }

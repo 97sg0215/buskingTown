@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,10 +19,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,10 +28,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
-
 import static graduationwork.buskingtown.R.layout.dayview;
-
-//import static com.gun0912.tedpermission.TedPermissionActivity.listener;
 
 public class CalendarView extends Fragment {
 
@@ -48,52 +42,35 @@ public class CalendarView extends Fragment {
     private Calendar cal;
     private String startDate;
     private Context mContext;
-    int margin = 0;
     RelativeLayout monRelative;
     String[] strTime = {"00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00"};
     private final DateFormat dateformatter = new DateFormat();
     private static final String dateformat = "yyyy/MM/dd";
     private String[] months = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
-    //private String[] months = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     private String[] monthsNumbers = new String[]{"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
     String eventdate;
     String title;
     ListView listView;
-
-
-    //String[] itemtime = {"00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00" };
-
     ListView time_ListView = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View containerView = inflater.inflate(dayview, container, false);
 
         //리스트연결
-        int nTimCnt=0;
+        int nTimCnt = 0;
         ArrayList<ItemData> tData = new ArrayList<>();
-        for (int i=0;i<1000; ++i){
+        for (int i = 0; i < 1000; ++i) {
             ItemData tItem = new ItemData();
             tItem.strTime = strTime[nTimCnt++];
             tData.add(tItem);
-            if(nTimCnt >= strTime.length) nTimCnt = 0;
+            if (nTimCnt >= strTime.length) nTimCnt = 0;
         }
 
         time_ListView = containerView.findViewById(R.id.time_ListView);
         ListAdapter Adapter = new ListAdapter(tData);
         time_ListView.setAdapter(Adapter);
 
-
-
-//        int permissionCheck = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CALENDAR);
-//
-//        if(permissionCheck== PackageManager.PERMISSION_DENIED){
-//
-//            // 권한 없음
-//        }else{
-//            // 권한 있음
-//        }
 
         PermissionListener permissionlistener = new PermissionListener() {
             @Override
@@ -132,7 +109,6 @@ public class CalendarView extends Fragment {
         day = _calendar.get(Calendar.DAY_OF_MONTH);
         if (startDate == null) {
             startDate = yearSelected + "/" + (month + 1) + "/" + day;
-            //startDate = (month + 1) + "/" + day + "/" + yearSelected;
         }
 
         Date date = new Date(startDate);
@@ -142,10 +118,10 @@ public class CalendarView extends Fragment {
         date = new Date(startDate);
         cal.setTime(date);
 
-        String month = months[cal.get(Calendar.MONTH)]+ "월";
+        String month = months[cal.get(Calendar.MONTH)] + "월";
         String date1 = " " + cal.get(Calendar.DATE) + "일";
 
-        String year = "" + cal.get(Calendar.YEAR)+ "년";
+        String year = "" + cal.get(Calendar.YEAR) + "년";
 
         String currentDate1 = year + month + date1;
         //String currentDate1 = date1 + month + "," + year;
@@ -156,7 +132,6 @@ public class CalendarView extends Fragment {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        // scrollView.setOnTouchListener(gestureListener);
         prevMonth.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -211,13 +186,8 @@ public class CalendarView extends Fragment {
 
     @SuppressLint("ResourceType")
     private void createViewForAppointment(String startTime, String endTime) {
-        int marginTop = this.calculateMargin(startTime);
         int height = (int) this.calculateDiffInTime(startTime, endTime);
         ViewGroup.LayoutParams lprams = new ViewGroup.LayoutParams(-1, height);
-        int marginLeft = 30;
-
-//        lprams.setMargins(marginLeft, 0, 0, 0);
-//        lprams.topMargin = marginTop;
         Button button = new Button(this.mContext);
         button.setBackgroundResource(2130837505);
         button.setLayoutParams(lprams);
@@ -258,16 +228,6 @@ public class CalendarView extends Fragment {
         return diffMinutes;
     }
 
-    private int calculateMargin(String startTime) {
-        this.margin = 3;
-
-        for (int i = 0; startTime.compareToIgnoreCase(this.strTime[i]) != 0; ++i) {
-            this.margin += 30;
-        }
-
-        return this.margin;
-    }
-
     private void setGridCellAdapterToDate(int month, int year) throws ParseException {
         Calendar date = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
@@ -276,15 +236,12 @@ public class CalendarView extends Fragment {
         sdf.format(date.getTime());
         @SuppressLint("WrongConstant") String yearTemp = "" + this.cal.get(1);
         @SuppressLint("WrongConstant") String monthTemp1 = this.monthsNumbers[this.cal.get(2)];
-        @SuppressLint("WrongConstant") int changedmonth = this.cal.get(2);
-        @SuppressLint("WrongConstant") int changedYear = this.cal.get(1);
         @SuppressLint("WrongConstant") int day = this.cal.get(5);
         String changedNewDate = monthTemp1 + "/" + day + "/" + this.yearSelected;
         this.eventdate = changedNewDate;
 
         this.loadDataForDay();
-        String changedDate =  yearTemp +"년" + monthTemp +"월" + newdate +"일";
-        //String changedDate = newdate + monthTemp + "," + yearTemp;
+        String changedDate = yearTemp + "년" + monthTemp + "월" + newdate + "일";
         this.currentDate.setText(changedDate);
     }
 
@@ -310,20 +267,19 @@ public class CalendarView extends Fragment {
         this.monRelative.removeAllViews();
     }
 
-
     //리스트 아이템
-    public class ItemData{
+    public class ItemData {
         public String strTime;
     }
 
     //리스트 Adapter
-    public class ListAdapter extends BaseAdapter{
+    public class ListAdapter extends BaseAdapter {
 
         LayoutInflater inflater = null;
         private ArrayList<ItemData> time_Data = null;
         private int timeListCnt = 0;
 
-        public ListAdapter(ArrayList<ItemData> t_Data){
+        public ListAdapter(ArrayList<ItemData> t_Data) {
             time_Data = t_Data;
             timeListCnt = time_Data.size();
         }
@@ -347,13 +303,13 @@ public class CalendarView extends Fragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            if(convertView == null){
+            if (convertView == null) {
                 final Context context = parent.getContext();
-                if(inflater == null){
+                if (inflater == null) {
                     inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 }
                 assert inflater != null;
-                convertView = inflater.inflate(R.layout.calendarlistview,parent,false);
+                convertView = inflater.inflate(R.layout.calendarlistview, parent, false);
             }
 
             TextView timeText = (TextView) convertView.findViewById(R.id.timeText);
